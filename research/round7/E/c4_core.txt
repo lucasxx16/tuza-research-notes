@@ -1,0 +1,335 @@
+COMPLETE HUMAN PROOF FOR THE ORIGINAL FOUR-CYCLE CORE
+
+Status: reviewed census-free research proof; see
+research/round7/C/review_E_full.txt.
+No saved-record count, catalogue completeness claim, enumeration, or
+numerical certificate is a premise.
+
+1. SETUP AND THEOREM
+
+Let u,v be adjacent degree-seven vertices in a finite simple graph.
+Their common neighborhood is C={x,y,p,q}, inducing the four-cycle
+H with bipartition {x,y},{p,q}. Thus
+
+  E(H)={xp,xq,yp,yq}; xy and pq are absent.
+
+Let A={a,b} and B={c,d} be their private pairs, so
+
+  N(u)={v} union C union A,
+  N(v)={u} union C union B.
+
+Edges between A and B and edges leaving this neighborhood are
+unrestricted. A graph F is WKE if there are a matching M and a
+vertex set Q with |Q|<=|M| such that every edge of F with both
+endpoints outside Q belongs to M. Assume:
+
+  (A1) Both links G[N(u)] and G[N(v)] are connected and not WKE.
+  (A2) For each t in C,
+       deg_H(t)+|N(t) intersect A|+|N(t) intersect B|<=5.
+
+Theorem. Under (A1) and (A2), the pair {u,v} is reducible. More
+precisely, there are an edge-disjoint triangle packing S and an
+edge set X satisfying |X|<=2|S|, such that X meets every triangle
+containing u or v and contains every packed edge whose endpoints
+both avoid {u,v}. One of the four recipes below supplies such
+a certificate, with at most seven triangles.
+
+All core neighborhoods of private vertices in this proof mean
+N_C(t)=N(t) intersect C. A side-overlap set is
+
+  D_A=N_C(a) intersect N_C(b),
+  D_B=N_C(c) intersect N_C(d).
+
+2. THE FULL-SUPPORT INPUT
+
+We use Lemma S of research/round6/E/diamond_core.txt in its general
+form: the four-core may be any graph with a perfect matching.
+Here is the exact statement and proof for a self-contained argument.
+
+Lemma S. Let F have vertex set {z} union C union {a,b}, where
+|C|=4, F[C] has a perfect matching, z is adjacent to every vertex
+of C, and z is adjacent to neither a nor b. If F is connected and
+not WKE, every core vertex has a neighbor in {a,b}.
+
+Proof. First, the attachment support has size at least three.
+Otherwise contain it in a two-set T={s,t} and put Q={z,s,t}.
+The only possible edges outside Q are e, the core edge on C\T,
+and ab. A matching of size three containing those which exist is:
+
+  if e,ab exist: {e,ab,zs};
+  if e exists and ab does not: {e,sa,zt}, after relabeling the
+      privates and T using a private-core edge from connectedness;
+  if only ab exists: a core perfect matching together with ab;
+  if neither exists: choose a private-core edge ra, a core
+      perfect-matching edge f avoiding r, and the core vertex s'
+      outside {r} union V(f); take {ra,f,zs'}.
+
+In each case Q and the matching witness WKE, a contradiction.
+This is also Lemma M of compression/round3/E/path_core.txt.
+
+Now if t in C has no private neighbor, put Q=C\{t}. The only
+edges outside Q are zt and possibly ab. If ab exists, take
+M={zt,ab,e}, where e is the core perfect-matching edge avoiding t.
+If ab does not exist, both privates have nonempty neighborhoods
+in Q by connectedness. These admit a two-edge matching unless
+both are the same singleton: if one neighborhood has two choices,
+one differs from any fixed neighbor of the other. The singleton
+case contradicts support size at least three. Add zt to this
+two-edge matching. In either event |Q|=|M|=3 and M contains
+every edge outside Q, again a contradiction. QED.
+
+The four-cycle has a perfect matching, so Lemma S applies to
+each link. Every core vertex is supported on each side. Since
+deg_H(t)=2, (A2) now says exactly that
+
+  D_A intersect D_B is empty.                              (1)
+
+Indeed, a core vertex has one or two attachments on each side,
+and (A2) forbids two on both sides simultaneously.
+
+3. FOUR EXPLICIT UNIVERSAL RECIPES
+
+These recipes use the setup of Section 1, but do not require
+(A1) or (A2). Unspecified adjacencies are arbitrary. Each recipe
+may be relabeled by a core automorphism, a permutation of either
+private pair, and an exchange of the two hubs with their sides.
+A triple denotes its triangle and a pair denotes its edge.
+
+P. A private edge.
+
+If cd is present, take
+
+  S={uxp,uyq,vxq,vyp,vcd},
+  X=E(H) union {cd,uv,ua,ub,vc,vd}.
+
+The four core rims are distinct, their spoke pairs are disjoint
+at each hub, and vcd uses the two other v-spokes. Thus S is an
+edge-disjoint packing of five triangles and |X|=10. All external
+packed edges are in E(H) union {cd}. A triangle through both
+hubs meets uv; every other hub triangle either meets a private
+spoke in X or has its rim in E(H). This proves coverage. If ab
+is present instead, exchange sides.
+
+A. An asymmetric attachment on an induced three-vertex path.
+
+If xa and yc are present while ya and pa are absent, take
+
+  S={uvq,uyp,uxa,vyc,vpx},
+  E0={yp,xa,yc,px},
+  X=E0 union {uv,uq,ub,vq,vc,vd}.
+
+The four single-hub triangles use distinct rims and disjoint
+spoke pairs at each hub, all avoiding q; hence S is edge-disjoint.
+We have |S|=5 and |X|=10, with all external packed edges in E0.
+The edge uv handles two-hub triangles. At u, deleting uq,ub
+leaves rim vertices x,y,p,a: their only possible edges are
+xp,yp,xa, all in E0. At v, deleting vq,vc,vd leaves x,y,p,
+whose edges xp,yp are in E0. Thus all hub triangles are covered.
+
+C. Crossed attachment matchings.
+
+If xa,pb,yc,qd are present while pa,xb,qc are absent, take
+
+  S={uxa,upb,uyq,vxp,vyc,vqd},
+  E0={xa,pb,yq,xp,yc,qd},
+  X=E0 union ({ab} intersect E(G)) union {uy,uq,vx,vp,vd}.
+
+At u the rim pairs are {x,a},{p,b},{y,q}; at v they are
+{x,p},{y,c},{q,d}. Each list is disjoint and the six rim edges
+are distinct. Hence |S|=6, |X|<=12, and all external packed
+edges belong to X. The core spokes uy,uq,vx,vp meet every
+two-hub triangle. At u the remaining rim vertices x,p,a,b have
+possible edges xp,xa,pb,ab, all in X, since pa,xb are absent.
+At v the remaining rim vertices y,q,c have edges yq,yc in X
+and qc absent. This proves coverage.
+
+T. An exact opposite-pair private and an outside triangle.
+
+Assume N_C(a)={p,q}, xb is present, and yc,yd,pd,qd are present.
+Take
+
+  S={uxb,uyq,upa,vxp,vyc,vqd,ypd},
+  E0={xp,xb,py,yq,yc,yd,pa,pd,qd},
+  X=E0 union {uv,uq,ub,vx,vc}.
+
+At u the rim pairs are {x,b},{y,q},{p,a}; at v they are
+{x,p},{y,c},{q,d}. Their six rims are distinct and the spoke
+pairs at each hub are disjoint. The outside triangle ypd uses
+the three new edges yp,yd,pd, so it is disjoint from those six
+triangles. Thus |S|=7 and |X|=14; all external packed edges are
+exactly E0. The edge uv covers two-hub triangles. At u, deleting
+uq,ub leaves x,y,p,a: the possible edges xp,yp,pa are in E0,
+while xy,xa,ya are absent. At v, deleting vx,vc leaves y,p,q,d:
+the possible edges yp,yq,yd,pd,qd are all in E0 and pq is absent.
+Therefore all hub triangles are covered.
+
+Ambient safety for all four recipes. Every triangle through a
+hub lies within that hub together with its specified neighborhood.
+Consequently the link checks just given meet all ambient hub
+triangles, including when there are arbitrary edges between A
+and B or from this neighborhood to other vertices. The displayed
+packing triangles remain present in the ambient graph, and all
+their non-hub edges are explicitly in X. No ambient-degree bound
+on core or private vertices is part of these sufficient recipes.
+
+Provenance. P,A,C,T are direct specializations of O7,O4,O6,O8,
+respectively, in compression/templates/optimal_patterns.txt. Their
+validity is proved directly above. Neither the dictionary's
+extraction from saved records nor its coverage is a premise.
+
+4. NECESSARY ATTACHMENT STRUCTURE WHEN P AND A DO NOT APPLY
+
+By recipe P, it remains to consider ab and cd both absent.
+Connectedness of each link then makes every private vertex's
+core neighborhood nonempty.
+
+Suppose a private vertex sees exactly one vertex of an opposite
+pair in the core, and misses a vertex of the other opposite pair.
+Relabel the first pair x,y so it sees x and misses y, and call
+the missed vertex of the other pair p. Lemma S supplies an
+opposite-side neighbor c of y. These are exactly the conditions
+of recipe A. Therefore, if A does not apply, the following holds:
+
+  (*) Whenever a private neighborhood meets one opposite pair
+      in exactly one vertex, it contains the other pair in full.
+
+As a consequence, every private core neighborhood is one of:
+
+  an opposite pair; a three-element set; or all four core vertices.
+                                                               (2)
+
+Indeed, a singleton or an adjacent two-set violates (*); the
+neighborhood is nonempty, and the only remaining two-sets are
+the opposite pairs. The larger sets in (2) satisfy (*).
+
+Lemma D. Under the current assumptions, if a core vertex t has
+both private vertices of a side as neighbors, one of those
+privates is adjacent to t and to both cycle neighbors of t.
+
+Proof. Write r,s for the cycle neighbors of t and t' for its
+opposite. Suppose neither private sees both r,s. By (2), the
+possible neighborhoods containing t and missing at least one
+of r,s are {t,t'}, C\{r}, and C\{s}. Full support at r,s forces
+the two private neighborhoods to be C\{r} and C\{s}; no other
+pair of these choices covers both r,s. Name them a,b so a misses
+r and b misses s. In this link, with opposite hub z, take
+
+  Q={z,t,t'}, M={rb,sa,zt}.
+
+The vertices outside Q are r,s,a,b. Their only edges are rb,sa:
+rs and ab are absent, as are ra,sb. The three edges of M are
+present and pairwise disjoint. Hence Q,M witness WKE, a
+contradiction. QED.
+
+We will also use the same WKE obstruction in the following form:
+
+  If a side's two neighborhoods are distinct triples, their
+  missing vertices cannot form an opposite pair.                (3)
+
+For if the missing vertices are opposite r,s, the same Q,M just
+displayed gives a WKE witness. This uses no numerical check.
+
+Here is the resulting sufficient condition for recipe T. If one
+side has a private neighborhood equal to one opposite pair Y,
+and the other side doubles a vertex t of the complementary pair
+C\Y, recipe T applies. To see this, call t=y, its opposite x,
+and Y={p,q}; call the first private a. Full support supplies xb.
+Lemma D supplies a private d on the other side adjacent to
+y,p,q, and its other private c is adjacent to y because y is
+doubled. This is precisely T's signed-edge hypothesis.
+
+5. COMPLETE STRUCTURAL CASE SPLIT
+
+Assume P and A did not already give the desired reduction.
+Thus (1), (2), Lemma D, and (3) hold; both sides have full support.
+
+Case I. At least one overlap set is empty.
+
+Exchange sides so D_A is empty. Since the two nonempty A
+neighborhoods cover C, are disjoint, and each has size at least
+two by (2), they are complementary opposite pairs.
+
+If D_B is nonempty, choose a doubled vertex t in D_B and choose
+the A-private whose neighborhood is the opposite pair not
+containing t. The sufficient condition for T at the end of
+Section 4 applies.
+
+If D_B is also empty, both sides partition C into opposite pairs.
+Relabel privates so
+
+  N_C(a)=N_C(c)={x,y}, N_C(b)=N_C(d)={p,q}.
+
+Recipe C applies directly: xa,pb,yc,qd are present, while
+pa,xb,qc are absent. This completes Case I.
+
+Case II. Both overlap sets are nonempty and some private
+neighborhood is an exact opposite pair.
+
+Exchange sides and opposite pairs so N_C(a)={p,q}. Full support
+makes b adjacent to x,y, and D_A is a nonempty subset of {p,q}.
+
+If D_B meets {x,y}, apply the sufficient condition for T.
+Otherwise D_B is a nonempty subset of {p,q}. By (1), the two
+nonempty disjoint subsets D_A,D_B of this two-set must be its
+two singletons. Relabel p,q so D_A={p} and D_B={q}. Then
+
+  N_C(a)={p,q}, N_C(b)={x,y,p}.
+
+On side B the union is C and the intersection is {q}, so the
+neighborhood sizes sum to five. By (2) they are two and three;
+the two-set is an opposite pair containing q, necessarily {p,q}.
+Relabel c,d to obtain
+
+  N_C(c)={p,q}, N_C(d)={x,y,q}.
+
+Apply recipe C on first-side matching qa,xb and second-side
+matching pc,yd. Its three crossed absences are xa,qb,yc, all
+true. Explicitly its labels (x,p,y,q,a,b,c,d) are replaced by
+(q,x,p,y,a,b,c,d); this is a core automorphism. Thus Case II
+also gives a reduction.
+
+Case III. Both overlap sets are nonempty and no private
+neighborhood is an exact opposite pair.
+
+Every private neighborhood has size at least three by (2).
+On either side its two neighborhoods cover four vertices, so
+their intersection has size at least two. Disjointness (1)
+forces |D_A|=|D_B|=2 and D_B=C\D_A. The two neighborhood sizes
+on each side therefore sum to six, and both must be three.
+Their missing vertices are distinct, since otherwise full
+support would fail.
+
+Let r,s be the two missing vertices on side A. They are precisely
+C\D_A=D_B and, by (3), are adjacent. The complementary two-set
+{t,w}=D_A is also an edge of the four-cycle. Label r,s,t,w so
+r-s-t-w-r is its cycle order. Each of r,s is supported by exactly
+one A-private, and these are different privates: relabel them
+so ra,sb are present and sa,rb absent.
+
+Similarly, t,w are the two missing vertices on side B, hence
+they have different unique B-neighbors. Relabel so tc,wd are
+present and wc,td absent. Apply recipe C with
+
+  (x,p,y,q,a,b,c,d)=(r,s,t,w,a,b,c,d).
+
+This is a core automorphism, its required core edges are rs,tw,
+and its crossed absences are sa,rb,wc. All hold. Case III is
+therefore reduced.
+
+These three cases exhaust the overlap sets and the neighborhood
+types in (2). Together with the earlier P and A reductions they
+prove the theorem.
+
+6. SCOPE AND LOGICAL DEPENDENCIES
+
+The entire four-cycle-core case is proved from (A1) and (A2).
+Connected non-WKE links supply full support, nonempty private
+neighborhoods after removing the private-edge case, and the
+three-edge WKE obstruction of Lemma D and (3). The degree budget
+is used only to make D_A,D_B disjoint. Four fixed recipes supply
+all required ambient packing/cover certificates.
+
+The argument does not use the saved C4 records as an exhaustive
+list and does not infer a theorem from testing those records.
+It does not settle another remaining core type, the degree-five
+or degree-six sparse-counterexample branches, or mad(G)<8.

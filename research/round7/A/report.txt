@@ -1,0 +1,33 @@
+ROUND 7 / A — primary-source reducibility audit for D target
+D target: nonadjacent low vertices b (deg 5), t (deg 6); common K4 (four
+common neighbors); b has one private neighbor, t two.
+
+AMONG THE INSPECTED RESULTS, NO DIRECT PAIR THEOREM APPLIES. Puleo's
+Proposition 5.2 assumes a robust graph and an EDGE uv with both degrees
+at most six; it concludes that at least one of {u}, {v}, {u,v} is
+reducible. Its Case 2 treats |N(u)∩N(v)|=4, including H=K4.
+Lemmas 7.5–7.7 also start from an edge: 7.5 assumes robust, degrees
+7/8 and 5, neither singleton reducible, and subsumption; 7.6 assumes
+robust, degrees 7 and 6, the 6-singleton nonreducible, and subsumption;
+7.7 assumes robust, degree 7 adjacent to a thin degree-6 vertex.
+None directly applies to the nonadjacent fixed pair b,t. This is a
+reading-scope statement, not a claim about all known pair reductions.
+
+RELEVANT STRUCTURE: Proposition 5.2 implies that degree-at-most-six
+vertices are independent in a robust graph with no reducible set
+(Lemma 2.7(b)). This necessary condition does not itself reduce or
+exclude a nonadjacent low pair with a common K4. No authorial intent
+or exhaustive absence of a theorem is inferred.
+
+STRUCTURAL ANALOGY ONLY: Proposition 5.2 Case 2 packs triangles on
+the four-common-neighbor core of an adjacent pair. Its certificate
+uses uv, so applying that displayed construction to b,t would require
+a different packing and cover. D's proposed rule needs its own proof.
+
+SINGLETON SCREEN: Proposition 5.1 says that in a robust graph a vertex
+of degree at most six is reducible if its link-complement has maximum
+degree greater than one or exactly two edges. In J, both b and t have
+link-complement exactly one edge, so this sufficient condition does not
+decide their singleton reducibility. It says nothing about the pair.
+The fixed-J 7/13 pair certificate is separately checked; a general
+target-eight counting consequence still needs a transferable lemma.

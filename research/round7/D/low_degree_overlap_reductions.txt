@@ -1,0 +1,215 @@
+ROUND 7 / D
+TWO AMBIENT-SAFE REDUCTIONS FOR A COMMON FOUR-CLIQUE
+
+Status: reviewed research proof; see C/review_D_full.txt.
+No novelty claim is made. The proof is symbolic and self-contained;
+the final corollaries explicitly identify their imported hypotheses.
+
+1. DEFINITIONS AND THE AMBIENT REDUCTION BRIDGE.
+
+All graphs are finite and simple. A triangle packing is a collection
+of pairwise edge-disjoint triangles. A triangle cover is a set of
+edges meeting every triangle. Their maximum and minimum sizes are
+nu(G) and tau(G), respectively.
+
+A nonempty vertex set Z is reducible if there are a triangle packing
+S and an edge set X such that
+  (i) |X|<=2|S|;
+  (ii) X meets every triangle containing a vertex of Z;
+  (iii) X contains every edge of S with both endpoints outside Z.
+
+To recall why this is sufficient, put G'=(G-X)-Z. If G' satisfies
+Tuza's inequality, choose a maximum packing P and a minimum cover Y
+there. No edge of P belongs to S: an S-edge either meets Z or belongs
+to X. Hence P union S is an edge-disjoint packing in G. The set
+Y union X covers G: triangles through Z meet X, while other triangles
+either meet X or survive in G'. Therefore
+  tau(G)<=|Y|+|X|<=2|P|+2|S|<=2nu(G).
+No assumption on other ambient edges is used in this bridge.
+
+2. THE SIX-TRIANGLE FAMILY.
+
+THEOREM A.
+Let u,v be distinct nonadjacent vertices of an arbitrary graph G.
+Let C={c1,c2,c3,c4} be a chosen four-clique contained in
+N(u) intersect N(v). It need not be the entire common neighborhood.
+Suppose there is a vertex r in N(v)\C that is adjacent to every
+vertex of C. If d(u)+d(v)<=11, then {u,v} is reducible.
+
+In particular r is distinct from u,v, by nonadjacency. It is allowed
+to be adjacent to u. There are no restrictions on other neighbors,
+their edges, or any vertices outside these sets.
+
+Proof. Define six triangles
+  S6={u c1 c2, u c3 c4,
+      v c1 c3, v c2 c4,
+      r c1 c4, r c2 c3}.
+All exist by the stated hypotheses. The six C-edges used by them are
+the six distinct edges of the K4. The two u-triangles use disjoint
+u-spokes, and likewise the two v-triangles. The last two triangles
+use the four distinct r-to-C edges. Since u,v,r are distinct and
+outside C, these spokes cannot coincide with each other or with
+the six C-edges. Thus S6 is edge-disjoint.
+
+Write
+  R=E(G[C]) union {r c: c in C},
+  Uout={u x: x in N(u)\C},
+  Vout={v y: y in N(v)\(C union {r})},
+  X6=R union Uout union Vout.
+The set R consists of exactly ten edges, namely all edges of the
+K5 on C union {r}. The three displayed edge sets are pairwise
+disjoint: R avoids u,v, while Uout and Vout could share only uv,
+which is absent. Consequently
+  |X6|=10+(d(u)-4)+(d(v)-5)=d(u)+d(v)+1<=12=2|S6|.
+
+Every triangle through u either uses a neighbor outside C and meets
+Uout, or has both other vertices in C and meets E(G[C]). Every
+triangle through v either uses a neighbor outside C union {r} and
+meets Vout, or has its other two vertices in that K5 and meets R.
+Thus X6 meets every triangle through u or v, including any affected
+by arbitrary ambient edges among their remaining neighbors.
+
+Finally, every packed edge not incident to u or v belongs to R:
+these are the six C-edges and the four r-to-C edges. Conditions
+(i)-(iii) all hold, proving reducibility.
+
+3. THE SEVEN-TRIANGLE FAMILY AND THE EXTRA DEGREE UNIT.
+
+THEOREM B.
+Keep the structural hypotheses of Theorem A, and suppose in addition
+that some q in N(v)\(C union {r}) is adjacent to r. Replace the degree
+bound by d(u)+d(v)<=12. Then {u,v} is reducible.
+
+Again q may also neighbor u; neither q nor r is required to be a
+private neighbor. Nonadjacency ensures q is distinct from u,v.
+
+Proof. Use the same six triangles and add vqr:
+  S7=S6 union {vqr},
+  X7=X6 union {qr}.
+The edges vq and vr are not used by S6, whose v-triangles use only
+v-to-C edges. The new external edge qr also avoids every S6-edge:
+q is outside C union {r,u,v}. Hence S7 is edge-disjoint. The edge qr
+is not already in X6, since it avoids u,v and is not internal to
+C union {r}. Thus
+  |X7|=d(u)+d(v)+2<=14=2|S7|.
+The set X6 already covers every triangle through u or v. The new
+triangle has just one edge outside {u,v}, namely qr, which was added
+to X7. All three reduction conditions therefore hold.
+
+The degree bounds give explicit useful cases. Theorem A covers a
+degree-five/six pair. Theorem B also covers a degree-five/seven pair
+or a degree-six/six pair under its extra qr condition. The additional
+degree unit is handled by the outside-spoke cover, with no unexamined
+ambient triangle case.
+
+4. NECESSARY OVERLAP RESTRICTIONS IN AN IRREDUCIBLE ROBUST GRAPH.
+
+The following corollaries use exactly these imported consequences
+of Puleo's Lemma 2.7(a),(b): in a robust graph with no reducible set,
+degree-at-most-six vertices are independent, and every such link
+has complement of maximum degree at most one and not exactly two
+edges. Thus a five-link is K5 or K5 minus one edge; a six-link is
+K6, K6 minus one edge, or K6 minus a three-edge perfect matching.
+The last type is thin. In particular it contains no four-clique.
+
+COROLLARY 1 (FIVE/SIX OVERLAP).
+In a robust graph with no reducible set, a degree-five vertex and a
+degree-six vertex cannot have four common neighbors inducing K4.
+The six-vertex is automatically non-thin if such a K4 is present.
+
+Proof. Call the vertices u,v, of degrees five and six respectively,
+and take such a common four-clique C. They are nonadjacent by the
+imported independence conclusion. Since the six-link contains C,
+it is not thin, and consequently has at most one missing edge.
+There are two vertices outside C in N(v). At least one, call it r,
+is complete to C: a failure for both would require two distinct
+missing edges. Theorem A now makes {u,v} reducible, a contradiction.
+
+In particular the two vertices cannot have five common neighbors:
+these would be all five neighbors of u, whose K5 or K5-e link always
+contains a K4. Hence their codegree is at most four, and if it is
+four their common-neighbor graph cannot be K4. Using the same link
+restriction, the latter graph must be K4 minus one edge.
+
+COROLLARY 2 (SIX/SIX FOUR-CLIQUE OVERLAP).
+In a robust graph with no reducible set, let degree-six vertices
+u,v have a chosen common four-clique C. Each of the two pairs
+  N(u)\C and N(v)\C
+must be a nonedge. More precisely, the sole missing edge of each
+six-link must join its two vertices outside C.
+
+Proof. Both links contain K4, so they are non-thin and have at most
+one missing edge. Write N(v)\C={q,r}. If qr were present, at least
+one of q,r would be complete to C, for otherwise two distinct
+missing edges would be required. Relabel it as r and apply Theorem B
+to the degree-six/six pair, a contradiction. Therefore qr is absent.
+As this link has at most one missing edge, it is exactly K6 minus qr.
+Interchanging u,v proves the other assertion.
+
+Both corollaries hold without any maximum-average-degree hypothesis.
+In particular they apply to a subgraph-minimal counterexample with
+mad<8: all proper subgraphs then satisfy Tuza because the mad bound
+is subgraph-closed, so the reduction bridge forbids reducible sets;
+Puleo's Lemma 2.6 gives robustness. Neither corollary claims that
+its surviving configurations actually occur in a minimal counterexample.
+
+5. THE ROUND-SIX OBSTRUCTION J IS LOCALLY EXCLUDED.
+
+Recall the labeled J from research/round6/D/joint_caps_barrier.txt:
+core {w,0,1,2,3,4,5,6} induces K8 minus 01 and 35, and independent
+a,b,c,t have neighborhoods 03456,01256,01234,123456 respectively.
+
+Apply Theorem A with
+  u=b, v=t, (c1,c2,c3,c4)=(1,2,5,6), r=4.
+The graph on C={1,2,5,6} is K4, and 4 is complete to C and adjacent
+to t. The degrees are five and six. The explicit certificate is
+  S6={12b,56b,15t,26t,146,245},
+  X6={12,15,16,25,26,56,14,24,45,46,0b,3t}.
+It has six triangles and twelve cover edges. It does not use any
+edge from 0 to the core, or the edge 34, or any edges involving a,c,w.
+All ambient triangles through b or t are covered by the general proof.
+
+Since 34 is present, Theorem B also gives
+  S7=S6 union {34t}, X7=X6 union {34},
+with seven triangles and thirteen cover edges. This is the fixed-J
+certificate returned by the bounded delegated search, expressed in
+the universal construction. The spare edge of cover budget permits
+one extra incident edge at either center while the stated structural
+hypotheses are retained.
+
+Thus J is excluded by a reduction on {b,t}, independently of whether
+Tuza happens to hold on the whole graph. The result is strictly local
+and also applies inside any larger graph satisfying the theorem's
+degree and neighborhood hypotheses. It does not retract the round-six
+logical barrier: those earlier numerical conditions alone permit J;
+the additional overlap reduction now supplies a further restriction.
+
+6. OLD-CRITERION CHECK, PROVENANCE, AND LIMITS.
+
+The independent initial draft directly checks that every link of J
+is non-WKE; hence the old singleton WKE criterion alone does not
+dispose of J. This does not prove that every singleton is irreducible.
+Puleo Proposition 5.1's low-degree singleton screen also does not
+decide b or t, since each link complement has exactly one edge.
+The inspected pair reductions in Proposition 5.2 and Lemmas 7.5-7.7
+require adjacent centers and therefore do not directly apply to the
+nonadjacent pair b,t. This is not an exhaustive literature claim.
+
+Primary source for the imported statements and definitions:
+Gregory J. Puleo, "Tuza's Conjecture for Graphs with Maximum Average
+Degree less than 7," arXiv:1308.2211v3, Definitions 2.1 and 2.3-2.5,
+Lemmas 2.6 and 2.7(a),(b), and the results specified above.
+  https://arxiv.org/html/1308.2211v3
+The round-seven reading-scope audit is research/round7/A/report.txt.
+
+The fixed nine-vertex patch search was delegated by the parent;
+its records are research/round7/B/report.txt and witness.json, with
+independent literal checks in research/round7/C/review_B_J.txt.
+D ran no numerical search. The independent draft was saved before
+using that numerical lead or inspecting any E round-seven material.
+The theorems above are proved symbolically for arbitrary ambient
+graphs and do not depend on the completeness of that finite search.
+
+The full mad<8 question remains open. These are additional local
+overlap restrictions, not a completed joint degree-counting argument.
+Research stops at this family-level reduction milestone for review.

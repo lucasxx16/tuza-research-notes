@@ -1,0 +1,73 @@
+ROUND 7 / D / INDEPENDENT INITIAL DRAFT
+
+Recorded before inspecting E round-seven work or any new numerical
+certificate. Target: turn the low-degree overlap in the round-six
+twelve-vertex graph J into an ambient-safe local reduction, preferably
+for a family with independent degree-five and degree-six centers.
+
+J has core U={w,0,1,2,3,4,5,6}, inducing K8 minus 01 and 35, and
+independent outside vertices a,b,c,t with neighborhoods
+  a: 03456; b: 01256; c: 01234; t: 123456.
+
+The pair b,t has a common K4 on C={1,2,5,6}. Its private sets are
+{0} and {3,4}. Within the b-link the only absent edge is 01; within
+the t-link the only absent edge is 35. The extra private cross edges
+03 and 04 exist in J but are not forced by the two link hypotheses.
+This distinction matters when generalizing any certificate.
+
+The source conclusions Puleo 2.7(a)-(h) do not exclude J, as already
+proved in round six. The old weak-Konig-Egervary singleton criterion
+also does not exclude J: every neighborhood graph is non-WKE.
+Here is the direct check, using the definition that H is WKE if some
+matching M and vertex set Q satisfy |Q|<=|M| and H-M has vertex cover Q.
+Necessarily H-Q has maximum degree at most one.
+
+The low-degree links K5-e and K6-e cannot meet this condition: Q has
+size at most two or three respectively, leaving at least three core
+vertices with at least two edges. The w-link is K7 minus a matching
+of size two; Q has size at most three, leaving at least four vertices
+whose induced minimum degree is at least two.
+
+For any degree-nine core vertex, its link consists of a K6-e core
+and three independent low vertices. Since |Q|<=4, at least four core
+vertices must lie in Q: any three remaining core vertices induce at
+least two edges. Thus Q is four core vertices and leaves two core
+vertices plus the three low vertices. If the remaining pair is an
+edge, at least one endpoint has an outside neighbor, so its degree is
+at least two. (The union of the three outside neighborhoods contains
+every core vertex except w.) If it is the unique missing edge, some
+outside vertex sees both endpoints: for core center 0 this vertex is
+a, for center 1 it is t, for center 3 it is c, and for center 5 it is b.
+That outside vertex then has degree two. Both possibilities fail.
+
+For degree-ten centers 2,4,6, the link core is K7 minus the two-edge
+matching {01,35}, with three independent low vertices. Since |Q|<=5,
+at least five core vertices must be removed: any three remaining
+core vertices induce at least two edges. The remaining pair cannot
+be an edge, since the low neighborhoods cover every core vertex
+except w. It cannot be 01 or 35 either: at each such center, one of
+its low neighbors sees both ends of 01, and one sees both ends of 35.
+Again H-Q has degree at least two somewhere. Hence all links fail WKE.
+
+This is only a check of that specific old singleton criterion. It
+does not assert that no other old reduction excludes J, nor that a
+non-WKE link makes its center irreducible.
+
+PAIR-CERTIFICATE TARGET.
+For nonadjacent u,v with N(u)=C union {p}, N(v)=C union {q,r}, C a K4,
+suppose their links are K5 minus p x and K6 minus q y, where x,y are
+different vertices of C. In J use u=b,v=t,p=0,q=3,r=4,x=1,y=5.
+First seek a reducibility certificate for {u,v}; record explicitly
+whether it requires either cross edge pq or pr. All ambient edges
+outside the two complete neighborhoods are unrestricted.
+
+A naive cover taking all six C-edges and the three private spokes
+up,vq,vr has size nine. Two hub matchings inside C pack four triangles
+but cannot free a core triangle. Adding one private triangle increases
+both the cover and packing budgets in a way that still leaves one
+unit missing. A useful certificate therefore needs a less uniform
+choice of hub spokes or additional triangles in the private overlap.
+
+No numerical search has been run by D. The parent has independently
+dispatched a bounded search for the literal pair {b,t}; any result is
+only a lead until a fully stated ambient-safe family proof is written.

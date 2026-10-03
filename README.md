@@ -54,6 +54,21 @@ maximum average degree below eight. These necessary inputs alone cannot close
 the joint counting argument. The example is not asserted irreducible and is
 not a counterexample to Tuza's conjecture.
 
+Round seven locally excludes that example by a six-triangle/twelve-cover
+certificate and proves two general reductions for nonadjacent vertices with
+a chosen common K4 and specified extra attachments, for degree sums at most
+eleven or twelve. In a robust graph with no reducible set, these forbid a
+degree-five/six pair from sharing K4: codegree is at most four, and codegree
+four forces a diamond. For a degree-six/six pair sharing a chosen K4, each
+link's sole missing edge must join its two vertices outside that K4. These
+are additional necessary restrictions for a minimal mad<8 counterexample;
+the global joint counting argument remains incomplete.
+
+- [Round-seven results and limits in Chinese](docs/research-round7.zh-CN.txt)
+- [Round-seven coordinator review](research/round7/review_summary.txt)
+- [Two low-pair reductions and overlap restrictions](research/round7/D/low_degree_overlap_reductions.txt)
+- [Exact-file review of the low-pair theorems](research/round7/C/review_D_full.txt)
+- [One bounded fixed-pair experiment](research/round7/B/report.txt)
 - [Round-six consolidation and limits in Chinese](docs/research-round6.zh-CN.txt)
 - [Prescribed-edge covers for packing number at most two](research/round6/D/prescribed_edge_cover_k2.txt)
 - [Exact-file review of the prescribed-edge theorem](research/round6/C/review_D_full.txt)
@@ -104,19 +119,24 @@ rebuilds the entire dictionary and incidence relation from the original witnesse
 then checks both bounds and all 1,144 exported certificates. No solver's floating
 point status is needed for this proof of optimality.
 
-Human-readable proofs now settle six entire core types: **P3 plus an isolated
-vertex, K1,3, 2K2, P4, K4, and diamond**. Together these types account for 713 of
+Human-readable proofs now settle seven entire core types: **P3 plus an isolated
+vertex, K1,3, 2K2, P4, K4, diamond, and C4**. Together these types account for 940 of
 the 1,144 saved records; the proofs do not use those counts or the catalogue as
 premises. The diamond proof derives full private attachment support and then
 exhausts paired/split center attachments with five explicit packing-cover
 recipes. It requires the original connected non-WKE links and common-vertex
 degree budget; it does not derive that budget from maximum average degree.
+Round seven treats the whole C4 core using full support, disjoint attachment
+overlaps, an explicit WKE obstruction, and four universal packing-cover recipes.
+It also requires the original A1 and A2 hypotheses.
 Empty and single-edge cores are also excluded structurally, using explicit WKE
-witnesses and Puleo's Corollary 4.12. Three types remain: triangle plus isolated
-vertex (25 records), paw (179), and C4 (227), totaling 431. The upstream graph census and
+witnesses and Puleo's Corollary 4.12. Two types remain: triangle plus isolated
+vertex (25 records) and paw (179), totaling 204. The upstream graph census and
 original certificate finder were not rerun.
 
-- [Latest structural results and remaining cases, in Chinese](docs/research-round6.zh-CN.txt)
+- [Latest structural results and remaining cases, in Chinese](docs/research-round7.zh-CN.txt)
+- [Complete human C4-core proof](research/round7/E/c4_core.txt)
+- [Exact-file C4 proof review](research/round7/C/review_E_full.txt)
 - [Complete human diamond-core proof](research/round6/E/diamond_core.txt)
 - [Exact-file diamond proof review](research/round6/C/review_E_full.txt)
 - [Independent check of the 42-record Lemma-K transfer](research/round6/C/check_diamond_transfer_literal.py)
@@ -168,6 +188,7 @@ classification or a minimum-order question.
 | `equality/` | Equality constructions, proofs, literature notes, and exact checks |
 | `mad8/` | Partial reductions, density barriers, source audits, and named-graph checks |
 | `research/round6/` | Diamond proof, prescribed-edge theorem, joint-counting barrier, source audits, and saved-record checks |
+| `research/round7/` | C4 proof, low-degree overlap reductions, bounded fixed-graph search, and independent reviews |
 | `compression/input/` | Unmodified, attributed upstream certificate catalogue |
 | `compression/templates/` | Signed patterns, incidence data, exports, and generators |
 | `compression/theory/` | Structural proofs and reusable lemmas |
@@ -186,6 +207,18 @@ session transcripts are excluded from the public record.
 
 Run from the repository root with Python 3.10 or newer. These checks require only
 the standard library. Do not use `python -O`, which disables assertions.
+
+Round seven's independent fixed-graph check rebuilds J and its neighborhood
+patch, checks both the 7/13 and 6/12 certificates against all ambient hub
+triangles, and rejects five damaged controls. It does not rerun the MILP:
+
+```shell
+python research/round7/C/check_J_pair_literal.py
+```
+
+The optional `research/round7/B/search_low_pair.py` uses NumPy and SciPy for
+one sixty-second-capped MILP. It proposes a fixed-instance candidate; the
+general reductions and complete C4 proof are separate symbolic arguments.
 
 Round six's mathematical proofs are self-contained symbolic arguments. The
 following independent check reads the saved catalogue, verifies the 42 literal

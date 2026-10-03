@@ -1,0 +1,69 @@
+ROUND 7 COORDINATOR DECISION
+
+Accept the complete C4-core proof and the two nonadjacent low-pair reduction
+families with their irreducible-graph overlap corollaries. Stop new research
+at these reviewed milestones. The full mad<8 implication remains unresolved.
+No novelty, human peer-review, or formal-verification claim is made.
+
+COMPLETE ORIGINAL C4 CORE
+E proves A1 (connected non-WKE links) and A2 (original core-point degree
+budget) imply reducibility for adjacent degree-seven endpoints whose common
+four-core is C4. Full support reduces A2 to disjoint side-overlap sets.
+After the private-edge and asymmetric-attachment recipes, every private
+core neighborhood is an opposite pair, triple, or full core. An explicit
+WKE obstruction constrains doubled vertices and the missing vertices of
+two triples. Three exhaustive overlap branches supply recipes C or T.
+All four recipes have direct ambient proofs of packing, coverage, and
+external packed-edge containment; sizes are 5/10, 5/10, 6/<=12, 7/14.
+C and coordinator checked the complete file, including both nontrivial
+core-automorphism maps. No catalogue count or numerical search is a premise.
+
+Seven core types now correspond to 940 saved records. Paw (179) and triangle
+plus isolate (25) remain, totaling 204. This is structural progress on the
+human explanation of Gupta's already established finite-certificate theorem,
+not a claim that the original existence result was open. A2 is still needed.
+The finite-dictionary nine-template optimum retains its original scope.
+
+TWO GENERAL LOW-PAIR REDUCTIONS
+D's Theorem A takes nonadjacent u,v, a CHOSEN common K4 C, and an r in
+N(v) outside C complete to C. Six explicit triangles use every C-edge and
+the four r-to-C edges. Cover these ten external edges and all u-spokes
+outside C and v-spokes outside C+r. Size is d(u)+d(v)+1, giving reducibility
+for degree sum at most eleven. Theorem B adds vqr and cover edge qr for
+q in N(v) outside C+r with qr present; size becomes d(u)+d(v)+2, allowing
+degree sum twelve. The extra vertices may also neighbor u. Arbitrary other
+neighbors and edges are handled by the explicit spoke cover. The induction
+bridge is proved. C and coordinator accept the general symbolic proofs.
+
+Using Puleo 2.7(a),(b) under robustness and absence of reducible sets, these
+imply that a five/six pair cannot share a K4; its codegree is at most four,
+and at codegree four the common graph is exactly K4 minus one edge. A six/six
+pair sharing a chosen K4 forces the sole missing edge of each six-link to
+join its two vertices outside that K4. These necessary constraints apply to
+a subgraph-minimal mad<8 counterexample, but do not complete global counting.
+
+FIXED-GRAPH SEARCH AND INDEPENDENT VALIDATION
+HPC B made one MILP call with a sixty-second cap on the nine-vertex, thirty-
+edge neighborhood patch of the pair b,t in round-six J. It returned seven
+triangles and thirteen cover edges. C independently rebuilt all forty-seven
+edges of J and the patch, confirmed the same twenty-three hub triangles,
+and checked the certificate with five damaged controls. D then extracted a
+six-triangle/twelve-cover subcertificate and proved the universal families.
+C's checker and coordinator's rerun verify both certificates without another
+MILP call. Solver status and search completeness are not proof premises.
+The original upstream census/finder and atlas scans were not rerun.
+
+This locally excludes J from irreducible graphs and generalizes beyond it.
+It does not invalidate the prior logical insufficiency example: the old
+necessary degree caps still permit J, and these are additional restrictions.
+
+SOURCE AUDIT AND REMAINING WORK
+HPC A checked the cited Puleo statements; C corrected overbroad absence and
+authorial-intent claims. The precise conclusion is only that the inspected
+adjacent-pair results do not directly apply to b,t. No priority conclusion
+is warranted by that bounded reading. Reports retain exact hypotheses.
+
+Next structural targets are paw and triangle plus isolate. On mad<8, the
+five/six common-diamond case and six/six forced missing-edge case remain
+concrete interaction targets before a global joint counting proof can close.
+No further research round is started here.

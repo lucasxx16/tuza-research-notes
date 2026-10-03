@@ -1,0 +1,8 @@
+SOURCES (round 7 / A)
+- Puleo, G. J., "Tuza's Conjecture for Graphs with Maximum Average Degree
+  less than 7", arXiv:1308.2211v3. Inspected statements: Def 2.1/2.3-
+  2.5 (reducible set, robust, thin 6), Lemma 2.7(a)-(h), Prop 5.1, Prop 5.2
+  (incl. Case 2, |H|=4, K4), Lemmas 7.5, 7.6, 7.7.
+  https://arxiv.org/html/1308.2211v3
+The source reading was limited to these cited statements. It is not a
+complete search for nonadjacent-pair theorems or priority evidence.

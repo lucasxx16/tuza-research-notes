@@ -1,0 +1,32 @@
+ROUND 7 / D STATUS
+
+Reviewed research proof:
+  low_degree_overlap_reductions.txt
+Exact-file review:
+  C/review_D_full.txt
+Independent draft:
+  independent_initial.txt
+
+Theorem A gives an ambient-safe six-triangle reduction for independent
+centers with degree sum at most eleven, sharing a chosen K4, when a
+neighbor r of the second center is complete to that K4.
+
+Theorem B adds one triangle and permits degree sum at most twelve
+when a further neighbor q of the second center is adjacent to r.
+The cover budget explicitly absorbs one additional incident edge.
+
+Together with Puleo Lemma 2.7(a),(b), this excludes a common K4 between
+degree-five and degree-six vertices in any robust graph with no
+reducible set. For a degree-six/six pair sharing K4, each six-link's
+sole missing edge must join its two vertices outside that chosen K4.
+
+The round-six twelve-vertex graph J has a reduction on {b,t} using
+six triangles and twelve cover edges. This is a local certificate in
+an arbitrary ambient graph, not just a verification of Tuza on J.
+
+The initial draft was recorded before use of the delegated fixed-J
+numerical lead or inspection of E round-seven work. D ran no numerical
+search. The final general constructions are verified symbolically.
+
+No novelty claim is made. The full mad<8 question and a complete joint
+degree-counting proof remain open. D stops at this reviewed milestone.
