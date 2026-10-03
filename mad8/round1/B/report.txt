@@ -1,0 +1,8 @@
+Named-graph exact verification (supplementary, not a universal proof).
+Command: python mad8/round1/B/check_named_graphs.py
+K9_minus_edge01: n=9 m=35 degrees=[7, 7, 8, 8, 8, 8, 8, 8, 8] mad=70/9 (witness [0, 1, 2, 3, 4, 5, 6, 7, 8])
+J4_maximal_codegree4_patch: n=10 m=37 degrees=[7, 7, 9, 9, 9, 9, 6, 6, 6, 6] mad=37/5 (witness [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+K7_join_I3: n=10 m=42 degrees=[9, 9, 9, 9, 9, 9, 9, 7, 7, 7] mad=42/5 (witness [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+E_certificate: ok=True triangles=7 edge_disjoint=True pair_tris=42 all_hit=True outside_in_X=True |X|=14<=14
+D_certificate: ok=True triangles=8 edge_disjoint=True pair_tris=34 all_hit=True outside_in_X=True |X|=16<=16
+ALL_OK=True

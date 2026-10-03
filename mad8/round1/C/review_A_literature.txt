@@ -1,0 +1,60 @@
+Round 1 C: adversarial audit of A's literature notes
+
+Initial disposition (superseded below): reject the draft pending correction.
+It said a proper
+subgraph of a mad<8 counterexample may have mad eight and contain an
+eight-regular subgraph. Maximum average degree is monotone under
+subgraphs, so both assertions are false. Minimality within mad<8
+does give Tuza for every proper subgraph. The later K9 example is
+also outside the class because mad(K9)=8.
+
+Puleo's odd-wheel corollary does not require bipartite links. Its
+links have no odd cycle of length greater than three, and Proposition
+4.8 makes such links WKE; a link may contain a triangle. Proposition
+5.1 describes specific dense links at degree five or six, not a
+generic near-bipartite condition. A full mad<8 approach need not use
+an eight-vertex link census: neighbors of a degree-seven vertex can
+have arbitrarily high degree, and structural arguments can bypass
+censuses.
+
+Wang's 165/59 theorem, the four weights 20:8:19:12, and optimality
+of those weights for the stated unrestricted four-inequality system
+match the primary paper. That optimality does not rule out deriving
+factor two from the same inequalities plus new mad-specific parameter
+constraints. A merely positive private-edge parameter is insufficient
+without a quantitative lower bound. Finally, sources.txt includes an
+absolute personal filesystem path; replace it with a portable path.
+
+Primary sources checked: https://arxiv.org/html/1308.2211v3 ;
+https://arxiv.org/html/2609.13831v1 .
+
+Re-review of A's revised report.txt and sources.txt: the major rejection
+grounds above have been corrected, including strict mad<8 inheritance,
+the odd-wheel link condition, Wang's fixed-system scope, and the personal
+path. Final disposition remains REQUEST CHANGES on three narrow points.
+Both files paraphrase Puleo Lemma 2.7(a),(b) as applying to "6-vertices";
+the source states degree at most six, including degree-five vertices.
+The claim that the codegree-four catalogue has "no human-readable proof"
+must be limited to the structural classification in Gupta's cited paper,
+not phrased as an absolute current-state claim. The report's threshold-8
+analogue of Puleo Lemma 2.8 is one possible proof route, not a necessary
+open piece. Sparse/genus corollary details are peripheral to this task;
+omit them if they have not been separately checked.
+
+Final re-review after the next revision: the prior substantive errors
+and the unnecessary sparse/genus details are corrected. Two exact
+editing issues remain, so disposition is REQUEST MINOR CHANGES.
+Both files use "6-vertex, i.e. degree AT MOST 6" for Puleo Lemma
+2.7(a),(b). In standard graph terminology a 6-vertex has degree
+exactly six; the cited statement says 6^- vertex. Replace the term
+throughout those clauses with "vertex of degree at most six."
+Also sources.txt calls Gupta's prop:codeg4 "Prop 4.11" despite its
+location in Section 8 of the pinned TeX. Drop the unsupported number
+and cite the source label or section. The qualification of the
+original paper's human-proof status is now accurate.
+
+Final disposition after the last edits: ACCEPT. Both files now say
+"vertex of degree at most six" for Puleo Lemma 2.7(a),(b), and cite
+Gupta's codegree-four proposition by its source label prop:codeg4
+without an unsupported proposition number. The earlier rejection
+paragraphs above document superseded drafts, not current defects.

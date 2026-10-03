@@ -1,0 +1,91 @@
+# Sources (verified facts with exact hypotheses; task: Tuza for mad(G)<8)
+
+## Primary sources
+
+1. Anish Gupta, "Tuza's conjecture for graphs of maximum degree at most seven",
+   arXiv:2608.06538v1, dated 6 August 2026.
+   Abs: https://arxiv.org/abs/2608.06538v1 ; HTML: https://arxiv.org/html/2608.06538v1
+   Source read: paper/main.tex at pinned public commit
+   bf8415fac44f4eeed6c0f7a2273b843d689b065e of
+   https://github.com/agupta/tuza-maximum-degree-seven
+
+2. G. J. Puleo, "Tuza's conjecture for graphs with maximum average degree
+   less than 7", arXiv:1308.2211v3; European J. Combin. 49 (2015) 134-152,
+   doi:10.1016/j.ejc.2015.03.006. https://arxiv.org/html/1308.2211v3
+   Sections read: introduction, Section 2 (Lemmas 2.6-2.8, full discharging
+   proof), Section 3, Section 4 (through Cor 4.12), start of Section 5
+   (Prop 5.1). Later sections not read.
+
+3. Sichen Wang, "A Bound Below 2.8 for Tuza's Conjecture", arXiv:2609.13831v1,
+   [math.CO] 12 Sep 2026, License: CC BY 4.0.
+   https://arxiv.org/html/2609.13831v1
+   Full body read. Formalization: https://github.com/sichen-wang/tuza-lean
+
+## Version note
+Wang primary page shows v1 only, submitted 12 Sep 2026. Secondary sites
+claiming a v2 of 15 Sep 2026 were NOT confirmed; no v2 assumed.
+
+## Source statements (mathematical paraphrases)
+- Puleo Thm 1.2: if mad(G) < 7 then tau <= 2 nu. Lemma 2.6: a minimal
+  counterexample to Tuza's conjecture is robust (Def 2.3: every component of
+  every link G[N(v)] has order >= 5). Lemma 2.7: if G is robust and has no
+  reducible set, then (a)-(h) hold, where (a) and (b) concern every
+  vertex of degree at most six: (a) for such v,
+  Delta(complement of G[N(v)]) <= 1 and |E(complement of G[N(v)])| != 2;
+  (b) these vertices form an independent set. (c)-(h) are subsumption
+  and neighbor-count restrictions for degrees 7, 8, 9, 10+. Lemma 2.8: every
+  robust graph with average degree less than 7 has a reducible set
+  (discharging: 5-vertex +2/3 per subsumer; thin 6-vertex +1/6 per neighbor;
+  non-thin 6-vertex +1/4 per subsumer). Lemma 4.4: a WKE (Def 4.1) union of
+  link components yields a reducible edge set; a WKE link makes {v}
+  reducible.
+- Puleo Cor 4.11: if G has no subgraph isomorphic to any wheel W_n with n odd
+  and n >= 5, then tau <= 2 nu. Proof mechanism: each link G[N(v)] then
+  contains no odd cycle longer than a triangle (it may still contain
+  triangles); such links are WKE by Prop 4.8, so {v} is reducible. These
+  links are not locally bipartite in general.
+- Puleo Prop 5.1: let G be robust and v have d(v) <= 6.
+  Then {v} is reducible if Delta(complement of G[N(v)]) > 1; also if the
+  complement of G[N(v)] has exactly 2 edges. This is a statement about
+  specific dense neighborhood patterns for degrees 5 and 6, not a generic
+  near-bipartiteness condition.
+- Gupta: Thm 1.2 (Delta <= 7), Thm 1.3 (7-regular); reducible-pair method:
+  local graph at edge uv with codegree c (|C| = c, |A| = |B| = 6-c), local
+  reducibility criterion (i)-(iii); template inequality t + |R| + 2q(R) <=
+  2p(R) (t = 1 for c = 6, t = 3 for c = 5); Fano witnesses for the K6 and K5
+  cores; codegree-4 catalogue of 1,144 certificates; degree budget
+  dg_C + dg_A + dg_B <= 5; 7-vertex link census (every connected non-WKE
+  graph on 7 vertices has >= 3 vertices of degree >= 4). Question 12.1:
+  does mad(G) < 8 imply tau <= 2 nu? Gupta's proof depends on 7-regularity
+  through |A| = |B| = 6-c, the degree budget, and the 7-vertex census.
+  Per the paper's own presentation, no human-readable proof is provided for
+  the original codegree-4 classification (source label prop:codeg4,
+  1,144 certificates); this is the authors' description of that
+  classification's presentation, not a statement that no such proof can
+  exist.
+- Wang Thm 1: tau <= (165/59) nu for every finite simple graph; improves
+  Haxell's 66/23. Lemma 2.1 (exchange): with P a maximum packing in the
+  one-red-edge triangle family F(H) and uvx in P with red edge uv, if
+  uvy survives deletion of B(P) and xy is a red edge outside R(P), then uv is
+  private in F(H-B(P)). Lemma 2.2 (books): given books with <= 3 pages and
+  pairwise edge-disjoint supports such that every selection of one page per
+  book is a maximal packing in T, the one-page edges plus spines, plus the
+  opposite edges of two-page books, form a transversal of size <= sum(4-|B|).
+  Lemma 2.3: with p, q, u as defined, tau(F(H)) <= (8/3)p - (2/3)u and
+  tau(F(H)) <= (9/4)p + (3/2)q - (1/4)u. Section 3: four inequalities (3)-(6)
+  combined with weights 20:8:19:12; the Remark states the weights are best
+  possible for that system under the parameter constraints used in the proof
+  (a = c = 12n/59, b = m = 39n/59, d = h = 0, satisfying a+m <= n,
+  d <= c <= b <= m, h <= c).
+
+## Cited items appearing inside the primary sources only (not surveyed)
+- Haxell 1999 (66/23; (1+sqrt(481))/8 ~ 2.866 without proof).
+- Yi arXiv:2608.23010v1 (2026): tau <= (1+sqrt(3)) nu for 2-colorable triangle
+  families; route alone cannot go below 54/19 ~ 2.842. [cited in Wang]
+- Tuza 1990 (planar; tau = 2 nu equality family via K4/K5/K2 blocks).
+
+## Limitations
+Wang: v1 only. Puleo: material after Prop 5.1 not read. Gupta: the paper's
+own presentation of the codegree-4 classification has no human-readable
+proof (authors' statement about that presentation). No new proofs, no
+census, no negative literature claims made here.

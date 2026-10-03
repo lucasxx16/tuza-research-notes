@@ -1,0 +1,144 @@
+{
+  "mad": {
+    "K9_minus_edge01": {
+      "n": 9,
+      "m": 35,
+      "degrees": [
+        7,
+        7,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "mad": "70/9",
+      "mad_is_exact_fraction": true,
+      "witness_subset": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "J4_maximal_codegree4_patch": {
+      "n": 10,
+      "m": 37,
+      "degrees": [
+        7,
+        7,
+        9,
+        9,
+        9,
+        9,
+        6,
+        6,
+        6,
+        6
+      ],
+      "mad": "37/5",
+      "mad_is_exact_fraction": true,
+      "witness_subset": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "K7_join_I3": {
+      "n": 10,
+      "m": 42,
+      "degrees": [
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        7,
+        7,
+        7
+      ],
+      "mad": "42/5",
+      "mad_is_exact_fraction": true,
+      "witness_subset": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  },
+  "sanity": {
+    "G0_mad_is_70_9": true,
+    "J4_mad_is_37_5": true,
+    "join_mad_is_42_5": true
+  },
+  "E_certificate": {
+    "graph": "K9_minus_edge01",
+    "pair": [
+      0,
+      2
+    ],
+    "triangles_well_formed": true,
+    "all_triangles_exist": true,
+    "packing_size": 7,
+    "expected_packing_size_ok": true,
+    "edge_disjoint": true,
+    "packed_edges": 21,
+    "X_edges_exist": true,
+    "X_size": 14,
+    "X_size_bound_ok": true,
+    "triangles_through_pair": 42,
+    "all_pair_triangles_hit": true,
+    "packed_edges_outside_pair": 10,
+    "all_outside_packed_edges_in_X": true,
+    "ok": true,
+    "X_size_is_14": true
+  },
+  "D_certificate": {
+    "graph": "J4_maximal_codegree4_patch",
+    "pair": [
+      0,
+      1
+    ],
+    "triangles_well_formed": true,
+    "all_triangles_exist": true,
+    "packing_size": 8,
+    "expected_packing_size_ok": true,
+    "edge_disjoint": true,
+    "packed_edges": 24,
+    "X_edges_exist": true,
+    "X_size": 16,
+    "X_size_bound_ok": true,
+    "triangles_through_pair": 34,
+    "all_pair_triangles_hit": true,
+    "packed_edges_outside_pair": 12,
+    "all_outside_packed_edges_in_X": true,
+    "ok": true,
+    "R_size_is_12": true,
+    "X_size_is_16": true,
+    "R_subset_X": true
+  },
+  "all_ok": true
+}

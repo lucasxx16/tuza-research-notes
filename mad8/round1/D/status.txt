@@ -1,0 +1,39 @@
+MAD<8 / D / ROUND 1 / REVIEW MILESTONE
+
+All three full arguments are reviewed research proofs; see
+C/review_full_candidates.txt. This records internal research review,
+not journal peer review or formal machine verification.
+
+1. local_density_obstruction.txt:
+   Every reduced patch with two degree-seven hubs at codegree four has
+   mad<=37/5; the maximal patch attains this and has connected non-WKE
+   hub links, but core degree nine. Thus mad<8 alone excludes no old
+   codegree-four local triple and cannot recover the degree-seven core
+   budget. Analogous sharp patch bounds: 22/3 at codegree five, seven
+   at codegree six. At codegrees at most five these patches have an
+   explicit width-six tree decomposition, so ordinary Tuza already
+   holds; the relative external-edge safety condition is the bottleneck.
+
+2. dense_pair_certificate.txt:
+   A budget-free positive extension: for K4 core, both private edges
+   present, and one private A-vertex complete to the core, the designated
+   hubs have an explicit eight-triangle/sixteen-edge certificate, with
+   every other attachment arbitrary. This applies to the maximal patch
+   in (1), demonstrating that the density obstruction is not itself an
+   obstruction to reducibility. Proof uses no non-WKE assumptions.
+
+3. two_separator_gluing.txt:
+   Exact packing formula for gluing two sides along an edge; Tuza on the
+   sides and their edge-deleted versions implies Tuza on the union.
+   There is one unit of slack if the shared edge is unavoidable in a
+   maximum packing on either side. Thus a smallest mad<8 counterexample
+   must be 3-connected. No novelty claim is made for this elementary lemma.
+
+No census, finder, or numerical experiment was run. No saved-record
+analysis was required. Work stopped at this substantial review milestone.
+
+OPEN: the global mad<8 question; arbitrary budget-free degree-seven pair
+patch reducibility; and reduction/discharging around degree-seven vertices
+whose neighbors have degree eight or larger. Nothing here asserts that
+the improved general approximation constant implies factor two in the
+sparse class. The Sichen Wang paper was not used by this independent route.

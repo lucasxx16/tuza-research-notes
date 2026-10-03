@@ -1,0 +1,56 @@
+ROUND 1 COORDINATOR DECISION
+
+Question: does mad(G)<8 imply tau(G)<=2nu(G)?
+Decision: stop at a rigorous partial milestone; full question unresolved.
+
+Accepted after independent adversarial review and coordinator inspection:
+- E/mixed_fano_and_density.txt: mixed-degree Fano pair reduction, sharp
+  conditional density bound, and K9-e obstruction to a 7--7-only route.
+- E/obligations.txt: remaining degree-five/six and nonsimplicial-seven cases.
+- D/local_density_obstruction.txt: sharp uniform patch-density bounds,
+  non-WKE budget obstruction, and explicit width-six tree decomposition.
+- D/dense_pair_certificate.txt: eight triangles / sixteen cover edges,
+  with no bound on common-neighbor degrees.
+- D/two_separator_gluing.txt: exact gluing identity and 3-connectivity
+  of a smallest counterexample in a subgraph-closed class.
+
+The full arguments are self-contained except explicitly cited background
+results. The treewidth consequence uses Botler--Fernandes--Gutierrez,
+arXiv:2002.07925v2, Theorem 3.4, checked against the primary text.
+The Fano base construction is attributed to the source manuscript.
+There is no claim of novelty, formal verification, or human peer review.
+
+Important scope decisions:
+- A forced reducible pair under non-hereditary extra assumptions is not
+  automatically a Tuza theorem for the entire class with those assumptions.
+- The patch-density examples refute a proposed budget inference, not Tuza.
+- Connected non-WKE links are necessary local constraints, not a synonym
+  for absence of every reducible vertex set.
+- Ordinary Tuza on a patch does not supply the external-packing-edge
+  containment condition needed for a relative pair reduction.
+- The gluing generalization requires closure under arbitrary subgraphs;
+  closure only under induced subgraphs would not justify deleting an edge.
+
+Rejected literature-draft inferences (not used in accepted proofs):
+- mad<8 could contain an 8-regular subgraph or K9: false by definition.
+- Subgraph minimality would be unavailable: false; mad<8 is monotone.
+- Excluding long odd wheels would make every link bipartite: false;
+  triangles in links are still possible under the cited corollary.
+- Wang's fixed-system optimal weights rule out every improved mad-specific
+  use of that system: unsupported; extra parameter constraints may help.
+See C/review_A_literature.txt for source corrections and the final A notes.
+
+Computation is supplementary and restricted to named examples and literal
+certificates. No upstream census or certificate finder was rerun. A named
+graph check proves only that instance; universal claims rely on the displayed
+arguments. Unused orchestration records and prototypes are not research data.
+
+Executed check: python mad8/round1/B/check_named_graphs.py.
+Exact densities are 70/9 (K9-e), 37/5 (J4), and 42/5 (K7 join I3).
+Literal reductions passed for K9-e (seven triangles, fourteen cover edges)
+and J4 (eight triangles, sixteen cover edges), including all ambient hub
+triangles in each named instance and outside-pair packing-edge containment.
+
+Next dispatch: mixed (7,8) pairs with nonsimplicial degree-seven endpoint;
+then compatible restrictions and discharging for degree-five/six vertices.
+These are research directions, not established reductions to solved cases.

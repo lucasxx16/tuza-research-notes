@@ -1,0 +1,26 @@
+Round 1 C adversarial review of initial mad<8 candidates
+
+E's K8 pair lemma is sound as relayed. A Fano seven-triangle packing on
+u,v and five clique vertices uses each edge of that K7 once. The ten
+edges of the five-vertex rim, uv, and two spokes to the sixth clique
+vertex cover all triangles through u or v and contain every packing
+edge avoiding the hubs. This is 13 edges; one external hub neighbor
+needs at most one more spoke, within 2|S|=14. Therefore, in an
+irreducible graph, every neighbor of a simplicial degree-seven vertex
+has degree at least nine.
+
+E's conditional discharging is also correct: under delta>=7 and all
+degree-seven vertices simplicial, the set L of degree-seven vertices
+is independent. Each neighbor of L has six other neighbors outside L
+in a K7 link, so d_L(v)<=d(v)-6. Giving 1/5 per incident L edge leaves
+each L vertex with 42/5 and each degree-at-least-nine donor with at
+least (4d+6)/5>=42/5; degree-eight vertices stay at eight. Thus the
+average is at least eight, a contradiction to mad<8. This identifies
+unsettled low-degree or nonsimplicial-seven branches, not a full proof.
+
+D's maximal degree-seven-pair codegree-four patch has ten vertices,
+37 edges, minimum degree six, and mad=37/5. Its connected links have
+four universal core vertices and are non-WKE, while core vertices
+have degree nine. All fixed-hub local triples are subgraphs of it.
+Hence mad<8 alone cannot restore the old common-vertex budget <=5.
+This is a failure of a local proof inference, not a Tuza counterexample.

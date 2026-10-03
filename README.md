@@ -3,7 +3,7 @@
 AI-assisted research on triangle packing and covering, with explicit proofs,
 certificate data, and independently written verification programs. These are
 research notes, not a claim of formal proof-assistant verification or human peer
-review. No novelty or minimum-order claim is made.
+review. No claim of novelty or a smallest equality graph is made.
 
 The starting questions come from Anish Gupta,
 [Tuza's conjecture for graphs of maximum degree at most seven](https://arxiv.org/html/2608.06538v1)
@@ -11,6 +11,29 @@ and its [companion repository](https://github.com/agupta/tuza-maximum-degree-sev
 pinned to commit `bf8415fac44f4eeed6c0f7a2273b843d689b065e`.
 
 ## Results and limits
+
+### Maximum average degree below eight
+
+**The full implication `mad(G)<8 => tau(G)<=2nu(G)` remains unresolved here.**
+The first round gives an explicit reduction for a pair in an eight-clique
+with at most one external incident edge in total, including a simplicial
+degree-seven vertex adjacent to a vertex of degree at most eight. A sharp
+conditional density bound forces such a pair when minimum degree is seven,
+average degree is below eight, and every degree-seven vertex is simplicial.
+This is a local forcing theorem; its extra hypotheses need not survive deletion.
+
+The independent route proves sharp local patch-density bounds, an eight-triangle
+reduction valid beyond the old common-neighbor degree budget, and edge-gluing
+closure implying that a smallest counterexample must be 3-connected. Degree-five
+and degree-six cases and nonsimplicial degree-seven vertices remain unresolved.
+
+- [Results, proof ideas, and limits in Chinese](docs/mad8-progress.zh-CN.txt)
+- [Mixed-degree Fano reduction and sharp conditional density bound](mad8/round1/E/mixed_fano_and_density.txt)
+- [Why maximum average degree alone cannot prune the old local patches](mad8/round1/D/local_density_obstruction.txt)
+- [Dense-patch certificate without the old degree budget](mad8/round1/D/dense_pair_certificate.txt)
+- [Gluing along an edge and minimal-counterexample structure](mad8/round1/D/two_separator_gluing.txt)
+- [Independent proof review](mad8/round1/C/review_full_candidates.txt)
+- [Coordinator decision and remaining obligations](mad8/round1/review_summary.txt)
 
 ### Certificate compression
 
@@ -80,6 +103,7 @@ classification or a minimum-order question.
 | --- | --- |
 | `docs/` | Consolidated Chinese result reports |
 | `equality/` | Equality constructions, proofs, literature notes, and exact checks |
+| `mad8/` | Partial reductions, density barriers, source audits, and named-graph checks |
 | `compression/input/` | Unmodified, attributed upstream certificate catalogue |
 | `compression/templates/` | Signed patterns, incidence data, exports, and generators |
 | `compression/theory/` | Structural proofs and reusable lemmas |
@@ -98,6 +122,19 @@ session transcripts are excluded from the public record.
 
 Run from the repository root with Python 3.10 or newer. These checks require only
 the standard library. Do not use `python -O`, which disables assertions.
+
+For the new maximum-average-degree notes:
+
+```shell
+python mad8/round1/B/check_named_graphs.py
+```
+
+This checks the literal reductions on K9 minus one edge and the maximal
+codegree-four patch, and computes exact maximum average degrees for three named
+graphs. It uses rational arithmetic over their vertex subsets; it does not run
+a graph census. The general lemmas are proved in the accompanying text.
+
+For the certificate-compression archive:
 
 ```shell
 python tools/check_records.py

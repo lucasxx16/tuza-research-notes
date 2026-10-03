@@ -1,0 +1,29 @@
+Round 1 C: scope audit for Gupta Question 12.1
+
+The question is whether mad(G)<8 implies tau(G)<=2nu(G), where mad is
+the maximum average degree over every nonempty subgraph. It implies
+7-degeneracy, hence some vertex of degree at most seven in every
+subgraph; the converse fails (for example K_{7,20}). Average degree
+of G below eight is weaker still. The degree bound Delta(G)<=7 is
+sufficient by Gupta's theorem and implies mad(G)<=7, but mad(G)<8
+allows arbitrarily large maximum degree (a star suffices).
+
+A smallest counterexample inside mad<8 is globally minimal under proper
+subgraphs, because mad<8 is hereditary. Puleo's reductions then imply
+robustness and no reducible set. Its minimum degree is between five
+and seven. A vertex of degree at most seven has a connected non-WKE
+link, but its neighbors may have degree eight or more. K_{7,8} has
+mad<8 and no 7--7 edge, illustrating that a degree-seven vertex need
+not lead to a degree-seven pair; it is triangle-free and not a Tuza
+counterexample.
+
+Even at a 7--7 edge of codegree c, A and B each have size 6-c, but
+the common-vertex budget deg_H(x)+deg_A(x)+deg_B(x)<=5 follows only
+when deg_G(x)<=7. Under mad<8, common vertices may have degree eight
+or more. Thus the codegree-four 1,144-case catalogue and nine-template
+coverage cannot be imported unchanged. The local ambient-transfer
+lemma remains valid; existence of a suitable certificate is separate.
+
+Sources: Gupta, paper/main.tex, Question 12.1 and Sections 4-9;
+Puleo, arXiv:1308.2211v3, Sections 2 and 4,
+https://arxiv.org/html/1308.2211v3.

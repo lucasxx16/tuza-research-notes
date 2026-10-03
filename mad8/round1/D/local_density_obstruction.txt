@@ -1,0 +1,132 @@
+MAD<8 / D / ROUND 1
+LOCAL-DENSITY OBSTRUCTION AND THE RELATIVE-CERTIFICATE BOTTLENECK
+
+Status: Reviewed research proof; see C/review_full_candidates.txt.
+These statements do not resolve whether mad(G)<8 implies tau(G)<=2nu(G).
+They identify a precise limitation on extending the degree-seven argument.
+
+Definitions. For adjacent hubs u,v of degree seven, put
+C=N(u) intersect N(v), A=N(u) minus ({v} union C),
+B=N(v) minus ({u} union C), and c=|C|.
+The reduced local patch P has vertices {u,v} union C union A union B,
+all its edges incident to u or v, arbitrary edges within C, within A and
+within B, and arbitrary A--C and B--C edges. The patch omits A--B edges.
+Thus |A|=|B|=6-c. Omitting A--B edges changes neither hub's link.
+Every triangle containing u or v lies in P, even if A--B edges are
+present in an ambient graph.
+
+PROPOSITION 1 (uniform local density bounds).
+Every such patch satisfies
+  mad(P)<=37/5  when c=4,
+  mad(P)<=22/3  when c=5,
+  mad(P)<=7     when c=6.
+Each bound is attained by the patch having every allowed edge.
+
+Proof. Since maximum average degree is monotone under taking subgraphs,
+it suffices to analyze the maximal patch J_c. Every allowed edge is
+present, so its edge set is that of two complete graphs K7 on
+{u} union C union A and {v} union C union B, overlapping in C,
+together with uv. Hence
+ |V(J_c)|=14-c,  |E(J_c)|=43-binomial(c,2).
+
+For c=4, J_4 has ten vertices and 37 edges. A core vertex has degree
+nine, a hub has degree seven, and a private vertex has degree six.
+Thus every induced subgraph on nine vertices has at most 37-6=31
+edges, and average degree at most 62/9<37/5. Every subgraph on at most
+eight vertices has average degree at most seven, because the complete
+graph on eight vertices has degree seven. The full graph has average
+degree 74/10=37/5. It follows that mad(J_4)=37/5.
+
+For c=5, J_5 has nine vertices and 33 edges, so its average degree is
+22/3. Every proper vertex subset has at most eight vertices and average
+degree at most seven. Deleting edges cannot increase average degree on
+a fixed vertex set. Therefore mad(J_5)=22/3.
+
+For c=6, there are no private vertices and J_6=K8, whose maximum average
+degree is seven. This proves every assertion.
+
+PROPOSITION 2 (the old pointwise budget fails inside mad<8).
+The graph J_4 has two adjacent degree-seven vertices u,v of codegree four,
+both of whose links are connected and non-WKE, but every core vertex c
+has
+ deg_{J_4[C]}(c)+|N(c) intersect A|+|N(c) intersect B|=3+2+2=7.
+In particular the upper bound five used by the degree-seven proof fails,
+although mad(J_4)=37/5<8.
+
+Proof. The degree and density calculations are in Proposition 1. Each
+hub's link has seven vertices, consisting of four core vertices and
+three others (the opposite hub and two private vertices). All four core
+vertices are universal in the link. In particular the link is connected.
+
+Suppose its link F were WKE, with a matching M and Q satisfying
+|Q|<=|M| and F-Q contained in M. On seven vertices, |M|<=3. Therefore
+|Q|<=3, and at least one of the four universal core vertices remains
+outside Q. There are at least four vertices outside Q, so that universal
+vertex has degree at least three in F-Q. This contradicts F-Q being a
+subgraph of a matching. Thus both links are non-WKE. The displayed
+pointwise degree sum follows directly from maximality of the patch.
+
+COROLLARY 3 (no local pruning from mad<8 alone).
+Every codegree-four local triple consisting of a core and two side
+patterns, including every triple with connected non-WKE links, is realized
+by a graph of maximum average degree at most 37/5: take its reduced local
+patch itself. Hence the hypothesis mad(G)<8 alone excludes none of these
+local triples. The same statement holds at codegrees five and six with
+the respective bounds in Proposition 1.
+
+More generally, the same no-pruning conclusion holds for mad(G)<t for
+every real t>37/5 at codegree four. At t=37/5 the strict hypothesis
+excludes the maximal patch, so the strict inequality on t matters.
+
+This corollary concerns realization inside the class, not realization
+inside a MINIMAL COUNTEREXAMPLE. Additional irreducibility, robustness,
+or global discharging constraints may still rule out configurations.
+Proposition 2 is not a counterexample to Tuza's conjecture.
+
+PROPOSITION 4 (ordinary Tuza already holds for the reduced patches).
+Every degree-seven pair patch with c<=5 has treewidth at most six. In
+particular every patch at codegree four or five satisfies tau(P)<=2nu(P)
+by the theorem of Botler, Fernandes, and Gutierrez. The codegree-six
+patch also satisfies Tuza, by the maximum-degree-seven theorem in the
+source manuscript, or the appropriate known small complete-graph case.
+
+Proof of the treewidth statement. Use a three-node path of bags
+ L={u} union C union A,
+ M={u,v} union C,
+ R={v} union C union B,
+in that order. The outer bags have size seven and the middle bag has
+size c+2<=7. Every allowed edge is contained in one bag: uv is in M,
+the left-side and u-edges are in L or M, and the right-side and v-edges
+are in R or M. Every vertex occurs on a connected set of bags: core
+vertices occur throughout, u in L,M, v in M,R, A only in L, and B only
+in R. This is a tree decomposition of width at most six.
+
+The invoked theorem is Theorem 3.4 of Botler--Fernandes--Gutierrez,
+"On Tuza's conjecture for triangulations and graphs with small treewidth":
+https://arxiv.org/html/2002.07925v2
+(arXiv:2002.07925v2, 16 July 2020; primary-source Theorem 3.4 checked).
+The tree decomposition and density bounds above are independent arguments.
+
+WHY THIS DOES NOT YIELD A PAIR REDUCTION.
+An ordinary Tuza witness only supplies a triangle packing S and a cover X
+with |X|<=2|S| and X meeting all local triangles. For removal of {u,v},
+one also needs X to contain EVERY packing edge with both endpoints
+outside {u,v}. An ordinary cover need hit only one edge of each packed
+triangle; it may leave external packing edges available for a recursive
+packing outside the two hubs. The union of the two packings may then
+reuse an edge. The treewidth theorem does not assert this boundary
+condition. Thus proving ordinary Tuza on larger collections of these
+patches cannot by itself replace the local relative-certificate theorem.
+
+The precise possible next target is a boundary strengthening:
+  Given a reduced degree-seven pair patch whose links are connected
+  and non-WKE, find a pair-reduction certificate without the old
+  pointwise core budget, or characterize the patches where this fails.
+This remains unproved here and would still not settle mad<8 by itself,
+because a low-degree vertex in a mad<8 graph can have higher-degree
+neighbors, so pairs of two degree-seven hubs need not suffice.
+
+SCOPE AND PROVENANCE.
+No original census, finder, saved-record enumeration, or numerical search
+was run. All statements above are human deductions. The full mad<8
+question remains unresolved by this route.

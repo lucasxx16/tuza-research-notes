@@ -1,0 +1,47 @@
+Independent D draft for the mad(G)<8 question.
+
+Chosen direction: a local-density obstruction to extending the degree-seven
+pair proof, with possible follow-up through boundary versions of known
+triangle-packing theorems. This was written before consulting any other
+new mad8 route. Read only the source question and reducibility definitions,
+and Puleo's primary-source abstract.
+
+Candidate lemma. Every codegree-four local configuration with hubs of
+degree seven, four common neighbors, two private vertices on each side,
+and NO edges between the private sides is itself a graph of maximum
+average degree at most 37/5=7.4. No link hypothesis or pointwise common-
+neighbor degree budget is needed.
+
+Reason. The maximal such graph J has every allowed edge. It has 10
+vertices and 37 edges: 13 hub edges, six core edges, and nine side
+edges on each side. Its minimum degree is six. An induced subgraph on
+nine vertices therefore has at most 31 edges, giving average at most
+62/9<7.4. A subgraph on at most eight vertices has average at most seven.
+Thus mad(J)=74/10=37/5; every local configuration is a subgraph of J.
+
+The maximal graph J has both hub degrees seven, connected non-WKE links,
+and core degrees nine. For the non-WKE assertion, each link has four
+universal core vertices on seven total vertices. A WKE witness has a
+vertex set Q of size at most three, so leaves a universal core vertex
+outside Q and at least four total vertices outside Q. The induced graph
+outside Q has degree at least three there, and cannot be a matching.
+Thus the pointwise budget deg_H(c)+deg_A(c)+deg_B(c)<=5 from the
+maximum-degree-seven argument fails here: its left side is seven.
+
+Consequently every arbitrary local triple, including every connected
+non-WKE triple discarded solely by the degree budget, is realizable
+inside the proposed mad<8 class by its own local graph. An average-degree
+hypothesis strictly greater than 37/5 cannot prune ANY such local triple
+without further minimal-counterexample constraints. Recovering the old
+pointwise budget directly from mad<8 is impossible.
+
+The analogous maximal codegree-five local graph has nine vertices and
+33 edges, hence mad=22/3 (all proper vertex subsets have at most eight
+vertices and average at most seven). At codegree six the maximal local
+graph is K8, with mad=7. Thus all unconstrained degree-seven pair patches
+at codegrees four, five, and six already lie below 7.4.
+
+This is an obstruction to one proposed proof mechanism, not a counterexample
+to Tuza. The full mad<8 question remains open in this draft. Next: prove
+the lemma formally and identify precisely what boundary information a
+pair-reduction argument would need beyond ordinary Tuza on these patches.

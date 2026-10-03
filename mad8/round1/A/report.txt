@@ -1,0 +1,60 @@
+# Report: literature toward tau <= 2 nu for mad(G) < 8
+(<=500 words; primary sources only; verified facts, no speculation, no new claims)
+
+Puleo (arXiv:1308.2211v3, EJC 49 (2015) 134-152)
+- Thm 1.2: mad(G) < 7 => tau <= 2 nu. Def 2.1 reducible set; Def 2.3 robust
+  (every component of every link has order >= 5); Def 2.5 thin 6-vertex.
+- Lemma 2.6: a minimal counterexample is robust. Lemma 2.7(a)-(h): forbidden
+  structures for a robust graph with no reducible set. (a) and (b) concern
+  every vertex of degree at most six: (a) Delta(complement
+  of its link) <= 1 and the complement's edge count != 2; (b) these vertices
+  form an independent set. (c)-(h): subsumption / neighbor-count restrictions
+  for degrees 7, 8, 9, 10+.
+- Lemma 2.8: every robust graph with average degree less than 7 has a
+  reducible set (discharging: 5-vertex +2/3 per subsumer, thin 6-vertex +1/6
+  per neighbor, non-thin 6-vertex +1/4 per subsumer).
+- Lemma 4.4: a WKE union of link components yields a reducible edge set; a
+  WKE link makes {v} reducible. Cor 4.11: no odd wheel W_n (n odd, n >= 5)
+  => tau <= 2 nu; links then have no odd cycle longer than a triangle (they
+  may contain triangles) and are WKE by Prop 4.8; they are not locally
+  bipartite in general. Prop 5.1: for robust G and d(v) <= 6, {v} is
+  reducible if the complement of the link has max degree > 1, or exactly 2
+  edges — specific dense 5/6-neighbor patterns, not a generic condition.
+
+Gupta (arXiv:2608.06538v1; paper/main.tex at pinned commit bf8415fac44f4eeed6c0f7a2273b843d689b065e)
+- Thm 1.2 (Delta <= 7) and Thm 1.3 (7-regular) via reducible pairs at edges
+  of triangle codegree 4, 5, 6: local graph with |C| = c, |A| = |B| = 6-c;
+  local reducibility criterion (i)-(iii); template inequality
+  t + |R| + 2q(R) <= 2p(R) (t = 1 for c = 6, t = 3 for c = 5); Fano witnesses
+  for the K6/K5 cores; codegree-4 catalogue (1,144 certificates). Per the
+  paper's own presentation, no human-readable proof is provided for that
+  original codegree-4 classification — the authors' description of that
+  presentation, not a timeless claim. Inputs from 7-regularity:
+  |A| = |B| = 6-c, degree budget dg_C + dg_A + dg_B <= 5, and the 7-vertex
+  link census (connected non-WKE on 7 vertices => >= 3 vertices of degree
+  >= 4). Question 12.1 asks whether mad(G) < 8 implies tau <= 2 nu.
+
+Wang (arXiv:2609.13831v1, v1, 12 Sep 2026)
+- Thm 1: tau <= (165/59) nu for every graph (improves Haxell's 66/23).
+  Lemma 2.1 exchange (private red edge); Lemma 2.2 books transversal
+  (<= sum (4-|B|)); Lemma 2.3: tau(F) <= (8/3)p - (2/3)u and
+  <= (9/4)p + (3/2)q - (1/4)u for one-red-edge residual families; four
+  inequalities (3)-(6) weighted 20:8:19:12. The Remark states these weights
+  are best possible for that system under the parameter constraints used
+  (a = c = 12n/59, b = m = 39n/59, d = h = 0). The bound is a constant-factor
+  approximation; no factor-2 statement for mad < 8 follows from it by itself.
+
+Relation to mad < 8 (verified facts only)
+- Subgraphs of a mad < 8 graph all have average degree < 8 (no 8-regular
+  subgraph; K_9 is excluded), so subgraph minimality is available and Puleo's
+  Lemma 2.6 robustness applies unchanged. A threshold-8 analogue of Lemma 2.8
+  (reducible set under average degree < 8) is not addressed in Puleo's paper;
+  pursuing it is ONE POSSIBLE ROUTE, not a necessary open piece. Gupta's
+  7-regularity-dependent inputs (|A| = |B| = 6-c, budget <= 5, 7-vertex
+  census) do not transfer verbatim to graphs with vertices of degree 8.
+  Factor 2 is tight already at Delta = 3 (K4 blocks; Gupta Prop 1.5).
+
+Limitations: Wang v1 only (no v2 assumed). Puleo: beyond Prop 5.1 not read.
+Gupta: codegree-4 classification has no human-readable proof in the paper's
+own presentation (authors' statement). No new proofs, no census, no negative
+literature claims.

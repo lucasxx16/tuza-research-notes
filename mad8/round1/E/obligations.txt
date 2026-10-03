@@ -1,0 +1,94 @@
+MAXIMUM AVERAGE DEGREE BELOW EIGHT: EXACT PROOF OBLIGATIONS
+
+Target: mad(G)<8 implies tau(G)<=2 nu(G), as asked in Gupta's
+Question 12.1 (label q:mad8 in the upstream source).
+
+1. MINIMALITY THAT IS ACTUALLY AVAILABLE
+
+If the target fails, choose a counterexample minimizing |V|+|E|.
+Every proper subgraph still has maximum average degree below eight
+and satisfies Tuza's inequality by minimality. Thus the standard
+reducible-vertex-set and reducible-edge-set extension lemmas imply
+that this graph has neither kind of nonempty reducible set.
+
+The graph is connected, because packing and covering numbers add
+over components. It has no isolated vertices. Every edge lies in
+a triangle: removing an edge lying in no triangle leaves both
+packing and covering numbers unchanged, contradicting minimality.
+
+Puleo's local lemmas then give robustness, minimum degree at least
+five, and no WKE link component. A link at a vertex of degree at
+most nine is connected, because two components of order at least
+five require at least ten vertices. Vertices of degree at most six
+are independent. These consequences do not bound the degrees of
+neighbors of a degree-seven vertex.
+
+Primary source: Puleo, arXiv:1308.2211v3, Sections 2, 4 and 5,
+especially Definition 2.1, Lemmas 2.2 and 2.6, Lemma 4.4,
+Corollary 4.9, and Proposition 5.2:
+https://arxiv.org/html/1308.2211v3
+
+2. WHAT A COMPLETE LOCAL/DISCHARGING ROUTE MUST SUPPLY
+
+(a) Valid reductions must meet all three conditions: an edge-disjoint
+    triangle packing S; a cover X of every triangle touching the
+    proposed deleted vertex set; and containment in X of every
+    S-edge outside that set, with |X|<=2|S|.
+
+(b) A forcing argument must apply to arbitrary robust irreducible
+    graphs, not only regular graphs. It must force a reduction or
+    a subgraph of average degree at least eight.
+
+(c) Degrees five and six remain possible under the known necessary
+    conditions. Proving a statement only for minimum degree seven
+    does not finish the target.
+
+(d) At degree seven, high-codegree neighbors may have arbitrarily
+    large total degree. For an adjacent pair with codegree c, the
+    exclusive-neighborhood sizes are d(u)-1-c and d(v)-1-c.
+    The old equality |A|=|B|=6-c requires both endpoint degrees
+    to equal seven. The old common-vertex attachment budget also
+    requires an actual degree bound on the common vertex; it is
+    not a consequence of mad(G)<8.
+
+(e) A discharging proof targeting eight must control both the new
+    deficit at degree seven and the old deficits at degrees five
+    and six. A degree-eight donor has no initial surplus above
+    eight, so its obligations must be excluded or compensated.
+
+3. THE EXISTING RULE DOES NOT AUTOMATICALLY EXTEND
+
+Puleo's Lemma 2.8 transfers 2/3 to a degree-five vertex from each
+subsuming neighbor, 1/6 to a thin degree-six vertex from every
+neighbor, and 1/4 to a non-thin degree-six vertex from each
+subsuming neighbor. Sections 5 and 7 justify final charge at
+least seven. These rates do not address degree-seven deficits
+relative to a target of eight.
+
+The graph K9 minus one edge, proved in mixed_fano_and_density.txt
+to have mad=70/9<8, has no vertices of degree at most six. Hence
+all these transfers are zero, and its two degree-seven vertices
+remain below eight. It satisfies the listed low-degree necessary
+conditions and has connected non-WKE links everywhere. Thus
+those particular necessary conditions alone do not force average
+degree at least eight. The graph is not a Tuza counterexample;
+an explicit new mixed-degree reduction is provided in that file.
+
+4. ROUND RESULT AND THE PRECISE REMAINING GAP
+
+The companion file proves an explicit reducible pair in an
+eight-clique whenever its two selected vertices have at most one
+external incident edge in total. In particular it handles a
+simplicial degree-seven vertex next to a vertex of degree at most
+eight. It also proves a sharp conditional density bound and hence
+forces such a pair whenever minimum degree is seven, all degree-
+seven vertices are simplicial, and average degree is below eight.
+
+This does not prove the target. The remaining cases include
+graphs with degree-five or degree-six vertices and graphs with
+non-simplicial degree-seven vertices. No claim that those cases
+reduce to the proved conditional theorem is made.
+
+No census, original certificate finder, or new numerical graph
+enumeration is used in these arguments. The seven-vertex link
+census is not needed for the round result.

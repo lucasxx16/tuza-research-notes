@@ -1,0 +1,211 @@
+A MIXED-DEGREE FANO REDUCTION AND A SHARP CONDITIONAL DENSITY BOUND
+
+Status: explicit universal reducibility lemma; a complete conditional
+forcing theorem; and a concrete obstruction to using only the old
+low-degree discharging rules. This is partial progress toward
+mad(G)<8, not a proof of that conjectural implication.
+
+1. DEFINITIONS AND ORIGIN OF THE CONSTRUCTION
+
+A nonempty vertex set V0 is reducible if there are an edge-disjoint
+triangle set S and edge set X such that |X|<=2|S|, X meets every
+triangle containing a vertex of V0, and every S-edge whose endpoints
+both avoid V0 belongs to X.
+
+A vertex is simplicial if its open neighborhood induces a clique.
+The maximum average degree mad(G) is the maximum of 2|E(J)|/|V(J)|
+over nonempty subgraphs J of G.
+
+Gupta's Fano witness for the complete codegree-six core uses seven
+triangles and thirteen cover edges inside K8. The one-edge slack
+permits the extension below. The seven-triangle construction is
+reproduced and verified here; novelty of the underlying Fano witness
+is not claimed. The new use is its extension beyond two degree-seven
+endpoints and the resulting conditional density theorem.
+
+Source: Gupta, "Tuza's conjecture for graphs of maximum degree at
+most seven," Section 7, Lemma "a Fano witness for K6" (label
+lem:fano6 in the upstream source).
+
+2. UNIVERSAL MIXED-DEGREE REDUCTION
+
+Lemma F. Let K be an eight-vertex clique in an arbitrary finite
+simple graph G, and let u,v be distinct vertices of K. Suppose
+
+  |N(u) outside K| + |N(v) outside K| <= 1.
+
+Then {u,v} is reducible. No degree bound is imposed on the other
+six clique vertices or on vertices outside K.
+
+Proof. Label K\{u,v}={c0,c1,c2,c3,c4,z}. Define
+
+  S={uvc0, uc1c2, uc3c4, vc1c3, vc2c4, c0c1c4, c0c2c3}.
+
+The three edges of these triangles, in order, are
+
+  uv,uc0,vc0;
+  uc1,uc2,c1c2;
+  uc3,uc4,c3c4;
+  vc1,vc3,c1c3;
+  vc2,vc4,c2c4;
+  c0c1,c1c4,c0c4;
+  c0c2,c2c3,c0c3.
+
+All twenty-one displayed edges are distinct, so S is edge-disjoint
+and has seven triangles. Put
+
+  X0=E(G[{c0,c1,c2,c3,c4}]) union {uv,uz,vz},
+  Y={uw:w outside K and uw is an edge}
+      union {vw:w outside K and vw is an edge},
+  X=X0 union Y.
+
+The first set has ten clique edges and three hub edges, so |X0|=13.
+The hypothesis gives |Y|<=1; Y is disjoint from X0. Therefore
+|X|<=14=2|S|.
+
+Every triangle through u that uses a vertex outside K contains an
+edge of Y. Inside K, a triangle through both u and v meets uv.
+A triangle through u and z meets uz. Any other triangle through
+u has its remaining vertices in {c0,...,c4}, and therefore meets
+their edge in X0. The same proof applies to v, using vz. Thus X
+covers all ambient triangles through either selected vertex.
+
+Every S-edge avoiding {u,v} is an edge among c0,...,c4 and hence
+belongs to X0. This proves the final reducibility condition.
+
+Corollary F1. If u is a simplicial vertex of degree seven and
+v is a neighbor of degree at most eight, {u,v} is reducible.
+
+Proof. K=N[u] is an eight-clique. The vertex u has no neighbors
+outside K. The vertex v has its seven other clique vertices as
+neighbors, so at most one neighbor outside K. Apply Lemma F.
+
+Consequently, in a graph with no reducible pair, every neighbor
+of a simplicial degree-seven vertex has degree at least nine.
+
+3. A SHARP CONDITIONAL DENSITY LEMMA
+
+Lemma D. Let G be a nonempty graph of minimum degree at least
+seven. Suppose every degree-seven vertex is simplicial and every
+neighbor of a degree-seven vertex has degree at least nine.
+Write n=|V(G)| and n8 for the number of degree-eight vertices.
+Then
+
+  2|E(G)|/n >= 8 + (2/5)(n-n8)/n.                 (1)
+
+In particular the average degree is at least eight. If G has no
+degree-eight vertices, its average degree is at least 42/5.
+
+Proof. Let L be the degree-seven vertices. The neighbor-degree
+assumption makes L independent, and no degree-eight vertex has
+a neighbor in L.
+
+Consider a vertex v of degree d>=9 that has a neighbor w in L.
+Because w is simplicial, the six vertices of N(w)\{v} are all
+adjacent to v. Each of them has degree at least nine, by the
+neighbor-degree assumption at w. Thus N(v) contains at least
+six vertices outside L, which gives
+
+  |N(v) intersect L| <= d-6.                     (2)
+
+Give each vertex its degree as initial charge. Each vertex of L
+takes 1/5 from each of its seven neighbors. Transfers conserve
+the total charge. A vertex in L ends with
+
+  7+7/5 = 42/5.
+
+A degree-eight vertex sends and receives nothing, so ends with
+eight. A degree-d vertex, d>=9, with a neighbor in L loses at
+most (d-6)/5 by (2), and therefore ends with at least
+
+  d-(d-6)/5 = (4d+6)/5 >= 42/5.
+
+A degree-d vertex with no neighbor in L retains d>=9>42/5.
+Summing final charges yields
+
+  2|E(G)| >= 8 n8 + (42/5)(n-n8),
+
+which is exactly (1).
+
+Sharpness. Let G be the join of a seven-clique and an independent
+three-set. Its three independent vertices are simplicial of degree
+seven; its seven clique vertices have degree nine. It meets all
+the hypotheses, has ten vertices and forty-two edges, and has
+average degree 42/5. Thus the constant in the no-degree-eight
+case cannot be improved under these hypotheses. No claim that
+this example has no other reducible configuration is made.
+
+The term involving n8 is also necessary: any eight-regular graph
+has n=n8 and meets the hypotheses vacuously, with average degree
+eight. Disjoint unions of such graphs and the sharp ten-vertex
+example attain equality in (1).
+
+4. COMPLETE CONDITIONAL FORCING THEOREM
+
+Theorem. Let G have minimum degree at least seven and average
+degree below eight. If every degree-seven vertex is simplicial,
+then G contains a reducible pair of the form in Corollary F1.
+
+Proof. If no such pair exists, Corollary F1 implies that every
+neighbor of a degree-seven vertex has degree at least nine.
+Lemma D then gives average degree at least eight, a contradiction.
+
+In particular this theorem applies under mad(G)<8 with the stated
+minimum-degree and simpliciality assumptions. It is a local forcing
+theorem, not an induction proof for all graphs in that subclass:
+the hypotheses need not survive arbitrary edge deletions. Its
+application to a subgraph-minimal counterexample is legitimate
+whenever that counterexample has the stated local properties.
+
+5. A SMALL OBSTRUCTION TO AN UNMODIFIED DEGREE-SEVEN ROUTE
+
+Let G0=K9-ab, and call the other seven vertices C. The two vertices
+a,b have degree seven and are not adjacent; each vertex in C has
+degree eight. Hence G0 has no adjacent degree-seven pair.
+
+Its maximum average degree is exactly 70/9<8. Indeed G0 itself
+has nine vertices and thirty-five edges. Any subgraph on at most
+eight vertices has average degree at most seven, and a subgraph
+on nine vertices has at most thirty-five edges.
+
+All its links are connected and non-WKE. The links at a,b are K7.
+For any matching M in K7, |M|<=3; deleting at most three vertices
+leaves a clique on at least four vertices, whose edges cannot all
+lie in a matching. Thus no vertex set Q with |Q|<=|M| covers
+K7-M. At each c in C the link is K8 minus one edge. Here a
+matching has size at most four, and deleting at most four vertices
+leaves at least four vertices inducing at least five edges. Those
+edges likewise cannot all belong to a matching. This proves the
+non-WKE assertions directly. Connectedness is immediate, and all
+links have at least five vertices, so G0 is robust.
+
+There are no vertices of degree at most six. Therefore all the
+low-degree transfers in Puleo's Lemma 2.8 are zero, and all of
+the necessary constraints concerning such vertices in his Lemma
+2.7 hold vacuously. Nevertheless the average degree is below eight.
+Thus those constraints plus connected non-WKE links cannot force
+an adjacent degree-seven pair or average degree at least eight.
+
+The order nine is minimal for this specific obstruction with
+minimum degree seven and at least one degree-seven vertex but no
+adjacent degree-seven pair: on at most seven vertices minimum
+degree seven is impossible, and on eight vertices it forces K8.
+
+This graph is not a counterexample to Tuza. Choose u=a and any
+v in C. Then K=N[a] is an eight-clique, u has no external neighbor,
+and v has the unique external neighbor b. Lemma F gives a literal
+seven-triangle packing and fourteen-edge cover reducing {a,v}.
+This is a mixed (7,8) pair, exactly the kind the regular-only
+argument does not address.
+
+6. LIMITS AND NEXT OBSTRUCTION
+
+The proved reduction tolerates arbitrarily high degrees at the
+six common clique vertices, so it does not import the old common-
+vertex degree budget. It does not settle incomplete six-vertex
+cores, other codegrees for a (7,8) pair, or non-simplicial degree-
+seven vertices. Degree-five and degree-six deficits also remain.
+
+The complete mad<8 question is therefore still open in these notes.
+No graph census, witness finder, or floating-point optimization is
+a premise of any result in this file.

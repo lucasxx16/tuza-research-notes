@@ -1,0 +1,31 @@
+Round 1 C: adversarial review of D and E complete drafts
+
+I accept E/mixed_fano_and_density.txt and E/obligations.txt under their
+stated hypotheses. E's seven Fano triples use the 21 edges of a K7
+once. Its 13-edge K8 cover meets every hub triangle and contains all
+packing edges outside the pair; one external hub neighbor costs one
+additional spoke. The conditional 1/5 discharging counts six non-L
+neighbors at every donor adjacent to a simplicial degree-seven vertex,
+leaving final charge at least 42/5 outside degree eight and exactly
+eight at degree eight. K7 joined to three independent vertices attains
+the 42/5 bound. K9 minus one edge has mad=70/9, connected non-WKE
+links, and no 7--7 edge, yet E's mixed (7,8) pair reduces it.
+
+I accept D/local_density_obstruction.txt. The edge count, maximum
+average degree, universal-core non-WKE argument, and width-six
+three-bag decomposition are correct. Botler--Fernandes--Gutierrez
+Theorem 3.4 indeed proves ordinary Tuza for treewidth at most six;
+it does not impose the external-packing-edge condition required for
+a pair reduction.
+
+I accept D/two_separator_gluing.txt's packing identity, cover bounds,
+and 3-connectivity consequence for a minimal mad<8 counterexample.
+Its last generalization now correctly specifies a subgraph-closed
+class, since the proof uses G_i-e.
+
+I also accept D/dense_pair_certificate.txt. Its eight triangles use
+six distinct K4 edges, four a1--C edges, and both private edges, all
+exactly once as external packing edges. The twelve-edge rim set plus
+uv, ua0, vb0, vb1 meets all hub triangles with sixteen edges. In
+particular the maximal codegree-four patch J4 has a reducible hub
+pair despite violating the old core-degree budget.

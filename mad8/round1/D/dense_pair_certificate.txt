@@ -1,0 +1,64 @@
+MAD<8 / D / ROUND 1
+A DEGREE-BUDGET-FREE CERTIFICATE FOR THE MAXIMAL CODEGREE-FOUR PATCH
+
+Status: Reviewed research proof; see C/review_full_candidates.txt.
+
+PROPOSITION.
+Let u,v be adjacent vertices with common neighborhood
+C={c0,c1,c2,c3} and exclusive neighborhoods A={a0,a1}, B={b0,b1}.
+Suppose C induces K4, both a0a1 and b0b1 are edges, and a1 is adjacent
+to all four core vertices. Then {u,v} is reducible, using eight packed
+triangles and sixteen cover edges. No upper bound on core degrees, no
+non-WKE hypothesis, and no constraint on other A--C or B--C edges is
+required. Arbitrary A--B edges are harmless.
+
+Proof. Take the packing
+
+ S={ u c0 c1, u c2 c3, u a0 a1,
+     a1 c0 c3, a1 c1 c2,
+     v c0 c2, v c1 c3, v b0 b1 }.
+
+Take the twelve-edge rim set
+
+ R=E(G[C]) union {a0a1,b0b1,a1c0,a1c1,a1c2,a1c3},
+
+and the sixteen-edge cover
+
+ X=R union {uv,ua0,vb0,vb1}.
+
+Every triangle exists by the hypotheses. The three u-triangles use the
+disjoint spoke pairs {c0,c1}, {c2,c3}, {a0,a1}; the three v-triangles use
+the disjoint pairs {c0,c2}, {c1,c3}, {b0,b1}. The two triangles avoiding
+the hubs use distinct a1--C spokes and disjoint core edges c0c3,c1c2.
+The six core edges used across all triangles are precisely the six
+different edges of K4. The private edges are used once each. No other
+edge is shared, so S is an eight-triangle packing.
+
+The external packing edges are exactly R: six core edges, four a1--C
+edges, and the two private edges. Thus R subset X verifies the safety
+condition, and |X|=12+4=16=2|S|.
+
+A triangle through both hubs is met by uv. A triangle through u and
+two core vertices is met by its core edge in R; one through u and a1
+and a core vertex is met by its a1--C edge in R; one through u and a0
+is met by ua0. The triangle u a0 a1 is met by a0a1 (and ua0).
+At v, core-only rim triangles meet E(G[C]) subset R, and every triangle
+using a B-vertex is met by vb0 or vb1. This includes a possible private
+triangle v b0 b1. These are all hub-triangle types.
+
+Finally any triangle containing a hub uses only that hub's neighborhood.
+A--B edges and edges leaving the displayed local patch cannot generate
+additional such triangles. Thus the certificate is valid in any ambient
+graph satisfying the stated neighborhood description.
+
+APPLICATION TO THE DENSITY OBSTRUCTION.
+The maximal patch J_4 in local_density_obstruction.txt satisfies these
+hypotheses. Hence its designated hubs themselves form a reducible pair,
+even though its core vertices have degree nine and violate the earlier
+pointwise budget by two. The dense patch is therefore an obstruction
+only to recovering that budget from mad<8, not to pair reducibility.
+
+The sufficient condition is broader than the single maximal graph: it
+allows all 2^12 choices of the four a0--C and eight B--C attachments.
+This count is just the number of freely optional edges; no enumeration
+was run. No overall classification or solution of mad<8 is claimed.

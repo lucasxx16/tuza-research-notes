@@ -1,0 +1,22 @@
+Round 1 C: named-graph verifier audit
+
+I inspected B/check_named_graphs.py and the generated JSON. Its graph
+constructors independently define K9 minus one edge, the maximal
+codegree-four patch J4 with no A--B edges, and K7 joined to three
+independent vertices. The exact mad calculation uses Fraction and
+examines every nonempty vertex subset; induced edges maximize edge
+count on a fixed subset, so this computes mad exactly. The resulting
+values are 70/9, 37/5, and 42/5.
+
+The certificate checker tests that each listed packing member is a
+three-vertex triangle in the graph, packed triangles share no edge,
+X is a set of graph edges with |X|<=2|S|, X meets every triangle
+touching the selected pair, and X contains every packing edge outside
+that pair. These are all three reducibility conditions. The two literal
+instances pass: K9-minus-edge has seven triangles and 14 cover edges;
+J4 has eight and 16.
+
+I hardened the checker to reject optimized Python assertion mode,
+include triangle distinctness and the J4 mad value, aggregate every
+Boolean certificate assertion including auxiliary size checks, and exit
+nonzero on failure. A single rerun passed with ALL_OK=True.
