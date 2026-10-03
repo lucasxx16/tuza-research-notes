@@ -1,0 +1,7 @@
+D/independent_initial.txt adversarial review, 3 October 2026: ACCEPT the prescribed-edge claim for nu<=2 as drafted; full-file review still required after D's final write-up.
+
+For nu=1, pairwise edge-intersecting triangles either share a common edge or all lie in a K4. A prescribed triangle edge e can be included in a cover of size at most two: {e,common edge} in the first case, or e and its opposite K4 edge in the second.
+
+For nu=2 and T containing e, G0=G-E(T) has nu<=1. If tau(G0)<=1, E(T) plus a G0 cover costs at most four. If tau(G0)=2, every G0 triangle lies in a K4 C; E(C) is disjoint from E(T), hence |C∩V(T)|<=1. F=G-E(C) has nu=1, since any two edge-disjoint F triangles could be combined with a C triangle. A size<=2 F-cover containing e exists. Every remaining mixed triangle uses exactly one K4 edge. If C∩T is empty, there are none; if C∩T={w} and T=wab, each outside vertex a,b has at most one neighbor in C\{w} in G0, so mixed triangles are at most wap and wbq. If p≠q, these two plus the C\{w} triangle pack three edge-disjoint triangles, contradiction. Thus all mixed triangles use one K4 edge wp, covered by a perfect-matching cover of C containing wp. Union with the F-cover costs <=4 and contains e.
+
+The resulting k=2 exclusion applies to the rich profile because every F-edge in that profile creates a triangle on singleton restoration and would therefore need to be absent from all minimum covers of a tight nu=2 graph. This is a claim about that profile, not a full separator-gluing theorem or mad<8 proof. No computation is a premise.

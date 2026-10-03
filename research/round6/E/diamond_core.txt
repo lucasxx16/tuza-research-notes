@@ -1,0 +1,315 @@
+COMPLETE HUMAN PROOF FOR THE ORIGINAL DIAMOND CORE
+
+Status: reviewed census-free research proof; see C/review_E_full.txt.
+The hypotheses are connected
+non-WKE links and the original common-vertex degree budget. Neither
+saved-record coverage nor any numerical search is a premise.
+
+1. SETUP AND RESULT
+
+Let u,v be adjacent degree-seven vertices in a finite simple graph.
+Their common neighborhood is C={x,y,p,q}; their private pairs are
+A={a,b} at u and B={c,d} at v. Thus
+
+  N(u)={v} union C union A,
+  N(v)={u} union C union B.
+
+The induced core H=G[C] is the diamond K4-xy: x,y are its degree-two
+vertices, and p,q its degree-three vertices. Edges between A and B,
+and edges leading away from this neighborhood, are unrestricted.
+
+A graph F is WKE if a matching M and a vertex set Q satisfy
+|Q|<=|M| and every edge of F with both endpoints outside Q belongs
+to M. Assume:
+
+  (A1) Both induced links G[N(u)] and G[N(v)] are connected and
+       not WKE.
+  (A2) For each t in C,
+       deg_H(t)+|N(t) intersect A|+|N(t) intersect B|<=5.
+
+Theorem. Under (A1) and (A2), the pair {u,v} is reducible: there
+exist an edge-disjoint triangle packing S and an edge set X such
+that |X|<=2|S|, X meets every triangle containing u or v, and X
+contains every packed edge whose endpoints both avoid {u,v}.
+
+The proof gives five explicit sufficient recipes, then derives an
+exhaustive disjunction of their hypotheses from (A1) and (A2).
+No bound on a private vertex's ambient degree is used.
+
+2. CONNECTED NON-WKE LINKS FORCE FULL CORE SUPPORT
+
+In this section the core C is any four-set inducing a graph with
+a perfect matching. The seven-vertex link F has vertex set
+{z} union C union {a,b}; z is adjacent to all of C and to neither
+a nor b. The only other edges are core edges, private-core edges,
+and the optional edge ab. The support is the set of core vertices
+with a neighbor in {a,b}.
+
+Lemma S. If F is connected and not WKE, its support is all of C.
+
+Proof. First recall the support-size lemma M from
+compression/round3/E/path_core.txt: under precisely these hypotheses,
+the support has size at least three. Here is its short proof, to
+make the present argument self-contained. If support lies in a
+two-set T={s,t}, put Q={z,s,t}. Outside Q the only possible edges
+are e, the core edge on C\T, and ab. A three-edge matching containing
+every such edge that exists can be chosen as follows:
+
+  e and ab present: {e,ab,zs};
+  e present, ab absent: {e,sa,zt}, after relabeling T and the
+      privates using a private-core edge supplied by connectivity;
+  e absent, ab present: a perfect matching of H together with ab;
+  both absent: choose a private-core edge ra, a perfect-matching
+      edge f avoiding r, and let s' be the core vertex outside
+      {r} union V(f); use {ra,f,zs'}.
+
+These are WKE witnesses, proving support size at least three.
+
+Now suppose t in C is unsupported, and set Q=C\{t}, of size three.
+Outside Q the only edges are zt and possibly ab. If ab is present,
+take M={zt,ab,e}, where e is the edge of a core perfect matching
+avoiding t. This is a three-edge matching containing every edge
+outside Q.
+
+If ab is absent, connectivity gives each private vertex a nonempty
+core neighborhood, necessarily in Q. These neighborhoods admit a
+matching saturating {a,b} unless both are the same singleton:
+indeed, if one has two choices, choose one distinct from any fixed
+neighbor of the other. The singleton alternative contradicts the
+support-size lemma. Take such a two-edge attachment matching and
+add zt. Again this is a three-edge matching containing all edges
+outside Q. Thus F is WKE in either case, a contradiction. QED.
+
+Apply Lemma S to each of the two links. The diamond has perfect
+matching {xp,yq}. Consequently every core vertex has at least one
+attachment on each side. By (A2):
+
+  (i) Each of p and q has exactly one A-neighbor and exactly one
+      B-neighbor.
+  (ii) Each of x and y has at least one neighbor on each side,
+       but cannot have two A-neighbors and two B-neighbors.
+
+These are the only consequences of (A2) used below.
+
+3. FIVE UNIVERSAL DIAMOND RECIPES
+
+Throughout this section the setup of Section 1 holds, but (A1) and
+(A2) are not needed. A triple denotes its triangle; a pair denotes
+its edge. Unspecified adjacencies are arbitrary. Every recipe is
+valid after exchanging u,A with v,B, permuting each private pair,
+exchanging x,y, or exchanging p,q.
+
+For coverage it is enough to check the two induced link graphs:
+every triangle through one hub consists of that hub and an edge
+of its link. A triangle through both hubs is uv together with a
+core vertex. Thus the checks below cover every ambient hub triangle.
+
+R1. Asymmetric leaf attachment (five triangles, ten edges).
+
+Assume xa and yc are present, while ya and pa are absent. Set
+
+  S={uvq,uyp,uxa,vyc,vpx},
+  R={yp,xa,yc,px},
+  X=R union {uv,uq,ub,vq,vc,vd}.
+
+The single-hub triangles use disjoint spoke pairs at each hub and
+four distinct rims, and neither uses a spoke to q. Hence S is an
+edge-disjoint packing, |S|=5, and |X|=10. All its external edges
+are in R. The edge uv covers all two-hub triangles. At u, after
+deleting spokes uq,ub, the remaining rim vertices are x,y,p,a.
+Their possible edges are xp,yp,xa, all in R; xy,ya,pa are absent.
+At v, deleting vq,vc,vd leaves core vertices x,y,p, whose only
+edges xp,yp are in R. This proves every required condition.
+
+R2. Crossed attachment matchings (six triangles, at most twelve edges).
+
+Assume xa,pb,yc,qd are present, while pa,xb,qc are absent. Set
+
+  S={uxa,upb,uyq,vxp,vyc,vqd},
+  R={xa,pb,yq,xp,yc,qd},
+  X=R union ({ab} intersect E(G)) union {uy,uq,vx,vp,vd}.
+
+At u the rim pairs are {x,a},{p,b},{y,q}; at v they are
+{x,p},{y,c},{q,d}. Each list consists of disjoint pairs, and all
+six rims are distinct. Hence |S|=6, |X|<=12, and every external
+packed edge lies in X. The deleted core spokes uy,uq,vx,vp cover
+all two-hub triangles. At u the remaining rim vertices are
+x,p,a,b: the possible edges xp,xa,pb,ab are in X, and pa,xb
+are absent. At v they are y,q,c: yq,yc are in X, and qc is absent.
+Thus every hub triangle is covered.
+
+R3. Two unused privates (five triangles, nine edges).
+
+Assume ya and xc are present, and b and d have no neighbors in
+{x,y,p}. Set
+
+  S={uvq,uxp,uya,vxc,vyp},
+  R={xp,ya,xc,yp},
+  X=R union {uv,uq,ua,vq,vc}.
+
+As in R1, the hub spoke pairs are disjoint, no single-hub triangle
+uses q, and the four rims are distinct. Thus |S|=5 and |X|=9<=10;
+all external packed edges are in R. The edge uv covers two-hub
+triangles. At u the remaining rim vertices after deleting uq,ua
+are x,y,p,b, and at v they are x,y,p,d. Their only possible edges
+are xp,yp, both in R. This proves coverage.
+
+R4. A private edge and an outside triangle (six triangles, twelve edges).
+
+Assume xa,pa,ab,yc,qd are present, while xb,pb,qc are absent.
+Set
+
+  S={uvx,uyq,uab,vyc,vqd,xpa},
+  R={xp,xa,pa,yq,yc,qd,ab},
+  X=R union {uy,uq,vx,vp,vd}.
+
+The u-only rim pairs {y,q},{a,b} avoid x; the v-only pairs
+{y,c},{q,d} avoid x. Their rims are distinct. The three edges
+xp,xa,pa of the outside triangle are distinct from these four
+rims, and this triangle uses no hub edge. Hence |S|=6 and the
+packing is edge-disjoint. We have |X|=12, and all external packed
+edges lie in R. As in R2, the four core spokes cover every two-hub
+triangle. At u the remaining rim vertices are x,p,a,b, whose
+possible edges xp,xa,pa,ab lie in R because xb,pb are absent.
+At v the remaining rim vertices are y,q,c, with edges yq,yc
+in R and qc absent. This proves coverage.
+
+R5. Two private edges and one private attached to both centers
+    (seven triangles, fourteen edges).
+
+Assume ab,cd,dp,dq are present. Set
+
+  S={uxq,uyp,uab,vxp,vyq,vcd,dpq},
+  R=E(H) union {ab,cd,dp,dq},
+  X=R union {uv,ua,ub,vc,vd}.
+
+At each hub the three rim pairs are disjoint. Their four core
+rims xq,yp,xp,yq are distinct; dpq uses the fifth core edge pq
+and the two distinct attachments dp,dq. The private rims ab,cd
+are each used once. Thus |S|=7 and all triangles are edge-disjoint.
+The set R has nine edges, so |X|=14; it contains all external
+packed edges. A two-hub triangle meets uv. Every other hub triangle
+either meets a deleted private spoke or has its rim in E(H).
+This completes the check.
+
+Provenance of the recipes. R1,R2,R3,R4 are direct specializations
+of O4,O6,O9,O5, respectively, in
+compression/templates/optimal_patterns.txt. They have been verified
+explicitly here, so catalogue coverage is not an input. R5 is
+Lemma K of mad8/round5/E/p3_plus_edge_complements.txt: its seven-
+triangle pattern was discovered in that round's bounded search,
+and its universal validity has a direct proof reproduced above.
+
+4. THE STRUCTURAL DISJUNCTION
+
+By Section 2, each center has a unique attachment on each side.
+Call a side paired if the same private vertex is adjacent to p
+and q, and split if different private vertices are adjacent to
+these centers. In a paired side call the vertex adjacent to both
+centers the dominant vertex and the other the weak vertex.
+The weak vertex is adjacent to neither center.
+
+First, if a private vertex is adjacent to exactly one of x,y and
+misses at least one of p,q, apply R1. Indeed, relabel its adjacent
+leaf x, its missed leaf y, and its missed center p. The opposite
+side has a neighbor c of y by Lemma S, supplying the other R1
+attachment. Exchange sides if necessary.
+
+It remains to work under the following symmetry condition:
+
+  (*) Every private vertex missing at least one center is adjacent
+      to both leaves or to neither leaf.
+
+On a split side, both private vertices miss a center. By (*) and
+leaf support, either exactly one of them sees both leaves, or both
+see both leaves. Call these sparse split and dense split, respectively.
+On a paired side, its weak vertex sees both leaves or neither;
+no such restriction has yet been imposed on its dominant vertex.
+
+Case I. There is a sparse split side.
+
+Exchange sides and relabel centers and privates so this side is A,
+with pa,qb present, qa,pb absent, a adjacent to both leaves, and
+b adjacent to neither. Let c be the unique B-neighbor of p, and
+let d be the other B-vertex, so pd is absent.
+
+If yd is present, apply R2 with the substitutions
+
+  (R2 x,p,y,q,a,b,c,d)=(x,q,y,p,a,b,d,c).
+
+Its required edges are xa,qb,yd,pc, and its absent crossed edges
+are qa,xb,pd, all supplied above.
+
+If yd is absent, d misses p and condition (*) forces xd absent.
+Both unused privates b,d therefore miss the triple {x,y,p}.
+The vertex a sees y, and c sees x because d does not and x is
+supported on side B. Apply R3. This completes Case I regardless
+of whether side B is paired or split and regardless of either
+private edge.
+
+Case II. No side is sparse split, but at least one side is split.
+
+Exchange sides so A is dense split: pa,qb are present, qa,pb
+absent, and both a,b see both leaves. By (ii), each leaf has
+exactly one B-neighbor. Thus B cannot be dense split, and it is
+not sparse split by the case assumption. It is paired. Write c
+for its dominant vertex and d for its weak vertex.
+
+If d sees both leaves, the unique B-neighbor condition forces
+c to see neither leaf. Apply R2 after exchanging sides, using
+on the first side the matching xd,pc and on the second side
+the matching ya,qb. Its three crossed absences are pd,xc,qa.
+Explicitly, R2's labels (u,v,x,p,y,q,a,b,c,d) are replaced by
+(v,u,x,p,y,q,d,c,a,b). Thus the two crossed absences required
+on its first side belong to paired B; only qa is required on
+the dense split side A.
+
+If d sees neither leaf, it has no core neighbor. Since it has
+no edge to the opposite hub, connectedness of the link forces
+cd present. Leaf support makes c adjacent to both leaves as
+well as to both centers. Apply R4 after exchanging sides, with
+outside triangle xpc, private edge cd, and opposite matching
+ya,qb. The required absences xd,pd,qa hold. This completes Case II.
+
+Case III. Both sides are paired.
+
+Write a,c for the respective dominant vertices and b,d for their
+weak partners. Thus a,c see p,q and b,d miss p,q. By (*), each
+weak vertex sees both leaves or neither.
+
+If neither weak vertex sees a leaf, each has no core neighbor;
+connectedness forces ab and cd. Since c sees both centers,
+apply R5 with its B-labels c,d exchanged.
+
+If exactly one weak vertex sees neither leaf, exchange sides
+so this vertex is b. Connectedness forces ab, and full support
+makes a adjacent to every core vertex. The other weak vertex d
+sees both leaves, while c sees both centers. Apply R4 with
+outside triangle xpa, private edge ab, and opposite matching
+yd,qc: its absent edges are xb,pb,qd. Equivalently exchange the
+two B-labels in R4.
+
+Finally, suppose b and d both see both leaves. By (ii), a and c
+cannot both be adjacent to x. Exchange sides if necessary so
+xa is absent. Apply R2 with first-side matching xb,pa and
+second-side matching yd,qc. Its three absent crossed attachments
+are pb,xa,qd. This completes Case III.
+
+The cases exhaust all possibilities for the two sides after (*),
+and the failure of (*) was covered by R1. Every branch supplies
+one of the universally valid recipes from Section 3. This proves
+the theorem.
+
+5. SCOPE
+
+This closes the entire diamond-core structural subproblem under
+(A1) and (A2). It does not merely verify a subset of saved examples,
+and its validity is independent of the number or completeness of
+those examples. The degree budget is used only for center uniqueness
+and to forbid simultaneous double support at a leaf. The non-WKE
+hypothesis is used in Lemma S; connectedness is used there and when
+a private vertex with no core neighbor must have a private partner.
+
+The argument does not prove the remaining original core types and
+does not settle mad(G)<8. In particular it makes no inference about
+degree-five or degree-six vertices in a sparse minimal counterexample.

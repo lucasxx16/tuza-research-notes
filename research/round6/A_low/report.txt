@@ -1,0 +1,9 @@
+Primary-source record: Puleo 1308.2211v3, Lemma 2.8 discharging and §7. Scope read: §2 (Lemmas 2.6–2.8), §7 (Definitions 7.1–7.2, Lemma 7.3). Botler 2002.07925v2 was not inspected.
+
+BOTTLENECK (8-vertex, target 7→8). Under Lemma 2.7's robust/no-reducible-set hypotheses, an 8-vertex subsumes no 5-vertex and has at most four 6-minus neighbors. Puleo's rule makes a thin 6-vertex take 1/6 from every neighbor; a non-thin 6-vertex takes 1/4 only from each subsuming neighbor. Consequently an 8-vertex loses at most 4(1/4)=1 and finishes with at least 7. This is a worst-case arithmetic bound, not an assertion that loss one is attained by a graph.
+
+PROVED inequality (under robustness and absence of reducible sets): Lemma 2.7(h), via Corollary 5.3, bounds a degree-8 vertex's 6-minus neighbors by four. Only degree-6 neighbors can draw from it under the rule, but the rate is 1/6 for thin ones and 1/4 for non-thin ones it subsumes.
+
+For a target final charge of 8, an 8-vertex starts with zero surplus and receives no charge under Puleo's rule. Even one positive outflow would put it below 8; merely improving four six-minus neighbors to three does not fix this. A target-8 proof needs a different transfer rule, incoming charge, or a structural reason for zero outflow at every degree-8 vertex. This is an inference about that rule, not a source theorem.
+
+Related §7: Lemma 7.3 (proved): a 10+-vertex subsuming a 6−-vertex w has ≤ d(v)−6 six-minus neighbors — analogous but 10+-only and subsumption-dependent; not transferable to 8 without new proof.

@@ -1,0 +1,4538 @@
+[
+ {
+  "index": 1068,
+  "key": [
+   31,
+   271,
+   271
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 36,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": false,
+  "certificate_tight": true
+ },
+ {
+  "index": 1069,
+  "key": [
+   31,
+   271,
+   286
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 33,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": false,
+  "certificate_tight": true
+ },
+ {
+  "index": 1070,
+  "key": [
+   31,
+   271,
+   316
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 32,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1071,
+  "key": [
+   31,
+   271,
+   331
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 34,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1072,
+  "key": [
+   31,
+   271,
+   335
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 38,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1073,
+  "key": [
+   31,
+   271,
+   346
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 33,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1074,
+  "key": [
+   31,
+   271,
+   350
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 36,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1075,
+  "key": [
+   31,
+   271,
+   380
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 36,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1076,
+  "key": [
+   31,
+   271,
+   463
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 40,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1077,
+  "key": [
+   31,
+   271,
+   478
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 39,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1080,
+  "key": [
+   31,
+   286,
+   316
+  ],
+  "roles": {
+   "U": "u",
+   "V": "v",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "a0",
+   "b": "a1",
+   "d": "b1",
+   "swapped": false,
+   "c": "b0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": false,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "u"
+   ],
+   [
+    "c0",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "c0",
+    "c2",
+    "v"
+   ],
+   [
+    "c1",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "b1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+c0",
+   "b1+c1",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 29,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "b0+b1",
+   "b1+c0",
+   "b1+c1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1081,
+  "key": [
+   31,
+   286,
+   331
+  ],
+  "roles": {
+   "U": "u",
+   "V": "v",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "a0",
+   "b": "a1",
+   "d": "b0",
+   "swapped": false,
+   "c": "b1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": false,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "u"
+   ],
+   [
+    "c0",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "c0",
+    "c2",
+    "v"
+   ],
+   [
+    "c1",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "b0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+c0",
+   "b0+c1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 31,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "b0+b1",
+   "b0+c0",
+   "b0+c1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1082,
+  "key": [
+   31,
+   286,
+   335
+  ],
+  "roles": {
+   "U": "u",
+   "V": "v",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "a0",
+   "b": "a1",
+   "d": "b0",
+   "swapped": false,
+   "c": "b1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": false,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "u"
+   ],
+   [
+    "c0",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "c0",
+    "c2",
+    "v"
+   ],
+   [
+    "c1",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "b0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+c0",
+   "b0+c1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 35,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "b0+b1",
+   "b0+c0",
+   "b0+c1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1086,
+  "key": [
+   31,
+   286,
+   380
+  ],
+  "roles": {
+   "U": "u",
+   "V": "v",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "a0",
+   "b": "a1",
+   "d": "b1",
+   "swapped": false,
+   "c": "b0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": false,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "u"
+   ],
+   [
+    "c0",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "c0",
+    "c2",
+    "v"
+   ],
+   [
+    "c1",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "b1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+c0",
+   "b1+c1",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 33,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "b0+b1",
+   "b1+c0",
+   "b1+c1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1087,
+  "key": [
+   31,
+   286,
+   463
+  ],
+  "roles": {
+   "U": "u",
+   "V": "v",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "a0",
+   "b": "a1",
+   "d": "b0",
+   "swapped": false,
+   "c": "b1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": false,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "u"
+   ],
+   [
+    "c0",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "c0",
+    "c2",
+    "v"
+   ],
+   [
+    "c1",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "b0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+c0",
+   "b0+c1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 37,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "b0+b1",
+   "b0+c0",
+   "b0+c1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1089,
+  "key": [
+   31,
+   316,
+   316
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a1",
+   "swapped": true,
+   "c": "a0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+c0",
+   "a1+c1",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 28,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a1+c0",
+   "a1+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1090,
+  "key": [
+   31,
+   316,
+   331
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a1",
+   "swapped": true,
+   "c": "a0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+c0",
+   "a1+c1",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 30,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a1+c0",
+   "a1+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1091,
+  "key": [
+   31,
+   316,
+   335
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a1",
+   "swapped": true,
+   "c": "a0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+c0",
+   "a1+c1",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 34,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a1+c0",
+   "a1+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": false,
+  "certificate_tight": true
+ },
+ {
+  "index": 1092,
+  "key": [
+   31,
+   316,
+   346
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a1",
+   "swapped": true,
+   "c": "a0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+c0",
+   "a1+c1",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 29,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a1+c0",
+   "a1+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1093,
+  "key": [
+   31,
+   316,
+   350
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a1",
+   "swapped": true,
+   "c": "a0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+c0",
+   "a1+c1",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 32,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a1+c0",
+   "a1+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1094,
+  "key": [
+   31,
+   316,
+   380
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a1",
+   "swapped": true,
+   "c": "a0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+c0",
+   "a1+c1",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 32,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a1+c0",
+   "a1+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1095,
+  "key": [
+   31,
+   316,
+   463
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a1",
+   "swapped": true,
+   "c": "a0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+c0",
+   "a1+c1",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 36,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "a1+c0",
+   "a1+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1096,
+  "key": [
+   31,
+   316,
+   478
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a1",
+   "swapped": true,
+   "c": "a0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+c0",
+   "a1+c1",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 35,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "a1+c0",
+   "a1+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 7,
+  "tau_record": 14,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1097,
+  "key": [
+   31,
+   331,
+   331
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 32,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1098,
+  "key": [
+   31,
+   331,
+   335
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 36,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1099,
+  "key": [
+   31,
+   331,
+   346
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 31,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1100,
+  "key": [
+   31,
+   331,
+   350
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 34,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1101,
+  "key": [
+   31,
+   331,
+   376
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 28,
+  "n_triangles": 32,
+  "n_hub_triangles": 24,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1102,
+  "key": [
+   31,
+   331,
+   380
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 34,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1103,
+  "key": [
+   31,
+   331,
+   399
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 36,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": false,
+  "certificate_tight": true
+ },
+ {
+  "index": 1104,
+  "key": [
+   31,
+   331,
+   414
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 34,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1105,
+  "key": [
+   31,
+   331,
+   444
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 34,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": false,
+  "certificate_tight": true
+ },
+ {
+  "index": 1106,
+  "key": [
+   31,
+   331,
+   463
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 38,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 7,
+  "tau_record": 14,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1107,
+  "key": [
+   31,
+   331,
+   478
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 37,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1108,
+  "key": [
+   31,
+   335,
+   346
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 35,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1109,
+  "key": [
+   31,
+   335,
+   399
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 40,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1110,
+  "key": [
+   31,
+   335,
+   414
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 38,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1111,
+  "key": [
+   31,
+   335,
+   444
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a0",
+   "swapped": true,
+   "c": "a1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 38,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "a0+c0",
+   "a0+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1116,
+  "key": [
+   31,
+   346,
+   380
+  ],
+  "roles": {
+   "U": "u",
+   "V": "v",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "a0",
+   "b": "a1",
+   "d": "b1",
+   "swapped": false,
+   "c": "b0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": false,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "u"
+   ],
+   [
+    "c0",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "c0",
+    "c2",
+    "v"
+   ],
+   [
+    "c1",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "b1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+c0",
+   "b1+c1",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 29,
+  "n_triangles": 33,
+  "n_hub_triangles": 25,
+  "packed_external_edges": [
+   "a0+a1",
+   "b0+b1",
+   "b1+c0",
+   "b1+c1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 5,
+  "tau_record": 10,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1117,
+  "key": [
+   31,
+   346,
+   463
+  ],
+  "roles": {
+   "U": "u",
+   "V": "v",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "a0",
+   "b": "a1",
+   "d": "b0",
+   "swapped": false,
+   "c": "b1"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": false,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "u"
+   ],
+   [
+    "c0",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "c0",
+    "c2",
+    "v"
+   ],
+   [
+    "c1",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "b0",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+c0",
+   "b0+c1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 37,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "b0+b1",
+   "b0+c0",
+   "b0+c1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": false,
+  "certificate_tight": true
+ },
+ {
+  "index": 1121,
+  "key": [
+   31,
+   350,
+   444
+  ],
+  "roles": {
+   "U": "u",
+   "V": "v",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "a0",
+   "b": "a1",
+   "d": "b1",
+   "swapped": false,
+   "c": "b0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": false,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "u"
+   ],
+   [
+    "c0",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "c0",
+    "c2",
+    "v"
+   ],
+   [
+    "c1",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "b1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+c0",
+   "b1+c1",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 36,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "b0+b1",
+   "b1+c0",
+   "b1+c1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ },
+ {
+  "index": 1122,
+  "key": [
+   31,
+   380,
+   444
+  ],
+  "roles": {
+   "U": "v",
+   "V": "u",
+   "x": "c2",
+   "y": "c3",
+   "p": "c0",
+   "q": "c1",
+   "a": "b0",
+   "b": "b1",
+   "d": "a1",
+   "swapped": true,
+   "c": "a0"
+  },
+  "core_degrees": [
+   3,
+   3,
+   2,
+   2
+  ],
+  "hub_side_swapped": true,
+  "packing_S": [
+   [
+    "c1",
+    "c2",
+    "v"
+   ],
+   [
+    "c0",
+    "c3",
+    "v"
+   ],
+   [
+    "b0",
+    "b1",
+    "v"
+   ],
+   [
+    "c0",
+    "c2",
+    "u"
+   ],
+   [
+    "c1",
+    "c3",
+    "u"
+   ],
+   [
+    "a0",
+    "a1",
+    "u"
+   ],
+   [
+    "a1",
+    "c0",
+    "c1"
+   ]
+  ],
+  "cover_X": [
+   "a0+a1",
+   "a0+u",
+   "a1+c0",
+   "a1+c1",
+   "a1+u",
+   "b0+b1",
+   "b0+v",
+   "b1+v",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3",
+   "u+v"
+  ],
+  "checks": {
+   "existence": true,
+   "disjoint": true,
+   "roles_distinct": true,
+   "hub_coverage": true,
+   "outside_packed_edges_in_X": true,
+   "cover_subset_E": true,
+   "budget_ok": true
+  },
+  "n_edges": 30,
+  "n_triangles": 36,
+  "n_hub_triangles": 26,
+  "packed_external_edges": [
+   "a0+a1",
+   "a1+c0",
+   "a1+c1",
+   "b0+b1",
+   "c0+c1",
+   "c0+c2",
+   "c0+c3",
+   "c1+c2",
+   "c1+c3"
+  ],
+  "nu_record": 6,
+  "tau_record": 12,
+  "uv_witnessed_in_record": true,
+  "certificate_tight": true
+ }
+]

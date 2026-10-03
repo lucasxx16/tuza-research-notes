@@ -1,0 +1,27 @@
+PRIMARY
+- Gupta, A. "Tuza's conjecture for graphs of maximum degree at most seven."
+  arXiv:2608.06538v1 (6 Aug 2026). HTML: https://arxiv.org/html/2608.06538v1
+- Section `sec:codeg4` (Triangle codegree four): proposition `prop:codeg4`,
+  per-core census table (K4−e row: 142 valid side masks for one fixed labelled
+  core representative, 139 saved orbits),
+  example witness key (63,271,271), 1,144 certificates / 18,304 verifications.
+- Section `sec:prelim` (Puleo's reducibility framework): Definition 2.1,
+  Lemma 2.2; Puleo discharging Lemmas 2.7/2.8 unused here.
+- Section `sec:open` (Concluding remarks): Questions `q:mad8`, `q:human`
+  ("Is there a human-readable proof of prop:codeg4?"), `q:equality`, `q:k5free`.
+- Appendix `app:programs`: check_codegree4.py, B_codegree4_search.py.
+- Puleo, G.J. "Tuza's conjecture for graphs of maximum average degree less
+  than 7." (2015) [ref Puleo2015].
+
+LOCAL READONLY UPSTREAM (sibling tuza-upstream, v1)
+- paper/main.tex (exact labels above)
+- data/B_codegree4_certificates.json (1,144 certificates; core key "31"=K4−e)
+- src/B_codegree4_search.py
+- README.md (arXiv:2608.06538, preprint status, certificate catalogue)
+
+WORKING-TREE CONTEXT
+- mad8/round5/E/p3_plus_edge_complements.txt: Lemma K statement + proof
+  (seven triangles, fourteen-edge tight cover |X|=2|S|).
+- research/round6/B_saved/diamond_transfer_summary.json and
+  research/round6/C/check_diamond_transfer_literal.py: 42 of 139 saved
+  diamond records pass Lemma K's attachment test and literal certificate check.

@@ -1,0 +1,8 @@
+Role B addendum (E) -- saved-record query, decoder reused, no new graphs/search/MILP.
+139 diamond records checked: centers with exactly one A and one B attachment in 139/139; exceptions 0.
+Grouping (A/B label swap merged, swap recorded per member; 28 records needed the swap): {'A=paired,B=paired,a0a1=0,b0b1=0': 7, 'A=paired,B=paired,a0a1=0,b0b1=1': 21, 'A=paired,B=paired,a0a1=1,b0b1=1': 21, 'A=paired,B=split,a0a1=0,b0b1=0': 8, 'A=paired,B=split,a0a1=0,b0b1=1': 12, 'A=paired,B=split,a0a1=1,b0b1=0': 15, 'A=paired,B=split,a0a1=1,b0b1=1': 21, 'A=split,B=split,a0a1=0,b0b1=0': 7, 'A=split,B=split,a0a1=0,b0b1=1': 14, 'A=split,B=split,a0a1=1,b0b1=1': 13}
+Remaining-97 split of the same grouping: {'A=paired,B=paired,a0a1=0,b0b1=0': 7, 'A=paired,B=paired,a0a1=0,b0b1=1': 21, 'A=paired,B=split,a0a1=0,b0b1=0': 8, 'A=paired,B=split,a0a1=0,b0b1=1': 12, 'A=paired,B=split,a0a1=1,b0b1=0': 15, 'A=split,B=split,a0a1=0,b0b1=0': 7, 'A=split,B=split,a0a1=0,b0b1=1': 14, 'A=split,B=split,a0a1=1,b0b1=1': 13}
+Cross-check vs the transfer audit: of the 55 records with BOTH internal edges, the 42 with a paired side are exactly the 42 covered ones (True); the 13 split/split ones all fall in the 97 remainder.
+One representative per non-empty remaining group (leaf attachment matrix + saved packing/cover) is stored in
+diamond_center_pairing_groups.json:representative_per_nonempty_remaining_group.
+Counts are diagnostics only; no proof claimed. Dataset attribution: Gupta, CC BY 4.0.

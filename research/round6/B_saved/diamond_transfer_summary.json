@@ -1,0 +1,70 @@
+{
+ "task": "saved-record audit of diamond/Lemma-K transfer claim (no enumeration, no solver)",
+ "attribution": "dataset Gupta, CC BY 4.0 (compression/input/PROVENANCE.txt); no private paths",
+ "legend": {
+  "core_degrees": "decoded from core_bit_order; diamond = 3,3,2,2",
+  "roles": "U,V hubs; x,y degree-2 core; p,q centers; a,b pair at U; c,d pair at V, d on both p,q",
+  "S": "uxq,uyp,uab,vxp,vyq,vcd,dpq",
+  "X": "E(K4-xy)+ab,cd,dp,dq+uv,ua,ub,vc,vd",
+  "naming": "u-side = left_exclusive (a0,a1); v-side = right_exclusive (b0,b1)"
+ },
+ "total_records": 1144,
+ "decoded_diamond_records": 139,
+ "claim_diamond_records": 139,
+ "diamond_claim_verified": true,
+ "lemmaK_covered": 42,
+ "claim_covered": 42,
+ "covered_claim_verified": true,
+ "remaining": 97,
+ "partition": {
+  "both_private_edges_no_private_vertex_on_both_centers": 13,
+  "missing_private_edge_on_u": 62,
+  "missing_private_edge_on_u_and_v": 22
+ },
+ "missing_private_edge_total": 84,
+ "both_edges_no_center_total": 13,
+ "claim_partition": {
+  "missing_private_edge": 84,
+  "both_edges_no_center": 13
+ },
+ "witness_check_totals": {
+  "existence": 42,
+  "disjoint": 42,
+  "roles_distinct": 42,
+  "hub_coverage": 42,
+  "outside_packed_edges_in_X": 42,
+  "cover_subset_E": 42,
+  "budget_ok": 42
+ },
+ "witnesses_fully_clean": 42,
+ "all_certificates_tight": true,
+ "budget_note": "|S|=7, |X|=14=2*|S|; cover X is tight in the local reduction sense",
+ "witnesses_uv_witnessed": 36,
+ "example_keys": {
+  "both_private_edges_no_private_vertex_on_both_centers": [
+   31,
+   286,
+   286
+  ],
+  "missing_private_edge_on_u": [
+   31,
+   30,
+   271
+  ],
+  "missing_private_edge_on_u_and_v": [
+   31,
+   30,
+   30
+  ]
+ },
+ "tight_atlas_check": {
+  "source": "mad8/round5/B_D/scan_tight_summary.json (read only, no rescan)",
+  "census_len": 27,
+  "nu1": 20,
+  "nu2": 7,
+  "other_nu": 0,
+  "reported_counts_field": 27,
+  "all_tau_eq_2nu": true,
+  "claim_20_nu1_7_nu2_verified": true
+ }
+}

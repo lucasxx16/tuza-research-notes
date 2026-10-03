@@ -1,0 +1,66 @@
+ROUND 6 COORDINATOR DECISION
+
+Decision: accept three reviewed milestones and stop new research for reporting.
+The full mad(G)<8 implication remains unresolved. No novelty, human peer-review,
+or proof-assistant-verification claim is made.
+
+1. COMPLETE ORIGINAL DIAMOND CORE
+E gives a census-free proof under connected non-WKE links and the original
+per-common-vertex degree budget A2. A perfect-matching-core support lemma
+forces private attachments at every core vertex on each side. A2 then gives
+unique center attachments and forbids double leaf support on both sides.
+Five explicit packing-cover recipes exhaust the paired/split cases.
+All recipes have direct ambient coverage and packed external-edge containment
+proofs. Their sizes are 5/10, 6/<=12, 5/9, 6/12, and 7/14.
+C and coordinator accept the complete proof. C's provisional dense-split
+objection was retracted after the missing hub exchange was supplied; the
+stress-test note records the correction rather than retaining a false gap.
+
+The six fully settled core types correspond to 713 saved records. The remaining
+C4, paw, and triangle-plus-isolate types correspond to 227+179+25=431 records.
+Counts are context, never a premise of E's proof. Gupta had already proved the
+original codegree-four existence theorem using the finite catalogue; this
+round supplies a human structural explanation of its entire diamond case.
+It does not remove A2, derive A2 from mad<8, or settle all of Question 1.
+The earlier nine-template minimum remains restricted to its fixed dictionary.
+
+2. PRESCRIBED-EDGE COVERS AT PACKING NUMBER ONE OR TWO
+D proves that every triangle edge of a graph with nu in {1,2} lies in a cover
+of size at most 2nu. There are no order, degree, connectedness, or conditional
+Tuza assumptions. In a tight nu=2 graph, each triangle edge therefore belongs
+to SOME minimum cover. This excludes the round-five rich three-edge profile
+at k=2, independently of whether the boundary is P4 or a three-edge star.
+Together with k=1, a possible rich side must have k>=3. The proof uses the
+nu=1 triangle-family classification and complementary triangle/K4 edge deletions,
+not the previous atlas experiment. C and coordinator accept it as stated.
+Literature priority is not established by the bounded source check.
+
+3. A PRECISE BARRIER TO JOINT COUNTING FROM EXISTING CAPS
+D's 12-vertex graph has mad<8, is robust, satisfies all conclusions of Puleo
+Lemma 2.7(a)-(h), and has just one degree-seven vertex with matching-complement
+link. It is also five-connected and has no nontrivial cut smaller than ten.
+The total target-eight low-degree deficit is 12, exceeding high-degree surplus
+10. Thus these necessary inputs alone cannot yield average degree at least
+eight, even when no degree-eight vertices occur. The example is not asserted
+irreducible and is not a Tuza counterexample. C and coordinator checked the
+full symbolic subgraph-density, adjacency, subsumption, connectivity, and cut
+arguments. Further interaction exclusions are needed for the mad<8 mainline.
+
+COMPUTATIONAL AUDIT
+HPC queried existing saved records only. The proposed Lemma-K transfer holds
+on 42/139 diamond records; 84 of the other records lack a private internal
+edge, and 13 have both but no private vertex seeing both centers. The initial
+HPC checker confused the outside-packed-edge condition and used an invalid
+8|S| budget. C corrected it and independently reconstructed the input graphs
+and all 42 literal 7/14 certificates. All passed, with 126 damaged controls
+rejected. The coordinator reran that independent checker successfully.
+The atlas nu=1/nu=2 split 20/7 was read from the previous output, not rescanned.
+The center-pairing grouping is descriptive data, not a structural-proof premise.
+Neither the upstream census nor the original certificate finder was rerun.
+
+NEXT RESEARCH OBLIGATIONS
+The original structural problem still needs C4, paw, and triangle plus isolate.
+The mad<8 problem still needs a genuine restriction coupling low-degree
+neighborhoods beyond the caps exposed by D's example; adding more isolated
+degree-seven link cases does not resolve that deficit. Rich profiles at k>=3
+remain open in these notes. No additional research round is started here.

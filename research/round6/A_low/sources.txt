@@ -1,0 +1,11 @@
+PRIMARY SOURCE
+Puleo, "Tuza's Conjecture for Graphs with Maximum Average Degree less than 7," arXiv:1308.2211v3, https://arxiv.org/html/1308.2211v3
+- Lemma 2.7(e),(h): no 8-minus vertex subsumes a 5-vertex; a degree-7/8/9 vertex has at most d(v)-4 degree-6-minus neighbors, under robustness and no reducible set.
+- Lemma 2.8: 5-vertices take 2/3 from subsumers, thin 6-vertices take 1/6 from every neighbor, non-thin 6-vertices take 1/4 from subsumers; degree-8 case concludes final charge at least 7.
+- Definitions 7.1–7.2 and Lemma 7.3: a degree-10-plus vertex subsuming a 6-minus vertex has at most d(v)-6 degree-6-minus neighbors.
+
+Reading scope: §2 Lemmas 2.6–2.8 and §7 Definitions 7.1–7.2/Lemma 7.3. The remainder of §7, §§4–6, and references were not audited for this report.
+
+Botler 2002.07925v2: not located in workspace, not inspected.
+
+RESULT DIRECTORY: research/round6/A_low/ (report.txt, sources.txt).

@@ -1,0 +1,7 @@
+Early adversarial review of E's perfect-matching-core attachment lemma.
+
+Claim: in a connected non-WKE seven-vertex link with vertices {z} union C union {a,b}, z adjacent exactly to C, and a four-vertex core H=G[C] having a perfect matching, every c in C has a private neighbor in {a,b}. This claim is valid.
+
+If c has no private attachment, set Q=C\{c}. Outside Q lie z,c,a,b, with only zc and possibly ab. If ab is present, choose a core-perfect-matching edge e avoiding c; {zc,ab,e} is a matching of size three containing both residual edges. If ab is absent, connectedness gives each of a,b a nonempty core neighborhood, wholly in Q. The previously proved Lemma M in compression/round3/E/path_core.txt gives attachment support at least three; consequently Hall's condition for two private vertices holds, yielding distinct edges ac1,bc2. Then {zc,ac1,bc2} is a matching of size three containing the only residual edge. Thus either case would make the link WKE, contradiction.
+
+For diamond core with centers p,q of core degree three and leaves x,y of core degree two, applying this on both sides plus original A2 gives exactly one private attachment per side at each center. Each leaf has at least one attachment per side and at most three total. The lemma is a necessary structural condition only; it does not provide S,X or show that all such patterns reduce.

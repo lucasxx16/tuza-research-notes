@@ -1,0 +1,57 @@
+ROUND 6 / D / INDEPENDENT INITIAL DRAFT
+
+Chosen substantial target: rule out the rich three-shared-edge profile
+at packing number k=2. No E round-six material or mainline ideas were
+inspected. No numerical research was run.
+
+Candidate stronger theorem: if nu(G) is one or two and e lies in a
+triangle, then G has a triangle cover containing e of size at most
+2nu(G). Hence in a tight graph with nu=2 and tau=4, every triangle
+edge belongs to SOME minimum cover. This forbids the rich profile
+unconditionally at k=2; no subgraph-Tuza hypothesis is needed.
+
+Recall the elementary nu=1 structure: all triangles either share one
+edge, or all lie in one K4. In the common-edge case a prescribed edge
+e in a triangle can be included by selecting it and the common edge;
+in the K4 case select e and its opposite edge. Thus a cover containing
+e of size at most two always exists.
+
+For nu(G)=2, choose a triangle T containing e and put G0=G-E(T).
+Then nu(G0)<=1. If tau(G0)<=1, select all three edges of T plus a
+one-edge/empty cover of G0: this gives a cover containing e of size<=4.
+
+If tau(G0)=2, the nu=1 structure gives a K4 on a vertex set C such
+that ALL triangles of G0 lie in that K4. Since it lies in G0, its edge
+set is disjoint from E(T), so |C intersect V(T)|<=1. Every vertex
+outside C has at most one C-neighbor in G0: two would create a triangle
+of G0 outside the K4.
+
+Put F=G-E(K4). Then T remains in F, and nu(F)=1: two edge-disjoint
+triangles of F together with any K4 triangle would pack three in G.
+Choose a <=2-edge cover of F containing e by the nu=1 statement.
+
+It remains to cover mixed triangles that use one K4 edge. If C and T
+are disjoint, no mixed triangle exists: any triangle outside K4 must
+use a T-edge, and then cannot have two C-vertices. If their intersection
+is {w}, write T=wab. A mixed triangle must be wap or wbq for p,q in
+C\{w}; there is at most one of each, by the C-neighbor bound in G0.
+If both exist with p distinct from q, these two triangles are edge-
+disjoint, and the triangle on C\{w} is disjoint from both. This is a
+three-triangle packing, impossible. Therefore all mixed triangles,
+if any, use the SAME K4 edge g=wp.
+
+Choose a two-edge perfect matching of the K4 containing g, or any one
+if no mixed triangle exists. It covers all K4 triangles and every
+mixed triangle. Together with the <=2-edge cover of F containing e,
+it covers G in at most four edges and contains e, proving the theorem.
+
+Potential audit points: the nu=1 family classification; all triangles
+of G0, not merely a maximum packing, lying in one K4; exhaustive mixed
+triangle description; and independence of the three triangles in the
+p!=q contradiction. This is a human proof and needs no computation.
+
+Consequence for the exact rich profile: each edge of its F creates a
+packing gain when restored alone, so each belongs to a triangle. The
+profile requires tau(H)=4, nu(H)=2 and all F edges in no minimum cover,
+contradicting the theorem. Combined with the reviewed k=1 result, any
+rich side must have packing number at least three.

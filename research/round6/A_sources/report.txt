@@ -1,0 +1,33 @@
+SOURCE AUDIT — Lemma K (K4−e diamond) vs. Gupta arXiv:2608.06538v1
+
+WHAT IS ALREADY THE PAPER'S RESULT
+Section `sec:codeg4` (Triangle codegree four) + Proposition `prop:codeg4`
+already prove, for any 7-regular G and edge uv with cod(uv)=4 whose links are
+connected and not in WKE, that {u,v} is reducible. It is a finite classified
+theorem via a machine-checked catalogue of 1,144 certificates (18,304 literal
+verifications, Section `sec:codeg4` + Appendix `app:programs`). The per-core
+census table lists the diamond core K4−e with 142 valid side masks for one fixed
+labelled core representative and 139 saved
+orbits under (A1)+(A2). So reducibility of the diamond core is already
+established as Proposition `prop:codeg4`; it is not open.
+
+PULEO FRAMEWORK IMPORTED
+Section `sec:prelim` imports Puleo's Definition 2.1 (vertex reducibility
+using S and X) and Lemma 2.2. Lemma K proves this same local criterion directly;
+Puleo's discharging Lemmas 2.7/2.8 are not used.
+
+WHY LEMMA K MUST NOT CLAIM NOVELTY OR WHOLE-DIAMOND COVERAGE
+1. Under the paper's 7-regular, connected non-WKE hypotheses, diamond-core
+reducibility already follows from `prop:codeg4`. Lemma K is a human sufficient
+certificate with weaker link/A2 assumptions and applies in any ambient graph
+whose endpoints have degree seven and the specified attachments. No novelty
+claim is assessed here.
+2. A corrected saved-record check and an independent literal verifier confirm
+that Lemma K applies to 42 of the 139 saved diamond records. This does not
+establish whole-diamond human coverage; 97 records remain outside that
+specific construction.
+E's separate final structural proof in research/round6/E/diamond_core.txt
+subsequently covers the whole diamond core under (A1)+(A2).
+3. Gupta explicitly leaves a human-readable proof open (Question `q:human`,
+Section `sec:open`). Honest framing: Lemma K is a partial step toward `q:human`,
+under its precise degree-seven endpoint hypotheses, not full-diamond coverage.

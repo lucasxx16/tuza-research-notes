@@ -1,0 +1,10 @@
+Role B round 6 -- bounded saved-record audit (no enumeration, no solver).
+Source compression/input/B_codegree4_certificates.json: 1144 records; attribution Gupta, CC BY 4.0.
+Decoded diamond cores (degrees 3,3,2,2): 139; claim 139 -> match.
+Lemma K covered (both private internal edges AND a private vertex on both centers, up to core permutation, private-pair rename, hub side swap): 42; claim 42 -> match.
+Remaining 97: both_private_edges_no_private_vertex_on_both_centers=13, missing_private_edge_on_u=62, missing_private_edge_on_u_and_v=22. Examples: {"both_private_edges_no_private_vertex_on_both_centers": [31, 286, 286], "missing_private_edge_on_u": [31, 30, 271], "missing_private_edge_on_u_and_v": [31, 30, 30]}
+Checks on 42 covered records: {"existence": 42, "disjoint": 42, "roles_distinct": 42, "hub_coverage": 42, "outside_packed_edges_in_X": 42, "cover_subset_E": 42, "budget_ok": 42}; reducibility requires hub coverage and packed external-edge containment, not full graph coverage.
+The displayed witness is tight: |S|=7 and |X|=14=2|S|. Unused graph edges outside S union X are irrelevant.
+uv explicitly witnessed in 36 of 42 covered records; 0 remaining records miss only the v-side internal edge.
+mad8/round5/B_D cross-check: 27 tight entries nu1=20 nu2=7 -> claim 20+7 match; no rescan.
+Counts bound the audit only; no proof declared.

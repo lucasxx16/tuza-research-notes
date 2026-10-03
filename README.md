@@ -15,7 +15,7 @@ pinned to commit `bf8415fac44f4eeed6c0f7a2273b843d689b065e`.
 ### Maximum average degree below eight
 
 **The full implication `mad(G)<8 => tau(G)<=2nu(G)` remains unresolved here.**
-The latest round forces a reducible pair when minimum degree is at least
+Round five forces a reducible pair when minimum degree is at least
 seven, average degree is below eight, and every degree-seven link has
 complement a matching, P3, P4, or P3+K2, padded with isolated vertices to
 order seven. Two new universal seven-triangle constructions handle P3+K2;
@@ -35,14 +35,32 @@ cut can therefore be the incident edges of a degree-five, six, or seven
 vertex; this does not assert eight-edge-connectivity. Degree-five/six
 vertices and degree-seven links outside the matching/P3/P4/P3+K2 families remain unresolved.
 
-The equality route now gives packing-loss bounds under edge deletion and
-the exact packing/cover profile required on one side of the unresolved
-three-shared-edge separator obstruction. A bounded atlas experiment checked
-906 connected triangle-bearing graphs through order seven, finding 27 tight
-graphs and no triangle edge excluded from every minimum cover. This is
-finite computational evidence; the general obstruction remains unresolved.
+The equality route gives packing-loss bounds under edge deletion and the
+exact packing/cover profile required on one side of the unresolved
+three-shared-edge separator obstruction. Round six now proves, for every
+finite simple graph with packing number one or two, that any prescribed
+triangle edge belongs to a triangle cover of size at most twice that packing
+number. Thus every triangle edge of a tight graph with packing number two
+belongs to some minimum cover. This excludes the rich boundary profile at
+packing number two, for both P4 and three-edge-star boundaries and without
+an order bound. A possible rich side must have packing number at least three.
+The earlier 906-graph atlas check is retained as historical finite evidence;
+it is not a premise of this proof.
 
-- [Latest results and limits in Chinese](docs/mad8-round5.zh-CN.txt)
+Round six also gives a twelve-vertex logical barrier: robustness, all conclusions
+of Puleo's existing low-degree lemma, the treated degree-seven link condition,
+and the previous connectivity bounds can hold simultaneously in a graph with
+maximum average degree below eight. These necessary inputs alone cannot close
+the joint counting argument. The example is not asserted irreducible and is
+not a counterexample to Tuza's conjecture.
+
+- [Round-six consolidation and limits in Chinese](docs/research-round6.zh-CN.txt)
+- [Prescribed-edge covers for packing number at most two](research/round6/D/prescribed_edge_cover_k2.txt)
+- [Exact-file review of the prescribed-edge theorem](research/round6/C/review_D_full.txt)
+- [Twelve-vertex barrier to the existing joint degree caps](research/round6/D/joint_caps_barrier.txt)
+- [Exact-file review of the joint-counting barrier](research/round6/C/review_D_joint_caps.txt)
+- [Round-six coordinator review](research/round6/review_summary.txt)
+- [Round-five results and limits in Chinese](docs/mad8-round5.zh-CN.txt)
 - [P3+K2 extension and two universal seven-triangle certificates](mad8/round5/E/p3_plus_edge_complements.txt)
 - [Equality, edge deletion, and the exact boundary profile](mad8/round5/D/equality_boundary_profiles.txt)
 - [Two fixed MILP instances and their witnesses](mad8/round5/B)
@@ -86,15 +104,23 @@ rebuilds the entire dictionary and incidence relation from the original witnesse
 then checks both bounds and all 1,144 exported certificates. No solver's floating
 point status is needed for this proof of optimality.
 
-Human-readable proofs now settle five entire core types: **P3 plus an isolated
-vertex, K1,3, 2K2, P4, and K4**. Together these types account for 574 of the 1,144
-saved records; the proofs do not use those counts or the catalogue as premises.
+Human-readable proofs now settle six entire core types: **P3 plus an isolated
+vertex, K1,3, 2K2, P4, K4, and diamond**. Together these types account for 713 of
+the 1,144 saved records; the proofs do not use those counts or the catalogue as
+premises. The diamond proof derives full private attachment support and then
+exhausts paired/split center attachments with five explicit packing-cover
+recipes. It requires the original connected non-WKE links and common-vertex
+degree budget; it does not derive that budget from maximum average degree.
 Empty and single-edge cores are also excluded structurally, using explicit WKE
-witnesses and Puleo's Corollary 4.12. Four types remain: triangle plus isolated
-vertex, paw, C4, and diamond (570 saved records). The upstream graph census and
+witnesses and Puleo's Corollary 4.12. Three types remain: triangle plus isolated
+vertex (25 records), paw (179), and C4 (227), totaling 431. The upstream graph census and
 original certificate finder were not rerun.
 
-- [Latest structural results and remaining cases, in Chinese](docs/structural-progress.zh-CN.txt)
+- [Latest structural results and remaining cases, in Chinese](docs/research-round6.zh-CN.txt)
+- [Complete human diamond-core proof](research/round6/E/diamond_core.txt)
+- [Exact-file diamond proof review](research/round6/C/review_E_full.txt)
+- [Independent check of the 42-record Lemma-K transfer](research/round6/C/check_diamond_transfer_literal.py)
+- [Earlier five-core structural results](docs/structural-progress.zh-CN.txt)
 - [New sparse-core proofs: P3 plus isolated and K1,3](compression/round3/E/sparse_star_cores.txt)
 - [P4 proof and perfect-matching support lemma](compression/round3/E/path_core.txt)
 - [K4 proof using two binary attachment partitions](compression/round3/D/k4_human_proof.txt)
@@ -141,6 +167,7 @@ classification or a minimum-order question.
 | `docs/` | Consolidated Chinese result reports |
 | `equality/` | Equality constructions, proofs, literature notes, and exact checks |
 | `mad8/` | Partial reductions, density barriers, source audits, and named-graph checks |
+| `research/round6/` | Diamond proof, prescribed-edge theorem, joint-counting barrier, source audits, and saved-record checks |
 | `compression/input/` | Unmodified, attributed upstream certificate catalogue |
 | `compression/templates/` | Signed patterns, incidence data, exports, and generators |
 | `compression/theory/` | Structural proofs and reusable lemmas |
@@ -159,6 +186,15 @@ session transcripts are excluded from the public record.
 
 Run from the repository root with Python 3.10 or newer. These checks require only
 the standard library. Do not use `python -O`, which disables assertions.
+
+Round six's mathematical proofs are self-contained symbolic arguments. The
+following independent check reads the saved catalogue, verifies the 42 literal
+Lemma-K transfer witnesses and rejects 126 damaged controls. It is a diagnostic
+for that subset, not a premise or verification of the complete diamond proof:
+
+```shell
+python research/round6/C/check_diamond_transfer_literal.py
+```
 
 For the new maximum-average-degree notes:
 

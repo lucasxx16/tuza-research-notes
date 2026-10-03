@@ -1,0 +1,5 @@
+Diamond case-(2) stress test and corrected review.
+
+Consider core centers p,q and nonadjacent leaves x,y. On one side, a is adjacent to p,x,y and b to q,x,y; on the other, c is adjacent to p,q and d to x,y. Both links remain non-WKE with either choice of private internal edges, as the single specified check_case2_link.py diagnostic reports, and A2 holds. This is a useful genuine test for a universal case split.
+
+My initial objection to O6 was WRONG because I held the split side fixed as O6's first side. O6 has two crossed nonedges on its first side and only one on its second. Swap the hubs: assign paired {c,d} to the first side, with matching x-d,p-c and missing p-d,x-c; assign split {a,b} to the second, with matching y-a,q-b and missing q-a. The two core edges xp and yq are disjoint. All required present and absent edges hold, so O6 covers this pattern. No counterexample to E's inference was found here.

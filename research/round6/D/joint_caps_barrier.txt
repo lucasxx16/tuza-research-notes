@@ -1,0 +1,183 @@
+ROUND 6 / D
+A TWELVE-VERTEX BARRIER TO THE EXISTING JOINT DEGREE CAPS
+
+Status: reviewed research proof; see C/review_D_joint_caps.txt.
+No novelty claim is made. No numerical search or computation is used.
+
+PURPOSE AND SCOPE.
+The conclusions of Puleo's Lemma 2.7(a)-(h), robustness, and independence
+of degree-seven vertices do not by themselves force average degree at
+least eight. This remains true when the only degree-seven link has
+complement a matching, one of the previously treated link families.
+The example below simultaneously has vertices of degrees five, six,
+and seven, so it is an obstruction to combining these numerical caps
+alone into a target-eight discharging proof.
+
+This does NOT assert that the example has no reducible set. Puleo's
+lemma assumes robustness and no reducible set and gives necessary
+conclusions; satisfying its conclusions does not recover that premise.
+The example is not a counterexample to Tuza's conjecture. A new joint
+argument may exclude it by a reduction or use a stronger structural
+condition. The statement is precisely about the insufficiency of the
+listed necessary conditions.
+
+1. LABELED GRAPH.
+
+Let U={w,0,1,2,3,4,5,6}. On U take K8 minus edges 01 and 35.
+Add four mutually nonadjacent vertices a,b,c,t, with neighborhoods
+  N(a)={0,3,4,5,6},
+  N(b)={0,1,2,5,6},
+  N(c)={0,1,2,3,4},
+  N(t)={1,2,3,4,5,6}.
+There are no other edges. Denote this graph by J.
+
+Its degree classes are
+  degree 5: a,b,c;
+  degree 6: t;
+  degree 7: w;
+  degree 9: 0,1,3,5;
+  degree 10: 2,4,6.
+In particular there are no degree-eight vertices. The degree sum is
+  3*5 + 6 + 7 + 4*9 + 3*10 = 94,
+so J has 47 edges and average degree 47/6<8.
+
+2. MAXIMUM AVERAGE DEGREE IS STRICTLY BELOW EIGHT.
+
+It suffices to check induced subgraphs, since removing edges cannot
+increase average degree at fixed vertex set. Consider a nonempty
+vertex set Z. Put s=|Z intersect U|, let r be the number of a,b,c in Z,
+and let q be 1 if t lies in Z and 0 otherwise. Thus r<=3 and q<=1.
+
+If s=0, J[Z] has no edges. If s=1, it has at most r+q edges, and
+  8|Z|-2|E(J[Z])| >= 8+6(r+q)>0.
+
+If 2<=s<=7, the crude bound
+  |E(J[Z])| <= s(s-1)/2 + 5r + 6q
+gives
+  8|Z|-2|E(J[Z])| >= s(9-s)-2r-4q >=14-10>0.
+
+If s=8, both omitted core edges are absent and every selected outside
+vertex contributes its entire degree. Therefore
+  8|Z|-2|E(J[Z])| = 12-2r-4q >=2>0.
+
+Every nonempty subgraph consequently has average degree below eight,
+and J is finite. Thus mad(J)<8.
+
+3. ROBUSTNESS AND THE DEGREE-FIVE/SIX LINKS.
+
+The four low-degree vertices form an independent set. Their induced
+neighborhoods are
+  J[N(a)] = K5 minus edge 35,
+  J[N(b)] = K5 minus edge 01,
+  J[N(c)] = K5 minus edge 01,
+  J[N(t)] = K6 minus edge 35.
+Each is connected and has at least five vertices. In particular all
+low-link complements have maximum degree one and exactly one edge.
+The degree-six vertex t is non-thin: its link complement does not
+contain a matching of size three.
+
+For any core vertex v in U, its core neighbors induce a connected
+graph: this is K7 minus at most two edges when v=w,2,4,6, and a K6
+minus at most one edge for v=0,1,3,5. Every outside vertex adjacent
+to v has at least three neighbors in that core-neighbor set. Indeed,
+its link is K5 or K6 minus one edge, and deleting v leaves at least
+three of its other neighbors adjacent to v. Consequently J[N(v)] is
+connected. It has at least seven vertices.
+
+Thus J is robust: every component of every neighborhood has at least
+five vertices. The degree-seven set consists of the single vertex w
+and is independent. Moreover J[N(w)] is K7 minus 01 and 35, so its
+complement is 2K2 plus three isolated vertices.
+
+4. EXACT SUBSUMPTION AND DONOR COUNTS.
+
+A vertex v subsumes x when N[v] contains N[x]. For the four low-degree
+vertices, their subsuming neighbors are exactly
+  a: {0,4,6};
+  b: {2,5,6};
+  c: {2,3,4};
+  t: {1,2,4,6}.
+These lists follow directly by taking the dominating vertices of
+each low-degree link displayed in Section 3.
+
+The degree-seven vertex w has no low-degree neighbor. No vertex of
+degree at most eight subsumes a degree-five vertex; every listed
+subsumer of a,b,c has degree nine or ten. No degree-seven vertex
+subsumes a degree-six vertex, and there is no thin degree-six vertex.
+
+Here is the complete low-neighbor and low-subsumer table for degrees
+nine and ten. Letters in the third column are those subsumed.
+
+  vertex  degree  low neighbors  low subsumed
+     0       9      a,b,c           a
+     1       9      b,c,t           t
+     3       9      a,c,t           c
+     5       9      a,b,t           b
+     2      10      b,c,t           b,c,t
+     4      10      a,c,t           a,c,t
+     6      10      a,b,t           a,b,t
+
+Each degree-nine vertex thus subsumes just one low-degree vertex,
+strictly below the cap three; the implication concerning a vertex
+subsuming three is vacuous. Each degree-ten vertex has three
+low-degree neighbors, at most 10-6. The degree-seven vertex has zero
+low-degree neighbors, and degree-nine vertices have three, at most
+9-4. There are no degree-eight vertices to check.
+
+Together with Section 3, these facts verify every conclusion of
+Puleo's Lemma 2.7(a)-(h), not just its coarse degree bounds.
+
+5. THE EARLIER CONNECTIVITY CONDITIONS ALSO HOLD.
+
+The graph J is five-connected. Deleting at most four vertices leaves
+at least four core vertices. They induce a complete graph minus at
+most the matching {01,35}, which is connected. Every surviving outside
+vertex retains at least one core neighbor, since its degree is at
+least five. The entire remaining graph is therefore connected.
+
+Moreover, every complete bipartition cut with at least two vertices
+on each shore has at least ten edges. To see this, let one shore
+contain s core vertices. If 2<=s<=6, the core alone contributes at least
+  s(8-s)-2>=10
+cut edges. If s=0, the shore contains at least two outside vertices;
+they are independent and their degrees sum to at least ten.
+If s=1, write its core vertex as v and its nonempty outside set as R.
+The cut size is exactly
+  d(v) + sum_{x in R}(d(x)-2*1[vx is an edge]) >=7+3=10.
+The cases s=7 and s=8 follow by exchanging shores. Thus J meets the
+previous necessary four-connectivity and nontrivial-small-cut bounds.
+These checks do not assert that J is irreducible.
+
+6. THE TARGET-EIGHT DEFICIT.
+
+The total initial deficit below eight is
+  3|V5|+2|V6|+|V7| = 9+2+1 = 12.
+The total surplus at degrees at least nine is
+  sum_{d>=9}(d-8)|Vd| = 4+6 = 10.
+No conservative redistribution can make all vertices finish with
+charge at least eight, since the total deficit exceeds the surplus
+by two. This is consistent with the exact degree sum in Section 1.
+
+This graph proves the logical barrier even without degree-eight
+vertices. In a general graph they must still contribute zero, not
+positive surplus, at target eight. Treating them correctly does not
+by itself repair the insufficiency exposed here.
+
+Consequently an argument for arbitrary minimal mad<8 counterexamples
+must use some input beyond robustness, the exact conclusions of
+Lemma 2.7(a)-(h), degree-seven independence, the previous connectivity
+and small-cut bounds, and the condition that degree-seven link
+complements are matchings. For example, it could
+exploit additional restrictions coupling low-degree neighborhoods to
+the selected degree-seven incidences, or exclude this overlap pattern
+by a local reduction. This note does not claim that all previously
+proved local reductions survive on J.
+
+SOURCE AND AUDIT SCOPE.
+Imported source: Gregory J. Puleo, "Tuza's Conjecture for Graphs with
+Maximum Average Degree less than 7," arXiv:1308.2211v3, Definitions
+2.3-2.5 and Lemma 2.7:
+  https://arxiv.org/html/1308.2211v3
+The source supplies the necessary conditions being tested, not the
+example or a claim that those conditions are sufficient. This note
+checks the explicit graph symbolically; no graph search was run.

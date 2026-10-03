@@ -1,0 +1,7 @@
+Exact-file adversarial review of D/prescribed_edge_cover_k2.txt: ACCEPT as stated.
+
+The nu=1 classification is proved, not merely asserted. If no edge is common to all triangles, three pairwise edge-intersecting triangles force a K4, and every further triangle must lie inside it. A prescribed triangle edge belongs to a size<=2 cover in either case.
+
+For nu=2, deleting a triangle T containing the prescribed edge e leaves nu<=1. The tau<=1 branch costs at most 3+1 edges. In the tau=2 branch, all residual triangles lie in a K4 C whose edges avoid E(T), so C and T share at most one vertex. Deleting E(C) gives F with nu=1 and a size<=2 cover Q containing e. The mixed triangles are exactly those using one K4 edge and one T-edge. They vanish if C and T are disjoint; otherwise at most one occurs through each of the two outside vertices a,b. If their K4 endpoints differ, those two mixed triangles plus the K4 triangle on C\{w} are edge-disjoint, contradicting nu=2. Therefore one K4 edge hits every mixed triangle, and a perfect-matching cover of C containing it combines with Q to cover G in at most four edges. No unproved Tuza assumption is used.
+
+The rich three-edge profile forces each boundary edge to lie in a triangle because restoring that edge alone raises nu. At k=2, the theorem supplies a minimum size-four cover containing it, contradicting the exclusion condition; k=1 is likewise excluded. This does not settle k>=3 or the full mad<8 question. No novelty conclusion is assessed.

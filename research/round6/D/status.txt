@@ -1,0 +1,38 @@
+ROUND 6 / D STATUS
+
+1. REVIEWED THEOREM.
+File: prescribed_edge_cover_k2.txt
+Review: C/review_D_full.txt
+
+If nu(G) is one or two, every edge lying in a triangle can be included
+in a triangle cover of size at most 2nu(G). This is unconditional and
+holds at every order. In particular, in every tight graph with nu=2
+and tau=4, each triangle edge belongs to SOME minimum cover. Different
+edges may require different covers.
+
+The exact rich three-edge side profile from the previous rounds cannot
+occur with packing number k<=2. Any remaining rich side has k>=3.
+The proof uses no computation or unproved subgraph-Tuza hypothesis.
+
+2. REVIEWED JOINT DEGREE-CAP BARRIER.
+File: joint_caps_barrier.txt
+Review: C/review_D_joint_caps.txt
+
+A labeled twelve-vertex graph has mad<8, is robust, satisfies all
+conclusions of Puleo Lemma 2.7(a)-(h), and has an independent degree-
+seven set whose only link complement is a matching. It is also five-
+connected and every nontrivial complete bipartition cut has at least
+ten edges. Its degree counts
+are n5=3, n6=1, n7=1, n9=4, n10=3. Thus the degree-five/six/seven
+deficit is twelve and the degree-nine/ten surplus is ten.
+
+This demonstrates why those exact necessary conditions alone cannot
+prove the target-eight average bound. It does not assert irreducibility,
+the failure of a previously established local reduction, or a Tuza
+counterexample. There are no degree-eight vertices in the example;
+in general they have zero initial surplus at target eight.
+
+No numerical research was run. No E round-six material was inspected
+before the independent initial draft. No novelty claim is made.
+The general rich profile at k>=3 and the full mad<8 question remain open
+in this work. D stops at review of these two bounded targets.
