@@ -1,0 +1,17 @@
+{
+ "certificate": false,
+ "status": "2",
+ "objective": null,
+ "S": [],
+ "X": [],
+ "slack_2|S|-|X|": 0,
+ "verify_problems": [
+  "solver status 2 (The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None))"
+ ],
+ "counts": {
+  "E": 44,
+  "triangles": 91,
+  "allowed_no_B": 45,
+  "hub_triangles": 40
+ }
+}

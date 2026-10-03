@@ -1,0 +1,248 @@
+MAD<8 / ROUND 3 / D
+SMALL EDGE CUTS IN A MINIMAL TUZA COUNTEREXAMPLE
+
+Status: reviewed research proof; C accepted the exact-file adversarial audit.
+This is internal research review, not journal peer review or formal verification.
+No novelty claim is made. No computation is used.
+
+MAIN THEOREM.
+Let C be a class of finite simple graphs closed under arbitrary subgraphs.
+If C has a counterexample to tau(G)<=2nu(G), choose such a G minimizing
+|V(G)|+|E(G)|. Then:
+  (i) delta(G)>=5;
+  (ii) every edge cut of size at most six separates off a single vertex.
+Thus any cut of size at most six is exactly the set of edges incident
+to a vertex of degree five or six. In particular this holds if
+C={G: mad(G)<8}.
+
+The proof uses the reviewed round-two result that such a G is 4-connected,
+proved in mad8/round2/D/three_edge_boundary.txt. All further ingredients
+are proved below, including the required bipartite matching-cover fact.
+An edge cut means delta(U), for a nonempty proper vertex set U; the two
+shores are U and V(G)\U. A nontrivial cut here means that both shores
+contain at least two vertices. The theorem rules out every nontrivial
+cut of size at most six. It does not assert 7-edge-connectivity when
+vertices of degree five or six are present.
+
+1. EDGE-SET REDUCTION AND ITS INDUCTION BRIDGE.
+
+A nonempty edge set E0 is reducible if there are an edge-disjoint triangle
+packing S and an edge set X such that
+  |X|<=2|S|,
+  X meets every triangle using an edge of E0,
+  every edge of a triangle of S that does not belong to E0 lies in X.
+The packing and X are allowed to be empty if no triangle uses E0.
+
+Put G'=G-(E0 union X), retaining the vertices. If Tuza holds for G',
+then it holds for G. Indeed, every edge of S belongs to E0 union X,
+so a packing in G' is edge-disjoint from S. Thus
+  nu(G)>=|S|+nu(G').
+A cover of G' together with X covers G: a triangle met by X is handled,
+and any other triangle cannot use E0 by the second certificate condition,
+so it survives in G' and is handled by its cover. Consequently
+  tau(G)<=|X|+tau(G')<=2|S|+2nu(G')<=2nu(G).
+
+For the graph G in the main theorem, G' is a proper subgraph because E0
+is nonempty. It belongs to C and satisfies Tuza by minimality. Therefore
+G has no nonempty reducible edge set.
+
+2. A COMPATIBILITY GRAPH FOR A CUT.
+
+Fix a cut E0=delta(U). Its cut graph B is the bipartite graph with edge
+set E0 and the vertices incident to those edges, partitioned according
+to the two shores. Define a graph H with vertex set E0: distinct cut
+edges are adjacent in H exactly when they occur together in a triangle
+of G. A crossing triangle uses exactly two cut edges and exactly one
+internal edge, called its rim. Two cut edges determine at most one such
+triangle, so edges of H correspond one-to-one with crossing triangles.
+
+A graph H is weak Konig-Egervary (WKE) if it has a matching M and a
+vertex set Q with |Q|<=|M| such that Q covers H-M. Equivalently, every
+edge of H with both endpoints outside Q belongs to M.
+
+CUT LEMMA.
+If B contains no cycle of length four and H is WKE, then E0 is reducible.
+
+Proof. Choose a WKE witness M,Q in H. Let S consist of the crossing
+triangles corresponding to edges of M, let R be their rim edges, and
+let X=R union Q, where vertices of H in Q are interpreted as actual cut
+edges in G.
+
+No cut edge occurs in two selected triangles because M is a matching.
+Distinct crossing triangles cannot have the same rim when B is C4-free:
+if a rim yz in one shore occurred with two different centers x,x' in
+the other shore, the four cut edges xy,xz,x'y,x'z would form a C4 in B.
+Thus the selected triangles have distinct rims as well, and are edge-
+disjoint. In particular |S|=|M| and |R|=|M|. Since R consists of internal
+edges and Q of cut edges, |X|=|M|+|Q|<=2|S|.
+
+Every crossing triangle corresponds to an edge h of H. If h belongs to
+M, its rim lies in R. Otherwise Q meets h, so one of its cut edges lies
+in X. Every triangle using E0 is a crossing triangle, so coverage is
+complete. The only edges of S outside E0 are its rims, all in X. This
+is the required edge-set reduction.
+
+3. THE SMALL WKE CLASSIFICATION.
+
+LEMMA.
+Every graph on at most four vertices is WKE. A graph on exactly five
+vertices is non-WKE if and only if it is K5 with a matching deleted.
+The deleted matching may have size zero, one, or two.
+
+Proof. First consider a graph whose maximum matching size is at most
+one. If it has no edges, the empty witness works. Otherwise its edges
+pairwise intersect, and its nontrivial part is either a star or a triangle.
+To see this, choose two distinct edges xy,xz if they exist. Any edge not
+containing x must be yz. If yz exists, an edge xw with w outside
+{x,y,z} would be disjoint from yz, so all edges lie in the triangle.
+If yz does not exist, all edges contain x. A star is WKE using one edge
+as M and its center as Q. A triangle is WKE using one edge as M and
+the third vertex as Q. Isolated vertices do not affect these witnesses.
+
+For a graph on at most four vertices with matching number two, there
+are four vertices and a perfect matching M={ab,cd}. Put Q={a,b}.
+Every edge of H-M runs between {a,b} and {c,d}, so Q covers H-M and
+|Q|=|M|=2. This proves the first assertion.
+
+Now let H have five vertices. The matching-number-at-most-one case is
+already settled, so assume its matching number is two. If the complement
+of H has a vertex of degree at least two, choose x with two distinct
+nonneighbors y,z. The triple T={x,y,z} induces at most the edge yz.
+
+If T is independent, Q=V(H)\T is a vertex cover of size two; take any
+two-edge matching M. If yz is present and can be extended to a two-edge
+matching M, use that M and Q=V(H)\T. The only edge outside Q is yz,
+which belongs to M, so this is a WKE witness. The second matching edge
+may use x; that does not affect the witness condition. If yz cannot
+be extended, V(H)\{y,z} is independent, so {y,z} is a vertex cover of
+size two. Use it as Q with any maximum two-edge matching. Thus H is
+WKE whenever its complement has a vertex of degree at least two.
+
+The remaining graphs have a matching as their complement. Conversely,
+if H is K5 minus a matching, every set of three vertices spans at least
+two edges, which share a vertex. A putative WKE witness has |M|<=2 and
+|Q|<=2. At least three vertices remain outside Q, and their induced
+graph cannot be a matching, contradicting the witness condition.
+This proves the classification.
+
+Disjoint unions of WKE graphs are WKE: take the unions of their
+matchings and their chosen vertex sets; all conditions and the size
+inequality add over components.
+
+4. THE FOUR-CYCLE CUT EXCEPTION.
+
+Suppose B consists of a four-cycle on vertices x1,x2 in one shore and
+y1,y2 in the other, possibly together with isolated-edge components.
+Only the cycle component can support crossing triangles. Within that
+component, every crossing triangle uses one of the two potential rims
+p=x1x2 and q=y1y2.
+
+Let X be the subset of {p,q} that actually exists. If X is empty, use
+S=empty; there are no crossing triangles. Otherwise choose one crossing
+triangle using a present rim: x1x2y1 if p is present, or x1y1y2 if only
+q is present. Let S consist of that one triangle. Then |X|<=2=2|S|,
+X meets every crossing triangle, and the selected triangle's only edge
+outside E0 is its rim, which lies in X. Isolated-edge components of B
+cannot support a crossing triangle because such a triangle needs two
+cut edges sharing a vertex. Thus this is a reduction of the entire cut.
+
+It follows that every nonempty edge cut with at most four edges is
+reducible: if B has a cycle, bipartiteness and the edge bound force it
+to be exactly a four-cycle; otherwise B is C4-free and its compatibility
+graph has at most four vertices, hence is WKE by Section 3.
+
+Since the minimum counterexample G is 4-connected, it has no isolated
+vertex. The incident edges of a vertex of degree at most four would be
+a nonempty reducible cut, impossible by Section 1. Hence delta(G)>=5.
+
+5. BIPARTITE MATCHING AND COVER FACT.
+
+For completeness, a bipartite graph has a vertex cover of size equal to
+its maximum matching size. The reverse inequality is immediate: a cover
+must meet every edge of a matching with different vertices.
+
+For the forward inequality let the bipartition be L,R and let M be a
+maximum matching. Starting from unmatched vertices of L, follow edges
+outside M from L to R and edges in M from R to L, and let Z be the
+reachable vertices. The set Q=(L\Z) union (R intersect Z) covers every
+edge. Indeed, an uncovered edge would run from L intersect Z to R\Z;
+if it were outside M it could be followed, while if it were in M its
+reachable left endpoint would have been reached from its right endpoint.
+
+Each matched pair has either both endpoints in Z or neither, so Q
+contains exactly one vertex from each matching edge. An unmatched left
+vertex is in Z and not Q. An unmatched right vertex cannot belong to Z,
+since that would give an augmenting path and contradict maximality of
+the matching's cardinality. Thus Q contains no unmatched vertex, and
+|Q|=|M|, proving the fact.
+
+6. NONTRIVIAL CUTS OF SIZE FIVE OR SIX.
+
+Suppose E0 is a nontrivial cut of G with m=|E0|<=6. A shore of size s
+has at least 5s-s(s-1) outgoing edges, since every vertex has degree at
+least five and at most s(s-1)/2 edges lie inside the shore. For s=2
+this lower bound is eight; for s=3 it is nine. Nontriviality excludes
+s=1. Thus both shores have at least four vertices.
+
+Any vertex cover Q of the cut graph B with |Q|<=3 would disconnect G-Q:
+each shore would retain a vertex, and no edge would run between the
+remaining shores. This contradicts 4-connectivity. Therefore B has
+vertex-cover number at least four. Write mu(B) for its ordinary matching
+number (distinct from the triangle-packing notation nu). Section 5 gives
+mu(B)>=4. Then
+  m-mu(B)<=2.
+
+For each connected component B_j with r_j edges, write mu_j for its
+matching number. It has at most r_j+1 vertices, so
+  mu_j<=floor((r_j+1)/2),
+  r_j-mu_j>=ceil((r_j-1)/2).
+The nonnegative component deficiencies sum to m-mu(B)<=2. Consequently
+every component has at most five edges. A five-edge component must have
+mu_j=3; it therefore has six vertices and is a tree with a perfect
+matching. The only possible cyclic component is a four-cycle: a
+bipartite cyclic component has at least four edges, and a cyclic
+five-edge component would have at most five vertices and matching
+number at most two, which would give deficiency at least three.
+
+If a four-cycle component occurs, its deficiency is two. Every other
+component must have deficiency zero, which forces it to be an isolated
+edge: a connected component with r>=2 edges has matching number at most
+floor((r+1)/2)<=r-1. The cut then has the explicit reduction in Section 4,
+contradicting minimality.
+
+It remains that B is a forest. Let H_j be the subgraph of the cut
+compatibility graph on the edges of component B_j. Distinct components
+of B give no compatibility edges between them, since two cut edges in
+a crossing triangle share a vertex. Hence H is the disjoint union of
+the H_j.
+
+If r_j<=4, H_j is WKE by Section 3. If r_j=5, suppose for contradiction
+that H_j is non-WKE. It is then K5 minus a matching. The tree B_j has
+a perfect matching of size three, so choose two disjoint cut edges
+e=x1y1 and f=x2y2, where the x-vertices and y-vertices are in the two
+shores. The vertices e,f are nonadjacent in H_j because the cut edges
+are disjoint. Each has at most one nonneighbor in K5 minus a matching,
+so each of the other three cut edges must be adjacent in H_j to both
+e and f. In particular all three would have to meet both e and f in B_j.
+
+In a simple bipartite graph the only edges distinct from e,f that can
+meet both are x1y2 and x2y1. There are at most two, whereas three are
+required. This contradiction proves H_j is WKE in the five-edge case
+as well. Their disjoint union H is therefore WKE.
+
+Since B is a forest it is C4-free, and the cut lemma supplies a reduction
+of E0. This again contradicts Section 1. No nontrivial cut of size at
+most six exists, completing the main theorem.
+
+SCOPE.
+The result applies conditionally to a minimum counterexample in any
+subgraph-closed class and makes no assertion that such a graph exists.
+In the mad<8 program, it permits restriction to 4-connected graphs with
+minimum degree at least five and with no cut of size at most six except
+the incident edges of one low-degree vertex. It does not exclude those
+degree-five/six vertices and does not settle the mad<8 question.
+
+The cut lemma and the small WKE classification are proved directly here.
+The only research result imported is the reviewed round-two separator
+theorem establishing 4-connectivity. No census, finder, saved-record
+analysis, or numerical experiment was run.

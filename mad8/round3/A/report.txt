@@ -1,0 +1,11 @@
+ROLE A — round3 narrow report (Puleo 1308.2211v3, Tuza, mad<7)
+
+READING SCOPE (actual): read only cached wrapped.txt of Puleo 1308.2211v3: Definition 2.3–2.5, Lemma 2.6–2.8 (full discharging proof), Section 5 opening (Prop 5.1). Did NOT consult Botler 2002.07925v2, no broad survey, no Section 7 proofs (only Lemma 7.x statements cited). A subgraph-minimal counterexample is robust and has no reducible set; the converse is not asserted; transfer-minimality already established (prior rounds); "6^-" = degree <=6.
+
+FACT 1 — degree-5 DONOR structure. Rule1: every 5-vertex draws 2/3 from each vertex SUBSUMING it (u subsumes v iff N[u] >= N[v], i.e. u dominating in G[N(v)]; subsumption, not mere degree). Hypothesis: G robust AND no reducible set. Output: by Lemma2.7(a) each 5-vertex is subsumed by >=3 donors, gaining >=2 (to 7). Lemma2.7(e) forbids any 8^- vertex from subsuming a 5-vertex → 5-vertices draw only from 9^+ donors.
+
+FACT 2 — degree-6 DONOR split (exact 6 only). "Thin 6-vertex" = complement \bar G[N(v)] has a matching of size 3 (Def2.5); non-thin otherwise. Rule2: thin 6 draws 1/6 from EACH neighbor. Rule3: non-thin 6 draws 1/4 from each subsuming vertex. Lemma2.7(c) no 7-vertex subsumes any 6; (d) no 7-vertex adjacent to a thin 6. Robustness plus absence of reducible sets gives delta>=5 (isolated vertices are themselves reducible), so "6^-" here is literally {5,6}: no 4^-.
+
+FACT 3 — donor capacity caps (c)-(h), all under robust AND no-reducible-set. (c) no 7-vertex subsumes a 6; (d) no 7-v adjacent to thin 6; (e) no 8^- v subsumes a 5; (f) each 9-v subsumes <=3 6^- and if exactly 3 then adjacent to exactly 3 6^-; (g) 10^+ v subsuming some 6^- has <= d(v)-6 6^-neighbors; (h) every d(v) in {7,8,9} has <= d(v)-4 6^-neighbors. These are the reusable donor-side caps.
+
+STRUCTURAL TRANSFER AND UNPROVED EXTENSION: caps (c)-(h) apply unchanged to a subgraph-minimal counterexample within mad<8, because their hypotheses are robustness and absence of reducible sets, independently of the charge target. What is unproved is whether these caps suffice with a suitable transfer rule to reach final charge eight. The original rates 2/3, 1/6, 1/4 establish final charge at least seven; no eight-threshold conclusion follows automatically. No eight-regular subgraph can occur under mad<8.

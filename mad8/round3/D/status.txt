@@ -1,0 +1,29 @@
+MAD<8 / ROUND 3 / D / REVIEW MILESTONE
+
+Initial independent draft: independent_initial.txt.
+Full proof: small_edge_cuts.txt.
+
+Reviewed result: a minimum counterexample in any arbitrary-subgraph-
+closed class has minimum degree at least five, and every complete
+bipartition edge cut of size at most six isolates one vertex. Such a
+cut is therefore exactly the incident edges of a degree-five/six vertex.
+
+Proof ingredients established in the file:
+- A C4-free cut graph has a safe edge-cut reduction whenever its
+  compatibility graph is WKE.
+- Every graph on at most four vertices is WKE; the only five-vertex
+  exceptions are K5 minus a matching.
+- A four-cycle cut component has a direct one-triangle certificate.
+- Previous 4-connectivity plus the new minimum-degree bound forces
+  matching number at least four in a nontrivial cut graph of size<=6.
+- Its matching deficiency at most two then forces only small components,
+  whose compatibility graphs admit the required reductions.
+
+C accepted the complete file after exact-file adversarial audit and found
+no remaining gap under its stated hypotheses. This is internal research
+review, not journal peer review or formal machine verification.
+
+No novelty claim is made. No numerical experiment, census, finder, or
+saved-record analysis was run. E's round-three route was not inspected.
+Research has stopped at the reviewed milestone. The full
+mad<8 question remains unresolved by this route.

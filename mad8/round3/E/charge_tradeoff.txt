@@ -1,0 +1,157 @@
+GENERAL CHARGE CRITERION: FIVE HIGH-DEGREE NEIGHBORS CAN SUFFICE
+
+Status: a purely structural counting lemma. It weakens the six-neighbor
+requirement of Lemma D in p3_complement_links.txt to five when the
+degree-seven links have minimum degree at least four. It does not
+establish these structural hypotheses for any additional link family.
+The original six-neighbor surplus bound is retained unchanged.
+
+1. GENERAL CRITERION
+
+Theorem. Let G be a nonempty finite simple graph of minimum degree
+at least seven. Let L be its degree-seven vertices and H its vertices
+of degree at least nine. Let h>=1 and r>=0 be integers with h+r>=9.
+Suppose:
+
+  (i) L is independent;
+  (ii) each w in L has at least h neighbors in H;
+  (iii) each link G[N(w)], w in L, has minimum degree at least r.
+
+Then G has average degree at least eight.
+
+Proof. If L is empty, every vertex has degree at least eight and the
+conclusion is immediate. Otherwise, (ii) implies h<=7 and (iii)
+implies r<=6. Thus the meaningful parameter range is
+
+  1<=h<=7, 0<=r<=6, h+r>=9;
+
+in particular h>=3.
+
+Give each vertex its degree as initial charge. Each vertex in H
+sends 1/h to each of its neighbors in L. Degree-eight vertices do
+not send or receive charge. Transfers preserve the total charge.
+
+A vertex in L receives at least h(1/h)=1, so finishes with charge
+at least eight. A degree-eight vertex retains eight.
+
+Consider v in H having a neighbor w in L. By (iii), v has at least
+r neighbors inside G[N(w)]. These vertices lie in N(v), and by
+(i) none belongs to L. Therefore
+
+  |N(v) intersect L| <= d(v)-r.
+
+The final charge at v is at least
+
+  d(v)-(d(v)-r)/h = ((h-1)d(v)+r)/h.
+
+Since h>=1, the last expression is nondecreasing in d(v). As
+d(v)>=9, it is at least
+
+  9-(9-r)/h = 8+(h+r-9)/h >=8.
+
+A vertex of H with no neighbor in L sends nothing and retains
+degree at least nine. Every vertex ends with at least eight,
+proving the average-degree bound.
+
+2. THE FIVE-NEIGHBOR SPECIALIZATION
+
+Corollary. Suppose G has minimum degree at least seven, its set L
+of degree-seven vertices is independent, every vertex of L has
+at least five neighbors of degree at least nine, and every
+degree-seven link has minimum degree at least four. Then G has
+average degree at least eight.
+
+Proof. Use h=5 and r=4. A degree-seven receiver gains at least
+one unit. A degree-d donor, d>=9, loses at most (d-4)/5 and
+therefore retains at least
+
+  d-(d-4)/5=(4d+4)/5>=8.
+
+Thus two of the seven neighbors of a receiver may have degree
+eight; those neighbors are not charged. This is a conditional
+counting statement, not a proof that any unclassified link type
+has five high-degree neighbors or that L is independent there.
+
+3. EXACT SURPLUS FORMULA IN THE MEANINGFUL PARAMETER RANGE
+
+Assume 1<=h<=7 and 0<=r<=6, and retain (i)-(iii). Write
+
+  q(w)=|N(w) intersect H| for w in L,
+  n=|V(G)|.
+
+The same transfer gives the more explicit bound
+
+  2|E(G)|-8n >= (1/h) [
+      sum over w in L of (q(w)-h)
+      +(h+r-9)|H|
+      +(h-1) sum over v in H of (d(v)-9)
+    ].                                                     (1)
+
+Proof. A vertex w in L has final charge exactly
+
+  7+q(w)/h = 8+(q(w)-h)/h.
+
+For v in H, the bound |N(v) intersect L|<=d(v)-r holds when v
+has an L-neighbor by the preceding argument. It also holds when
+it has none, since r<=6<d(v). Therefore its final charge minus
+eight is at least
+
+  [(h-1)(d(v)-9)+(h+r-9)]/h.
+
+Degree-eight vertices have zero surplus. Summing these estimates
+proves (1).
+
+For h=5,r=4, this becomes
+
+  2|E(G)|-8n >= [sum_L(q(w)-5)+4 sum_H(d(v)-9)]/5.
+
+For h=6,r=4, it implies the earlier bound
+
+  2|E(G)|/n >=8+|H|/(6n),
+
+and retains additional nonnegative terms. Thus the stronger
+six-neighbor hypothesis has a useful margin even though five
+neighbors suffice to reach the threshold eight.
+
+4. WHAT IS EXACT ABOUT THE CONSTANT TRANSFER TEST
+
+For 1<=h<=7 and 0<=r<=6, suppose one uses a constant transfer t
+from every H-vertex to each adjacent L-vertex, relying only on
+the lower bound h at receivers and the upper bound d-r at donors.
+The receiver estimate reaches eight precisely when
+
+  7+ht>=8, or t>=1/h.
+
+The worst donor estimate at degree nine reaches eight precisely
+when
+
+  9-(9-r)t>=8, or t<=1/(9-r).
+
+If both inequalities hold, then t<=1/3<1, so the donor lower
+bound d-(d-r)t is increasing in d and degree nine is indeed the
+worst allowed donor degree. Hence these two scalar estimates
+can certify the threshold eight with a constant t exactly when
+
+  1/h <= t <= 1/(9-r),
+
+an interval which is nonempty exactly when h+r>=9.
+
+This is an exact statement about the stated worst-case arithmetic
+test. It is not a claim that every extreme numerical pattern is
+realized by a graph, nor that no other discharging rule or structural
+argument could work when h+r<9. No graph-class optimality or new
+classification is inferred from this interval calculation.
+
+5. RELATION TO THE CURRENT MAINLINE
+
+The matching-or-P3 theorem in p3_complement_links.txt already
+forces six high-degree neighbors and minimum link degree four,
+assuming the stated reducible configurations are absent. Its
+stronger quantitative conclusion therefore remains valid.
+
+The present refinement gives a smaller sufficient target for a
+future structural argument: independence of the degree-seven
+vertices, five high-degree neighbors each, and link minimum
+degree four would already force average degree at least eight.
+The degree-five/six gap and unclassified degree-seven links remain.
+No new numerical experiment or link-family classification was used.

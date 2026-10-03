@@ -1,0 +1,243 @@
+THE FIRST NONMATCHING COMPLEMENT: A THREE-VERTEX PATH
+
+Status: a complete conditional forcing theorem extending the matching-
+complement family, using previously proved universal certificates;
+and a precise unresolved mixed-degree position. No enumeration is used.
+The full maximum-average-degree-below-eight question remains open.
+
+1. SETUP AND ACCEPTED INPUTS
+
+All graphs are finite and simple. The link of a vertex u is the induced
+graph G[N(u)]. Say that a degree-seven vertex has matching type if the
+complement of its link is a matching (possibly empty). Say it has path
+type if that complement is a P3 and four isolated vertices: exactly two
+missing edges sharing an endpoint.
+
+For a path-type vertex u, write the missing link edges as va,vb. Call v
+its exceptional neighbor. The other four neighbors of u will be denoted
+C. Then C is a four-clique, the pair a,b is adjacent and complete to C,
+and v is adjacent to all of C but to neither a nor b.
+
+A reducible pair {u,v} has an edge-disjoint triangle set S and an edge
+set X satisfying |X|<=2|S|, meeting every triangle through either hub,
+and containing every packed edge avoiding both hubs.
+
+We use two proved results from mad8/round2/E/matching_complement_links.txt:
+
+  A. If u,v are adjacent, d(u)+d(v)<=15, and their common neighborhood
+     contains a five-clique, then {u,v} is reducible by a seven-triangle
+     Fano construction. The cover consists of the ten clique edges,
+     uv, and all hub spokes outside those seven vertices; its size is
+     d(u)+d(v)-1<=14.
+
+  M. If u has degree seven and matching type, every neighbor v of
+     degree at most eight forms a reducible pair with u.
+
+The exact certificates and exhaustive matching-complement cases are
+proved in that file. Their applicability does not require bounded
+degrees at common neighbors or any WKE hypothesis.
+
+We also use the eight-triangle certificate already proved in
+mad8/round1/D/dense_pair_certificate.txt. Lemma Q below is exactly
+that proposition with labels a1=a, a0=b, b0=c, b1=d and core order
+x,y,p,q. It is reproduced for a self-contained verification, not
+claimed as a new construction. The new step is its application to
+the mutually exceptional degree-seven endpoints and the resulting
+conditional discharging theorem.
+
+2. ALL NONEXCEPTIONAL NEIGHBORS ALREADY REDUCE
+
+Lemma P. Let u have degree seven and path type, with exceptional
+neighbor v. If t is another neighbor of u and d(t)<=8, then {u,t}
+is reducible.
+
+Proof. Write the two missing link edges as va,vb.
+
+If t is one of the four vertices of C, then t is adjacent to all six
+other neighbors of u. In particular u and t have as common neighbors
+the five-clique {a,b} union (C\{t}). All edges of this five-set are
+present because neither of the two missing link edges lies in it.
+
+If t=a, the common neighborhood of u and a contains the five-clique
+{b} union C. The case t=b is symmetric.
+
+These cases exhaust all t other than v. Since d(u)+d(t)<=15, result A
+applies and proves the lemma.
+
+Thus in a graph with no such reducible pair, all six nonexceptional
+neighbors of a path-type degree-seven vertex have degree at least nine.
+This alone leaves the exceptional neighbor free to have degree eight.
+
+3. AN EXPLICIT PAIR WITH TWO PRIVATE PAIRS
+
+Lemma Q. Let u,v be adjacent vertices of degree seven, with exactly
+four common neighbors C={x,y,p,q}, and let
+
+  N(u)\({v} union C)={a,b},
+  N(v)\({u} union C)={c,d}.
+
+Suppose C is a clique, a is adjacent to every vertex of C, and both
+ab and cd are edges. Then {u,v} is reducible. No further attachment
+condition is needed at b,c,d, and edges between the two private pairs
+are unrestricted.
+
+Proof. Define
+
+  S={uxy, upq, vxp, vyq, axq, ayp, uab, vcd},
+
+  X=E(G[C union {a}]) union {ab,cd,uv,ub,vc,vd}.
+
+All eight triangles exist. For edge-disjointness, the first six use
+the following edges:
+
+  ux,uy,xy;
+  up,uq,pq;
+  vx,vp,xp;
+  vy,vq,yq;
+  ax,aq,xq;
+  ay,ap,yp.
+
+The six distinct core edges are xy,pq,xp,yq,xq,yp. The four a-core
+edges and the eight displayed hub-core spokes are also distinct.
+The last two triangles add ua,ub,ab and vc,vd,cd, six new edges.
+Hence S is edge-disjoint and |S|=8.
+
+The graph on C union {a} is K5, contributing ten edges to X. None of
+the six remaining listed edges lies inside this K5, and those six
+are pairwise distinct. Therefore |X|=16=2|S|.
+
+Any triangle through both hubs meets uv. A triangle through u alone
+that contains b meets ub. Otherwise its other two vertices lie in
+C union {a}, and their edge is in X. A triangle through v alone
+that contains c or d meets vc or vd; otherwise its rim edge belongs
+to C and lies in X. This exhausts every ambient hub triangle because
+the displayed neighborhoods contain all neighbors of the two hubs.
+
+Finally, every packed edge avoiding {u,v} is either inside C union
+{a}, or is ab or cd. All such edges lie in X. Thus all three
+reducibility conditions hold. Edges between the private pairs or
+edges leaving the local graph do not affect this verification.
+
+Corollary Q1. Suppose u and v both have degree seven and path type,
+and each is the exceptional neighbor of the other. Then {u,v} is
+reducible.
+
+Proof. The path-type structure at u gives a four-clique C, its
+private pair a,b adjacent and complete to C, and v missing both
+members of that private pair. The path-type structure at v gives
+its two private vertices c,d adjacent. These are precisely the
+hypotheses of Lemma Q.
+
+4. THE DEGREE-SEVEN VERTICES BECOME INDEPENDENT
+
+Lemma I. Suppose G has minimum degree at least seven and every
+degree-seven vertex has matching type or path type. If no pair
+supplied by results M, P, and Q1 is reducible,
+then the set L of degree-seven vertices is independent. Every vertex
+of L has at least six neighbors of degree at least nine and at most
+one neighbor of degree eight.
+
+Proof. Suppose u,v are adjacent vertices in L. If either has matching
+type, result M gives a reducible pair. Otherwise both have path type.
+If either is nonexceptional for the other, Lemma P gives a reducible
+pair. The only remaining possibility is that each is exceptional
+for the other, where Corollary Q1 applies. This contradiction proves
+independence.
+
+A matching-type vertex has only neighbors of degree at least nine,
+by result M. At a path-type vertex, Lemma P forces its six
+nonexceptional neighbors to have degree at least nine. Independence
+prevents its exceptional neighbor from having degree seven. Under
+minimum degree at least seven, that remaining neighbor has degree
+eight or at least nine, as claimed.
+
+The last sentence uses the minimum-degree assumption. Without it,
+the independence claim and the six high-degree neighbors would
+still hold, but the exceptional neighbor could have degree at most six.
+
+5. ALLOWING ONE DEGREE-EIGHT NEIGHBOR WITHOUT CHARGING IT
+
+Lemma D. Let G be a nonempty graph of minimum degree at least seven.
+Let L be the degree-seven vertices and let H be the vertices of
+degree at least nine. Suppose:
+
+  (i) L is independent;
+  (ii) every vertex of L has at least six neighbors in H;
+  (iii) every degree-seven link has minimum degree at least four.
+
+Then
+
+  2|E(G)|/|V(G)| >= 8 + |H|/(6|V(G)|).             (1)
+
+Proof. If v in H has a neighbor w in L, condition (iii) says that
+v has at least four neighbors within G[N(w)]. Those four vertices
+belong to N(v) and, by (i), are outside L. Consequently
+
+  |N(v) intersect L| <= d(v)-4.                    (2)
+
+Give each vertex its degree as initial charge. Each vertex in H
+sends 1/6 to each adjacent vertex in L. Vertices of degree eight
+send and receive nothing. Transfers preserve the total charge.
+
+By (ii), each vertex of L receives at least 6(1/6)=1 and finishes
+with charge at least eight. A degree-eight vertex retains eight.
+For v in H with a neighbor in L, inequality (2) gives final charge
+at least
+
+  d(v)-(d(v)-4)/6=(5d(v)+4)/6>=49/6=8+1/6.
+
+If v has no neighbor in L, it retains d(v)>=9>49/6. Summing final
+charges proves (1).
+
+This lemma is stated separately because its three hypotheses are
+the actual discharging requirements. The degree-eight vertices are
+never asked to donate charge above their initial value.
+
+6. COMPLETE CONDITIONAL FORCING THEOREM
+
+Theorem T. Let G have minimum degree at least seven and average
+degree below eight. Suppose the complement of every degree-seven
+link is either a matching, or a P3 with four isolated vertices.
+Then G has a reducible pair supplied by result M, Lemma P, or
+Corollary Q1.
+
+Proof. Suppose none of these pairs occurs. By Lemma I, L is
+independent and each of its vertices has at least six neighbors
+of degree at least nine. A matching-type link has minimum degree
+at least five, while a path-type link has minimum degree four.
+Thus all hypotheses of Lemma D hold. It gives average degree at
+least eight, a contradiction.
+
+This applies in particular under mad(G)<8, with the same local
+hypotheses. Consequently a subgraph-minimal counterexample in that
+maximum-average-degree class, if it has minimum degree at least
+seven, must contain a degree-seven link whose complement is neither
+a matching nor a P3 with isolated vertices.
+
+7. EXACT SCOPE AND REMAINING POSITION
+
+The theorem extends round two by one complete nonmatching family,
+the two-adjacent-missing-edges link. It does not assert that every
+neighbor of degree at most eight of such a degree-seven vertex
+forms a reducible pair. Its exceptional (7,8) position is still
+unresolved here: common core K4, an adjacent u-private pair complete
+to that core, and three v-private vertices with unrestricted
+attachments. The discharging proof tolerates that one degree-eight
+neighbor instead of using an unproved reduction for it.
+
+The reused certificate in Lemma Q uses two degree-seven endpoints;
+it is not transferred to a degree-eight endpoint without accounting
+for the additional hub triangles. All common-neighbor degrees are
+unrestricted, and no old 7-regular attachment budget is invoked.
+
+Degree-five and degree-six vertices remain an independent gap in
+the full mad<8 problem. More general degree-seven complements,
+including three-edge stars, longer paths and triangles, are not
+covered unless a separate argument yields the hypotheses of
+Lemma D or an already proved reducible configuration.
+
+The link-family assumption is not hereditary under arbitrary edge
+deletions. Theorem T is a local forcing result used at a minimal
+counterexample, not an unsupported induction on that link family.
+No numerical scan, fixed-catalogue coverage claim, or original
+certificate finder is part of the proof.

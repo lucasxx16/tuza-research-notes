@@ -1,0 +1,8 @@
+P3-center bounded coupled MILP  (diagnostic only, not a proof premise)
+HUBS=[0, 1] CORE=[2, 3, 4, 5] A=[6, 7] B=[8, 9, 10] | |E|=44 |G-triangles|=91 allowed(S, no B)=45 hub-triangles=40
+constraints: (1) edge<=1 packed tri  (2) hub-triangle hits X  (3) x_e>=s_t for e of t with both endpoints NOT in HUBS  (4) |X|<=2|S|  (5) 1-b in X for b in B
+milp status=2 obj=None time_limit=60 one-call
+VERDICT: NO FEASIBLE CANDIDATE under this fixed restriction
+|S|=0 []
+|X|=0 []
+checks: ['solver status 2 (The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None))']

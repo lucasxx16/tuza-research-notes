@@ -1,0 +1,71 @@
+MAD<8 / ROUND 3 / D / INDEPENDENT INITIAL DRAFT
+
+Chosen route: small edge cuts, independent of the round-three mainline.
+No E round-three material was inspected. No numerical work was run.
+
+Candidate theorem: a minimum counterexample in a subgraph-closed class
+(in particular mad<8) has minimum degree at least five and every edge
+cut of size at most six isolates a single vertex. This strengthens the
+round-two 4-connectivity result by ruling out nontrivial small edge cuts.
+
+Local cut certificate. Let B be the bipartite graph formed by the edges
+of a cut E0. Form a compatibility graph H whose vertices are cut edges,
+with two vertices adjacent when those two cut edges belong to a triangle.
+Every crossing triangle uses two cut edges and one internal rim edge.
+If B has no C4, distinct crossing triangles have distinct rim edges:
+two different centers using the same rim would make a C4 in B.
+
+If H is WKE, choose a matching M and Q with |Q|<=|M| covering H-M.
+Use the triangles corresponding to M as S, and put in X all their rim
+edges together with the cut edges represented by Q. This is an edge-set
+reduction: matching M prevents repeated cut edges; C4-freeness prevents
+repeated rim edges; X meets every crossing triangle; external packing
+edges are exactly the selected rims; |X|<=2|S|.
+
+Needed elementary WKE facts: every graph on at most four vertices is
+WKE. The only non-WKE graphs on exactly five vertices are K5 minus a
+matching. Proof sketch for the latter: if matching number<=1 it is a
+star/triangle plus isolates. Otherwise nu=2. If some vertex x has two
+nonneighbors y,z, the triple {x,y,z} has at most one edge. If it is
+independent, its complement is a two-vertex cover. If yz is its only
+edge, extend yz to a two-edge matching if possible, with the other two
+vertices as Q. If no extension exists, {y,z} itself covers all edges
+and any two-edge matching suffices. Conversely K5 minus a matching
+leaves at least two adjacent edges after deleting at most two vertices.
+
+A cut with at most four edges is C4-free, except for a C4 itself. In
+the latter case, the two possible internal diagonals cover all crossing
+triangles; use one triangle if either diagonal is present (cover size
+at most two), or the empty packing/cover if neither is present. Thus
+every nonempty cut of size at most four is reducible and delta>=5.
+
+For a nontrivial cut E0 of size m<=6 in a 4-connected minimum
+counterexample, both shores have at least four vertices: a shore of
+size 2 or 3 would have at least 5s-s(s-1)>=8 outgoing edges. A vertex
+cover of B with at most three vertices would disconnect those shores
+after deletion. Thus B has vertex-cover number at least four, and by
+bipartite Konig it has matching number at least four. Hence
+m-nu(B)<=2.
+
+In a connected component with r cut edges, the matching number is at
+most floor((r+1)/2), since it has at most r+1 vertices. Thus r>=6
+would contribute matching deficiency at least three, impossible. Every
+component has at most five edges; a five-edge component must be a
+six-vertex tree with a perfect matching, while a cyclic component can
+only be C4. If C4 occurs, its deficiency two forces all other components
+to be isolated edges, so the explicit C4 certificate handles the cut.
+
+Otherwise B is a forest. A compatibility graph on the five edges of a
+five-edge component cannot be K5 minus a matching unless B is a star:
+if two cut edges are disjoint, each has already used its sole allowed
+nonneighbor, so the remaining three edges would all have to meet both.
+In a bipartite graph there are at most two distinct edges meeting both
+members of a disjoint pair. A star cannot have a perfect matching of
+size three. Thus all compatibility components are WKE, and their union
+is WKE. The local cut certificate gives a reduction, contradicting
+minimality.
+
+Need full write-up and C review. This is a structural reduction, not a
+solution of mad<8. No claim of novelty is made. The only external
+combinatorial ingredient above is Konig's bipartite matching-cover
+identity; a short alternating-path proof can be included for completeness.

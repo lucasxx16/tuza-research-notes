@@ -15,21 +15,28 @@ pinned to commit `bf8415fac44f4eeed6c0f7a2273b843d689b065e`.
 ### Maximum average degree below eight
 
 **The full implication `mad(G)<8 => tau(G)<=2nu(G)` remains unresolved here.**
-The latest round handles every degree-seven vertex whose link is K7 minus
-a matching: it forms a reducible pair with any neighbor of degree at most
-eight. Three explicit constructions and a conditional density bound force
-such a pair when minimum degree is seven, average degree is below eight,
-and all degree-seven links have matching complements. This extends the
-first round's simplicial-link theorem. These are local forcing theorems;
-their extra hypotheses need not survive deletion.
+The latest round forces a reducible pair when minimum degree is at least
+seven, average degree is below eight, and every degree-seven link has
+complement either a matching or P3 plus four isolated vertices. The P3 case
+allows one exceptional degree-eight neighbor and obtains enough charge from
+the other neighbors. Assuming the degree-seven vertices are independent, a
+general counting criterion permits five high-degree neighbors when the link
+minimum degree is four. These are conditional local
+forcing results; their extra hypotheses need not survive deletion.
 
 The independent route proves sharp local patch-density bounds, an eight-triangle
 reduction valid beyond the old common-neighbor degree budget, and closure
 across separators of order at most three. A smallest counterexample must
-therefore be 4-connected. Degree-five/six vertices and degree-seven links
-whose complements have maximum degree at least two remain unresolved.
+therefore be 4-connected. The latest independent theorem also excludes
+every edge cut of size at most six unless it isolates one vertex. Degree-five/six
+vertices and degree-seven links outside the matching-or-P3 family remain unresolved.
 
-- [Latest results and limits in Chinese](docs/mad8-round2.zh-CN.txt)
+- [Latest results and limits in Chinese](docs/mad8-round3.zh-CN.txt)
+- [P3-complement links and high-degree-neighbor discharging](mad8/round3/E/p3_complement_links.txt)
+- [General counting criterion and the five-neighbor specialization](mad8/round3/E/charge_tradeoff.txt)
+- [Small-edge-cut theorem](mad8/round3/D/small_edge_cuts.txt)
+- [Round-three coordinator review and computational scope](mad8/round3/review_summary.txt)
+- [Round-two results in Chinese](docs/mad8-round2.zh-CN.txt)
 - [Three constructions and all matching-complement degree-seven links](mad8/round2/E/matching_complement_links.txt)
 - [Three-edge boundary theorem and 4-connectivity](mad8/round2/D/three_edge_boundary.txt)
 - [Round-two coordinator review](mad8/round2/review_summary.txt)
@@ -143,6 +150,12 @@ codegree-four patch, and computes exact maximum average degrees for three named
 graphs. It uses rational arithmetic over their vertex subsets; it does not run
 a graph census. The round-two checks additionally verify the literal induced-C4
 and repaired-Fano certificates. The general lemmas are proved in the text.
+
+Round three's proofs use previously checked certificates and human arguments.
+Its optional diagnostic `python mad8/round3/B/search_p3_center.py` requires
+NumPy and SciPy and makes one bounded MILP call on a fixed graph. It imposes
+extra packing/cover restrictions; solver infeasibility is not a theorem about
+unrestricted pair reducibility and is not a premise of the proofs.
 
 For the certificate-compression archive:
 

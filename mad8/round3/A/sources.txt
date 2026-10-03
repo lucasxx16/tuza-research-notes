@@ -1,0 +1,10 @@
+SOURCES — round3/A
+
+Primary read (actual):
+- G. J. Puleo, "Tuza's Conjecture for Graphs with Maximum Average Degree less than 7", arXiv:1308.2211v3 [math.CO].
+  Primary source (read through a local cached copy): https://arxiv.org/html/1308.2211v3
+  Relevant loci: Definition 2.3 (robust); Definition 2.4 (subsumes); Definition 2.5 (thin 6-vertex); Lemma 2.6 (minimal counterexample is robust); Lemma 2.7 (a)-(h) (forbidden substructures / donor caps); Lemma 2.8 (discharging rule: 5-vertex takes 2/3 per subsuming vertex; thin 6 takes 1/6 per neighbor; non-thin 6 takes 1/4 per subsuming vertex); Section 5 Prop 5.1 (d(v)<=6, \Delta\bar G[N(v)] constraints).
+  Cited-from statements (not proof-read): Lemmas 7.4, 7.5, 7.6, 7.7, Corollary 5.3 (underpin (c)-(h)).
+
+Not consulted this round (out of scope per brief): Botler et al. arXiv:2002.07925v2; broad surveys.
+Cache policy: only .codex caches; no personal paths or full-paper redistribution.

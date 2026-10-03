@@ -1,0 +1,58 @@
+ROUND 3 COORDINATOR DECISION
+
+Target: mad(G)<8 implies tau(G)<=2nu(G).
+Decision: reviewed conditional and structural progress; full question open.
+
+Accepted mainline result:
+E/p3_complement_links.txt extends the local forcing theorem from all
+matching-complement degree-seven links to those links together with P3
+plus four isolated vertices. Nonexceptional low-degree neighbors use the
+previous K5 lemma; mutually exceptional degree-seven endpoints use the
+attributed round-one D certificate. No new construction is claimed for
+that reused eight-triangle/sixteen-cover recipe.
+
+In the absence of the listed reductions, L is independent and every
+degree-seven vertex has six neighbors of degree at least nine. The
+separate density lemma requires precisely that independence, the six
+high neighbors, and link minimum degree four. It yields average degree
+at least 8+|H|/(6n). The unresolved exceptional (7,8) pair is permitted
+by this argument, not assumed reducible.
+
+E/charge_tradeoff.txt's uniform-transfer refinement permits h high neighbors and link
+minimum degree r whenever h+r>=9, with transfer 1/h, still assuming
+minimum degree at least seven and independence of L. In particular five
+high neighbors and r=4 suffice to force average degree at least eight.
+This is a conditional counting tool, not a new link classification.
+
+Accepted independent result:
+D/small_edge_cuts.txt proves that a minimum counterexample in any class
+closed under arbitrary subgraphs has minimum degree at least five and
+every complete bipartition cut of size at most six isolates one vertex.
+It proves its cut-edge reduction and induction bridge, the needed small
+WKE classification, the C4 exception, and the bipartite matching-cover
+identity. The previous reviewed 4-connectivity theorem is the only
+research result imported. Degree-five/six singleton cuts remain allowed.
+
+Computation scope:
+One named 11-vertex/44-edge graph was tested under two extra certificate
+restrictions: packed triangles avoid the three v-exclusive vertices,
+and all three corresponding v-spokes belong to X. A first solver run
+used equality in the budget row; C changed it to the intended <= bound,
+and B reran the same graph. Both statuses are only numerical diagnostics.
+Equality was feasibility-equivalent here by padding X with graph edges,
+but made the slack objective vacuous. No exact infeasibility certificate
+or unrestricted nonreducibility claim follows. The main proofs use none
+of these solver outputs. No upstream census or finder was rerun.
+
+Literature audit:
+A's structural donor caps were checked under both robustness and absence
+of reducible sets. Minimality implies those hypotheses, not conversely.
+They already apply in a subgraph-minimal mad<8 counterexample; whether
+they suffice for a charge target of eight remains unproved. Isolated
+vertices must be excluded via irreducibility before inferring delta>=5.
+
+Remaining gap:
+Vertices of degree five/six and degree-seven link complements outside
+the matching-or-P3 family. The link-family condition is not hereditary
+under edge deletion, so no unsupported induction on that class is used.
+No novelty, human peer-review, or formal-verification claim is made.

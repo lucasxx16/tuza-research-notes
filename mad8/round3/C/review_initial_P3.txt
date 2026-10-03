@@ -1,0 +1,5 @@
+Round 3 initial P3-link audit (C)
+
+Let u have degree seven, and let the missing edges in G[N(u)] be va and vb. If q is a degree-at-most-eight neighbor other than v, its common neighborhood with u contains K5: for q=a or b, omit v; for any of the four unaffected neighbors, omit v from the other six. Thus round-two Lemma A makes {u,q} reducible. The only new pair is {u,v}, with common K4, adjacent u-exclusives a,b complete to the common K4, and at most three v-exclusives. This is an exact case split, not yet reducibility of the center pair.
+
+A certificate for the center must cover triangles using every v-exclusive attachment in the ambient graph. Any packing edge avoiding u and v, including a-b, a-core, b-core, or edges incident to v-exclusives, must be explicitly put in X. The naive cover consisting of six common-core edges, uv, ua, ub, and all v-exclusive spokes has size 9+t (t<=3). Even at t=3 it needs six packed triangles; triangles supported only on u,v plus the common K4 cannot supply six edge-disjoint triangles. This is a budget warning against an unaugmented core-only packing, not a counterexample to pair reducibility or Tuza.
