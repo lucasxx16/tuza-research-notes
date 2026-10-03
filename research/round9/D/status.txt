@@ -1,0 +1,30 @@
+ROUND 9 / D STATUS
+
+Reviewed research proof:
+  six_six_codegree_four.txt
+Independent exact-file review:
+  C/review_D_full.txt
+Independent initial draft:
+  independent_initial.txt
+
+The local theorem covers nonadjacent degree-six vertices with exactly
+four common neighbors, provided each six-link complement is a matching
+of size zero, one, or three. The common core is necessarily K4,
+diamond, or C4; explicit ambient-safe pair certificates are respectively
+seven triangles/fourteen cover edges, five/ten, and four/eight.
+The four private vertices are distinct; every private cross-edge
+pattern is permitted. There is no ambient degree restriction away
+from the two centers.
+
+Puleo supplies the local link hypotheses for a robust irreducible
+graph. BFG 2020 Lemma 3.3 already supplies the degree-six/six codegree
+upper bound four; that is credited as an imported published result.
+The exact-codegree-four reduction then yields codegree at most three.
+No literature novelty is claimed, and the full mad<8 problem remains
+open. Earlier bounds derived directly from BFG are not new progress.
+
+No numerical search or numerical candidate was used. The independent
+draft preceded E round-nine material. The parent explicitly authorized
+the subsequent bounded symbolic completion of all three core types.
+D stops at this reviewed complete local subproblem and does not
+extend to another overlap case or a new census.

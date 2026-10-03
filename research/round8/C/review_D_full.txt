@@ -1,3 +1,8 @@
+LITERATURE-BASELINE CORRECTION (2026-10-03): The exact certificate checks
+below stand. The 5/6 codegree<=3 corollary is already Botler--Fernandes--
+Gutiérrez Lemma 3.3's consequence, not a new numerical bound; this proof
+is a constructive alternative. See research/known_results.txt.
+
 ROUND 8 C — EXACT-FILE REVIEW OF D/diamond_overlap_reduction.txt
 
 VERDICT: ACCEPT the selected-diamond reduction and its robust-graph degree-five/six codegree≤3 corollary. No numerical search premise is used. The statement does not settle Tuza for mad<8.

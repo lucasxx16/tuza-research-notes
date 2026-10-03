@@ -1,0 +1,104 @@
+ROUND 9 COORDINATOR DECISION
+
+Accept the two complete proof files below after C's independent exact-file
+reviews and coordinator inspection. Stop further research at this milestone.
+The full mad<8 implication remains unresolved.
+
+ATTRIBUTION CORRECTION
+The user's correction is accepted. Botler--Fernandes--Gutierrez (2020),
+Lemma 3.3 already gives robust-irreducible codegree bounds 3,3,4 for
+degree pairs 5/5,5/6,6/6; equality in the 5/5 bound forces two K5 links.
+The project's own round-two literature review had recorded the lemma.
+Failure to carry it into later rounds was a coordination/integration error.
+The round-seven/eight explicit recipes remain valid but their 5/6
+consequence is not new progress. The round-six graph J already violates
+this literature lemma, and is only a barrier to the narrower listed
+Puleo conclusions. The current README and historical round6-8 reports,
+proof files, and C reviews explicitly record the correction.
+The completed original A1+A2 core proofs are unaffected.
+
+The persistent research/known_results.txt separates source statements,
+immediate consequences, and reviewed project extensions. It must be
+imported before setting further low-degree overlap research tasks.
+
+ACCEPTED COMPLETE SIX/SIX EXACT-CODEGREE-FOUR REDUCTION
+D's local theorem assumes nonadjacent centers of degree six, exact
+codegree four, and each six-link complement a matching of size 0,1,or3.
+The four private vertices are distinct, an essential explicitly checked
+condition. The common core complement is a matching, giving precisely
+C4, diamond, or K4. Each cover includes all present core edges and all
+four private hub spokes, covering every ambient triangle at the centers.
+
+C4 uses four alternating hub triangles and eight cover edges. Diamond
+forces each private pair to be adjacent; adding one private-pair triangle
+gives five triangles and ten cover edges. K4 excludes thin six-links,
+so each side lacks at most one edge. Independent K2,2 matching choices
+label the four needed private-core attachments; six hub triangles plus
+one core triangle give seven triangles and fourteen cover edges.
+All outside packed edges belong to the stated covers. C and coordinator
+read and accepted the full ambient proofs and induction bridge.
+
+Combined with BFG's published six/six upper bound four, this excludes
+equality four and proves six/six codegree at most three in every robust
+irreducible graph. All degree-five/six pairs then obey the same bound
+three, with BFG's five/five equality qualification retained. No claim
+of literature priority is made; the exact union-eight case lies outside
+the hypothesis of the particular BFG lemma inspected.
+
+Proof: research/round9/D/six_six_codegree_four.txt.
+Independent review: research/round9/C/review_D_full.txt.
+
+ACCEPTED JOINT LOW-NEIGHBOR COUNTS AND DEGREE-EIGHT PROFILE
+E puts the neighborhoods of all low neighbors of a fixed nonlow vertex
+on a common ground set. Their intersections lose one from the low-pair
+codegree bounds because the center is itself a common neighbor. BFG's
+nonclique five/five equality restriction gives a further unit in that
+case. The resulting bounds are ell<=d-5, improved to d-6 for subsumers;
+at degrees 7,8,9 the final caps are 2,3,3. During coordinator review the
+degree-nine cap was tightened from four to three by the same five-point
+set argument; C attacked and accepted the refinement, and E updated
+the proof and summed inequality consistently, subtracting |U union V9|
+only once rather than double-counting subsumers of degree nine.
+
+A degree-eight vertex with three low neighbors has exactly two fives
+and one six. Their precise W-sets force either a thin-six case with an
+explicit WKE singleton reduction, or three nonclique low links with
+distinct outside missing-edge mates. The latter forces the five other
+neighbors to induce K5 and each have degree at least nine. No existence
+of this necessary profile is claimed.
+
+For P the set of these degree-eight vertices, every vertex in P has five
+neighbors of degree at least nine, so 5|P|=sum p_h. At each such h,
+incidences from P inject into suitable pairs of low neighbors subsumed
+by h: the precise saturated common-neighbor sets contain only one
+degree-eight vertex. A second bound counts four other high neighbors
+in the K5 and handles p_h=0 separately with a maximum with zero.
+These give the stated aggregate bound (13). The assigned pair requires
+at least seven nonlow neighbors of h; if d(h)=9 it follows that h has
+exactly two low neighbors and at most one neighbor in P.
+
+C and coordinator accepted the full WKE bridge, mate distinctness,
+injection, degree counts, and scope. The results apply to arbitrary
+robust irreducible graphs and hence to any minimal mad<8 counterexample,
+with no minimum-degree-seven or special seven-link hypothesis. They
+spend no surplus at degree eight. They do not yet compare total high-
+degree surplus with all degree-five/six/seven deficits. Untreated
+degree-seven links and degree-eight vertices with one or two low
+neighbors remain, along with a simultaneous global funding argument.
+
+Proof: research/round9/E/joint_low_degree_counting.txt.
+Independent review: research/round9/C/review_E_full.txt.
+
+SOURCE AND COMPUTATION SCOPE
+Westlake HPC A performed a bounded source audit; C corrected ambiguous
+equality wording, a vague attribution, reversed proof wording, and an
+unsupported absence claim before accepting the report. A disclosed that
+Puleo's full text was not retrieved afresh; C's baseline check and earlier
+primary-source records supply the exact imported statements. Downloaded
+source material stays in the ignored private cache. Only the original
+short audit is published. There was no numerical search in this round:
+D found the complete construction symbolically before any B task was
+needed. No upstream census or certificate finder was rerun.
+
+Full mad(G)<8 remains unresolved. Independent AI review and coordinator
+inspection do not constitute human peer review or proof-assistant checking.

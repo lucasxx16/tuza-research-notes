@@ -1,3 +1,15 @@
+ATTRIBUTION CORRECTION, 2026-10-03 / ROUND 9
+Botler--Fernandes--Gutierrez (2020), Lemma 3.3 already implies in robust
+irreducible graphs: 5/5 codegree <=3 (equality forces both links K5),
+5/6 <=3, and 6/6 <=4. Source: https://arxiv.org/html/2002.07925v2#S3.
+Our round-two literature review had recorded this lemma; subsequent rounds
+failed to retain it in the working baseline. This was a coordination error.
+The later explicit recipes are valid, but the five/six bound is not new
+progress. The round-six graph J violates this established lemma, so it is
+only a barrier to the listed Puleo inputs, not the full known baseline.
+The original structural-core proofs are unaffected. See research/known_results.txt.
+The original round report follows as a historical record.
+
 ROUND 8 COORDINATOR DECISION
 
 Accept both remaining original core proofs and the nonadjacent diamond

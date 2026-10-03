@@ -54,23 +54,67 @@ maximum average degree below eight. These necessary inputs alone cannot close
 the joint counting argument. The example is not asserted irreducible and is
 not a counterexample to Tuza's conjecture.
 
-Round seven locally excludes that example by a six-triangle/twelve-cover
-certificate and proves two general reductions for nonadjacent vertices with
+**Attribution correction (2026-10-03):** that example already violates
+Botler--Fernandes--Gutiérrez (2020), Lemma 3.3. It is only a barrier to the
+listed Puleo inputs, not to the complete known low-degree baseline.
+That lemma already implies the following in every robust irreducible graph:
+
+| Degrees | Maximum common neighbors | Equality condition |
+| --- | --- | --- |
+| 5, 5 | 3 | Both neighborhoods induce K5 |
+| 5, 6 | 3 | No extra condition asserted here |
+| 6, 6 | 4 | No extra condition asserted here |
+
+See the [primary source, Lemma 3.3](https://arxiv.org/html/2002.07925v2#S3)
+and the [persistent literature baseline](research/known_results.txt).
+Our round-two literature review had already recorded this result. Later rounds
+failed to carry it forward; the five/six bounds below are not new progress.
+
+Round seven gives an explicit six-triangle/twelve-cover reduction of the example
+and proves two general reductions for nonadjacent vertices with
 a chosen common K4 and specified extra attachments, for degree sums at most
 eleven or twelve. In a robust graph with no reducible set, these forbid a
 degree-five/six pair from sharing K4. For a degree-six/six pair sharing a chosen K4, each
 link's sole missing edge must join its two vertices outside that K4. These
-are additional necessary restrictions for a minimal mad<8 counterexample;
-the global joint counting argument remains incomplete.
+are constructive restrictions, with the five/six conclusion already implied
+by the cited literature. The global joint counting argument remains incomplete.
 
-Round eight also excludes the remaining five/six common-diamond case, including
-thin and non-thin six-links. Thus any degree-five/six pair in a robust graph
-with no reducible set has at most three common neighbors. The universal
+Round eight gives an alternative explicit reduction of the five/six
+common-diamond case, including thin and non-thin six-links, recovering the
+known codegree bound of three. The universal
 selected-diamond construction uses six triangles and a cover whose size equals
 the two nonadjacent centers' degree sum, allowing sums at most twelve under
-its specified attachments. This necessary restriction applies to arbitrary
-subgraph-minimal mad<8 counterexamples and still does not close global counting.
+its specified attachments. The generic recipe remains valid, but its five/six
+consequence does not advance the known constraints on a minimal counterexample.
 
+Round nine completely reduces the six/six case with exactly four common
+neighbors, beyond the union-at-most-seven hypothesis of BFG Lemma 3.3.
+The only possible common cores are C4, diamond, and K4; explicit constructions
+have packing/cover sizes 4/8, 5/10, and 7/14. Their proofs allow arbitrary
+ambient edges and require no numerical search. Combined with the published
+bound of four, this gives **at most three common neighbors for every six/six
+pair in a robust irreducible graph**. Thus all pairs of degree-five/six
+vertices obey the same bound of three. This is a reviewed extension of our
+documented baseline, not a claim of literature priority or a full mad<8 proof.
+
+The combined overlap bounds give joint low-neighbor caps of **2, 3, and 3
+at degrees 7, 8, and 9**, respectively. A degree-eight vertex with three
+low neighbors must have two degree-five and one degree-six neighbors;
+its other five neighbors induce K5 and all have degree at least nine.
+An injective assignment to low-neighbor pairs bounds sharing among these
+profiles: a degree-nine vertex can neighbor at most one such degree-eight
+vertex. The argument applies to arbitrary robust irreducible graphs and
+spends no surplus at degree eight. Funding the full degree-five/six/seven
+deficit remains unresolved.
+
+- [Round-nine correction, proofs, and limits in Chinese](docs/research-round9.zh-CN.txt)
+- [Joint low-neighbor counts and the degree-eight profile](research/round9/E/joint_low_degree_counting.txt)
+- [Exact-file review of the joint counts](research/round9/C/review_E_full.txt)
+- [Round-nine coordinator decision and scope](research/round9/review_summary.txt)
+- [Complete six/six exact-codegree-four reduction](research/round9/D/six_six_codegree_four.txt)
+- [Exact-file review of all three six/six cases](research/round9/C/review_D_full.txt)
+- [Known literature baseline and separately identified project extensions](research/known_results.txt)
+- [Bounded source audit](research/round9/A/report.txt)
 - [Round-eight results and completed structural subproblem in Chinese](docs/research-round8.zh-CN.txt)
 - [Round-eight coordinator review](research/round8/review_summary.txt)
 - [Common-diamond reduction and five/six codegree at most three](research/round8/D/diamond_overlap_reduction.txt)

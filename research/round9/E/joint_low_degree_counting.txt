@@ -1,0 +1,364 @@
+JOINT LOW-DEGREE COUNTS AND THE DEGREE-EIGHT THREE-LOW PROFILE
+
+Status: reviewed research proof; see research/round9/C/review_E_full.txt.
+The graph is robust and irreducible throughout. Vertices of degrees
+five and six are retained, and no classification of seven-links is
+assumed. No enumeration or numerical calculation is a premise.
+
+1. INPUTS, ATTRIBUTION, AND THE TARGET-EIGHT ACCOUNT
+
+Robust means that every component of every induced neighborhood has
+at least five vertices. Irreducible means that there is no nonempty
+vertex set admitting an ambient triangle-packing/cover certificate
+with cover size at most twice packing size and every packed edge
+outside the deleted set included in the cover.
+
+All conclusions here apply to a subgraph-minimal counterexample
+within mad(G)<8. The class is subgraph-closed, so every proper
+subgraph satisfies Tuza by minimality; the reduction bridge forbids
+reducible sets, and Puleo Lemma 2.6 supplies robustness. Consequently
+delta(G)>=5. This is not an assumption that delta(G)>=7.
+
+The fixed literature baseline is research/known_results.txt.
+We import all of Puleo Lemma 2.7(a)-(h), with its robust-irreducible
+hypotheses: low links have matching complements of size other than
+two; vertices of degree at most six are independent; seven-vertices
+neither subsume six-vertices nor neighbor thin six-vertices; vertices
+of degree at most eight do not subsume five-vertices; a nine-vertex
+subsumes at most three low vertices, and if three then these are
+all its low neighbors; a 10+ subsumer has at most d-6 low neighbors;
+vertices of degrees 7,8,9 have at most d-4 low neighbors.
+
+Here a vertex v subsumes x if N[x] is contained in N[v]. A six-
+vertex is thin when its link complement is a perfect matching.
+The possible low links are K5, K5-e, K6, K6-e, and thin K6-3K2.
+
+We also import Botler--Fernandes--Gutierrez, arXiv:2002.07925v2,
+Lemma 3.3: in an irreducible robust graph, d(x),d(y)<=6 and
+|N(x) union N(y)|<=7 force both degrees to be five, codegree three,
+and both links K5. Its already-known arithmetic consequences are
+5/5 codegree <=3 (equality only for two K5 links), 5/6 codegree <=3,
+and 6/6 codegree <=4. They are inputs, not results claimed here.
+
+The additional explicit reduction used in this note is the complete
+6/6 exact-codegree-four exclusion in
+research/round9/D/six_six_codegree_four.txt, reviewed in
+research/round9/C/review_D_full.txt. Combined with the BFG bound,
+it gives the following working overlap bounds for distinct low
+vertices x,y:
+
+  |N(x) intersect N(y)|<=3 in all degree-5/6 cases;            (1)
+  |N(x) intersect N(y)|<=2 for a 5/5 pair with a K5-e link.    (2)
+
+Only the 6/6 strengthening in (1) uses the additional round-nine
+construction. Bound (2) is the BFG equality restriction. No claim
+of literature novelty is made for the deductions in this note.
+
+Put L=V5 union V6 and H=V_{>=9}. At target eight, the exact initial
+deficit and surplus totals are
+
+  deficit = 3|V5|+2|V6|+|V7|,
+  surplus = sum_{v in H}(d(v)-8).                           (3)
+
+Every degree-eight vertex has zero initial surplus. This note
+establishes structural and incidence constraints; it does not
+authorize positive net outflow from such a vertex or claim that
+the surplus in (3) meets the deficit.
+
+2. A COMMON-NEIGHBOR INCIDENCE SYSTEM AT ANY NONLOW VERTEX
+
+Fix v outside L and write
+
+  L_v=N(v) intersect L, ell_v=|L_v|,
+  R_v=N(v)\L, r_v=|R_v|=d(v)-ell_v,
+  W_x=N(v) intersect N(x), for x in L_v.
+
+The independence of L ensures W_x is contained in R_v. The low
+link complement is a matching, so within N(x) the vertex v
+misses at most one of the other d(x)-1 vertices. Thus
+
+  |W_x|>=d(x)-2,
+  |W_x|=d(x)-1 if v subsumes x.                            (4)
+
+For distinct x,y in L_v, the vertex v itself is a common neighbor
+of x,y but is not in W_x intersect W_y. Therefore (1)-(2) give
+
+  |W_x intersect W_y|<=2;                                 (5)
+  |W_x intersect W_y|<=1 for a 5/5 pair with a K5-e link.    (6)
+
+These are simultaneous set constraints on one ground set R_v,
+not independent upper bounds whose extremal cases may be freely
+combined.
+
+Lemma 1 (joint neighbor caps). The following hold:
+
+  (a) ell_v<=d(v)-5 for every v outside L;
+  (b) if v subsumes a low vertex, ell_v<=d(v)-6;
+  (c) a seven-vertex has at most one degree-six neighbor;
+  (d) an eight-vertex subsuming a six-vertex has at most two
+      low neighbors, and any other low neighbor has degree five;
+  (e) every degree-nine vertex has at most three low neighbors.
+
+Proof. If there are two low neighbors, their W-sets have union
+of size at least five. For a 5/6 pair, (4)-(5) give 3+4-2=5;
+for a 6/6 pair they give 4+4-2=6. For a 5/5 pair with both links
+K5, both W-sets have size four, giving union at least six. If
+at least one link is K5-e, (6) gives at least 3+3-1=5. This
+proves (a) when ell_v>=2; when ell_v<=1 it follows from d(v)>=7.
+
+If one of the two neighbors is subsumed, its W-set has size four
+or five. A subsumed five against a six gives 4+4-2=6; against
+a five with at least one nonclique link gives 4+3-1=6; and
+against a clique five gives at least 4+4-2=6. A subsumed six
+against a five gives 5+3-2=6, and against a six gives 5+4-2=7.
+Thus r_v>=6, proving (b) when ell_v>=2. With ell_v<=1 it is
+automatic, since Puleo's restrictions put every such subsumer
+at degree at least eight.
+
+For (c), part (a) gives ell_v<=2. If two neighbors had degree
+six, their W-sets would have union at least six, whereas
+r_v=7-2=5. This is impossible. For (d), part (b) gives
+ell_v<=2. If a second low neighbor had degree six, its W-set
+together with the subsumed six's W-set would require at least
+seven vertices, but r_v=8-2=6. This also is impossible.
+
+For (e), part (a) already bounds ell_v by four. If ell_v=4,
+then r_v=5 and part (b) says v subsumes none of its low
+neighbors. There cannot be two six-neighbors, whose W-sets
+would require at least six vertices. Thus at least three
+neighbors have degree five. Since they are not subsumed,
+their links are K5-e and their W-sets are three-subsets of
+the five-set R_v. Any two intersect in at most one, hence
+exactly one, and their union is R_v. Their two-element
+complements in R_v are therefore pairwise disjoint, impossible
+for three two-sets in a five-set. This proves (e). QED.
+
+In particular, the degree-7/8/9 low-neighbor caps are now 2,3,3,
+and a degree-eight vertex can subsume at most one low vertex.
+That vertex, if present, has degree six. These are deductions
+from the stated inputs, not reattributions of the original
+Puleo or BFG statements.
+
+Here is one global count that retains the joint subsumption
+information. Let U be the set of nonlow vertices subsuming at
+least one low vertex. Lemma 1(b),(e) provide one extra unit
+of improvement over part (a) on U union V9. Since L is
+independent, summing over the other endpoint of each
+low-to-nonlow edge gives
+
+  5|V5|+6|V6|
+     <= sum_{v outside L}(d(v)-5) - |U union V9|.         (7)
+
+No degree-eight surplus was used in deriving (7).
+
+3. THE ONLY DEGREE-EIGHT PROFILE WITH THREE LOW NEIGHBORS
+
+Theorem 2. Let d(v)=8 and ell_v=3. Then the following labeled
+configuration is forced, up to relabeling:
+
+  L_v={x,y,t}, with d(x)=d(y)=5 and d(t)=6;
+  R_v={s,a,b,c,d} induces K5;
+  W_x={s,a,b}, W_y={s,c,d}, W_t={a,b,c,d};                 (8)
+
+the links of x,y,t are respectively K5-e, K5-e, K6-e. There
+are three distinct vertices h_x,h_y,h_t outside N[v] such that
+
+  N(x)={v,s,a,b,h_x}, missing-link edge v h_x;
+  N(y)={v,s,c,d,h_y}, missing-link edge v h_y;
+  N(t)={v,a,b,c,d,h_t}, missing-link edge v h_t.            (9)
+
+Every vertex of R_v has degree at least nine. No claim fixes
+the degrees or additional adjacencies of the three h-vertices.
+
+Proof. Here |R_v|=5. There cannot be two six-neighbors: their
+W-sets have size at least four and intersection at most two,
+so their union would have size at least six.
+
+There cannot be three five-neighbors either. Because d(v)=8,
+Puleo's subsumption restriction makes each such neighbor have
+a K5-e link with v at an endpoint of its missing edge. Each
+W-set has size exactly three. Their pairwise intersections
+are at most one by (6), so any two have intersection exactly
+one and union all of R_v. Equivalently, their two-element
+complements in R_v are pairwise disjoint. Three disjoint
+two-sets cannot fit in a five-set. Thus there are exactly
+two five-neighbors x,y and one six-neighbor t.
+
+The W-sets of x,y have size three. The vertex v cannot subsume
+t, by Lemma 1(b) and ell_v=3, so |W_t|=4. Its intersection
+with either three-set is at most two. Let s be the unique
+vertex of R_v outside W_t. Both three-sets must contain s;
+their intersection is at most one by (6), hence it is exactly
+{s}. Their remaining two-sets are disjoint and partition W_t.
+Label them {a,b},{c,d}, obtaining (8).
+
+Since v is the nonsubsuming endpoint in each of the K5-e
+links, both W_x and W_y induce triangles. In particular s
+is adjacent to a,b,c,d, and ab,cd are present.
+
+Suppose t were thin. Its link has six vertices, with v missing
+one of them; call that vertex h_t. The other four form W_t.
+The matching complement on these four has two edges, so W_t
+induces C4. As ab and cd are present, exchange c,d if needed
+so its two nonedges are ac,bd. Consequently R_v induces
+the join of s and this C4.
+
+In the eight-vertex link F=G[N(v)], take
+
+  Q={s,b,d,t}, M={xa,yc,sb,dt}.
+
+The four matching edges exist and are pairwise disjoint. The
+vertices outside Q are x,y,a,c; their only edges are xa,yc:
+the low vertices x,y are independent, their W-sets are given
+by (8), and ac is absent. Thus |Q|=|M|=4 and Q covers F-M,
+so F is WKE.
+
+For completeness, a WKE link gives an ambient singleton
+reduction directly. For any matching M and Q as above, use
+the triangles {vij:ij in M} and the edge set
+M union {vq:q in Q}. These triangles are edge-disjoint,
+the cover size is at most 2|M|, every triangle through v
+meets a deleted rim or spoke, and every packed edge avoiding
+v belongs to M. Hence the WKE conclusion contradicts
+irreducibility; it is also Puleo's WKE singleton criterion.
+
+Therefore t is non-thin. Its link is K6 or K6-e, but v does
+not subsume t, so it is K6-e with missing edge v h_t.
+It follows that W_t induces K4. Together with s adjacent
+to every vertex of W_t, this makes R_v a K5.
+
+The exact degrees and W-set sizes give the neighborhoods in
+(9). For x and y their missing-edge mates are likewise the
+unique other neighbors not in N(v). All h-vertices lie outside
+N[v]: each is distinct from v and is nonadjacent to v.
+They also lie outside L by low-vertex independence.
+
+The mates are pairwise distinct. If h_x=h_y, the five-vertices
+x,y have common neighbors v,s,h_x, contradicting the BFG
+bound two when a five-link is K5-e. If h_x=h_t, then x,t
+have common neighbors v,a,b,h_x, contradicting the BFG 5/6
+bound three. The same argument applies to h_y=h_t.
+
+Finally, s is adjacent to v, the other four vertices of R_v,
+x,y, and h_x,h_y. These are nine distinct vertices. Each of
+a,b is similarly adjacent to v, four other R_v-vertices,
+x,t, and h_x,h_t. Each of c,d uses y,t,h_y,h_t instead.
+These edges are guaranteed by the sole-missing-edge description
+in (9). Thus every vertex of R_v has degree at least nine,
+as claimed. QED.
+
+4. A JOINT COUNT FOR SHARED HIGH-DEGREE NEIGHBORS
+
+Let P denote the set of degree-eight vertices with exactly
+three low neighbors. For h in H=V_{>=9}, define
+
+  p_h=|N(h) intersect P|;
+  ell_h=|N(h) intersect L|;
+  f_h=number of degree-five neighbors of h with link K5-e;
+  e_h=number of degree-six neighbors of h with link K6-e.
+
+Theorem 3. The following incidence identity and bounds hold:
+
+  5|P| = sum_{h in H} p_h,                                (10)
+
+  p_h <= binom(f_h,2)+f_h e_h,                            (11)
+
+  p_h <= max(0,d(h)-ell_h-4).                             (12)
+
+If p_h>0, then ell_h>=2 and ell_h<=d(h)-7. In particular,
+a degree-nine vertex adjacent to P has exactly two low
+neighbors and at most one neighbor in P. Consequently
+
+  5|P| <= sum_{h in H}
+      min{binom(f_h,2)+f_h e_h,
+          max(0,d(h)-ell_h-4)}.                           (13)
+
+Proof. By Theorem 2, each vertex of P has exactly five nonlow
+neighbors, all in H. This proves (10).
+
+Fix an incidence v in P intersect N(h) and use Theorem 2's
+labels around v. If h=s, assign the low pair {x,y} to this
+incidence. If h is a or b, assign {x,t}; if h is c or d,
+assign {y,t}. In each case these are two low neighbors of h
+and are subsumed by h, because h belongs to the dominating
+part of each low link K5-e or K6-e. The assigned pair has
+type (5 with K5-e,5 with K5-e) or (5 with K5-e,6 with K6-e).
+
+Distinct P-incidences at h receive distinct pairs. Indeed,
+the exact neighborhoods (9) and the distinct mates show
+
+  N(x) intersect N(y)={v,s},
+  N(x) intersect N(t)={v,a,b},
+  N(y) intersect N(t)={v,c,d}.                            (14)
+
+Equivalently, these profiles saturate the BFG bounds two for
+the nonclique 5/5 pair and three for the 5/6 pairs. Each set
+in (14) contains exactly one degree-eight vertex, namely v;
+the other listed vertices all lie in H. Any other vertex of
+P using the same low pair would have to be another common
+neighbor of that pair, which (14) excludes. The number of
+available unordered pairs at h is at most the right side of
+(11), proving that bound.
+
+If p_h>0, choose one incident v in P. The other four vertices
+of its K5 R_v are four additional H-neighbors of h. They are
+distinct from all low neighbors of h and all neighbors of h
+in P. Consequently p_h+ell_h+4<=d(h). If p_h=0, no such four
+vertices are asserted; using max(0,...) yields (12) in both
+cases.
+
+The incidence also supplies two subsumed low neighbors. For
+the assigned 5/5 pair their W-sets at h have size four each
+and intersection at most one by (6). For the assigned 5/6
+pair their W-sets have sizes four and five and intersection
+at most two by (5). In both cases their union contains at
+least seven vertices of N(h)\L. Hence ell_h<=d(h)-7.
+The assigned pair gives ell_h>=2. For d(h)=9 this forces
+ell_h=2, leaving only one possible assigned low pair, so
+p_h<=1 by the already proved pair injection. Summing (11)
+and (12) through (10) proves (13). QED.
+
+5. WHAT THIS DOES AND DOES NOT ESTABLISH
+
+Theorems 2 and 3 give a complete necessary profile and a shared-
+neighbor count for the extremal degree-eight case ell_v=3 in
+an arbitrary robust irreducible graph. The result uses the
+full established BFG overlap baseline and the additional
+reviewed 6/6 reduction, rather than retesting the earlier
+round-six graph J. That graph violates the BFG baseline and
+is not a barrier to the hypotheses used here.
+
+The conclusions are structural constraints available in every
+minimal mad<8 counterexample, without delta>=7 or a seven-link
+family hypothesis. They do not yet prove that (3)'s surplus
+dominates its deficit. In particular, the following remain
+uncontrolled by this note: arbitrary degree-seven link types
+and their unit deficits; degree-eight vertices with one or
+two low neighbors; and simultaneous funding of all five/six
+deficits by higher-degree vertices. Equations (7) and (13)
+are necessary incidence bounds, not a completed discharging
+rule or an existence claim for their equality cases.
+
+No net charge is assigned to leave a degree-eight vertex.
+No sparse counterexample to the full updated baseline is
+claimed, and no Tuza counterexample is constructed.
+
+PRIMARY SOURCES AND REVIEWED ADDITIONAL INPUT.
+
+Gregory J. Puleo, Tuza's Conjecture for Graphs with Maximum
+Average Degree less than 7, arXiv:1308.2211v3, Definitions
+2.1 and 2.3-2.5, Lemmas 2.6-2.7, and the WKE framework:
+  https://arxiv.org/html/1308.2211v3
+
+Fabio Botler, Cristina G. Fernandes, Juan Gutierrez, On Tuza's
+conjecture for triangulations and graphs with small treewidth,
+arXiv:2002.07925v2, Section 3, Lemmas 3.2-3.3:
+  https://arxiv.org/html/2002.07925v2#S3
+
+Reviewed explicit 6/6 exact-codegree-four reduction:
+  research/round9/D/six_six_codegree_four.txt
+  research/round9/C/review_D_full.txt
+
+The sources supply the stated imported results. This note
+claims the displayed deductions from them and the reviewed
+additional reduction, not an exhaustive priority survey.

@@ -1,0 +1,92 @@
+KNOWN LITERATURE BASELINE FOR THE MAD<8 TUZA WORK
+Updated 2026-10-03. Check this file before calling a low-degree overlap
+bound new. It records theorem statements and immediate arithmetic consequences,
+not a complete literature or priority survey.
+
+Definitions and applicability. A set Z is reducible if some edge-disjoint
+triangle packing S and edge set X satisfy |X|<=2|S|, X hits all triangles
+through Z, and X contains every S-edge avoiding Z (Puleo Definition 2.1;
+Botler--Fernandes--Gutiérrez Section 3 uses the equivalent reducing triple).
+"Irreducible" means no reducible set. "Robust" means each component of
+every induced neighborhood has at least five vertices (Puleo Definition 2.3).
+Puleo Lemma 2.6 says a subgraph-minimal counterexample to Tuza is robust.
+For a subgraph-minimal counterexample within mad(G)<8, every proper subgraph
+still has mad<8 and satisfies Tuza by minimality; the reduction bridge makes
+the graph irreducible, so all the robust-irreducible results below apply.
+This transfer does not prove Tuza for mad<8.
+
+Puleo Lemma 2.7, verbatim logical scope: IF G is robust and has no reducible
+set, THEN:
+ (a) Every vertex x of degree at most six has complement of G[N(x)]
+     of maximum degree at most one and with edge count different from two.
+ (b) The vertices of degree at most six form an independent set.
+ (c) No degree-seven vertex subsumes a degree-six vertex; subsumption means
+     N[y] subseteq N[x] (closed neighborhoods).
+ (d) No degree-seven vertex is adjacent to a thin degree-six vertex;
+     thin means the complement of its six-link contains a 3-matching.
+ (e) No vertex of degree at most eight subsumes a degree-five vertex.
+ (f) A degree-nine vertex subsumes at most three degree-at-most-six vertices;
+     if it subsumes three, it is adjacent to exactly three such vertices.
+ (g) If a degree-at-least-ten vertex x subsumes some degree-at-most-six
+     vertex, x has at most d(x)-6 neighbors of degree at most six.
+ (h) A vertex x of degree seven, eight, or nine has at most d(x)-4
+     neighbors of degree at most six.
+Here "subsumes" is Puleo Definition 2.4, and thin is Definition 2.5.
+Part (a) yields five-links K5 or K5-e, and six-links K6, K6-e, or
+K6 minus a perfect matching. These are derived shapes, not named source
+theorems. Parts (c) and (d) are different restrictions.
+
+Botler--Fernandes--Gutiérrez, Lemma 3.2 repeats the indicated Puleo
+low-degree restrictions in the irreducible robust setting; it should not
+be described as sharpening them. Their Lemma 3.3 states: if G is
+irreducible and robust, d(x),d(y)<=6, and |N(x) union N(y)|<=7, then
+ d(x)=d(y)=5, |N(x) intersect N(y)|=3,
+ and both G[N(x)] and G[N(y)] are K5.
+No adjacency assumption on x,y is needed in this statement; part (b)
+above already makes them nonadjacent. Immediate arithmetic consequences:
+  5/5 pair: codegree <=3; equality forces both links K5.
+  5/6 pair: codegree <=3.
+  6/6 pair: codegree <=4.
+Indeed |N(x) union N(y)|=d(x)+d(y)-codegree, so any larger
+codegree triggers Lemma 3.3 and contradicts its degree/equality
+conclusion. These bounds were already in the 2020 source; later project
+certificates can provide alternative constructive proofs or stronger
+local hypotheses but must not call the bounds new.
+
+Important scope correction for the named 12-vertex J of round six:
+J is robust and satisfies Puleo 2.7(a)-(h) as numerical/structural
+conclusions, yet it violates the additional established Botler Lemma 3.3.
+For example, its degree-five b and degree-six t have four common
+neighbors and |N(b) union N(t)|=7. Thus J can witness insufficiency
+of the listed Puleo caps alone; it is NOT a barrier after importing
+the full known low-degree overlap baseline, and it was never proved
+irreducible. Round seven also gives it an explicit pair reduction.
+
+Reviewed project extension, not a published-source attribution.
+research/round9/D/six_six_codegree_four.txt, independently reviewed in
+research/round9/C/review_D_full.txt, gives an ambient-safe pair reduction
+for nonadjacent degree-six vertices of exact codegree four when both link
+complements are matchings with edge count different from two. Under the
+robust-irreducible hypotheses, Puleo 2.7(a),(b) supplies those conditions;
+the already known BFG 6/6 codegree<=4 excludes larger overlap, and this
+project construction excludes equality four. Hence in that setting all
+5/5, 5/6, and 6/6 pairs now have codegree<=3. Only the last 6/6
+strengthening is attributed to this reviewed project proof; no claim
+of literature novelty is made. Do not rewrite BFG Lemma 3.3 as though
+its published 6/6 bound were three.
+
+Using these inputs, research/round9/E/joint_low_degree_counting.txt
+and its review research/round9/C/review_E_full.txt establish joint
+low-neighbor caps 2,3,3 at degrees 7,8,9. They classify every degree-eight
+vertex with three low neighbors and bound sharing of its five high
+neighbors. These are separately reviewed project deductions, not source
+statements. No target-eight total-deficit contradiction is claimed.
+
+Primary sources:
+  Gregory J. Puleo, "Tuza's Conjecture for Graphs with Maximum Average
+  Degree less than 7," arXiv:1308.2211v3, Definitions 2.1, 2.3--2.5,
+  Lemmas 2.6--2.7: https://arxiv.org/html/1308.2211v3
+  F. Botler, C. G. Fernandes, J. Gutiérrez, "On Tuza's conjecture for
+  triangulations and graphs with small treewidth," arXiv:2002.07925v2,
+  Section 3, Lemmas 3.2--3.3:
+  https://arxiv.org/html/2002.07925v2#S3

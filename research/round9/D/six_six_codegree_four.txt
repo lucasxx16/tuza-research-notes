@@ -1,0 +1,208 @@
+ROUND 9 / D
+COMPLETE REDUCTION OF THE SIX/SIX EXACT-CODEGREE-FOUR PATCH
+
+Status: reviewed research proof; see C/review_D_full.txt.
+No claim of literature novelty is made. BFG's published codegree
+bounds are explicitly separated from the construction proved here.
+No numerical search or numerical candidate was used.
+
+1. LOCAL THEOREM AND REDUCTION DEFINITION.
+
+All graphs are finite and simple. Let nu(G) and tau(G) denote the
+maximum size of an edge-disjoint triangle packing and minimum size
+of a triangle edge cover. A nonempty vertex set Z is reducible if
+there are a packing S and an edge set X such that
+  |X|<=2|S|;
+  X meets every triangle containing a vertex of Z; and
+  X contains every S-edge with both endpoints outside Z.
+
+THEOREM.
+Let u,v be nonadjacent vertices of degree six in an arbitrary graph
+G, with exactly four common neighbors. Suppose the complement of
+each of G[N(u)] and G[N(v)] is a matching of size other than two.
+Then {u,v} is reducible.
+
+Only these two neighborhood hypotheses are imposed. Other degrees
+and all other ambient edges are unrestricted. The matching sizes
+allowed on a six-vertex link are zero, one, and three.
+
+Write
+  C=N(u) intersect N(v),
+  A=N(u)\C={a1,a2}, B=N(v)\C={b1,b2},
+  P={ua1,ua2,vb1,vb2}.
+The four private vertices are distinct and outside C union {u,v}.
+This follows from exact codegree four and nonadjacency; it is used
+in verifying the packing edges. In particular the theorem does not
+silently allow private vertices from opposite sides to coincide.
+
+The complement of G[C] is a matching on four vertices, since it is
+a subgraph of either link complement. Thus G[C] is exactly one of
+  K4, K4 minus one edge (diamond), or C4.
+These three cases are exhausted below.
+
+COMMON AMBIENT COVER CHECK.
+Each displayed cover contains P and all of E(G[C]). Every triangle
+through u either uses one of its two private neighbors and meets P,
+or has its other two vertices in C and meets E(G[C]). The same
+argument holds for v. There is no triangle using both u and v,
+since uv is absent. Therefore these covers meet every ambient
+triangle through {u,v}, regardless of private cross edges, edges
+from private/core vertices to other vertices, or other ambient
+triangles. It remains in each case to verify the packing, size, and
+external-packed-edge condition.
+
+2. FOUR-CYCLE CORE: FOUR TRIANGLES, EIGHT COVER EDGES.
+
+Label the core so that its edges are 12,23,34,41, writing i for
+the vertex xi. The two missing edges are 13 and 24.
+
+For clarity, the link restrictions force both links to be thin in
+this case. Each link complement already has two disjoint core
+edges. It cannot have exactly two edges, so its third matching edge
+must join its two private vertices. Thus a1a2 and b1b2 are absent,
+and all private-to-core edges are present. The certificate does not
+need these additional conclusions.
+
+Take
+  S4={u12,u34,v23,v41},
+  X4=E(G[C]) union P.
+The four distinct core edges are used once each. Each center uses
+its four core spokes once, so the four triangles are edge-disjoint.
+The only packed edges outside {u,v} are the core edges, all in X4.
+The common ambient check applies, and
+  |X4|=4+4=8=2|S4|.
+This proves reducibility in the four-cycle case.
+
+3. DIAMOND CORE: FIVE TRIANGLES, TEN COVER EDGES.
+
+Label the core so that the missing edge is 12; its edges are
+  13,14,23,24,34.
+Both private pairs a1a2 and b1b2 must be edges. To see this for the
+v-side, suppose b1b2 were absent. The link complement would contain
+the two disjoint edges 12 and b1b2. It is a matching and cannot have
+exactly two edges, so its third edge would have to be 34. But 34 is
+present in the core, a contradiction. The same proof applies at u.
+This reasoning covers thin and non-thin links equally.
+
+Take
+  S5={u13,u24,v14,v23,vb1b2},
+  X5=E(G[C]) union {b1b2} union P.
+The first four triangles use the four distinct edges 13,24,14,23
+of the core four-cycle. Each center uses its core spokes once.
+The last triangle uses vb1,vb2,b1b2, none previously used. Thus the
+five triangles are edge-disjoint. Their only edges outside {u,v}
+are the four used core edges and b1b2, all in X5. The common ambient
+check applies, including triangles that use the other private pair.
+Finally,
+  |X5|=5+1+4=10=2|S5|.
+This proves reducibility in the diamond case without any restriction
+on the four private cross edges A--B or on how a thin link's other
+two missing edges join its private vertices to the core.
+
+4. COMPLETE CORE: SEVEN TRIANGLES, FOURTEEN COVER EDGES.
+
+Label the core arbitrarily as C={1,2,3,4}, inducing K4. Neither link
+can be thin: K6 minus a perfect matching has clique number three,
+since a clique contains at most one endpoint of each missing pair.
+Thus the complement of each six-link has size zero or one.
+
+We may label the two u-private vertices so that
+  a1 3 and a2 4 are edges,
+and label the two v-private vertices so that
+  b1 2 and b2 4 are edges.
+Indeed, for either side and its indicated pair of core targets,
+the four possible private-to-target edges have at most one missing
+edge. A K2,2 with at most one edge removed has a perfect matching.
+Choose that matching to label the two private vertices. The choices
+on the two sides are independent, since their private sets are
+disjoint. This justifies the selected attachments without assuming
+that all private vertices are complete to C.
+
+Take
+  S7={u12,u a1 3,u a2 4,
+      v13,v b1 2,v b2 4,234},
+  F={a1 3,a2 4,b1 2,b2 4},
+  X7=E(G[C]) union F union P.
+
+The three u-triangles use all six u-spokes once, and the three
+v-triangles use all six v-spokes once. Their two core edges are 12
+and 13. The internal triangle 234 uses 23,24,34, disjoint from
+those two. The four private-to-core edges in F are distinct because
+the private vertices are distinct; they also avoid all core edges
+and hub spokes. Hence all seven triangles are edge-disjoint.
+
+Every packed edge outside {u,v} lies in E(G[C]) union F, which is
+contained in X7. The common ambient check applies, and the three
+parts of X7 are pairwise disjoint. Therefore
+  |X7|=6+4+4=14=2|S7|.
+This proves reducibility in the complete-core case. The status of
+a1a2, b1b2, and every A--B edge is irrelevant to this certificate.
+
+Sections 2-4 exhaust the core possibilities, proving the theorem.
+
+5. INDUCTION BRIDGE AND STRUCTURAL CONSEQUENCE.
+
+For any of the three certificates, put G'=(G-X)-{u,v}. If G' obeys
+Tuza, let T and Y be a maximum packing and a minimum cover of G'.
+Every packed S-edge either touches {u,v} or belongs to X, so T and
+S are edge-disjoint. Every triangle of G either meets X or survives
+in G' (the ambient check already covers triangles through u,v).
+Consequently
+  tau(G)<=|X|+|Y|<=2|S|+2|T|<=2nu(G).
+This is a local ambient-safe reduction, not just a verification of
+Tuza on one induced ten-vertex patch.
+
+COROLLARY.
+In a robust graph with no reducible set, any two distinct vertices
+u,v of degree six have at most three common neighbors.
+
+Proof. Puleo's Lemma 2.7(a),(b) gives nonadjacency and the two link
+conditions used in the theorem. The published BFG Lemma 3.3 implies
+that their codegree is at most four: if it were at least five, then
+  |N(u) union N(v)|=12-|N(u) intersect N(v)|<=7,
+and that lemma would force both degrees to be five, a contradiction.
+The present theorem excludes codegree exactly four. This proves
+the bound three.
+
+The BFG upper bound four is imported, not rediscovered or counted
+as a new result here. The work in this file is the complete exact-
+codegree-four reduction. No claim is made that this strengthening
+is absent from the broader literature.
+
+The corollary applies to any subgraph-minimal counterexample with
+mad<8. All proper subgraphs of such a graph satisfy Tuza because
+mad<8 is subgraph-closed, so the induction bridge forbids reducible
+sets. Puleo's Lemma 2.6 gives robustness. There is no restriction
+on degree-seven link types, and no pointwise degree cap is assumed
+for common or private neighbors.
+
+6. SOURCES, INDEPENDENCE, AND LIMITS.
+
+Imported low-link and independence statements:
+Gregory J. Puleo, "Tuza's Conjecture for Graphs with Maximum Average
+Degree less than 7," arXiv:1308.2211v3, Lemmas 2.6 and 2.7(a),(b).
+  https://arxiv.org/html/1308.2211v3
+
+Imported neighborhood-union bound:
+Fabio Botler, Cristina G. Fernandes, Juan Gutierrez, "On Tuza's
+conjecture for triangulations and graphs with small treewidth,"
+arXiv:2002.07925v2, Lemma 3.3. Its hypothesis is neighborhood union
+of size at most seven. The fixed patch in this file has union of
+size eight, so that hypothesis does not directly exclude it.
+  https://arxiv.org/html/2002.07925v2#S3
+The original Section 3 was consulted in this round. This source
+check is not an exhaustive literature search. Earlier 5/6 and 5/5
+codegree upper bounds are also consequences of BFG Lemma 3.3 and
+must not be presented as new progress from this project.
+
+The initial independent K4 draft was recorded in
+research/round9/D/independent_initial.txt before any E round-nine
+material or numerical output. With the parent's authorization,
+the same task was then extended symbolically to all three possible
+four-vertex cores. No numerical search or enumeration was performed
+or used, and all cross-private edge patterns are handled by the
+ambient argument rather than by a finite list of tested graphs.
+
+The full mad<8 question and a joint counting contradiction remain
+open. Research stops at this reviewed complete six/six exact-codegree-
+four reduction and its stated structural corollary.

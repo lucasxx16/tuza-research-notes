@@ -1,3 +1,10 @@
+LITERATURE-BASELINE CORRECTION (2026-10-03): This acceptance concerns only
+the insufficiency of the listed Puleo 2.7(a)-(h) conclusions. J violates
+the already published Botler--Fernandes--Gutiérrez Lemma 3.3: b,t have
+degrees 5,6, four common neighbors, and union of neighborhoods of size 7.
+It is therefore not a barrier for the full known irreducible robust
+baseline. See research/known_results.txt. The historical audit follows.
+
 Exact-file adversarial review of D/joint_caps_barrier.txt: ACCEPT the stated logical barrier, with its explicit non-irreducibility caveat.
 
 The 12-vertex graph has K8 core minus 01,35 (26 edges) and four independent outside vertices of degrees 5,5,5,6 (21 more edges), so m=47, n=12, average 47/6. The listed degree classes sum to 94. For an induced set with s core vertices, r of the three degree-five vertices, and q∈{0,1} for t, the displayed upper bounds yield 8|Z|-2|E(Z)|>0 for s=0,1,2–7,8; the s=8 bound is at least 2. Thus mad(J)<8, not merely average<8.

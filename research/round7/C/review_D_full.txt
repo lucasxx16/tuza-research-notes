@@ -1,3 +1,9 @@
+LITERATURE-BASELINE CORRECTION (2026-10-03): The certificate audit below
+remains valid, but its 5/6 codegree<=3 consequence was known from
+Botler--Fernandes--Gutiérrez Lemma 3.3. It is an alternative construction,
+not a new overlap bound. J also violates that known lemma. See
+research/known_results.txt. The historical audit follows.
+
 Exact-file adversarial review of D/low_degree_overlap_reductions.txt: ACCEPT the symbolic Theorems A/B and stated corollaries, with their precise ambient and imported hypotheses.
 
 Theorem A uses a CHOSEN K4 C⊆N(u)∩N(v), not necessarily the whole common neighborhood. The nonadjacent pair and r∈N(v)\C complete to C give six existing edge-disjoint triangles: the six C-edges are distinct, and u/v/r spokes do not collide. R=E(C)∪rC has ten edges. The outside-spoke sets have sizes d(u)−4 and d(v)−5 and are disjoint from R and each other, even if r is also adjacent to u. Hence |X6|=d(u)+d(v)+1≤12. Every ambient u-triangle with a neighbor outside C meets its u-spoke; every v-triangle with a neighbor outside C∪{r} meets its v-spoke; the remaining rims lie in R. All packed external edges lie in R.

@@ -1,0 +1,55 @@
+ROUND 9 / D / INDEPENDENT INITIAL DRAFT
+
+Recorded before inspecting E round-nine work or receiving any new
+numerical output. No numerical search has been run by D.
+
+LITERATURE SCOPE.
+The previous low-degree codegree upper bounds are already consequences
+of BFG 2020 Lemma 3.3, as identified by the user; they are not new
+progress here. The present fixed six/six patch has neighborhood union
+of size eight, so that lemma's union-at-most-seven hypothesis does
+not directly cover it. This is not a claim that no other published
+result covers the patch. No novelty claim is made.
+
+FIXED PATCH.
+Let u,v be nonadjacent degree-six vertices with exact common
+neighborhood C={1,2,3,4}, inducing K4. Write
+  N(u)=C union {a,b}, N(v)=C union {c,d}.
+All four private vertices are distinct. Each is complete to C.
+In the residual shape, ab and cd are absent, and the four cross
+edges between {a,b} and {c,d} are arbitrary. The construction below
+does not use any edge among the four private vertices, so the
+assumptions ab,cd absent are unnecessary for the certificate.
+
+UNIVERSAL SEVEN-TRIANGLE CERTIFICATE.
+Take
+  S={u12,ua3,ub4,v13,vc2,vd4,234},
+  X=E(G[C]) union {a3,b4,c2,d4,ua,ub,vc,vd}.
+
+The three u-triangles use all six u-spokes exactly once, as do the
+three v-triangles. Their two common-core edges are 12 and 13. The
+internal triangle 234 uses 23,24,34, disjoint from both. Their four
+private-to-core edges a3,b4,c2,d4 are distinct. Thus S is an
+edge-disjoint collection of seven triangles. The set X has fourteen
+edges.
+
+Every triangle through u using a private neighbor meets ua or ub;
+every other u-triangle uses a C-edge in X. The same argument at v
+uses vc,vd. All edges of S outside {u,v} belong to X: the five used
+C-edges and the four selected private-to-core edges. Consequently
+{u,v} is reducible in the arbitrary ambient graph, without any bound
+on the other degrees or on edges away from u,v.
+
+The only private-to-core edges actually needed by the displayed
+packing are a3,b4,c2,d4. Requiring all four private vertices complete
+to C is a sufficient family hypothesis; weaker labeled hypotheses
+can be stated exactly in the full proof, with no search or case
+classification needed.
+
+The reviewed round-seven common-K4 overlap lemma forced ab,cd to be
+the respective unique link nonedges in an irreducible robust graph.
+The certificate above excludes that remaining shape. Alternatively,
+one can derive complete private-to-core adjacency from Puleo's
+low-link classification once those internal private nonedges are
+present. Full ambient induction and the precise corollary will be
+written for adversarial review.

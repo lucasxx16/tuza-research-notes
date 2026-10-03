@@ -1,0 +1,13 @@
+ROUND 9 C — EXACT-FILE ADVERSARIAL REVIEW OF D/six_six_codegree_four.txt
+
+VERDICT: ACCEPT the complete exact-codegree-four reduction for two nonadjacent degree-six vertices whose six-link complements are matchings of sizes 0,1,or3. The robust-irreducible corollary codegree≤3 follows after importing Puleo 2.7(a),(b) and the already published BFG 3.3 bound codegree≤4. This is a reviewed project construction, not a literature-priority claim.
+
+Exact codegree four makes the private pairs A,B disjoint four-vertex sets, as the proof explicitly requires. The common four-core's complement is a matching, so only K4, diamond, C4 occur. All three covers include the four private hub spokes P and all present core edges, which hits every ambient hub triangle, including those arising from arbitrary cross-private or outside edges. Since uv is absent there are no two-hub triangles.
+
+C4: S4 alternates the four distinct core-cycle rims at u,v; X4 has those four rims plus P, so 4/8 with all outside packed edges contained. Two missing core edges already occupy four complement vertices, so the forbidden size-two complement forces the third missing edge to be the private pair; this observation is correctly separated from certificate necessity.
+
+Diamond K4−12: each private-pair edge is forced present. If it were missing, the two disjoint complement edges 12 and private pair would demand a third on the remaining core vertices 3,4, contradicting core edge 34. S5 uses four different cycle rims plus vb1b2; X5 has five core edges, b1b2, and P, totaling 10=2·5. All packed external edges are in X5, independently of thin/non-thin cross attachment patterns.
+
+K4: a thin K6−3K2 link cannot contain a K4, hence each link misses at most one edge. For each side its two private vertices can be matched to the stated two core targets because the relevant K2,2 lacks at most one edge. The selected attachments therefore exist without complete private-core adjacency. S7 uses each u/v hub spoke once, core rims 12,13,23,24,34 without repetition, and four distinct private-core rims; X7 has six core, four private-core, and four private hub edges, exactly 14=2·7. The four private vertices' distinctness prevents an outside-rim collision.
+
+The induction bridge and mad<8 minimal-counterexample transfer are stated with the proper subgraph hypothesis. BFG 3.3 excludes codegree≥5 for 6/6; this theorem excludes exactly four. No original census, finite side-edge test, or numerical solver result enters the proof.

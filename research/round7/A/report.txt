@@ -1,3 +1,10 @@
+ATTRIBUTION CORRECTION, 2026-10-03 / ROUND 9
+This historical audit checked a limited Puleo source scope. It omitted
+BFG (2020), Lemma 3.3, already recorded in our round-two source review.
+The 5/6 codegree-at-most-three bound was therefore already known.
+See research/known_results.txt and research/round9/A/report.txt;
+this old audit must not be read as evidence of a literature gap.
+
 ROUND 7 / A — primary-source reducibility audit for D target
 D target: nonadjacent low vertices b (deg 5), t (deg 6); common K4 (four
 common neighbors); b has one private neighbor, t two.

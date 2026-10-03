@@ -1,0 +1,21 @@
+ROUND 9 C — BOUNDED LITERATURE AUDIT (2026-10-03)
+
+Accepted research/round9/A/report.txt after four direct wording corrections.
+BFG Lemma 3.3 assumes an irreducible robust graph and
+|N(x) union N(y)|<=7 for two degree-at-most-six vertices; its conclusion
+forces both degree five, codegree three, and K5 links. Thus 5/5 codegree
+is at most three, with K5 links only at equality; 5/6<=3 and 6/6<=4
+follow directly. The original report misleadingly attached K5 to every
+5/5 pair and attributed 5/6 to a vague Lemma 3.2(d) argument.
+
+I removed the reversed inference that the lemma first classifies a pair
+and then deduces reducibility. Its proof uses reducing triples to rule
+out contrary cases. I also narrowed an unsupported absence claim: the
+inspected codegree-four/degree-five branch uses seven triangles and at
+most fourteen cover edges; this audit says nothing exhaustive about
+other reusable patterns in the paper. The exact 6/6 codegree-four
+case has neighborhood union eight, so lies outside Lemma 3.3's
+hypothesis. Round-nine candidate certificates are separate mathematics.
+
+Primary text: https://arxiv.org/html/2002.07925v2#S3 . The report
+properly discloses that Puleo's full paper was not reread by A this round.

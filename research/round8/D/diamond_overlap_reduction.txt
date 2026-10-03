@@ -1,3 +1,10 @@
+LITERATURE-BASELINE CORRECTION (2026-10-03): The selected-diamond
+six-triangle reduction and its exact 5/6 patch proof remain valid, but
+the final 5/6 codegree-at-most-three bound was already established by
+Botler--Fernandes--Gutiérrez Lemma 3.3 (arXiv:2002.07925v2). This file
+gives a constructive local route, not a new numerical overlap restriction.
+See research/known_results.txt; historical proof text is retained.
+
 ROUND 8 / D
 A COMMON-DIAMOND REDUCTION AND A FIVE/SIX CODEGREE BOUND
 

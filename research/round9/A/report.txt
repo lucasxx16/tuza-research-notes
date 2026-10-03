@@ -1,0 +1,92 @@
+ROUND 9 / A — BOUNDED PRIMARY-SOURCE AUDIT
+Role A. Precise source URLs and bounded claims only. No numerical search.
+Scope read: BFG arXiv v2 (2002.07925v2) Section 3 text (Lemmas 3.1-3.3,
+Theorem 3.4), via its arXiv HTML; and the Puleo facts (1308.2211v3,
+Lemma 2.6, 2.7(a)-(b)) as imported verbatim in the project notes. Puleo
+full HTML could not be retrieved within the call budget, so only the
+imported lemma statements are treated as read.
+
+1. STATUS OF THE RECORDED FACTS (known, not new progress).
+
+The user's correction restates exactly what mad8/round2/A/report.txt
+already recorded and reviewed:
+  BFG Lemma 3.3 (2002.07925v2 #S3): if G is irreducible and robust,
+  d(x),d(y)<=6 and |N(x) ∪ N(y)|<=7, then d(x)=d(y)=5, codegree = 3,
+  both links = K5.
+Derived consequences already there: 5/5<=3 (only equality forces both
+links K5); 5/6<=3 and 6/6<=4, each directly from Lemma 3.3.
+Consequence: our later re-derivation of these is not new progress.
+
+2. MAIN AUDIT QUESTION — 6/6 CODEGREE EXACTLY FOUR, common K4,
+   each link K6 minus its private-pair edge.
+
+Residual: centers nonadjacent; C = K4 = common neighborhood of size 4;
+two private neighbors each; each private complete to C; each internal
+private pair a nonedge; cross-private edges unspecified.
+Size: 6 + 6 - 4 = 8 = |N(x) ∪ N(y)|, i.e. union 8.
+
+Coverage verdict on STATEMENTS READ:
+(a) BFG Lemma 3.3 does NOT cover it: the hypothesis |N(x) ∪ N(y)|<=7
+    fails (union = 8). The 6/6 codegree-4 case is exactly outside the
+    lemma's hypothesis. No blanket gap: it is simply out of scope of
+    the stated hypothesis.
+(b) In the Lemma 3.3 PROOF, the codegree-4 case is handled only when
+    one degree equals 5 (the proof states: "In this case, |N(y)|=5").
+    A 6/6 codegree-4 pair is not treated there.
+(c) The remaining read statements of the paper do not eliminate the
+    residual. Theorem 3.4 is the treewidth<=6 result, a different
+    framework (tree decompositions/chordal), not a general robust-
+    irreducible low-degree neighborhood argument. No read statement
+    asserts that a 6/6 codegree-4 pair with common K4 and K6-minus-
+    pair links is reducible. (BOUNDED: this claim is only about the
+    statements READ, not that no such result exists anywhere.)
+(d) Puleo imported facts (Lemma 2.6 robust; Lemma 2.7(a)-(b): degree<=6
+    links have complement a matching of size !=2, degree<=6 vertices
+    independent) constrain each 6-link to K6, K6-e, or K6 minus a
+    perfect matching of size 3; they do not eliminate the pair. Puleo's
+    main theorem is mad<7, not mad<8, and the residual is a pair-level
+    condition not supplied by the read statements.
+
+CONCLUSION for the audit question: within the statements READ, the
+specific 6/6 residual is NOT explicitly eliminated; it is outside both
+Lemma 3.3's hypothesis (union 8) and its proof cases (deg-5/6 only),
+and not addressed by Theorem 3.4. No blanket no-result-exists claim.
+This source audit alone does not decide whether an explicit certificate
+exists; the round-8/D material does NOT close it (see below), and
+round-nine candidate certificates require separate review.
+
+3. COMPARISON: round8/D selected-diamond vs BFG proof.
+
+The round8/D file research/round8/D/diamond_overlap_reduction.txt is an
+INDEPENDENT EXPLICIT RECIPE (its own universal selected-diamond Theorem
+2 with explicit 6-triangle/11-edge certificate for the 5/6 diamond case,
+plus a common-K4 exclusion certificate), derived symbolically in-project.
+BFG Lemma 3.3 is a read KNOWN CONSEQUENCE of the primary literature.
+
+Distinctions to record:
+- BFG Lemma 3.3 gives structural classification (degrees 5,5; codegree
+  3; K5 links) under union<=7. Within its codegree-four/degree-five
+  contradiction branch, its proof uses an explicit reducing triple of
+  seven triangles and at most fourteen cover edges. This comparison
+  makes no claim about all other patterns in that paper.
+- round8/D provides explicit reducing triples, but it covers the 5/6
+  common-diamond and deg-5/6 common-K4 cases. Its own text states the
+  6/6 residual "classification is not expanded in this round."
+- Critically, the round8/D universal theorem's common set is a DIAMOND
+  (K4-ab), while the 6/6 residual has a common K4 (full clique); so the
+  residual is not a direct instance of that theorem either.
+- No novelty claim is made by round8/D, and none is made here. That
+  round supplies an independent explicit 5/6 diamond certificate for
+  an outcome already implied by BFG Lemma 3.3. The 6/6 residual was
+  outside round8/D's stated corollary; round9 work is reviewed separately.
+
+4. EXACT SOURCES CHECKED.
+- https://arxiv.org/html/2002.07925v2  (BFG v2; Section 3: Lemma 3.2,
+  Lemma 3.3 statement+proof cases, Theorem 3.4 treewidth<=6).
+- https://arxiv.org/html/1308.2211v3  (Puleo; Lemma 2.6, 2.7(a)-(b)
+  treated via imported notes; full text not re-read this round).
+- Local notes reread: mad8/round2/A/report.txt; research/round8/D/
+  diamond_overlap_reduction.txt.
+
+END. No credentials, no absolute local paths, no session ids in this
+public report. No numerical search performed.
