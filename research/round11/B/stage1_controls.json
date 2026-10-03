@@ -1,0 +1,2989 @@
+{
+ "stage": 1,
+ "mode": "controls",
+ "engines": {
+  "A": "research/round10/B/red_budget/red_edge_search.py",
+  "B": "research/round11/B/verify_witness.py"
+ },
+ "budgets_config": {
+  "configured_wall_s": 180.0,
+  "self_limit_s": 150.0,
+  "write_deadline_s": 168.0,
+  "solve_slack_s": 3.0,
+  "max_attempts": 10000,
+  "max_eligible": 1000,
+  "node_cap": 250000,
+  "brute_cap": 1048576,
+  "ilp_time_limit_policy": "remaining wall before the write deadline, reset every solve",
+  "orders": [
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "eligible_per_n": {
+   "6": 142,
+   "7": 142,
+   "8": 142,
+   "9": 142,
+   "10": 142,
+   "11": 142,
+   "12": 142
+  },
+  "uncertified_reasons": [
+   "packing_not_exact",
+   "private_packing_not_exact",
+   "cover_not_exact",
+   "not_exact_nodecap",
+   "solver_engine_error",
+   "engine_b_not_certified"
+  ]
+ },
+ "round10_untouched": true,
+ "round10_mtimes": {
+  "research/round10/B/red_budget/red_edge_search.py": [
+   1791018955053600000,
+   27319
+  ],
+  "research/round10/B/red_budget/report.txt": [
+   1791018955054605100,
+   4224
+  ],
+  "research/round10/B/red_budget/results_v3.json": [
+   1791018863365683400,
+   8013
+  ]
+ },
+ "all_controls_pass": true,
+ "wall_s": 0.808,
+ "controls": [
+  {
+   "control": "K3_single_triangle",
+   "why": "floor case: one triangle, its red edge is globally private",
+   "n": 3,
+   "colorstring": "RBB",
+   "specified_by": "round10 carry-over",
+   "spec": null,
+   "expected": {
+    "eligible": true,
+    "p": 1,
+    "p_private": 1,
+    "tau": 1,
+    "r": 1,
+    "s": 0,
+    "tau_over_p": 1.0
+   },
+   "engine_b_standalone": {
+    "p": 1,
+    "p_private": 1,
+    "tau": 1,
+    "r": 1,
+    "s": 0,
+    "eligible": true,
+    "reject": null,
+    "n_triangles": 1,
+    "triangle_constraints_ok": true,
+    "violations": [],
+    "triangles_computed_by_engine_b": [
+     [
+      0,
+      1,
+      2
+     ]
+    ],
+    "red_edge_of_each_triangle_engine_b": [
+     [
+      [
+       0,
+       1,
+       2
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    ],
+    "nonprivate_red_edges_engine_b": [],
+    "p_global_engine_a": 1,
+    "tau_global_engine_a": 1
+   },
+   "engine_a_reject_reason": null,
+   "engine_a_eligible": true,
+   "engines_agree_on_p_tau_r_s": {
+    "p": true,
+    "p_private": true,
+    "tau": true,
+    "r": true,
+    "s": true
+   },
+   "expected_match": true,
+   "literal_checks_ok": true,
+   "verifier_cmd": "python verify_witness.py --n 3 --colorstring RBB",
+   "b_full": {
+    "engine": "round11/B/verify_witness.py (standalone)",
+    "n": 3,
+    "colorstring": "RBB",
+    "vertices": [
+     0,
+     1,
+     2
+    ],
+    "edges_present": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "red_edges": [
+     [
+      0,
+      1
+     ]
+    ],
+    "triangles": [
+     [
+      0,
+      1,
+      2
+     ]
+    ],
+    "red_edge_of_triangle": [
+     [
+      [
+       0,
+       1,
+       2
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    ],
+    "triangle_edge_indices": [
+     [
+      0,
+      1,
+      2
+     ]
+    ],
+    "n_triangles": 1,
+    "triangle_constraints": {
+     "every_triangle_exactly_one_red": true,
+     "violations": []
+    },
+    "p": 1,
+    "p_private": 1,
+    "tau": 1,
+    "r": 1,
+    "s": 0,
+    "nonprivate_red_edges": [],
+    "private_red_edge_count": 1,
+    "tau_over_p": 1.0,
+    "witness_test_tau_gt_199p_over_100": false,
+    "margin_100tau_minus_199p": -99,
+    "packing_Q_triangles": [
+     [
+      0,
+      1,
+      2
+     ]
+    ],
+    "packing_Q_red_edges": [
+     [
+      0,
+      1
+     ]
+    ],
+    "private_packing_Q_triangles": [
+     [
+      0,
+      1,
+      2
+     ]
+    ],
+    "edge_cover_certificate": [
+     [
+      0,
+      1
+     ]
+    ],
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "premises": {
+     "every_triangle_exactly_one_red": true,
+     "p_positive": true,
+     "p_private_equals_p": true,
+     "r_le_3p": true,
+     "connected": true,
+     "simple_finite_graph_by_construction": true
+    },
+    "eligible": true,
+    "literal_checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "claim_mismatches": {},
+    "certified": true,
+    "verified": true,
+    "exit_code": 0
+   },
+   "a_full": {
+    "n": 3,
+    "colorstring": "RBB",
+    "pair_order": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "edges": [
+     [
+      [
+       0,
+       1
+      ],
+      "red"
+     ],
+     [
+      [
+       0,
+       2
+      ],
+      "blue"
+     ],
+     [
+      [
+       1,
+       2
+      ],
+      "blue"
+     ]
+    ],
+    "triangles": [
+     [
+      [
+       [
+        0,
+        1,
+        2
+       ]
+      ],
+      [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     ]
+    ],
+    "red_edge_per_triangle": [
+     {
+      "triangle": [
+       0,
+       1,
+       2
+      ],
+      "red_edge": [
+       0,
+       1
+      ]
+     }
+    ],
+    "nu": 1,
+    "nu_private": 1,
+    "tau": 1,
+    "r": 1,
+    "tau_over_nu": 1.0,
+    "margin_100tau_minus_199nu": -99,
+    "edge_cover_certificate": [
+     [
+      0,
+      1
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    ],
+    "checks": {
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "tau_le_2nu_under_private_premise": true,
+     "cover_size_eq_tau": true,
+     "cover_hits_every_triangle": true,
+     "Q_length_eq_nu": true,
+     "Q_edge_disjoint": true,
+     "Q_red_globally_private": true,
+     "r_le_3nu": true
+    },
+    "verifier_cmd": "python red_edge_search.py --verify 3 RBB",
+    "s": 0,
+    "nonprivate_red": [],
+    "p": 1,
+    "p_private": 1,
+    "engine_a_checks": {
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "tau_le_2nu_under_private_premise": true,
+     "cover_size_eq_tau": true,
+     "cover_hits_every_triangle": true,
+     "Q_length_eq_nu": true,
+     "Q_edge_disjoint": true,
+     "Q_red_globally_private": true,
+     "r_le_3nu": true
+    }
+   }
+  },
+  {
+   "control": "K4_red_perfect_matching",
+   "why": "the global ratio-2 example: every K4 edge lies in 2 triangles, so no red edge is private, p_private=0<p=1 and the private premise REJECTS it. Must not be reported as a witness to tau>199p/100.",
+   "n": 4,
+   "colorstring": "RBBBBR",
+   "specified_by": "round10 carry-over",
+   "spec": null,
+   "expected": {
+    "eligible": false,
+    "reject": "private_premise_fails",
+    "p": 1,
+    "p_private": 0,
+    "tau": 2,
+    "r": 2,
+    "s": 2,
+    "tau_over_p": 2.0
+   },
+   "engine_b_standalone": {
+    "p": 1,
+    "p_private": 0,
+    "tau": 2,
+    "r": 2,
+    "s": 2,
+    "eligible": false,
+    "reject": "private_premise_fails",
+    "n_triangles": 4,
+    "triangle_constraints_ok": true,
+    "violations": [],
+    "triangles_computed_by_engine_b": [
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      0,
+      1,
+      3
+     ],
+     [
+      0,
+      2,
+      3
+     ],
+     [
+      1,
+      2,
+      3
+     ]
+    ],
+    "red_edge_of_each_triangle_engine_b": [
+     [
+      [
+       0,
+       1,
+       2
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     [
+      [
+       0,
+       1,
+       3
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     [
+      [
+       0,
+       2,
+       3
+      ],
+      [
+       2,
+       3
+      ]
+     ],
+     [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       2,
+       3
+      ]
+     ]
+    ],
+    "nonprivate_red_edges_engine_b": [
+     [
+      [
+       0,
+       1
+      ],
+      2
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      2
+     ]
+    ],
+    "p_global_engine_a": null,
+    "tau_global_engine_a": null
+   },
+   "engine_a_reject_reason": "private_premise_fails",
+   "engine_a_eligible": false,
+   "engines_agree_on_p_tau_r_s": null,
+   "expected_match": true,
+   "literal_checks_ok": true,
+   "verifier_cmd": "python verify_witness.py --n 4 --colorstring RBBBBR",
+   "b_full": {
+    "engine": "round11/B/verify_witness.py (standalone)",
+    "n": 4,
+    "colorstring": "RBBBBR",
+    "vertices": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "edges_present": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "red_edges": [
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "triangles": [
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      0,
+      1,
+      3
+     ],
+     [
+      0,
+      2,
+      3
+     ],
+     [
+      1,
+      2,
+      3
+     ]
+    ],
+    "red_edge_of_triangle": [
+     [
+      [
+       0,
+       1,
+       2
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     [
+      [
+       0,
+       1,
+       3
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     [
+      [
+       0,
+       2,
+       3
+      ],
+      [
+       2,
+       3
+      ]
+     ],
+     [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       2,
+       3
+      ]
+     ]
+    ],
+    "triangle_edge_indices": [
+     [
+      0,
+      1,
+      3
+     ],
+     [
+      0,
+      2,
+      4
+     ],
+     [
+      1,
+      2,
+      5
+     ],
+     [
+      3,
+      4,
+      5
+     ]
+    ],
+    "n_triangles": 4,
+    "triangle_constraints": {
+     "every_triangle_exactly_one_red": true,
+     "violations": []
+    },
+    "p": 1,
+    "p_private": 0,
+    "tau": 2,
+    "r": 2,
+    "s": 2,
+    "nonprivate_red_edges": [
+     [
+      [
+       0,
+       1
+      ],
+      2
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      2
+     ]
+    ],
+    "private_red_edge_count": 0,
+    "tau_over_p": 2.0,
+    "witness_test_tau_gt_199p_over_100": true,
+    "margin_100tau_minus_199p": 1,
+    "packing_Q_triangles": [
+     [
+      0,
+      1,
+      2
+     ]
+    ],
+    "packing_Q_red_edges": [
+     [
+      0,
+      1
+     ]
+    ],
+    "private_packing_Q_triangles": [],
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute",
+     "pp_note": "no_private_triangle",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "premises": {
+     "every_triangle_exactly_one_red": true,
+     "p_positive": true,
+     "p_private_equals_p": false,
+     "r_le_3p": true,
+     "connected": true,
+     "simple_finite_graph_by_construction": true
+    },
+    "eligible": false,
+    "literal_checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "claim_mismatches": {},
+    "certified": true,
+    "verified": false,
+    "exit_code": 1
+   },
+   "a_full": null
+  },
+  {
+   "control": "C5_red_base_blue_apex",
+   "why": "reference nontrivial ratio 3/2 with a valid private maximum packing (odd-cycle vertex cover vs matching in the red base)",
+   "n": 6,
+   "colorstring": "R00RBR00BR0BRBB",
+   "specified_by": "round10 carry-over",
+   "spec": null,
+   "expected": {
+    "eligible": true,
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "tau_over_p": 1.5
+   },
+   "engine_b_standalone": {
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "eligible": true,
+    "reject": null,
+    "n_triangles": 5,
+    "triangle_constraints_ok": true,
+    "violations": [],
+    "triangles_computed_by_engine_b": [
+     [
+      0,
+      1,
+      5
+     ],
+     [
+      0,
+      4,
+      5
+     ],
+     [
+      1,
+      2,
+      5
+     ],
+     [
+      2,
+      3,
+      5
+     ],
+     [
+      3,
+      4,
+      5
+     ]
+    ],
+    "red_edge_of_each_triangle_engine_b": [
+     [
+      [
+       0,
+       1,
+       5
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     [
+      [
+       0,
+       4,
+       5
+      ],
+      [
+       0,
+       4
+      ]
+     ],
+     [
+      [
+       1,
+       2,
+       5
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     [
+      [
+       2,
+       3,
+       5
+      ],
+      [
+       2,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4,
+       5
+      ],
+      [
+       3,
+       4
+      ]
+     ]
+    ],
+    "nonprivate_red_edges_engine_b": [],
+    "p_global_engine_a": 2,
+    "tau_global_engine_a": 3
+   },
+   "engine_a_reject_reason": null,
+   "engine_a_eligible": true,
+   "engines_agree_on_p_tau_r_s": {
+    "p": true,
+    "p_private": true,
+    "tau": true,
+    "r": true,
+    "s": true
+   },
+   "expected_match": true,
+   "literal_checks_ok": true,
+   "verifier_cmd": "python verify_witness.py --n 6 --colorstring R00RBR00BR0BRBB",
+   "b_full": {
+    "engine": "round11/B/verify_witness.py (standalone)",
+    "n": 6,
+    "colorstring": "R00RBR00BR0BRBB",
+    "vertices": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "edges_present": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      4,
+      5
+     ]
+    ],
+    "red_edges": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "triangles": [
+     [
+      0,
+      1,
+      5
+     ],
+     [
+      0,
+      4,
+      5
+     ],
+     [
+      1,
+      2,
+      5
+     ],
+     [
+      2,
+      3,
+      5
+     ],
+     [
+      3,
+      4,
+      5
+     ]
+    ],
+    "red_edge_of_triangle": [
+     [
+      [
+       0,
+       1,
+       5
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     [
+      [
+       0,
+       4,
+       5
+      ],
+      [
+       0,
+       4
+      ]
+     ],
+     [
+      [
+       1,
+       2,
+       5
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     [
+      [
+       2,
+       3,
+       5
+      ],
+      [
+       2,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4,
+       5
+      ],
+      [
+       3,
+       4
+      ]
+     ]
+    ],
+    "triangle_edge_indices": [
+     [
+      0,
+      4,
+      8
+     ],
+     [
+      3,
+      4,
+      14
+     ],
+     [
+      5,
+      8,
+      11
+     ],
+     [
+      9,
+      11,
+      13
+     ],
+     [
+      12,
+      13,
+      14
+     ]
+    ],
+    "n_triangles": 5,
+    "triangle_constraints": {
+     "every_triangle_exactly_one_red": true,
+     "violations": []
+    },
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_edges": [],
+    "private_red_edge_count": 5,
+    "tau_over_p": 1.5,
+    "witness_test_tau_gt_199p_over_100": false,
+    "margin_100tau_minus_199p": -98,
+    "packing_Q_triangles": [
+     [
+      0,
+      4,
+      5
+     ],
+     [
+      1,
+      2,
+      5
+     ]
+    ],
+    "packing_Q_red_edges": [
+     [
+      0,
+      4
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "private_packing_Q_triangles": [
+     [
+      0,
+      4,
+      5
+     ],
+     [
+      1,
+      2,
+      5
+     ]
+    ],
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "premises": {
+     "every_triangle_exactly_one_red": true,
+     "p_positive": true,
+     "p_private_equals_p": true,
+     "r_le_3p": true,
+     "connected": true,
+     "simple_finite_graph_by_construction": true
+    },
+    "eligible": true,
+    "literal_checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "claim_mismatches": {},
+    "certified": true,
+    "verified": true,
+    "exit_code": 0
+   },
+   "a_full": {
+    "n": 6,
+    "colorstring": "R00RBR00BR0BRBB",
+    "pair_order": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      4,
+      5
+     ]
+    ],
+    "edges": [
+     [
+      [
+       0,
+       1
+      ],
+      "red"
+     ],
+     [
+      [
+       0,
+       4
+      ],
+      "red"
+     ],
+     [
+      [
+       0,
+       5
+      ],
+      "blue"
+     ],
+     [
+      [
+       1,
+       2
+      ],
+      "red"
+     ],
+     [
+      [
+       1,
+       5
+      ],
+      "blue"
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      "red"
+     ],
+     [
+      [
+       2,
+       5
+      ],
+      "blue"
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      "red"
+     ],
+     [
+      [
+       3,
+       5
+      ],
+      "blue"
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      "blue"
+     ]
+    ],
+    "triangles": [
+     [
+      [
+       [
+        0,
+        1,
+        5
+       ]
+      ],
+      [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        1,
+        5
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        0,
+        4,
+        5
+       ]
+      ],
+      [
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        4,
+        5
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        1,
+        2,
+        5
+       ]
+      ],
+      [
+       [
+        1,
+        2
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        2,
+        5
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        2,
+        3,
+        5
+       ]
+      ],
+      [
+       [
+        2,
+        3
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        3,
+        5
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        3,
+        4,
+        5
+       ]
+      ],
+      [
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        4,
+        5
+       ]
+      ]
+     ]
+    ],
+    "red_edge_per_triangle": [
+     {
+      "triangle": [
+       0,
+       1,
+       5
+      ],
+      "red_edge": [
+       0,
+       1
+      ]
+     },
+     {
+      "triangle": [
+       0,
+       4,
+       5
+      ],
+      "red_edge": [
+       0,
+       4
+      ]
+     },
+     {
+      "triangle": [
+       1,
+       2,
+       5
+      ],
+      "red_edge": [
+       1,
+       2
+      ]
+     },
+     {
+      "triangle": [
+       2,
+       3,
+       5
+      ],
+      "red_edge": [
+       2,
+       3
+      ]
+     },
+     {
+      "triangle": [
+       3,
+       4,
+       5
+      ],
+      "red_edge": [
+       3,
+       4
+      ]
+     }
+    ],
+    "nu": 2,
+    "nu_private": 2,
+    "tau": 3,
+    "r": 5,
+    "tau_over_nu": 1.5,
+    "margin_100tau_minus_199nu": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "tau_le_2nu_under_private_premise": true,
+     "cover_size_eq_tau": true,
+     "cover_hits_every_triangle": true,
+     "Q_length_eq_nu": true,
+     "Q_edge_disjoint": true,
+     "Q_red_globally_private": true,
+     "r_le_3nu": true
+    },
+    "verifier_cmd": "python red_edge_search.py --verify 6 R00RBR00BR0BRBB",
+    "s": 0,
+    "nonprivate_red": [],
+    "p": 2,
+    "p_private": 2,
+    "engine_a_checks": {
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "tau_le_2nu_under_private_premise": true,
+     "cover_size_eq_tau": true,
+     "cover_hits_every_triangle": true,
+     "Q_length_eq_nu": true,
+     "Q_edge_disjoint": true,
+     "Q_red_globally_private": true,
+     "r_le_3nu": true
+    }
+   }
+  },
+  {
+   "control": "spine8_C4plusoddpath_one_multipage_red",
+   "why": "coordinator-specified REQUIRED s>0 control (supplied, not searched): BLUE 8-cycle on 0..7 plus BLUE (0,8),(2,8); RED (0,2),(2,4),(4,6),(0,6),(1,3), (3,5),(5,7),(7,8), y = 8. Both exact solvers certify for this literal input: 9 triangles, every triangle exactly one red edge, p = p_private = 4, tau = 5, r = 8 <= 3p = 12, s = 1 (one participating red edge lies in 2 triangles), tau/p = 5/4. The triangle list, the red edge of each triangle and the non-private red edges with their page counts are stored as engine-B output in stage1_controls.json -- nothing about this instance is asserted by hand here. Interpretation of the mechanism is Role E/C material (research/round11/E/multipage_matching_gap.txt); this file states numerics only.",
+   "n": 9,
+   "colorstring": "BR000RBBBR00000BR000BBR000BR00BR0B0R",
+   "specified_by": "coordinator (required s>0 control, supplied not searched)",
+   "spec": {
+    "blue": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      4,
+      5
+     ],
+     [
+      5,
+      6
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "red": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      4,
+      6
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      7,
+      8
+     ]
+    ]
+   },
+   "expected": {
+    "eligible": true,
+    "p": 4,
+    "p_private": 4,
+    "tau": 5,
+    "r": 8,
+    "s": 1,
+    "n_triangles": 9,
+    "tau_over_p": 1.25
+   },
+   "engine_b_standalone": {
+    "p": 4,
+    "p_private": 4,
+    "tau": 5,
+    "r": 8,
+    "s": 1,
+    "eligible": true,
+    "reject": null,
+    "n_triangles": 9,
+    "triangle_constraints_ok": true,
+    "violations": [],
+    "triangles_computed_by_engine_b": [
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      0,
+      2,
+      8
+     ],
+     [
+      0,
+      6,
+      7
+     ],
+     [
+      0,
+      7,
+      8
+     ],
+     [
+      1,
+      2,
+      3
+     ],
+     [
+      2,
+      3,
+      4
+     ],
+     [
+      3,
+      4,
+      5
+     ],
+     [
+      4,
+      5,
+      6
+     ],
+     [
+      5,
+      6,
+      7
+     ]
+    ],
+    "red_edge_of_each_triangle_engine_b": [
+     [
+      [
+       0,
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     [
+      [
+       0,
+       2,
+       8
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     [
+      [
+       0,
+       6,
+       7
+      ],
+      [
+       0,
+       6
+      ]
+     ],
+     [
+      [
+       0,
+       7,
+       8
+      ],
+      [
+       7,
+       8
+      ]
+     ],
+     [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       2,
+       3,
+       4
+      ],
+      [
+       2,
+       4
+      ]
+     ],
+     [
+      [
+       3,
+       4,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       4,
+       5,
+       6
+      ],
+      [
+       4,
+       6
+      ]
+     ],
+     [
+      [
+       5,
+       6,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "nonprivate_red_edges_engine_b": [
+     [
+      [
+       0,
+       2
+      ],
+      2
+     ]
+    ],
+    "p_global_engine_a": 4,
+    "tau_global_engine_a": 5
+   },
+   "engine_a_reject_reason": null,
+   "engine_a_eligible": true,
+   "engines_agree_on_p_tau_r_s": {
+    "p": true,
+    "p_private": true,
+    "tau": true,
+    "r": true,
+    "s": true
+   },
+   "expected_match": true,
+   "literal_checks_ok": true,
+   "verifier_cmd": "python verify_witness.py --n 9 --colorstring BR000RBBBR00000BR000BBR000BR00BR0B0R",
+   "b_full": {
+    "engine": "round11/B/verify_witness.py (standalone)",
+    "n": 9,
+    "colorstring": "BR000RBBBR00000BR000BBR000BR00BR0B0R",
+    "vertices": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "edges_present": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      4,
+      5
+     ],
+     [
+      4,
+      6
+     ],
+     [
+      5,
+      6
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ],
+     [
+      7,
+      8
+     ]
+    ],
+    "red_edges": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      4,
+      6
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      7,
+      8
+     ]
+    ],
+    "triangles": [
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      0,
+      2,
+      8
+     ],
+     [
+      0,
+      6,
+      7
+     ],
+     [
+      0,
+      7,
+      8
+     ],
+     [
+      1,
+      2,
+      3
+     ],
+     [
+      2,
+      3,
+      4
+     ],
+     [
+      3,
+      4,
+      5
+     ],
+     [
+      4,
+      5,
+      6
+     ],
+     [
+      5,
+      6,
+      7
+     ]
+    ],
+    "red_edge_of_triangle": [
+     [
+      [
+       0,
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     [
+      [
+       0,
+       2,
+       8
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     [
+      [
+       0,
+       6,
+       7
+      ],
+      [
+       0,
+       6
+      ]
+     ],
+     [
+      [
+       0,
+       7,
+       8
+      ],
+      [
+       7,
+       8
+      ]
+     ],
+     [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       2,
+       3,
+       4
+      ],
+      [
+       2,
+       4
+      ]
+     ],
+     [
+      [
+       3,
+       4,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       4,
+       5,
+       6
+      ],
+      [
+       4,
+       6
+      ]
+     ],
+     [
+      [
+       5,
+       6,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "triangle_edge_indices": [
+     [
+      0,
+      1,
+      8
+     ],
+     [
+      1,
+      7,
+      20
+     ],
+     [
+      5,
+      6,
+      33
+     ],
+     [
+      6,
+      7,
+      35
+     ],
+     [
+      8,
+      9,
+      15
+     ],
+     [
+      15,
+      16,
+      21
+     ],
+     [
+      21,
+      22,
+      26
+     ],
+     [
+      26,
+      27,
+      30
+     ],
+     [
+      30,
+      31,
+      33
+     ]
+    ],
+    "n_triangles": 9,
+    "triangle_constraints": {
+     "every_triangle_exactly_one_red": true,
+     "violations": []
+    },
+    "p": 4,
+    "p_private": 4,
+    "tau": 5,
+    "r": 8,
+    "s": 1,
+    "nonprivate_red_edges": [
+     [
+      [
+       0,
+       2
+      ],
+      2
+     ]
+    ],
+    "private_red_edge_count": 7,
+    "tau_over_p": 1.25,
+    "witness_test_tau_gt_199p_over_100": false,
+    "margin_100tau_minus_199p": -296,
+    "packing_Q_triangles": [
+     [
+      0,
+      2,
+      8
+     ],
+     [
+      0,
+      6,
+      7
+     ],
+     [
+      1,
+      2,
+      3
+     ],
+     [
+      3,
+      4,
+      5
+     ]
+    ],
+    "packing_Q_red_edges": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "private_packing_Q_triangles": [
+     [
+      0,
+      7,
+      8
+     ],
+     [
+      1,
+      2,
+      3
+     ],
+     [
+      3,
+      4,
+      5
+     ],
+     [
+      5,
+      6,
+      7
+     ]
+    ],
+    "edge_cover_certificate": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      5,
+      6
+     ]
+    ],
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "premises": {
+     "every_triangle_exactly_one_red": true,
+     "p_positive": true,
+     "p_private_equals_p": true,
+     "r_le_3p": true,
+     "connected": true,
+     "simple_finite_graph_by_construction": true
+    },
+    "eligible": true,
+    "literal_checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "claim_mismatches": {},
+    "certified": true,
+    "verified": true,
+    "exit_code": 0
+   },
+   "a_full": {
+    "n": 9,
+    "colorstring": "BR000RBBBR00000BR000BBR000BR00BR0B0R",
+    "pair_order": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      5
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      2,
+      8
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      3,
+      6
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      4,
+      5
+     ],
+     [
+      4,
+      6
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      4,
+      8
+     ],
+     [
+      5,
+      6
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      5,
+      8
+     ],
+     [
+      6,
+      7
+     ],
+     [
+      6,
+      8
+     ],
+     [
+      7,
+      8
+     ]
+    ],
+    "edges": [
+     [
+      [
+       0,
+       1
+      ],
+      "blue"
+     ],
+     [
+      [
+       0,
+       2
+      ],
+      "red"
+     ],
+     [
+      [
+       0,
+       6
+      ],
+      "red"
+     ],
+     [
+      [
+       0,
+       7
+      ],
+      "blue"
+     ],
+     [
+      [
+       0,
+       8
+      ],
+      "blue"
+     ],
+     [
+      [
+       1,
+       2
+      ],
+      "blue"
+     ],
+     [
+      [
+       1,
+       3
+      ],
+      "red"
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      "blue"
+     ],
+     [
+      [
+       2,
+       4
+      ],
+      "red"
+     ],
+     [
+      [
+       2,
+       8
+      ],
+      "blue"
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      "blue"
+     ],
+     [
+      [
+       3,
+       5
+      ],
+      "red"
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      "blue"
+     ],
+     [
+      [
+       4,
+       6
+      ],
+      "red"
+     ],
+     [
+      [
+       5,
+       6
+      ],
+      "blue"
+     ],
+     [
+      [
+       5,
+       7
+      ],
+      "red"
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      "blue"
+     ],
+     [
+      [
+       7,
+       8
+      ],
+      "red"
+     ]
+    ],
+    "triangles": [
+     [
+      [
+       [
+        0,
+        1,
+        2
+       ]
+      ],
+      [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        0,
+        2,
+        8
+       ]
+      ],
+      [
+       [
+        0,
+        2
+       ],
+       [
+        0,
+        8
+       ],
+       [
+        2,
+        8
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        0,
+        6,
+        7
+       ]
+      ],
+      [
+       [
+        0,
+        6
+       ],
+       [
+        0,
+        7
+       ],
+       [
+        6,
+        7
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        0,
+        7,
+        8
+       ]
+      ],
+      [
+       [
+        0,
+        7
+       ],
+       [
+        0,
+        8
+       ],
+       [
+        7,
+        8
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        1,
+        2,
+        3
+       ]
+      ],
+      [
+       [
+        1,
+        2
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        2,
+        3
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        2,
+        3,
+        4
+       ]
+      ],
+      [
+       [
+        2,
+        3
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        3,
+        4
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        3,
+        4,
+        5
+       ]
+      ],
+      [
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        4,
+        5
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        4,
+        5,
+        6
+       ]
+      ],
+      [
+       [
+        4,
+        5
+       ],
+       [
+        4,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ]
+     ],
+     [
+      [
+       [
+        5,
+        6,
+        7
+       ]
+      ],
+      [
+       [
+        5,
+        6
+       ],
+       [
+        5,
+        7
+       ],
+       [
+        6,
+        7
+       ]
+      ]
+     ]
+    ],
+    "red_edge_per_triangle": [
+     {
+      "triangle": [
+       0,
+       1,
+       2
+      ],
+      "red_edge": [
+       0,
+       2
+      ]
+     },
+     {
+      "triangle": [
+       0,
+       2,
+       8
+      ],
+      "red_edge": [
+       0,
+       2
+      ]
+     },
+     {
+      "triangle": [
+       0,
+       6,
+       7
+      ],
+      "red_edge": [
+       0,
+       6
+      ]
+     },
+     {
+      "triangle": [
+       0,
+       7,
+       8
+      ],
+      "red_edge": [
+       7,
+       8
+      ]
+     },
+     {
+      "triangle": [
+       1,
+       2,
+       3
+      ],
+      "red_edge": [
+       1,
+       3
+      ]
+     },
+     {
+      "triangle": [
+       2,
+       3,
+       4
+      ],
+      "red_edge": [
+       2,
+       4
+      ]
+     },
+     {
+      "triangle": [
+       3,
+       4,
+       5
+      ],
+      "red_edge": [
+       3,
+       5
+      ]
+     },
+     {
+      "triangle": [
+       4,
+       5,
+       6
+      ],
+      "red_edge": [
+       4,
+       6
+      ]
+     },
+     {
+      "triangle": [
+       5,
+       6,
+       7
+      ],
+      "red_edge": [
+       5,
+       7
+      ]
+     }
+    ],
+    "nu": 4,
+    "nu_private": 4,
+    "tau": 5,
+    "r": 8,
+    "tau_over_nu": 1.25,
+    "margin_100tau_minus_199nu": -296,
+    "edge_cover_certificate": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      5,
+      6
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       7
+      ],
+      [
+       0,
+       8
+      ],
+      [
+       7,
+       8
+      ]
+     ],
+     [
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       5
+      ],
+      [
+       4,
+       5
+      ]
+     ],
+     [
+      [
+       5,
+       6
+      ],
+      [
+       5,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "tau_le_2nu_under_private_premise": true,
+     "cover_size_eq_tau": true,
+     "cover_hits_every_triangle": true,
+     "Q_length_eq_nu": true,
+     "Q_edge_disjoint": true,
+     "Q_red_globally_private": true,
+     "r_le_3nu": true
+    },
+    "verifier_cmd": "python red_edge_search.py --verify 9 BR000RBBBR00000BR000BBR000BR00BR0B0R",
+    "s": 1,
+    "nonprivate_red": [
+     [
+      0,
+      2,
+      2
+     ]
+    ],
+    "p": 4,
+    "p_private": 4,
+    "engine_a_checks": {
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "tau_le_2nu_under_private_premise": true,
+     "cover_size_eq_tau": true,
+     "cover_hits_every_triangle": true,
+     "Q_length_eq_nu": true,
+     "Q_edge_disjoint": true,
+     "Q_red_globally_private": true,
+     "r_le_3nu": true
+    }
+   }
+  }
+ ]
+}

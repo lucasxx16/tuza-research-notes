@@ -1,0 +1,63 @@
+ROUND 11 / A — SOURCE AUDIT (Role A), corrected. User target (universal,
+unchanged): tau(G) <= c nu(G) for ALL finite simple graphs, exact c <
+165/59. This report records only source facts I actually read; no proof
+claims. Reads this project: research/round10/A/report.txt (Wang primary),
+round10/C/review_baseline.txt, round11/C/rb_scope_attack.txt.
+
+0. QUESTION RESTATED
+Red-blue H, EVERY triangle exactly one red edge; some maximum triangle
+packing Q with all red edges globally private; participating red count
+r <= 3|Q|. Auxiliary J: blue edges = vertices, one J edge per H triangle
+joining its two blue edges; J triangle-free; color classes (= red spines)
+are matchings. H packings <=> rainbow matchings in colored J; H edge
+transversals <=> mixed covers (J vertices = blue edges, colors = red
+spines). All-singleton-color subclass gives the elementary bound
+beta(J) <= 2 mu(J) - mu(J)^2/(2|E(J)|-mu(J)), hence 9/5 when
+|E(J)| <= 3 mu(J). Task: find a primary theorem for this subclass or a
+stronger bound subsuming it.
+
+1. ELEMENTARY BOUND — STATUS (self-contained, not cited)
+The inequality beta(J) <= 2 mu(J) - mu(J)^2/(2|E(J)|-mu(J)) appears in
+this project as a self-contained elementary derivation: take a maximum
+matching, one endpoint per matched edge, then account for remaining edges
+to shave the mu^2/(2m-mu) term; 9/5 follows when m <= 3 mu. I offer NO
+literature citation for it and make no novelty or prior-art claim for the
+formula or the 9/5 corollary. It is project-derived only.
+
+2. ACTUALLY-READ PRIMARY SOURCES (exact, narrow applicability)
+[P1] Sichen Wang, "A Bound Below 2.8 for Tuza's Conjecture",
+arXiv:2609.13831v1 [math.CO], 12 Sep 2026.
+Exact theorem (Theorem 1): every finite simple graph G satisfies
+tau(G) <= (165/59) nu(G); universal, no mad/degree hypothesis.
+Applicability to THIS question: it already gives a universal coefficient,
+so it neither proves nor refutes a subclass-specific improvement below
+165/59; it is the baseline the project is trying to beat, not a tool that
+isolates the red-blue/rainbow-matching subclass. Read in round 10
+(research/round10/A/report.txt), re-confirmed scope only here.
+URL: https://arxiv.org/abs/2609.13831 ; HTML: https://arxiv.org/html/2609.13831v1
+
+I have no other primary passage in this session that I have actually read
+in full, so I give no other theorem as a primary source here.
+
+3. REMOVED ITEMS (corrected)
+- Andrews "Note on packing and covering triangles in graphs": listed only
+  from a search-surface tag, not read; REMOVED (no theorem/page, no DOI).
+- Aharoni-Berger / Drisko rainbow-matching entries: vague names from
+  search snippets, exact paper/pages not verified; REMOVED. No rainbow-
+  matching or mixed-vertex-color-cover primary theorem is asserted here.
+
+4. LITERATURE STATUS — precise wording
+Within the bounded query budget I located no additional exact primary
+theorem specific to this subclass. That is only a statement about what
+was not found/cited HERE. It is NOT a claim that the mechanism is open or
+unsubsumed in the literature. What we know: the larger RB(epsilon) claim,
+with only the packed red edges private, stays unproved in THIS project.
+The stronger all-participating-red-private subclass was proved in round ten. No new
+prior-art-absence claim is made.
+
+5. BOUNDED SCOPE
+Queries were limited (<=8). Only Wang is reported as an actually-read
+primary theorem. No numerical search, no new math, no novelty or priority
+claim. Nothing here advances the universal c<165/59 by itself.
+
+END. Sources: only P1 (Wang) actually read; all else removed.

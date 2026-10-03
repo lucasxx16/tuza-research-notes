@@ -1,0 +1,44 @@
+ROUND 11 / B — FINAL FIXED HARD-INSTANCE DIAGNOSTIC
+
+Purpose after the symbolic result: sample nonprivate-red configurations
+and high tau/p, not try to refute RB(1/100) at these orders. The proved
+tau<=2p-1 implies that a strict RB(1/100) counterexample needs p>100;
+here n<=12 gives p<=22. Zero counterexamples carry no supporting force.
+
+Run: python research/round11/B/targeted_search.py full
+Seed 20261003, n=6..12; structured seeds and edge/color/page mutations.
+The historical round-ten module is imported without modifying its files.
+Code and controls were audited and repaired before this one final run.
+
+Saved output: instances.json. Recorded wall time: 19.539 seconds.
+6029 generated attempts = 5327 distinct labeled colorstrings + 702 repeats.
+994 eligible inputs, exactly 142 for each order 6 through 12; the run
+stopped when all per-order quotas were met, below the global 1000 cap.
+No isomorphism deduplication or exhaustive-order claim is made.
+The process target was soft 180 seconds; per-solve limits were finite.
+
+731 eligible inputs had s=0; 263 had at least one nonprivate participating
+red edge. Maximum red page counts: 731 inputs had maximum 1, 257 had
+maximum 2, and 6 had maximum 3. Thus this run does NOT explore the
+arbitrarily long page tails isolated by the mathematical theorem.
+The best ratio was 3/2 in both the s=0 and s>0 strata. No ratio above
+3/2 was found in this family and budget; that is not a universal bound.
+
+Every counted eligible input passed the audited edge-mask solver and
+the separate triangle-enumeration verifier, including optimal p,
+private p, and EDGE cover tau, all premise gates and literal checks.
+Recorded uncertified skips, disagreements and witness alarms were zero.
+Fixed controls are separate from these counts. Three eligible controls
+agree between engines; K4 is rejected early by engine A, while engine B
+alone verifies its global optima and failure of the private premise.
+
+Retained examples include their literal colorstrings, maximum private
+packings, minimum edge covers, page counts, and single-instance verifier
+commands. The standalone verifier does not import the search or round-ten
+solver. Its optimal ILP status is cross-checked against exhaustive subsets
+where within the stated cap; neither method is a formal proof assistant.
+
+This is a bounded implementation/instance diagnostic. No result here is
+a premise of the accepted symbolic theorems, and no universal coefficient
+below 165/59 is inferred. See C/review_B_stage1_and_code.txt and
+C/review_B_full_output.txt for validation scope.

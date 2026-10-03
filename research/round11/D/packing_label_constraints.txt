@@ -1,0 +1,243 @@
+ROUND 11 / D
+ORIGINAL-PACKING LABEL CONSTRAINTS AND A BOOK-COVER SLACK
+
+Status: reviewed research proof; see C/review_D_packing_label_constraints.txt.
+Correction: the all-choices Candidate is false; see the actual
+seven-vertex witness and hand proof in actual_counterexample.txt.
+No constant below 165/59 is proved here. All payoff statements that
+depend on an unproved inequality are explicitly conditional. No
+literature novelty, exhaustive source search, or graph realization
+of an abstract label system is claimed.
+
+1. SETUP AND THE REPLACEMENT HALL CONDITION.
+
+Use Wang's construction in an arbitrary finite simple graph G.
+Let P be a maximum triangle packing, n=|P|, and O=E(P). Edges in O
+are old, all others new. Each old edge has the unique label of the
+triangle of P containing it. A triangle's type is its number of old
+edges. Let A be a maximum type-one packing, a=|A|, and G'=G-E(A).
+Choose P' in G' by maximizing first its number b of type-two members,
+and then its total size m. Write B* for its type-two members, and
+T=P'\B* for its type-three members.
+
+The family S consists of type-two triangles remaining after deletion
+of all old edges of P'. Let Q be a maximum packing of S, c=|Q|.
+Each member of Q shares its unique new edge with exactly one member
+of B*. These paired triangles form two-page books with that new edge
+as spine; the other B* members are one-page books. Write N for the
+b new edges of B*. The old edges of Q avoid all edges of P' and A.
+
+LEMMA 1 (REPLACEMENT HALL).
+Let R be any edge-disjoint triangle packing in G. Join each triangle
+of R to every triangle of P with which it shares an edge. For every
+subset R0 of R,
+  |R0| <= number of its P-neighbors.
+Consequently this bipartite incidence graph has a matching assigning
+distinct P-triangles to all members of R.
+
+Proof. If R0 had fewer P-neighbors than members, remove those
+P-neighbors from P and insert all of R0. The inserted triangles are
+pairwise edge-disjoint, and have no edge in any retained P-triangle
+by definition of the neighbor set. This enlarges P, a contradiction.
+The final assertion is Hall's marriage theorem applied to these
+inequalities. The inequalities themselves suffice for every use below.
+
+2. A MARKED PSEUDOFOREST FOR ANY TYPE-TWO PACKING.
+
+Every type-two triangle uses old edges with two different labels.
+Indeed, two edges belonging to the same original packed triangle
+would force their third closing edge to belong to that same old
+triangle, contradicting type two.
+
+The old-edge labels of A are distinct. If two members of A had the
+same label, they could replace the corresponding member of P and
+enlarge P: their other edges are new and A is edge-disjoint.
+
+Let B be any edge-disjoint type-two packing avoiding E(A). Define
+a loopless multigraph L_B on the n members of P. A member of B
+gives an edge between its two old-edge labels. Mark the a vertices
+that supply the old edges of A. Multiple edges are allowed; marks
+are distinct.
+
+LEMMA 2 (MARKED COMPONENT BUDGET).
+For every connected component K of L_B,
+  |E(K)| + number of marked vertices in K <= |V(K)|.
+Hence K is either a tree with at most one mark or an unmarked
+unicyclic multigraph. The statement includes isolated vertices.
+
+Proof. Take all B-triangles represented by edges of K and all
+A-triangles whose old-edge labels lie in K. This is a packing:
+B and A avoid each other's edges. Its old edges have labels in K,
+and its new edges avoid P. Replacing the |V(K)| original P-triangles
+by this collection proves the displayed inequality. A connected
+loopless multigraph has at least |V(K)|-1 edges. The inequality
+therefore leaves exactly the asserted two possibilities.
+
+Since the graph has n vertices and |B| edges, it has exactly n-|B|
+tree components. Precisely a of them contain a mark. Thus the number
+of unmarked tree components is exactly n-a-|B|. For B=B*, Candidate
+in Section 4 is equivalently the assertion that c does not exceed
+this number. The actual witness in actual_counterexample.txt has
+zero unmarked trees and c=1, so this charging fails for legal choices.
+
+For Wang's B*/Q books, this lemma applies to EVERY selection of
+one page per book. Their supports are edge-disjoint, and each page
+avoids A. Also, the fixed type-three packing T may be retained:
+the chosen pages avoid its old edges, while their new edges belong
+to N and cannot belong to T. Thus A, T, and all selected pages form
+a packing. Lemma 1 applies to every such choice, with T included.
+
+In particular, if a+m=n, each such selection together with A and T
+has a perfect assignment to all n original P-triangles. This is a
+necessary structural condition, not an additional packing beyond n.
+
+3. BOOKS THAT ACTUALLY PAY THE OPPOSITE-EDGE COST.
+
+Color new edges red and old edges blue. Let h be the number of
+Q-members whose red edge is private in S, as in Wang. Define k to
+be the number of paired B*/Q books whose opposite edge exists in
+G' and is a new edge outside N.
+
+LEMMA 3 (ACTUAL BOOK COUNT).
+One has k<=h, and Wang's random-bipartition cover satisfies the
+sharpened parameter estimate
+  tau(G)<=3n/2+5a/2+3b/2-c+3k/8.
+
+Proof. A counted book has pages uvx in B* and uvy in Q, spine uv
+new, and opposite edge xy new outside N. Wang's exchange Lemma 2.1
+applies because Q's old edges avoid P', hence avoid the old edges
+of B*. It makes uv private in the blue-deleted residual family of
+B*, and therefore in its subfamily S. Thus that Q-member is counted
+by h, proving k<=h.
+
+In Wang's random-bipartition construction, every added new edge
+outside N must be the opposite edge of such a paired book. If a book
+has no new opposite edge outside N, it contributes no such edge.
+For each counted book the addition event requires x,y to have the
+same bit and at least one of u,v the other bit, a probability 3/8.
+The union bound therefore uses k rather than h. All the other terms
+of that construction are unchanged, giving the displayed estimate.
+Repeated opposite edges can only reduce the union-bound cost; no
+distinctness assumption on them is needed for this inequality.
+
+Consequently the retained-slack identity from round ten sharpens to
+  59 tau(G) <= 165n - 93(n-a-m) - d
+              - 3(c-h-6d)_+ - 3(h-k),
+where d is the maximum residual packing size after also deleting the
+old edges of Q. This follows from the same proof and weights because
+the random-cover bound has coefficient eight, and 8*(3/8)=3.
+This is additional explicit slack, not a new uniform constant.
+
+LEMMA 4 (FOUR DISTINCT ORIGINAL LABELS).
+The four old edges of every counted book have four different labels
+in P.
+
+Proof. Its induced four-vertex graph has old cycle edges ux,vx,uy,vy
+and new diagonals uv,xy. Adjacent pairs of those old cycle edges
+have their third closing edge equal to one of the new diagonals,
+so they cannot belong to a common original P-triangle. Opposite
+cycle edges are vertex-disjoint and also cannot lie in one triangle.
+These exhaust all pairs of cycle edges.
+
+If the opposite edges of some collection of counted books are
+pairwise distinct, their complete K4 supports are pairwise
+edge-disjoint. Their old cycle supports already are edge-disjoint
+by the book construction; their distinct spines lie in N; their
+distinct opposite edges lie outside N and are new. These supports
+also avoid A, T, and the members of P' outside their own books.
+Each of the four faces of one such K4 is type two. Therefore every
+selection of ANY one of its four faces, independently in all such
+books and with the other P' members retained, remains an admissible
+packing together with A. Lemmas 1 and 2 apply to all these choices.
+
+4. WHY LABEL CONDITIONS ALONE DO NOT COUNT ALL ALTERNATE PAGES.
+
+A tempting additional inequality is
+  a+b+c<=n.                                              (Candidate)
+The assertion that it holds for every legal choice is false, as
+proved without computed optima in actual_counterexample.txt. Whether a favorable
+choice is always available remains open here. The following exact
+abstract system, recorded before that graph witness, also shows
+that the marked-pseudoforest conditions and old-edge slot counts
+alone are insufficient to derive it, even allowing four choices in
+a book. This is NOT asserted to come from an actual simple graph.
+
+Take four original labels {1,2,3,4}, no marks, and three fixed
+type-two label edges
+  23,34,41.
+They form a tree. Add one book whose main and alternate label edges
+are 12 and 34. Allow its other two faces to have label edges 13 and
+24; these four alternatives form the cycle 1-2-4-3-1. Any selection
+of one alternative, together with the fixed three edges, is a
+connected four-vertex graph with four edges, hence unicyclic.
+This includes the choice 34 parallel to the fixed edge 34.
+There are no marks, so every component budget in Lemma 2 holds.
+
+The complete book uses one old-edge slot at each original label.
+The fixed three label edges use additional slots of multiplicities
+(1,1,2,2). Thus the total old-slot usage is
+  (2,2,3,3),
+which does not exceed the three edges available in each original
+triangle. The book's main and alternate pages have disjoint label
+pairs, as required by Lemma 4. Nevertheless its formal counts are
+  n=4, a=0, b=4, c=1,
+and a+b+c=5>4.
+
+The full original graph has additional geometric consistency:
+its labels represent actual triangles sharing actual vertices, and
+old edges determine the closing edge of a triangle. That information
+is absent from this abstract system. It cannot be discarded in a
+proof using the label route. The corrected delegated search later
+supplied an ACTUAL graph with a fully legal Wang packing sequence
+violating Candidate. Its hand proof is in actual_counterexample.txt;
+the graph has (n,a,b,m,c)=(4,1,3,3,1).
+
+5. EXACT CONDITIONAL PAYOFF, NOT A UNIVERSAL CLAIM.
+
+Suppose Candidate could be established for a choice of Wang's
+packings available in every graph. Weight Wang's four final cover
+inequalities by
+  116,48,102,68,
+respectively. Add four times 0<=n-a-b-c and once 0<=c-h. The a,b,c,d,h
+coefficients cancel. Explicitly they are respectively
+  -116+120-4=0,
+  72-68-4=0,
+  -48-102+153-4+1=0,
+  -102+102=0,
+  18-17-1=0.
+The weights sum to 334 and the n-coefficient is
+  348+72+306+204+4=934.
+Thus the conditional conclusion would be
+  tau(G)<=(467/167)nu(G),
+and 165/59-467/167=2/9853>0.
+
+The actual seven-vertex counterexample refutes the all-choices
+version of Candidate. It does not refute the version allowing
+optimized choices, which is the premise of the calculation above.
+There is no unconditional improvement of 165/59 in this file.
+
+6. PROVENANCE AND LIMITS.
+
+Primary source: Sichen Wang, "A Bound Below 2.8 for Tuza's Conjecture,"
+arXiv:2609.13831v1, Lemmas 2.1-2.3 and Section 3.
+  https://arxiv.org/html/2609.13831v1
+All packing choices, source cover bounds, and the 165/59 result are
+credited to that source. The old four-row optimality is not repeated
+as a new finding. D's round-ten retained-slack proof is the only
+previous project result used in Section 3.
+
+The independent initial candidate was saved in
+research/round11/D/independent_initial.txt before E/B round-eleven
+material or cross-feed. The bounded numerical request is precisely
+defined in research/round11/D/protocol.txt and is delegated by the
+parent. D has performed no enumeration or numerical search.
+Any computational outcome must be reported separately with its
+actual graph and choice scope; no finite negative search is a proof.
+The initial all-c=0 probes are void because they deleted all E(P')
+instead of only old B(P'). See bounded_probe_scope.txt for the
+correction and actual_counterexample.txt for the computation-free
+verification of the corrected positive witness. In that witness
+h=c=1 but k=0, so a+b+k<=n remains a separate unresolved question.
+
+No sparse-graph hypothesis is used. The general target of a uniform
+constant strictly below 165/59 remains unproved by this route.

@@ -1,0 +1,56 @@
+# Round11 / Role B — STAGE 1 report (4 fixed controls; no large search run)
+
+Historical stage-one snapshot. The subsequent audited run is recorded
+in final_report.txt, instances.json, and C/review_B_full_output.txt.
+
+Setting checked, never assumed: H finite simple red/blue, EVERY triangle exactly 1 red; p = max edge-
+disjoint triangles (exact + witness); p_private = the same over triangles whose red edge lies in
+exactly 1 triangle; premise p_private == p > 0 <=> "some maximum packing Q has globally private
+red edges"; tau = min EDGE set meeting every triangle; r = participating red edges (r <= 3p);
+s = participating red edges lying in >= 2 triangles. This file claims no proof or constant.
+
+Files: `targeted_search.py` (controls + stage-2 generator, stage 2 NOT run), `verify_witness.py`
+(standalone read-only verifier), `protocol.txt` (plan), `stage1_controls.json` (saved inputs +
+certificates + both engine dumps).
+Engine A = audited round10 edge-mask solver, imported read-only (research/round10/B/red_budget/
+red_edge_search.py; .py/.json/.txt mtimes+sizes snapshotted before/after => round10_untouched:
+true; only its NODE_CAP is reassigned). Engine B = standalone verifier: own triangle enumeration,
+exhaustive subset DP for small inputs, scipy/HiGHS ILP accepted only at status Optimal with
+integral and literally re-checked solutions, brute and ILP must agree. tau is always a graph-EDGE
+transversal; packings are maximum with witnesses.
+
+## Control results (4 controls; A and B agree on the 3 eligible controls; wall < 1 s)
+| control | n | colorstring | eligible | p | p_private | tau | r | s | tau/p |
+|---|---|---|---|---|---|---|---|---|---|
+| K3 single triangle | 3 | RBB | yes | 1 | 1 | 1 | 1 | 0 | 1.0 |
+| K4, red = perfect matching | 4 | RBBBBR | NO (private_premise_fails) | 1 | 0 | 2 | 2 | 2 | 2.0 global |
+| C5 red base + blue apex | 6 | R00RBR00BR0BRBB | yes | 2 | 2 | 3 | 5 | 0 | 1.5 |
+| spine8, required s>0 control | 9 | BR000RBBBR00000BR000BBR000BR00BR0B0R | yes | 4 | 4 | 5 | 8 | 1 | 1.25 |
+- K4: engine B alone certifies p=1, p_private=0, tau=2, r=2, s=2; engine A rejects at the
+  private-premise gate and returns no comparable global tuple. Every triangle has exactly 1 red
+  and GLOBAL edge quantities tau = 2p, but every K4 edge lies
+  in 2 triangles so no red edge is private (p_private = 0 != p = 1): the ratio-2 example is
+  excluded by the premise and is not a witness to tau > 199p/100.
+- spine8 (supplied: blue 8-cycle + (0,8),(2,8); red (0,2),(2,4),(4,6),(0,6),(1,3),(3,5),(5,7),(7,8)):
+  both solvers certify 9 one-red triangles, p = p_private = 4, tau = 5, r = 8 <= 3p, s = 1, sole
+  non-private participating red edge (0,2) with 2 pages; the triangle list and page counts are
+  stored engine output, so s > 0 under the premises is settled by example (ratio 1.25).
+- Read-only CLI `--file stage1_controls.json --all`: 3/4 exit 0, K4's exit 1 is the designed
+  premise rejection; all literal checks True on all four controls.
+
+## Plumbing disclosure (not a search result)
+One `full --smoke` run (20-attempt/3-eligible caps, private output only) exercised the repaired
+loop: 15 attempts, 3 eligible (all s=0), rejects in premise_rejects only, 0 uncertified skips, 0
+disagreements, empty witness alarm. Controls never enter stage-2 attempt/eligible/dedup counters.
+
+## Next (C re-inspection; the full run is NOT approved and was NOT executed)
+Stage 2 is retargeted to a HARD-INSTANCE DIAGNOSTIC (protocol 4b): eligible s>0 instances at
+n=6..12 with tau/p as high as possible (target > 1.5). Exact reason small orders cannot refute
+RB(1/100): Role E's C-approved bound tau <= 2p-1 for an all-private Q means 1.99p < tau needs
+p > 100, while p <= floor(C(12,2)/3) = 22 at n <= 12. Repairs applied: *_not_exact are
+uncertified skips, never premise rejections; retention requires certified AND eligible AND
+p_private AND every literal check AND A-vs-B page-count agreement; the per-n quota is charged on
+the FINAL n with no fallback order; every scipy.milp solve recalculates its finite time_limit
+from a shared absolute write deadline. The 180 s target is a soft process wall budget, not an
+OS-enforced kill; solver or Python overhead could overrun it. Two-block spine8 (Role E's H_(k,t),
+t=2) needs n=16 — NOT added; orders and budgets unchanged.

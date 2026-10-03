@@ -1,0 +1,31 @@
+ROUND 11 / D / CORRECTED COMPUTATIONAL DIAGNOSTIC SCOPE
+
+The earlier B2 probes reporting only c=0 were invalid. Their residual
+construction deleted all E(P') rather than only the old edges B(P').
+Those probes therefore did not compute Wang's c. All conclusions
+about their sampled c values are withdrawn; they provide no evidence
+for either version of a+b+c<=n.
+
+After the residual deletion was corrected, delegated B2 found a
+seven-vertex, 17-edge witness with a legal sequence of packing choices
+having (n,a,b,m,c)=(4,1,3,3,1). Its exact graph and choices are recorded
+in B2/certificate.json. C independently checked that specific chain
+in C/review_B2_chain.txt. A separate hand proof of every required
+optimum, using degree parity and direct edge inspection, appears in
+D/actual_counterexample.txt, independently accepted in
+C/review_D_actual_counterexample.txt. No computed optimum is needed.
+
+This positive witness disproves the ALL-LEGAL-CHOICES inequality
+  a+b+c<=n.
+It does not disprove the existence of some favorable legal choice
+in every graph. No counts of favorable or unfavorable choices are
+used: the reported aggregate choice enumeration was not part of C's
+narrow independent chain audit. No inference about a universal Tuza
+constant follows from this counterexample.
+
+The requested scope in D/protocol.txt is a request, not an assertion
+of the actual executed scope. Sample counts, elapsed time, cumulative
+runs, and completed versus partial searches belong to B2's execution
+record and are not independently asserted here. D performed no
+numerical enumeration or search. The symbolic results and corrected
+positive witness have been reviewed, and D stops this round.

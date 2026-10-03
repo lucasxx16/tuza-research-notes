@@ -1,0 +1,88 @@
+ROUND 11 — COORDINATOR VERDICT
+
+Active goal remains a UNIFORM coefficient c<165/59 for EVERY finite
+simple graph. That goal is NOT achieved. The following proof results
+passed the independent C reviews and a separate coordinator reading.
+
+1. Exact auxiliary model: H triangles correspond to edges of a triangle-
+free graph J whose vertices are blue H edges, with red-spine color classes
+that are matchings. Packings are rainbow matchings and edge transversals
+are mixed vertex/color covers. Arbitrary properly colored J is not
+automatically H-realizable.
+
+2. E's connected H_(k,t) family is realizable and has
+  p=kt, ordinary mu(J)=(k+1)t, r=1+(2k-1)t, s=1, tau(H)=kt+1,
+for k>=4, t>=1, with an all-private maximum packing. This disproves
+ordinary-matching substitution, even allowing any fixed additive C*s.
+It does not refute RB and its cover/packing ratio is small.
+
+3. E's main theorem retains whole-red-edge cover choices. Under only
+the all-one-red and private-maximum-Q hypotheses, deleting any external
+red set D and counting its remaining external pages B_D gives
+  tau(H)<=2p+|D|-p^2/(p+2B_D).
+The selected safe blue edges and independent-set argument cover all
+triangles, not just a chosen subfamily. Maximum packing and privacy
+survive deletion. The finite consequence tau(H)<=2p-1 is unconditional
+within these hypotheses, without the red-count budget.
+
+4. Under r<=3p, the long-book tail bounds are valid at every fixed
+threshold L, including the sorted-page form and their boundary cases.
+A uniform tail hypothesis would imply the explicit improved universal
+coefficient 165/59-1/[20000(4L+1)] through the previously proved bridge.
+That UNIFORM hypothesis is unproved; a local instance satisfying it does
+not establish a universal theorem.
+
+5. For arbitrary finite simple G with nu(G)>0, the proof excludes
+equality in Wang's weighted construction and gives
+  59tau(G)<=165nu(G)-1.
+The nu=0 case is excluded from the minus-one statement. This is additive
+strictness, not the requested fixed coefficient gain; its normalized
+saving vanishes as nu grows. Ordinary integrality already handles nu
+not divisible by 59; the argument removes the remaining equality case.
+
+6. D's replacement Hall and marked-pseudoforest restrictions are valid.
+The random-cover cost only counts actual new opposite edges outside N,
+giving k<=h and additional slack 3(h-k). Its four-old-label geometric
+restriction and edge-disjoint K4-face replacements have the stated
+distinct-opposite-edge hypothesis. An abstract label/slot countermodel
+shows that these combinatorial constraints alone do not imply a+b+c<=n.
+
+7. The corrected HPC B2 witness is a REAL seven-vertex graph, with
+  n=4, a=1, (b,m)=(3,3), c=1.
+C's independent literal checker validates the complete families and
+exact optima. It disproves a+b+c<=n for arbitrary legal choices. It does
+not disprove existence of a favorable choice; the associated 467/167
+payoff is only conditional. The initial c=0 probes are VOID, since they
+deleted E(P') instead of its old-edge subset B(P'). They must never be
+cited as support. The manual proof in D/actual_counterexample.txt is
+accepted in C/review_D_actual_counterexample.txt: six odd-degree vertices
+bound nu<=4 without optimization, the type-one family shares one edge,
+and the subsequent maxima follow directly. Its actual-cost parameter
+is k=0, so the alternative a+b+k<=n remains unrefuted here.
+
+Numerical scope: tau(H)<=2p-1 makes an RB(1/100) counterexample impossible
+at p<=100, hence impossible on the tested n<=12. Small-order searches
+are only difficult-instance/implementation diagnostics. Their absence
+of a witness has no supporting force for RB. Fixed controls include
+K3, a rejected K4, the C5 cone, and E's nine-vertex multipage example.
+Final B output and C audit record actual attempts, retained instances,
+and verification limitations; no computation is a premise of items 1-6.
+The final run has 994 eligible labeled inputs, including 263 with s>0;
+both strata attain at most 3/2 in this sample, and red books have at most
+three pages. This does not approach the unresolved long-tail regime.
+Before publication, the coordinator replaced five absolute-path metadata
+entries in the fixed controls with repository-relative paths and aligned
+their generator. The numerical data and solver logic were unchanged.
+
+Source audit: A's first draft contained unverified bibliographic leads
+and overbroad prior-art statements. These were rejected and removed.
+The corrected report retains only Wang's already verified baseline.
+It does not establish novelty or absence of a useful prior theorem.
+The coordinator checked the arXiv abstract for 2110.10095 separately;
+its fractional/generalized bounds are not imported into any proof here.
+
+No human peer review, proof-assistant verification, or literature
+novelty is claimed. Stop at this substantial reviewed stage. The next
+main mathematical gap is uniform control of red-book page tails or a
+different valid way to obtain proportional saving; RB and the requested
+uniform c<165/59 both remain unresolved.

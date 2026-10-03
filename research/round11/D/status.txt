@@ -1,0 +1,51 @@
+ROUND 11 / D STATUS
+
+Reviewed symbolic result:
+  packing_label_constraints.txt
+Independent symbolic review:
+  C/review_D_packing_label_constraints.txt
+Corrected actual witness and computation-free proof:
+  actual_counterexample.txt (reviewed research proof)
+Independent hand-proof review:
+  C/review_D_actual_counterexample.txt
+Independent audit of that exact computational chain:
+  C/review_B2_chain.txt
+Historical independent draft and delegated protocol:
+  independent_initial.txt; protocol.txt
+
+PROVED SYMBOLIC RESULTS.
+Original maximum-packing labels satisfy a replacement Hall condition.
+For type-two packings avoiding A, each label-graph component is a tree
+with at most one A mark, or an unmarked unicycle. The number of
+unmarked trees is exactly n-a-b for B*. These conclusions hold for
+every permitted book-page choice.
+
+Only books with an actual new opposite edge outside N incur the
+opposite-edge cost in Wang's random cover. Their count k<=h replaces
+h in that term and yields extra slack -3(h-k). Each counted K4 has
+four distinct original packing labels; distinct opposite edges permit
+independent choices of all four faces while retaining the Hall bounds.
+
+ACTUAL OBSTRUCTION AND CORRECTION.
+A seven-vertex graph has legal Wang choices with
+  (n,a,b,m,c)=(4,1,3,3,1).
+The all-choices assertion a+b+c<=n is FALSE. The hand proof verifies
+all maxima without search. Its label graph has a marked isolated
+vertex and an unmarked three-cycle, hence no unmarked trees but c=1.
+It also has h=c=1 and k=0, leaving a+b+k=n.
+
+Earlier c=0 probes deleted all E(P') instead of only old B(P'). They
+are VOID and provide no evidence. See bounded_probe_scope.txt. No
+aggregate corrected-search choice counts are claimed.
+
+REMAINING SCOPE.
+The optimized-choice version of a+b+c<=n remains unresolved. If it
+held universally, the verified weighted sum would give 467/167<165/59;
+this implication remains conditional. The alternative a+b+k<=n also
+remains unresolved. No improved universal constant is proved.
+
+No numerical search was run by D, no mad<8 assumption was used, and
+no literature novelty is claimed. Independent drafting preceded
+E/B round-eleven material. No further search or extension is planned
+this round. The corrective hand proof is independently accepted;
+D stops at this reviewed milestone.

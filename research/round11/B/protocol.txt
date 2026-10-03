@@ -1,0 +1,224 @@
+# Round11 / Role B — protocol. Stage 1 = 4 fixed controls (done). Stage 2 written and
+# RETARGETED per section 4b (hard-instance diagnostic); NOT run, full run not approved.
+ per section 4b, NOT run — full run not yet approved)
+
+Role: numerical analyst. No statement in this directory is a proof or a theorem; every
+number is a certified fact about the printed instance only.
+
+## 1. Object under test (premises imposed by the parent, not derived)
+H finite simple, every edge red/blue, EVERY triangle of H has EXACTLY ONE red edge.
+  p          = max number of pairwise EDGE-disjoint triangles of H (exact, with witness)
+  p_private  = max number of pairwise edge-disjoint triangles whose red edge lies in
+               exactly ONE triangle of H (globally private red edge)
+  premise    = p_private == p > 0. This is equivalent to "there is a MAXIMUM packing Q
+               whose red edges are globally private": private packings are a subfamily,
+               so p_private <= p always, and equality means some maximum packing is
+               private-only. Q is returned and re-checked literally (length, disjointness,
+               privacy of each red edge).
+  tau        = min number of graph EDGES meeting every triangle (Tuza EDGE transversal,
+               exact, with witness). NOT a vertex cover — round10's first run did that and
+               is withdrawn.
+  r          = #red edges lying in >= 1 triangle.   premise r <= 3p
+  s          = #participating red edges lying in >= 2 triangles ("multipage" red edges).
+               s = 0 means every triangle's red edge is globally private.
+Witness test:  100*tau > 199*p  (equivalently tau/p > 1.99), reported with the exact
+               integer margin 100*tau - 199*p. In stage 2 this is a BUG ALARM ONLY (4b):
+               for an eligible instance at n <= 12 it can never fire, so a firing record
+               is treated as a solver/record defect, not as a witness to anything.
+               Sanity invariants recomputed per instance: p <= tau <= 3p, and under the
+               private premise tau <= 2p - 1 (Role E, C-approved); violations reported.
+
+## 2. Engines (deliberately doubled, no shared code path)
+A. AUDITED round10 engine, imported read-only:
+   research/round10/B/red_budget/red_edge_search.py  (R10.analyse / R10.dump /
+   R10.tri_masks / R10.max_packing / R10.edge_cover). Graph-EDGE bitmasks, exact branch
+   and bound with witness reconstruction; premise gate = every-triangle-one-red, p>0,
+   p_private==p, r<=3p, connected. Only the imported module's NODE_CAP
+   global is reassigned (250000). Historical round10 files are NOT modified: mtimes and sizes of every .py/.json/.txt in
+   that directory are snapshotted before/after every stage-1 run and reported as
+   `round10_untouched` (the byte-compile cache red_budget/__pycache__/*.pyc is outside that
+   snapshot; its mtime 17:33:32 predates every stage-1 run of this session).
+   Any instance whose p, p_private or tau is not certified inside the node cap is SKIPPED
+   and counted as an UNCERTIFIED SKIP under its exact reason string — R10.analyse returns
+   packing_not_exact / private_packing_not_exact / cover_not_exact (plus this file's own
+   not_exact_nodecap, solver_engine_error); these live in the UNCERTIFIED list at the top of
+   targeted_search.py and are NEVER counted as premise rejections (premise rejections go to
+   premise_rejects: no_triangle, not_exactly_one_red, nu_zero, private_premise_fails,
+   r_gt_3nu, disconnected). No uncertified instance is ever assigned a guessed value, and
+   no uncertified instance is counted eligible or retained.
+B. STANDALONE literal verifier: research/round11/B/verify_witness.py. It imports nothing
+   from round10 or from targeted_search.py. It re-parses the colorstring, re-enumerates
+   every triangle, re-checks every triangle constraint, and re-derives p, p_private, tau,
+   r, s with its own two methods:
+     * exhaustive subset enumeration (bitmask DP over subsets of triangles, and over
+       subsets of candidate edges) — exact by construction, used when 2^k <= 1<<20;
+     * scipy.optimize.milp (HiGHS) integer program, ACCEPTED ONLY if status == 0
+       (Optimized), the solution is integral to 1e-6, and the decoded set passes the
+       literal disjointness / hitting re-check.
+   When both run they must agree; disagreement => not certified (methods field
+   `brute+ilp_agree=False`). An LP/relaxation value, an incumbent without optimality
+   status, or a timeout is never read as an exact optimum. Engine B is time-BOUNDED: every
+   scipy.milp call gets options={'time_limit': max(0.01, shared_absolute_deadline - now)},
+   recalculated by verify_witness._opts before each solve (a bare CLI verifier run uses the
+   solver default). A HiGHS time-limit stop returns status != 0 and yields no value: the
+   instance either falls back to exact brute enumeration ("brute_only") or is reported NOT
+   CERTIFIED. Before an instance may be counted eligible or retained, targeted_search
+   requires ALL of: B certified, B eligible (its own premise re-check), B's p_private equal
+   to A's, every B literal-check flag True, B's every-triangle-one-red constraint True, no
+   claim mismatch (claims now include p_private), and A-vs-B agreement of the per-red-edge
+   page counts (A nonprivate_red vs B nonprivate_red_edges). Any failure lands in
+   `disagreements` with both values printed, never in the eligible count.
+Every retained stage-2 example must have A and B agreeing on p, p_private, tau, r, s;
+disagreements are logged and the instance is dropped. K4 is a rejection control:
+engine A exits at the private-premise gate, so only B certifies its global quantities.
+
+## 3. Stage 1 (executed): fixed controls only, kept SEPARATE from all search counters
+  K3_single_triangle      n=3 "RBB"                      -> eligible, p=p_private=1,
+                              tau=1, r=1, s=0, tau/p = 1        (floor case)
+  K4_red_perfect_matching n=4 "RBBBBR"                   -> every triangle exactly 1 red,
+                              GLOBAL p=1, tau=2 (tau=2p), but every K4 edge lies in 2
+                              triangles, so no red edge is private: p_private=0 != p=1,
+                              gate REJECT = private_premise_fails. The global ratio-2
+                              example is NOT admissible and must never be reported as a
+                              witness to tau > 199p/100.
+  C5_red_base_blue_apex   n=6 "R00RBR00BR0BRBB"          -> eligible, p=p_private=2,
+                              tau=3, r=5, s=0, tau/p = 3/2      (reference nontrivial ratio)
+  spine8_C4plusoddpath    n=9 "BR000RBBBR00000BR000BBR000BR00BR0B0R"  (REQUIRED s>0
+                              control, supplied by the coordinator, not searched)
+     literal input: BLUE 8-cycle (i,(i+1)%8) for i=0..7 plus BLUE (0,8),(2,8); RED (0,2),
+     (2,4),(4,6),(0,6) plus RED odd path (1,3),(3,5),(5,7),(7,8), y = 8. Both exact solvers
+     certify independently: 9 triangles, each with exactly one red edge; p = p_private = 4,
+     tau = 5, r = 8 <= 3p = 12, s = 1, tau/p = 5/4. Engine B's dump stores the COMPUTED list
+     [[0,1,2],[0,2,8],[0,6,7],[0,7,8],[1,2,3],[2,3,4],[3,4,5],[4,5,6],[5,6,7]], the red edge
+     of each triangle, and nonprivate_red_edges = [[[0,2],2]]: the only participating red edge
+     lying in 2 triangles. No triangle list, page count or mechanism is hand-written for this
+        control: the interpretation is Role E/C material (research/round11/E/
+        multipage_matching_gap.txt: auxiliary graph J, mu(J)=5 against nu(H)=p=4), and no
+        auxiliary matching number is computed by this script at all.
+     This control settles s>0 attainability under the RB premises by example (cf. 8(e)).
+All four have B literal checks True; the three eligible controls have A/B agreement;
+K4 has B global quantities and an A private-premise rejection;
+round10 untouched; wall < 1 s. Controls are fixed inputs, counted ONLY in this section —
+they are never added to stage-2 attempt/eligible/dedup statistics.
+Artifacts: research/round11/B/stage1_controls.json (public saved inputs + certificates),
+private copies of every verifier run under .codex/researchround11/B/.
+
+## 4. Stage 2 generator plan (implemented in targeted_search.py, awaiting C's audit)
+Why the round10 randoms were weak: 899 eligible occurrences, all with tau = p. iid sparse
+graphs almost never put a red edge into two triangles while still leaving a private
+maximum packing, so s > 0 essentially never occurred. Stage 2 therefore starts from
+structured seeds and mutates them.
+  seeds (all n-aware; unused vertices are attached, never left isolated):
+    cone_odd_cycle / cone_C5 / cone_C7 / cone_C3 : C_k RED base (k odd) + BLUE apex.
+       Every cone instance examined so far had all red edges private (s=0) and the best cone
+        ratio on record is the 3/2 of the C5 control above. No cap of the cone family is
+        asserted in code or used as a premise; the run reports computed numbers only.
+    two_cones_linked : two odd-cycle red cones on disjoint bases joined by a
+       triangle-free bridge (a matching / shift between the bases) — keeps the base edges
+       private while coupling packings across the two apices.
+    book_pages_red / book_spines_red : books on vertex 0; red on page edges (private) vs
+       red on the spine edge (spine becomes multipage, premise outcome recorded per instance) — the
+       two poles of the privacy trade-off; whether the premise survives is recorded per
+       instance, not assumed.
+    spine8_c4_plus_path : the required s>0 control above, reused as a STRUCTURAL SEED for
+       n >= 9 (n = 9..12 only, padding attaches the extra vertices). Candidate extension
+       for a later round: two spine8 blocks sharing ONLY the red edge (0,2) (Role E's
+       H_(k,t) family) needs n = 16 at t = 2, which is OUTSIDE the agreed 6..12 order cap;
+       it is NOT added and will not be run unless the coordinator explicitly raises the cap.
+  mutations of VALID parents (intermediate states may break a premise; they are rejected
+  and counted, which is the intended "slightly relaxed" walk): flip edge presence,
+  recolor an edge, add a page on an existing RED edge (raises s), grow a triangle on a
+  BLUE edge with one new red edge (adds a private triangle), drop an edge, add a
+  triangle-free bridge edge. 60% of iterations mutate an eligible parent from the pool,
+  40% redraw a structured seed; n in 6..12, prioritising s > 0 and high tau/p. The order n is
+   fixed BEFORE any mutation (parents are drawn only from orders whose quota is unspent and
+   the per-n quota is charged on that final n), so a mutation can never move an instance
+   into an already-saturated order; when every order's quota is spent the loop STOPS with
+   `per-n eligible quotas saturated` — there is no `or NS` fallback quietly resuming
+   saturated orders, so the per-n caps are as hard as the global 1000-eligible cap.
+  dedup: exact labeled colorstring (no isomorphism reduction); repeated labeled colorings
+  are counted in `repeats` and reported separately (`repeat_counts_top`).
+  retention: top 40 per stratum (s == 0 / s > 0), sorted by (-tau/p, p). Each record carries
+  p, p_private, tau, r, s, the max packing Q, the minimum EDGE cover, the per-non-private-
+  red-edge page counts and max_red_pages, tau/p, the value 2p-1 plus the gap to it, and the
+   margin 100tau-199p. The witness test is demoted to a BUG ALARM (`witness_alarm`, which
+   must stay empty — see 4b); no small example is reported as an RB(1/100) witness.
+
+## 4b. Stage-2 objective RETARGETED after round-11 C (citing Role E, C-approved)
+Role E's C-approved statement: every full one-red colouring H with an all-private maximum
+packing Q satisfies tau <= 2p - 1. A strict RB(1/100) counterexample would need
+1.99p < 2p - 1, i.e. p > 100. EXACT REASON small orders cannot refute RB(1/100): at
+n <= 12 the graph has at most C(12,2) = 66 edges and p edge-disjoint triangles use 3p
+distinct edges, so p <= 22 < 101 — no n <= 12 eligible instance can have tau > 199p/100.
+Stage 2 is therefore a HARD-INSTANCE DIAGNOSTIC, not a witness hunt: find eligible
+instances with s > 0 and tau/p as high as possible (target > 1.5, the C5-cone level),
+validate the bounded quantities (p, p_private, tau, r, s, red-edge page counts) against the
+independent solver B, and report the gap to the 2p-1 ceiling. No claim is made that any
+retained small example has witness value for RB(1/100). Graph orders stay 6..12 and the
+budgets below are unchanged. The full Role E source is forthcoming; nothing in this
+protocol re-derives or proves that bound.
+
+## 5. Stage 2 budgets (soft 180 s process target; no OS-enforced kill)
+The deadline guards and per-solve time limits aim to stop within 180 s, but Python
+and solver overhead may overrun. The result must report actual elapsed time:
+  SELF_LIMIT_S   150  — check_deadline() raises at each loop iteration before a draw;
+                        engine B's per-solve option uses the shared absolute deadline;
+  WRITE_DEADLINE 168  — check_write_slot() must pass before any artifact is written; if the
+                        deadline passed, the run prints its summary and records
+                        `artifact_written: null` + "WRITE SKIPPED" instead of blowing the wall;
+  SOLVE_SLACK      3  — reserved after the last possible solve for bookkeeping/writing;
+  engine A         — R10.NODE_CAP = 250000 branch-and-bound nodes per exact solve;
+  engine B         — brute subset cap 1<<20 per subproblem AND scipy.milp
+                     options={'time_limit': remaining wall before the shared absolute
+                     deadline}, recalculated by _opts before each solve; a time-limited
+                     status is never a value;
+  draw caps        — <= 10000 generated colourings, <= 1000 eligible inputs overall,
+                     per-n eligible quota ~142 checked on the FINAL n (no fallback orders).
+Counters (separate buckets, never conflated): attempts, unique, repeats, eligible,
+premise_rejects{reason}, uncertified_skips + uncertified_reasons{reason},
+engine_b_not_certified, disagreements, gen_unusable, parent_mutations, witness_alarm,
+hist_tau_over_p, hist_s, hist_max_red_pages, per_n{attempts,eligible,quota}. No download,
+no re-run of the original 1144-census, no LP bound used as an optimum.
+
+## 6. Reproduction commands (all read-only except the two run modes)
+  python research/round11/B/targeted_search.py controls            # stage 1 (done)
+  python research/round11/B/verify_witness.py --n 6 --colorstring R00RBR00BR0BRBB
+  python research/round11/B/verify_witness.py --file research/round11/B/stage1_controls.json --all
+  python research/round11/B/verify_witness.py --file ... --id K4_red_perfect_matching
+  python research/round11/B/targeted_search.py verify 6 R00RBR00BR0BRBB   # A vs B dump
+  python research/round11/B/targeted_search.py full                # stage 2, NOT yet run
+Exit codes: verifier 0 = premises hold + certified + claims agree; 1 = premise fails or
+claim mismatch (K4 gives 1 by design); 2 = not certified.
+
+## 7. Plumbing disclosure
+One `full --smoke` run was executed with MAX_ATTEMPTS=20, MAX_ELIGIBLE=3 purely to prove
+the generator/dedup/retention/CLI code path runs. It wrote
+.codex/researchround11/B/smoke_instances.json (private) and nothing public. 9 attempts,
+3 eligible (all s=0, all tau=p), 6 rejections with reason not_exactly_one_red, 1 unusable
+generator draw. No numerical conclusion is drawn from it.
+
+## 8. What Role C should attack
+(a) any use of a non-maximum packing or a vertex cover as if it were tau/p;
+(b) whether the imported round10 module could be mutated by import (it is not written to;
+    only NODE_CAP is reassigned — mtimes are checked);
+(c) whether the verifier's ILP acceptance could pass on a non-optimal status, and whether
+    the brute/ILP cross-check can silently disagree;
+(d) whether p_private == p is being treated as the "exists private maximum packing"
+    premise correctly (it is an equivalence — see section 1);
+(e) s > 0 under the premises is settled by example: the n=9 spine8 control is eligible
+    with one non-private participating red edge (s=1) at tau/p = 5/4. Stage 2 asks only
+    how far ABOVE the C5 cone 3/2 an eligible s>0 instance can be pushed at n<=12
+    (target > 1.5); it does not ask whether a witness exists -- section 4b gives the
+    exact reason none can. The K4 control shows the ratio-2 local structure is exactly
+    what destroys red privacy.
+(f) the reason taxonomy: packing_not_exact / private_packing_not_exact /
+    cover_not_exact (plus not_exact_nodecap, solver_engine_error) are UNCERTIFIED
+    skips in their own bucket, never premise rejections, never eligible or retained;
+(g) the retention gate is conjunctive (certified AND eligible AND p_private agreement
+    AND every literal check AND the every-triangle-one-red constraint AND no claim
+    mismatch AND A-vs-B red-edge page-count agreement), and the loop deadline is checked
+    before each draw and before any write, with a finite per-solve ILP time limit;
+(h) the per-n eligible quota is charged on the FINAL n (parents are drawn only from
+    unsaturated orders) and full saturation stops the loop -- no fallback re-samples
+    saturated orders. Controls stay out of every search counter: the 4 controls are
+    fixed inputs, not attempts, and never enter attempt/eligible/dedup statistics.

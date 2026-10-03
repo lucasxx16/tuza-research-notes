@@ -36,3 +36,19 @@ numerics, with at most five HPC sessions running concurrently. Public
 reports contain concise results, proofs, and verification artifacts;
 raw orchestration records stay private. Stop and report at a substantial
 reviewed milestone or a completed problem, as requested by the user.
+
+LATEST REVIEWED STAGE (ROUND 11).
+For every finite simple G with nu>0, 59tau<=165nu-1 is proved in
+research/round11/E/mixed_cover_page_tails.txt. This additive strictness
+does NOT achieve the uniform target. The mixed red/blue cover theorem
+there handles arbitrary external page counts and gives tau(H)<=2p-1
+for any all-private maximum Q, even without the r<=3p budget. Thus
+an RB(1/100) counterexample must have p>100; small-order zero-witness
+searches are not support for that candidate. Uniform page-tail control
+remains unproved. A real H family also rules out mu(J)<=p+C*s for any
+fixed C, even with s=1. D's actual opposite-book cost k<=h gives extra
+slack 3(h-k). A seven-vertex graph refutes a+b+c<=n for arbitrary legal
+Wang choices; an optimized-choice version remains unproved, and 467/167
+is only its conditional payoff. The early B2 c=0 probes are VOID: they
+deleted all P' edges instead of just its old edges. Only the corrected
+literal counterexample and independently checked stages may be used.

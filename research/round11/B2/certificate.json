@@ -1,0 +1,3862 @@
+{
+ "meta": {
+  "role": "round11/B2",
+  "kind": "bounded numerical search -- no proof claim",
+  "object": "Wang chain P->A->P'->Q, violation test a+b+c > n",
+  "created_utc": "2026-10-03T09:47:07Z",
+  "python": "3.14.7",
+  "networkx": "3.6.1",
+  "seed": 1102,
+  "all_ties": true,
+  "config": {
+   "cap": 300,
+   "kP": 1000000000,
+   "kA": 1000000000,
+   "kPP": 1000000000,
+   "max_chains": 6000
+  },
+  "budget_s": 110.0,
+  "wall_s": 3.08,
+  "engines": {
+   "A": "exact integer bitset branch&bound, memoised on (index, used-edge bitmask), exhaustive iff no deadline",
+   "B": "scipy.optimize.milp HiGHS; accepted only at status==0 + success + integral(1e-6) + literal witness re-check"
+  },
+  "tie_policy": "optima enumerated up to cap=300 then a seeded subset (kP=4,kA=3,kPP=3) expanded: truncated=True means legal choices were NOT expanded",
+  "mode": "compact certificate (counters + one chain)",
+  "reproduction": {
+   "search": "python research/round11/B2/wang_chain_search.py search --max-graphs 200 --budget 110 --all-ties --cap 300 --max-chains 6000 --seed 1102 --compact --out research/round11/B2/certificate.json --raw-out .codex/researchround11/B2/certificate_raw.json   (private raw dump)",
+   "reverify_read_only": "python research/round11/B2/wang_chain_search.py reverify --file research/round11/B2/certificate.json",
+   "selftest_vs_literal_bruteforce": "python research/round11/B2/wang_chain_search.py selftest --max-graphs 200 --budget 90 --tri-cap 22"
+  }
+ },
+ "verdict": {
+  "violation_found_and_certified": true,
+  "n_certified_violations": 1,
+  "max_margin_observed": 1,
+  "graphs_queued": 205,
+  "graphs_attempted": 22,
+  "chains_examined": 4127,
+  "chains_with_c_positive": 352,
+  "chains_where_H_has_triangles": 352,
+  "triangle_types_seen_in_H": {
+   "2": 376
+  },
+  "stage_deadline_timeouts": 0,
+  "margin_hist_by_chain": {
+   "-1": 841,
+   "0": 230,
+   "-7": 900,
+   "-4": 720,
+   "-2": 832,
+   "-5": 288,
+   "-3": 232,
+   "-6": 36,
+   "1": 48
+  },
+  "tight_margin0_chains_count": 5,
+  "anomaly_count": 0,
+  "all_legal_choices_scan_of_witness_graph": {
+   "status": "ok",
+   "chains": 264,
+   "max_margin": 1,
+   "n_violating": 48,
+   "violating_chains": [
+    {
+     "name": "atlas:G1237:nv=7:ne=17:dens=0.8095:tri=18",
+     "nv": 7,
+     "edges": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       0,
+       6
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       1,
+       4
+      ],
+      [
+       1,
+       5
+      ],
+      [
+       1,
+       6
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       2,
+       6
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       5
+      ],
+      [
+       3,
+       6
+      ],
+      [
+       4,
+       6
+      ],
+      [
+       5,
+       6
+      ]
+     ],
+     "n": 4,
+     "a": 1,
+     "b": 3,
+     "m": 3,
+     "c": 1,
+     "margin": 1,
+     "literal": {
+      "vertices": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "P": [
+       [
+        0,
+        1,
+        4
+       ],
+       [
+        0,
+        3,
+        5
+       ],
+       [
+        1,
+        3,
+        6
+       ],
+       [
+        2,
+        4,
+        6
+       ]
+      ],
+      "O_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "A": [
+       [
+        2,
+        5,
+        6
+       ]
+      ],
+      "E_A_edges": [
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "Pprime": [
+       [
+        0,
+        1,
+        5
+       ],
+       [
+        0,
+        3,
+        6
+       ],
+       [
+        1,
+        3,
+        4
+       ]
+      ],
+      "E_Pprime_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        6
+       ]
+      ],
+      "B_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        3,
+        6
+       ]
+      ],
+      "H_edges": [
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "Q": [],
+      "types_relative_to_O": {
+       "P": [
+        3,
+        3,
+        3,
+        3
+       ],
+       "A": [
+        1
+       ],
+       "Pprime": [
+        2,
+        2,
+        2
+       ],
+       "Q": []
+      }
+     }
+    },
+    {
+     "name": "atlas:G1237:nv=7:ne=17:dens=0.8095:tri=18",
+     "nv": 7,
+     "edges": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       0,
+       6
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       1,
+       4
+      ],
+      [
+       1,
+       5
+      ],
+      [
+       1,
+       6
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       2,
+       6
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       5
+      ],
+      [
+       3,
+       6
+      ],
+      [
+       4,
+       6
+      ],
+      [
+       5,
+       6
+      ]
+     ],
+     "n": 4,
+     "a": 1,
+     "b": 3,
+     "m": 3,
+     "c": 1,
+     "margin": 1,
+     "literal": {
+      "vertices": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "P": [
+       [
+        0,
+        1,
+        4
+       ],
+       [
+        0,
+        3,
+        5
+       ],
+       [
+        1,
+        3,
+        6
+       ],
+       [
+        2,
+        4,
+        6
+       ]
+      ],
+      "O_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "A": [
+       [
+        2,
+        5,
+        6
+       ]
+      ],
+      "E_A_edges": [
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "Pprime": [
+       [
+        0,
+        1,
+        5
+       ],
+       [
+        0,
+        4,
+        6
+       ],
+       [
+        1,
+        3,
+        4
+       ]
+      ],
+      "E_Pprime_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "B_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "H_edges": [
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ]
+      ],
+      "Q": [],
+      "types_relative_to_O": {
+       "P": [
+        3,
+        3,
+        3,
+        3
+       ],
+       "A": [
+        1
+       ],
+       "Pprime": [
+        2,
+        2,
+        2
+       ],
+       "Q": []
+      }
+     }
+    },
+    {
+     "name": "atlas:G1237:nv=7:ne=17:dens=0.8095:tri=18",
+     "nv": 7,
+     "edges": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       0,
+       6
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       1,
+       4
+      ],
+      [
+       1,
+       5
+      ],
+      [
+       1,
+       6
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       2,
+       6
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       5
+      ],
+      [
+       3,
+       6
+      ],
+      [
+       4,
+       6
+      ],
+      [
+       5,
+       6
+      ]
+     ],
+     "n": 4,
+     "a": 1,
+     "b": 3,
+     "m": 3,
+     "c": 1,
+     "margin": 1,
+     "literal": {
+      "vertices": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "P": [
+       [
+        0,
+        1,
+        4
+       ],
+       [
+        0,
+        3,
+        5
+       ],
+       [
+        1,
+        3,
+        6
+       ],
+       [
+        2,
+        4,
+        6
+       ]
+      ],
+      "O_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "A": [
+       [
+        2,
+        5,
+        6
+       ]
+      ],
+      "E_A_edges": [
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "Pprime": [
+       [
+        0,
+        1,
+        6
+       ],
+       [
+        0,
+        3,
+        4
+       ],
+       [
+        1,
+        3,
+        5
+       ]
+      ],
+      "E_Pprime_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ]
+      ],
+      "B_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        3,
+        5
+       ]
+      ],
+      "H_edges": [
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "Q": [],
+      "types_relative_to_O": {
+       "P": [
+        3,
+        3,
+        3,
+        3
+       ],
+       "A": [
+        1
+       ],
+       "Pprime": [
+        2,
+        2,
+        2
+       ],
+       "Q": []
+      }
+     }
+    },
+    {
+     "name": "atlas:G1237:nv=7:ne=17:dens=0.8095:tri=18",
+     "nv": 7,
+     "edges": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       0,
+       6
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       1,
+       4
+      ],
+      [
+       1,
+       5
+      ],
+      [
+       1,
+       6
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       2,
+       6
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       5
+      ],
+      [
+       3,
+       6
+      ],
+      [
+       4,
+       6
+      ],
+      [
+       5,
+       6
+      ]
+     ],
+     "n": 4,
+     "a": 1,
+     "b": 3,
+     "m": 3,
+     "c": 1,
+     "margin": 1,
+     "literal": {
+      "vertices": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "P": [
+       [
+        0,
+        1,
+        4
+       ],
+       [
+        0,
+        3,
+        5
+       ],
+       [
+        1,
+        3,
+        6
+       ],
+       [
+        2,
+        4,
+        6
+       ]
+      ],
+      "O_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "A": [
+       [
+        2,
+        5,
+        6
+       ]
+      ],
+      "E_A_edges": [
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "Pprime": [
+       [
+        0,
+        1,
+        6
+       ],
+       [
+        1,
+        3,
+        5
+       ],
+       [
+        3,
+        4,
+        6
+       ]
+      ],
+      "E_Pprime_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "B_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "H_edges": [
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        3,
+        4
+       ]
+      ],
+      "Q": [],
+      "types_relative_to_O": {
+       "P": [
+        3,
+        3,
+        3,
+        3
+       ],
+       "A": [
+        1
+       ],
+       "Pprime": [
+        2,
+        2,
+        2
+       ],
+       "Q": []
+      }
+     }
+    },
+    {
+     "name": "atlas:G1237:nv=7:ne=17:dens=0.8095:tri=18",
+     "nv": 7,
+     "edges": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       0,
+       6
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       1,
+       4
+      ],
+      [
+       1,
+       5
+      ],
+      [
+       1,
+       6
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       2,
+       6
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       5
+      ],
+      [
+       3,
+       6
+      ],
+      [
+       4,
+       6
+      ],
+      [
+       5,
+       6
+      ]
+     ],
+     "n": 4,
+     "a": 1,
+     "b": 3,
+     "m": 3,
+     "c": 1,
+     "margin": 1,
+     "literal": {
+      "vertices": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "P": [
+       [
+        0,
+        1,
+        4
+       ],
+       [
+        0,
+        3,
+        5
+       ],
+       [
+        1,
+        3,
+        6
+       ],
+       [
+        2,
+        5,
+        6
+       ]
+      ],
+      "O_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "A": [
+       [
+        2,
+        4,
+        6
+       ]
+      ],
+      "E_A_edges": [
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "Pprime": [
+       [
+        0,
+        1,
+        5
+       ],
+       [
+        0,
+        3,
+        6
+       ],
+       [
+        1,
+        3,
+        4
+       ]
+      ],
+      "E_Pprime_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        6
+       ]
+      ],
+      "B_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        3,
+        6
+       ]
+      ],
+      "H_edges": [
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "Q": [],
+      "types_relative_to_O": {
+       "P": [
+        3,
+        3,
+        3,
+        3
+       ],
+       "A": [
+        1
+       ],
+       "Pprime": [
+        2,
+        2,
+        2
+       ],
+       "Q": []
+      }
+     }
+    },
+    {
+     "name": "atlas:G1237:nv=7:ne=17:dens=0.8095:tri=18",
+     "nv": 7,
+     "edges": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       0,
+       6
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       1,
+       4
+      ],
+      [
+       1,
+       5
+      ],
+      [
+       1,
+       6
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       2,
+       6
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       5
+      ],
+      [
+       3,
+       6
+      ],
+      [
+       4,
+       6
+      ],
+      [
+       5,
+       6
+      ]
+     ],
+     "n": 4,
+     "a": 1,
+     "b": 3,
+     "m": 3,
+     "c": 1,
+     "margin": 1,
+     "literal": {
+      "vertices": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        4,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "P": [
+       [
+        0,
+        1,
+        4
+       ],
+       [
+        0,
+        3,
+        5
+       ],
+       [
+        1,
+        3,
+        6
+       ],
+       [
+        2,
+        5,
+        6
+       ]
+      ],
+      "O_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        5
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "A": [
+       [
+        2,
+        4,
+        6
+       ]
+      ],
+      "E_A_edges": [
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        4,
+        6
+       ]
+      ],
+      "Pprime": [
+       [
+        0,
+        1,
+        6
+       ],
+       [
+        0,
+        3,
+        4
+       ],
+       [
+        1,
+        3,
+        5
+       ]
+      ],
+      "E_Pprime_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ]
+      ],
+      "B_edges": [
+       [
+        0,
+        1
+       ],
+       [
+        0,
+        3
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        1,
+        3
+       ],
+       [
+        1,
+        6
+       ],
+       [
+        3,
+        5
+       ]
+      ],
+      "H_edges": [
+       [
+        0,
+        5
+       ],
+       [
+        0,
+        6
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        1,
+        5
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        6
+       ],
+       [
+        5,
+        6
+       ]
+      ],
+      "Q": [],
+      "types_relative_to_O": {
+       "P": [
+        3,
+        3,
+        3,
+        3
+       ],
+       "A": [
+        1
+       ],
+       "Pprime": [
+        2,
+        2,
+        2
+       ],
+       "Q": []
+      }
+     }
+    }
+   ],
+   "truncated_stages": [],
+   "candidates": {
+    "n": 4,
+    "P_optima": 42,
+    "A_optima": 72,
+    "Pprime_optima": 264
+   },
+   "wall_s": 0.007
+  },
+  "scope": "bounded search over the printed graph list and printed tie samples only; a clean run does NOT prove a+b+c<=n",
+  "definition_history_note": "earlier private probes computed H as G'-E(P') (removing ALL edges of P'); the stated object is H=G'-B(P') (only the OLD edges of P'), which is what this certificate uses; the old probes' c=0 pattern was an artefact of that bug"
+ },
+ "one_certified_chain": {
+  "chain": {
+   "name": "atlas:G1237:nv=7:ne=17:dens=0.8095:tri=18",
+   "nv": 7,
+   "edges": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0,
+     4
+    ],
+    [
+     0,
+     5
+    ],
+    [
+     0,
+     6
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     1,
+     5
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     6
+    ]
+   ],
+   "n": 4,
+   "a": 1,
+   "b": 3,
+   "m": 3,
+   "c": 1,
+   "margin": 1,
+   "lex_optima_truncated": false,
+   "literal": {
+    "vertices": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "edges": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      5
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      3,
+      6
+     ],
+     [
+      4,
+      6
+     ],
+     [
+      5,
+      6
+     ]
+    ],
+    "P": [
+     [
+      0,
+      1,
+      6
+     ],
+     [
+      0,
+      3,
+      5
+     ],
+     [
+      1,
+      3,
+      4
+     ],
+     [
+      2,
+      5,
+      6
+     ]
+    ],
+    "O_edges": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      5
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      5,
+      6
+     ]
+    ],
+    "A": [
+     [
+      2,
+      4,
+      6
+     ]
+    ],
+    "E_A_edges": [
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      4,
+      6
+     ]
+    ],
+    "Pprime": [
+     [
+      0,
+      1,
+      4
+     ],
+     [
+      0,
+      3,
+      6
+     ],
+     [
+      1,
+      3,
+      5
+     ]
+    ],
+    "E_Pprime_edges": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      3,
+      6
+     ]
+    ],
+    "B_edges": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "H_edges": [
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      6
+     ],
+     [
+      5,
+      6
+     ]
+    ],
+    "Q": [
+     [
+      1,
+      5,
+      6
+     ]
+    ],
+    "types_relative_to_O": {
+     "P": [
+      3,
+      3,
+      3,
+      3
+     ],
+     "A": [
+      1
+     ],
+     "Pprime": [
+      2,
+      2,
+      2
+     ],
+     "Q": [
+      2
+     ]
+    }
+   }
+  },
+  "checks": {
+   "stageP_n_maximum": {
+    "dfs": 4,
+    "milp_certified": true,
+    "milp_status": 0,
+    "milp_value": 4,
+    "milp_error": null,
+    "claimed": 4,
+    "printed_witness_size": 4,
+    "printed_witness_edge_disjoint": true,
+    "all_three_agree": true
+   },
+   "stageA_a_maximum_among_type1": {
+    "type1_candidates": [
+     [
+      0,
+      4,
+      6
+     ],
+     [
+      2,
+      4,
+      6
+     ],
+     [
+      3,
+      4,
+      6
+     ]
+    ],
+    "n_candidates": 3,
+    "dfs": 1,
+    "milp_certified": true,
+    "milp_status": 0,
+    "milp_value": 1,
+    "milp_error": null,
+    "claimed": 1,
+    "printed_witness_size": 1,
+    "printed_witness_edge_disjoint": true,
+    "printed_witness_all_type1": true,
+    "all_three_agree": true
+   },
+   "stagePprime_b_maximality": {
+    "Gprime_edges": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      5
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      3,
+      6
+     ],
+     [
+      5,
+      6
+     ]
+    ],
+    "candidate_triangles": [
+     [
+      0,
+      1,
+      3
+     ],
+     [
+      0,
+      1,
+      4
+     ],
+     [
+      0,
+      1,
+      5
+     ],
+     [
+      0,
+      1,
+      6
+     ],
+     [
+      0,
+      3,
+      4
+     ],
+     [
+      0,
+      3,
+      5
+     ],
+     [
+      0,
+      3,
+      6
+     ],
+     [
+      0,
+      5,
+      6
+     ],
+     [
+      1,
+      3,
+      4
+     ],
+     [
+      1,
+      3,
+      5
+     ],
+     [
+      1,
+      3,
+      6
+     ],
+     [
+      1,
+      5,
+      6
+     ],
+     [
+      3,
+      5,
+      6
+     ]
+    ],
+    "types": {
+     "(0, 1, 3)": 3,
+     "(0, 1, 4)": 2,
+     "(0, 1, 5)": 2,
+     "(0, 1, 6)": 3,
+     "(0, 3, 4)": 2,
+     "(0, 3, 5)": 3,
+     "(0, 3, 6)": 2,
+     "(0, 5, 6)": 3,
+     "(1, 3, 4)": 3,
+     "(1, 3, 5)": 2,
+     "(1, 3, 6)": 2,
+     "(1, 5, 6)": 2,
+     "(3, 5, 6)": 2
+    },
+    "dfs_b_max": 3,
+    "milp_certified": true,
+    "milp_status": 0,
+    "milp_value": 3,
+    "milp_error": null,
+    "claimed_b": 3,
+    "printed_witness_b": 3,
+    "printed_witness_edge_disjoint": true,
+    "printed_witness_inside_Gprime": true,
+    "all_agree": true
+   },
+   "stagePprime_m_maximality_given_b": {
+    "lex_scalar_weight_W": 14,
+    "dfs_lex_value": 45,
+    "dfs_m_given_bmax": 3,
+    "expected_lex": 45,
+    "milp_certified_b_fixed": true,
+    "milp_status": 0,
+    "milp_value_m_given_b": 3,
+    "milp_error": null,
+    "claimed_m": 3,
+    "printed_witness_size": 3,
+    "lex_order_proof_note": "b maximised first (stage above); m then maximised under the equality b=b*; scalarised exact run agrees",
+    "all_agree": true
+   },
+   "stageQ_c_maximum": {
+    "B_edges_recomputed": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "H_edges_recomputed": [
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      6
+     ],
+     [
+      5,
+      6
+     ]
+    ],
+    "H_edges_printed": [
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      6
+     ],
+     [
+      5,
+      6
+     ]
+    ],
+    "H_edges_match": true,
+    "triangles_of_H": [
+     [
+      1,
+      5,
+      6
+     ]
+    ],
+    "dfs": 1,
+    "milp_certified": true,
+    "milp_status": 0,
+    "milp_value": 1,
+    "milp_error": null,
+    "claimed": 1,
+    "printed_witness_size": 1,
+    "printed_witness_edge_disjoint": true,
+    "printed_witness_inside_H": true,
+    "all_three_agree": true
+   },
+   "printed_sets_consistency": {
+    "graph_edges_match": true,
+    "O_edges_match": true,
+    "E_A_edges_match": true,
+    "B_edges_match": true,
+    "types_match": true,
+    "P_types_all_3": true,
+    "A_types_all_1": true,
+    "recomputed_types": {
+     "P": [
+      3,
+      3,
+      3,
+      3
+     ],
+     "A": [
+      1
+     ],
+     "Pprime": [
+      2,
+      2,
+      2
+     ],
+     "Q": [
+      2
+     ]
+    },
+    "all_three_agree": true
+   },
+   "arithmetic": {
+    "a": 1,
+    "b": 3,
+    "m": 3,
+    "c": 1,
+    "n": 4,
+    "a_plus_b_plus_c": 5,
+    "margin_a+b+c-n": 1,
+    "violation_a+b+c_greater_than_n": true,
+    "recorded_margin_consistent": true
+   }
+  },
+  "all_pass": true,
+  "violation": true,
+  "five_stage_values": {
+   "n": 4,
+   "a": 1,
+   "b": 3,
+   "m": 3,
+   "c": 1,
+   "a_plus_b_plus_c_minus_n": 1
+  }
+ },
+ "graphs_attempted": [
+  {
+   "id": "K3",
+   "nv": 3,
+   "ne": 3,
+   "triangles": 1,
+   "n": 1,
+   "chains": 1,
+   "margin_max": -1,
+   "a_max": 0,
+   "b_max": 0,
+   "c_max": 0,
+   "ab_max": 0,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "K4",
+   "nv": 4,
+   "ne": 6,
+   "triangles": 4,
+   "n": 1,
+   "chains": 12,
+   "margin_max": 0,
+   "a_max": 1,
+   "b_max": 0,
+   "c_max": 0,
+   "ab_max": 1,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "K5",
+   "nv": 5,
+   "ne": 10,
+   "triangles": 10,
+   "n": 2,
+   "chains": 120,
+   "margin_max": 0,
+   "a_max": 1,
+   "b_max": 1,
+   "c_max": 0,
+   "ab_max": 2,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "K6",
+   "nv": 6,
+   "ne": 15,
+   "triangles": 20,
+   "n": 4,
+   "chains": 480,
+   "margin_max": -1,
+   "a_max": 0,
+   "b_max": 3,
+   "c_max": 0,
+   "ab_max": 3,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "K7",
+   "nv": 7,
+   "ne": 21,
+   "triangles": 35,
+   "n": 7,
+   "chains": 900,
+   "margin_max": -7,
+   "a_max": 0,
+   "b_max": 0,
+   "c_max": 0,
+   "ab_max": 0,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1251:nv=7:ne=20:dens=0.9524:tri=30",
+   "nv": 7,
+   "ne": 20,
+   "triangles": 30,
+   "n": 6,
+   "chains": 720,
+   "margin_max": -4,
+   "a_max": 0,
+   "b_max": 2,
+   "c_max": 0,
+   "ab_max": 2,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G207:nv=6:ne=14:dens=0.9333:tri=16",
+   "nv": 6,
+   "ne": 14,
+   "triangles": 16,
+   "n": 4,
+   "chains": 24,
+   "margin_max": -2,
+   "a_max": 0,
+   "b_max": 2,
+   "c_max": 0,
+   "ab_max": 2,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1249:nv=7:ne=19:dens=0.9048:tri=26",
+   "nv": 7,
+   "ne": 19,
+   "triangles": 26,
+   "n": 6,
+   "chains": 288,
+   "margin_max": -5,
+   "a_max": 0,
+   "b_max": 1,
+   "c_max": 0,
+   "ab_max": 1,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1250:nv=7:ne=19:dens=0.9048:tri=25",
+   "nv": 7,
+   "ne": 19,
+   "triangles": 25,
+   "n": 5,
+   "chains": 852,
+   "margin_max": -1,
+   "a_max": 2,
+   "b_max": 2,
+   "c_max": 1,
+   "ab_max": 3,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G51:nv=5:ne=9:dens=0.9000:tri=7",
+   "nv": 5,
+   "ne": 9,
+   "triangles": 7,
+   "n": 2,
+   "chains": 12,
+   "margin_max": 0,
+   "a_max": 1,
+   "b_max": 1,
+   "c_max": 0,
+   "ab_max": 2,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G205:nv=6:ne=13:dens=0.8667:tri=13",
+   "nv": 6,
+   "ne": 13,
+   "triangles": 13,
+   "n": 3,
+   "chains": 36,
+   "margin_max": 0,
+   "a_max": 2,
+   "b_max": 2,
+   "c_max": 0,
+   "ab_max": 3,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G206:nv=6:ne=13:dens=0.8667:tri=12",
+   "nv": 6,
+   "ne": 13,
+   "triangles": 12,
+   "n": 4,
+   "chains": 16,
+   "margin_max": -3,
+   "a_max": 0,
+   "b_max": 1,
+   "c_max": 0,
+   "ab_max": 1,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1244:nv=7:ne=18:dens=0.8571:tri=23",
+   "nv": 7,
+   "ne": 18,
+   "triangles": 23,
+   "n": 5,
+   "chains": 144,
+   "margin_max": -2,
+   "a_max": 0,
+   "b_max": 3,
+   "c_max": 0,
+   "ab_max": 3,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1245:nv=7:ne=18:dens=0.8571:tri=22",
+   "nv": 7,
+   "ne": 18,
+   "triangles": 22,
+   "n": 6,
+   "chains": 36,
+   "margin_max": -6,
+   "a_max": 0,
+   "b_max": 0,
+   "c_max": 0,
+   "ab_max": 0,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1246:nv=7:ne=18:dens=0.8571:tri=22",
+   "nv": 7,
+   "ne": 18,
+   "triangles": 22,
+   "n": 5,
+   "chains": 36,
+   "margin_max": -3,
+   "a_max": 1,
+   "b_max": 1,
+   "c_max": 0,
+   "ab_max": 2,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1247:nv=7:ne=18:dens=0.8571:tri=21",
+   "nv": 7,
+   "ne": 18,
+   "triangles": 21,
+   "n": 5,
+   "chains": 48,
+   "margin_max": -2,
+   "a_max": 1,
+   "b_max": 3,
+   "c_max": 0,
+   "ab_max": 3,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1248:nv=7:ne=18:dens=0.8571:tri=20",
+   "nv": 7,
+   "ne": 18,
+   "triangles": 20,
+   "n": 5,
+   "chains": 32,
+   "margin_max": -2,
+   "a_max": 0,
+   "b_max": 3,
+   "c_max": 0,
+   "ab_max": 3,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G17:nv=4:ne=5:dens=0.8333:tri=2",
+   "nv": 4,
+   "ne": 5,
+   "triangles": 2,
+   "n": 1,
+   "chains": 2,
+   "margin_max": 0,
+   "a_max": 1,
+   "b_max": 0,
+   "c_max": 0,
+   "ab_max": 1,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1234:nv=7:ne=17:dens=0.8095:tri=21",
+   "nv": 7,
+   "ne": 17,
+   "triangles": 21,
+   "n": 5,
+   "chains": 24,
+   "margin_max": -3,
+   "a_max": 0,
+   "b_max": 2,
+   "c_max": 0,
+   "ab_max": 2,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1235:nv=7:ne=17:dens=0.8095:tri=19",
+   "nv": 7,
+   "ne": 17,
+   "triangles": 19,
+   "n": 5,
+   "chains": 24,
+   "margin_max": -3,
+   "a_max": 0,
+   "b_max": 2,
+   "c_max": 0,
+   "ab_max": 2,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1236:nv=7:ne=17:dens=0.8095:tri=19",
+   "nv": 7,
+   "ne": 17,
+   "triangles": 19,
+   "n": 5,
+   "chains": 56,
+   "margin_max": -2,
+   "a_max": 0,
+   "b_max": 2,
+   "c_max": 1,
+   "ab_max": 2,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  },
+  {
+   "id": "atlas:G1237:nv=7:ne=17:dens=0.8095:tri=18",
+   "nv": 7,
+   "ne": 17,
+   "triangles": 18,
+   "n": 4,
+   "chains": 264,
+   "margin_max": 1,
+   "a_max": 2,
+   "b_max": 3,
+   "c_max": 1,
+   "ab_max": 4,
+   "skipped": null,
+   "timeouts": 0,
+   "P_optima_truncated": false,
+   "A_optima_truncated": false,
+   "Pprime_optima_truncated": false,
+   "chain_cap_reached": null
+  }
+ ],
+ "d_protocol_recheck": {
+  "protocol": "research/round11/D/protocol.txt",
+  "all_pass": true,
+  "step1_nu_G": {
+   "claimed": 4,
+   "bitset": 4,
+   "milp_status": 0,
+   "milp": 4,
+   "no_type0_triangle": true,
+   "ok": true
+  },
+  "step2_nu_type1": {
+   "claimed": 1,
+   "bitset": 1,
+   "milp_status": 0,
+   "milp": 1,
+   "n_type1_candidates": 3,
+   "ok": true
+  },
+  "step3_Gprime_types": {
+   "claimed_no_type1_survives": true,
+   "observed_types": [
+    2,
+    3
+   ],
+   "ok": true
+  },
+  "step4_lex_b_then_m": {
+   "claimed_b": 3,
+   "bitset_b": 3,
+   "milp_status": 0,
+   "milp_b": 3,
+   "witness_b": 3,
+   "claimed_m": 3,
+   "d_scalar_W": 5,
+   "d_scalar_value": 18,
+   "d_scalar_expected": 18,
+   "milp_m_given_b": 3,
+   "witness_m": 3,
+   "m_le_n": true,
+   "ok": true
+  },
+  "step5_S_and_c": {
+   "OldPrime_edges": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0,
+     6
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     3,
+     5
+    ]
+   ],
+   "n_S_type2_survivors": 1,
+   "S_triangles": [
+    [
+     1,
+     5,
+     6
+    ]
+   ],
+   "claimed_c": 1,
+   "bitset_nu_S": 1,
+   "milp_status": 0,
+   "milp_nu_S": 1,
+   "printed_Q_inside_S": true,
+   "printed_Q_size": 1,
+   "broader_family_all_H_triangles": 1,
+   "nu_all_H_triangles": 1,
+   "ok": true
+  },
+  "step6_test": {
+   "a+b+c_under_D": 5,
+   "n": 4,
+   "violation": true,
+   "a_plus_m_le_n": true,
+   "a_plus_m": 4,
+   "a_plus_b_le_n": true,
+   "a_plus_b": 4
+  },
+  "optional_diagnostics": {
+   "h_Q_triangles_with_private_new_edge_in_S": 1,
+   "d_nu_S_after_deleting_Q_old_edges": 0,
+   "d_milp_status": "no_candidates",
+   "d_milp": 0,
+   "n_S2": 0,
+   "note": "not required to refute a+b+c<=n"
+  },
+  "scope_reconciliation": {
+   "d_list_size": 371,
+   "witness_rank_in_d_order": 12,
+   "within_d_32": true,
+   "d_first32": [
+    {
+     "atlas": "G1251",
+     "nv": 7,
+     "ne": 20
+    },
+    {
+     "atlas": "G1249",
+     "nv": 7,
+     "ne": 19
+    },
+    {
+     "atlas": "G1250",
+     "nv": 7,
+     "ne": 19
+    },
+    {
+     "atlas": "G1244",
+     "nv": 7,
+     "ne": 18
+    },
+    {
+     "atlas": "G1245",
+     "nv": 7,
+     "ne": 18
+    },
+    {
+     "atlas": "G1246",
+     "nv": 7,
+     "ne": 18
+    },
+    {
+     "atlas": "G1247",
+     "nv": 7,
+     "ne": 18
+    },
+    {
+     "atlas": "G1248",
+     "nv": 7,
+     "ne": 18
+    },
+    {
+     "atlas": "G1234",
+     "nv": 7,
+     "ne": 17
+    },
+    {
+     "atlas": "G1235",
+     "nv": 7,
+     "ne": 17
+    },
+    {
+     "atlas": "G1236",
+     "nv": 7,
+     "ne": 17
+    },
+    {
+     "atlas": "G1237",
+     "nv": 7,
+     "ne": 17
+    },
+    {
+     "atlas": "G1238",
+     "nv": 7,
+     "ne": 17
+    },
+    {
+     "atlas": "G1239",
+     "nv": 7,
+     "ne": 17
+    },
+    {
+     "atlas": "G1240",
+     "nv": 7,
+     "ne": 17
+    },
+    {
+     "atlas": "G1241",
+     "nv": 7,
+     "ne": 17
+    },
+    {
+     "atlas": "G1242",
+     "nv": 7,
+     "ne": 17
+    },
+    {
+     "atlas": "G1243",
+     "nv": 7,
+     "ne": 17
+    },
+    {
+     "atlas": "G1213",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1214",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1215",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1216",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1217",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1218",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1219",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1220",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1221",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1222",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1223",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1224",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1225",
+     "nv": 7,
+     "ne": 16
+    },
+    {
+     "atlas": "G1226",
+     "nv": 7,
+     "ne": 16
+    }
+   ]
+  }
+ }
+}

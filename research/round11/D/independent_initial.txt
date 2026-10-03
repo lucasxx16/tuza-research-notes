@@ -1,0 +1,58 @@
+ROUND 11 / D / INDEPENDENT INITIAL DRAFT
+
+Recorded before inspecting E/B round-eleven material or asking for
+their approach. Inputs are Wang's original construction and D's
+round-ten retained-slack proof. No numerical search was run by D.
+
+ROUTE: ORIGINAL-PACKING LABELS AND REPLACEMENT HALL CONSTRAINTS.
+Use Wang's notation P,n,A,a,P',B*,b,Q,c. Label every old edge by its
+unique original packed triangle in P. A type-2 triangle uses two
+distinct labels: if its two old edges belonged to one original
+triangle, its third edge would also be old, contradicting type two.
+
+For any edge-disjoint type-2 packing B disjoint from A, construct a
+multigraph L on the n original P-triangles. Its edges are the label
+pairs of B. Mark each vertex whose original triangle supplies the
+old edge of a member of A. The marks are distinct by maximality of P.
+
+PROVED CANDIDATE LEMMA.
+For every component K of L,
+  |E(K)| + number_of_marks(K) <= |V(K)|.
+Otherwise replace the original P-triangles in K by its B-triangles
+and all A-triangles with their old edge labeled in K. Their new
+edges avoid P; they are mutually disjoint since A and B are. This
+would enlarge P. Thus every component is either a tree with at most
+one mark, or an unmarked unicyclic multigraph. Parallel edges are
+allowed; loops are not.
+
+When B is obtained by choosing one page from each B*/Q book, the same
+property holds for EVERY choice, not merely for B*. The selected
+triangles are mutually edge-disjoint and avoid A. Fixed type-three
+members of P' can also be retained in the replacement Hall condition,
+though the resulting incidence object is no longer just a graph.
+
+PRECISE STRONGER TARGET, NOT YET PROVED.
+Can the graph geometry and the simultaneous all-page-choice condition
+force, for Wang's construction (or a suitable choice of its maximum
+packings),
+  a+b+c <= n ?
+This is not assumed. It needs adversarial checking and may fail.
+The strengthened round-ten equality point has a=c=12n/59 and
+b=36n/59, so its sum is 60n/59 and violates the proposed inequality.
+
+EXACT CONDITIONAL PAYOFF.
+If the displayed inequality held universally for admissible chosen
+packings, Wang's original four cover bounds, weighted respectively
+116,48,102,68, together with four times 0<=n-a-b-c and once
+0<=c-h, would give
+  334 tau(G)<=934 n,
+that is tau(G)<=(467/167)nu(G). This is strictly below 165/59,
+with gap 2/9853. All a,b,c,d,h coefficients cancel in this sum.
+The algebra is conditional; no universal improvement is announced.
+
+NEXT CHECK.
+Save and review the exact replacement-Hall/pseudoforest lemma, and
+ask the parent for a narrowly bounded search for an actual packing
+configuration violating a+b+c<=n. A counterexample would settle this
+particular route and identify missing information; a negative finite
+search would not constitute a proof.

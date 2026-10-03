@@ -1,0 +1,8930 @@
+{
+ "stage": 2,
+ "mode": "full",
+ "seed": 20261003,
+ "objective": "hard-instance diagnostic: eligible instances with s>0 and the largest tau/p found (target > 1.5); NOT a search for an RB(1/100) witness, which cannot exist at n<=12",
+ "why_small_orders_cannot_refute_RB_1_100": "Role E (round 11, C-approved): an H whose every triangle has exactly one red edge and which has an all-private maximum packing Q satisfies tau <= 2p - 1. A strict counterexample needs 1.99p < 2p - 1, i.e. p > 100. At n <= 12, p <= floor(C(12,2)/3) = 22 because p edge-disjoint triangles use 3p distinct edges. So no n <= 12 instance can witness tau > 199p/100; the retained examples only carry diagnostic value for how high tau/p climbs with s > 0.",
+ "budgets": {
+  "configured_wall_s": 180.0,
+  "self_limit_s": 150.0,
+  "write_deadline_s": 168.0,
+  "solve_slack_s": 3.0,
+  "max_attempts": 10000,
+  "max_eligible": 1000,
+  "per_n_eligible_quota": {
+   "6": 142,
+   "7": 142,
+   "8": 142,
+   "9": 142,
+   "10": 142,
+   "11": 142,
+   "12": 142
+  },
+  "engine_A_node_cap": 250000,
+  "engine_B_brute_cap": 1048576,
+  "engine_B_ilp_time_limit": "remaining wall before write deadline, reset before every solve"
+ },
+ "stats": {
+  "attempts": 6029,
+  "unique": 5327,
+  "repeats": 702,
+  "eligible": 994,
+  "uncertified_skips": 0,
+  "engine_b_not_certified": 0,
+  "gen_unusable": 0,
+  "parent_mutations": 3599,
+  "premise_rejects": {
+   "not_exactly_one_red": 3526,
+   "private_premise_fails": 748,
+   "no_triangle": 43,
+   "disconnected": 14,
+   "r_gt_3nu": 2
+  },
+  "uncertified_reasons": {},
+  "per_n": {
+   "6": {
+    "attempts": 1017,
+    "eligible": 142,
+    "quota": 142
+   },
+   "7": {
+    "attempts": 1047,
+    "eligible": 142,
+    "quota": 142
+   },
+   "8": {
+    "attempts": 540,
+    "eligible": 142,
+    "quota": 142
+   },
+   "9": {
+    "attempts": 1101,
+    "eligible": 142,
+    "quota": 142
+   },
+   "10": {
+    "attempts": 766,
+    "eligible": 142,
+    "quota": 142
+   },
+   "11": {
+    "attempts": 898,
+    "eligible": 142,
+    "quota": 142
+   },
+   "12": {
+    "attempts": 660,
+    "eligible": 142,
+    "quota": 142
+   }
+  },
+  "hist_tau_over_p": {
+   "6/5": 10,
+   "2/2": 292,
+   "4/3": 99,
+   "1/1": 193,
+   "5/4": 81,
+   "3/2": 34,
+   "3/3": 137,
+   "5/5": 29,
+   "4/4": 104,
+   "6/4": 15
+  },
+  "hist_s": {
+   "False": 731,
+   "True": 263
+  },
+  "hist_max_red_pages": {
+   "1": 731,
+   "2": 257,
+   "3": 6
+  },
+  "stop": "per-n eligible quotas saturated; global cap 1000 NOT reached, so no order was oversampled",
+  "disagreements": [],
+  "witness_alarm": []
+ },
+ "best_by_stratum": {
+  "s0": [
+   {
+    "name": "cone_C5_n6_15",
+    "seed_family": "cone_C5",
+    "n": 6,
+    "colorstring": "R00RBR00BR0BRBB",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 6 --colorstring R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked_n12_427",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "000R0B00000R00B0000B000000000BBR00B0000000000000000R00RBR00BR0BRBB",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring 000R0B00000R00B0000B000000000BBR00B0000000000000000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "cone_C7_n7_650",
+    "seed_family": "cone_C7",
+    "n": 7,
+    "colorstring": "R00RB0R00B0R0B0RB0B0R",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RB0R00B0R0B0RB0B0R"
+   }
+  ],
+  "sp": [
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_722",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RR000R00R00BB0R000B00BR00B000R0B000RB00B0000BBR000",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RR000R00R00BB0R000B00BR00B000R0B000RB00B0000BBR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_926",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB00RBR00000000R0B0RBRB0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB00RBR00000000R0B0RBRB0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_928",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB00RBR000000B0R0B0RBRB0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB00RBR000000B0R0B0RBRB0R000RB00"
+   }
+  ]
+ },
+ "repeat_counts_top": [
+  [
+   "R00RBR00BR0BRBB",
+   90
+  ],
+  [
+   "BR000RBBBR00000BR000BBR000BR00BR0B0R",
+   23
+  ],
+  [
+   "R00RB0R00B0R0B0RB0B0R",
+   17
+  ],
+  [
+   "R0000RBR0000BR000BR00BR0BRBB",
+   15
+  ],
+  [
+   "R00RBR00B00BRBB",
+   13
+  ],
+  [
+   "R000BR00BR0BRBB",
+   12
+  ],
+  [
+   "R00000000RBR00000000BR0000000BR000000BR00000BR0000BR000BR00BR0BRBB",
+   9
+  ],
+  [
+   "RB0RBR00BR0BRBB",
+   9
+  ],
+  [
+   "R00RBBR00BBR0B0RB0B00",
+   9
+  ],
+  [
+   "BBBBBRRR0000000",
+   9
+  ],
+  [
+   "R00RB0R00B0R0B0RB0B0B",
+   9
+  ],
+  [
+   "R00RB0R00BBR0B0RB0BB0",
+   9
+  ],
+  [
+   "R00RBBR00B0R0B0RBBB00",
+   9
+  ],
+  [
+   "BBBBBRR0000000R",
+   8
+  ],
+  [
+   "R00RB0R00B0R0B0RBBBB0",
+   8
+  ],
+  [
+   "BBBBBBBBRRR0000000000000000000RRR000",
+   7
+  ],
+  [
+   "R00RBR00BRBBRBB",
+   7
+  ],
+  [
+   "R000000RBR000000BR00000BR0000BR000BR00BR0BRBB",
+   7
+  ],
+  [
+   "BBBBBBRRR00000000000R",
+   7
+  ],
+  [
+   "R00RBRB0BR0BRBB",
+   7
+  ]
+ ],
+ "witness_alarm_count": 0,
+ "retained": {
+  "s_equals_0": [
+   {
+    "name": "cone_C5_n6_15",
+    "seed_family": "cone_C5",
+    "n": 6,
+    "colorstring": "R00RBR00BR0BRBB",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 6 --colorstring R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked_n12_427",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "000R0B00000R00B0000B000000000BBR00B0000000000000000R00RBR00BR0BRBB",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring 000R0B00000R00B0000B000000000BBR00B0000000000000000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "cone_C7_n7_650",
+    "seed_family": "cone_C7",
+    "n": 7,
+    "colorstring": "R00RB0R00B0R0B0RB0B0R",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RB0R00B0R0B0RB0B0R"
+   },
+   {
+    "name": "cone_C7_n7_728",
+    "seed_family": "cone_C7",
+    "n": 7,
+    "colorstring": "R00RB0R00B0R0B0RB0BB0",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RB0R00B0R0B0RB0BB0"
+   },
+   {
+    "name": "cone_C7_n7_773",
+    "seed_family": "cone_C7",
+    "n": 7,
+    "colorstring": "R00RB0R00B0R0B0RBBB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RB0R00B0R0B0RBBB00"
+   },
+   {
+    "name": "mutant_of_cone_C7_n7_787",
+    "seed_family": "mutant_of_cone_C7",
+    "n": 7,
+    "colorstring": "R00RB0R00B0R0B0RB0B0B",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RB0R00B0R0B0RB0B0B"
+   },
+   {
+    "name": "mutant_of_cone_C7_n7_788",
+    "seed_family": "mutant_of_cone_C7",
+    "n": 7,
+    "colorstring": "R00RB0R00BBR0B0RB0BB0",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RB0R00BBR0B0RB0BB0"
+   },
+   {
+    "name": "mutant_of_mutant_of_cone_C7_n7_793",
+    "seed_family": "mutant_of_mutant_of_cone_C7",
+    "n": 7,
+    "colorstring": "R00RB0R00BBR0B0RB0B00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RB0R00BBR0B0RB0B00"
+   },
+   {
+    "name": "mutant_of_cone_C7_n7_796",
+    "seed_family": "mutant_of_cone_C7",
+    "n": 7,
+    "colorstring": "R00RB0R00B0R0BBRB0BB0",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RB0R00B0R0BBRB0BB0"
+   },
+   {
+    "name": "cone_C5_n7_804",
+    "seed_family": "cone_C5",
+    "n": 7,
+    "colorstring": "R00RBBR00B0R0B0RBRB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RBBR00B0R0B0RBRB00"
+   },
+   {
+    "name": "mutant_of_cone_C7_n7_832",
+    "seed_family": "mutant_of_cone_C7",
+    "n": 7,
+    "colorstring": "R00RBBR00B0R0B0RBBB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RBBR00B0R0B0RBBB00"
+   },
+   {
+    "name": "mutant_of_cone_C5_n7_833",
+    "seed_family": "mutant_of_cone_C5",
+    "n": 7,
+    "colorstring": "R00RBBR00B0R0B0RB0B00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RBBR00B0R0B0RB0B00"
+   },
+   {
+    "name": "mutant_of_mutant_of_cone_C5_n7_847",
+    "seed_family": "mutant_of_mutant_of_cone_C5",
+    "n": 7,
+    "colorstring": "R00RBBR00B0R0BRRB0B00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RBBR00B0R0BRRB0B00"
+   },
+   {
+    "name": "mutant_of_cone_C7_n7_854",
+    "seed_family": "mutant_of_cone_C7",
+    "n": 7,
+    "colorstring": "R00RBRR00B0R0B0RBBB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RBRR00B0R0B0RBBB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_cone_C7_n7_870",
+    "seed_family": "mutant_of_mutant_of_cone_C7",
+    "n": 7,
+    "colorstring": "R00RB0R00B0R0BRRB0BB0",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RB0R00B0R0BRRB0BB0"
+   },
+   {
+    "name": "mutant_of_mutant_of_cone_C7_n7_890",
+    "seed_family": "mutant_of_mutant_of_cone_C7",
+    "n": 7,
+    "colorstring": "R00RBRR00B0R0B0RB0B00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RBRR00B0R0B0RB0B00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_cone_C5_n7_923",
+    "seed_family": "mutant_of_mutant_of_mutant_of_cone_C5",
+    "n": 7,
+    "colorstring": "R00RBRR00B0R0BRRB0B00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 5,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 7 --colorstring R00RBRR00B0R0BRRB0B00"
+   },
+   {
+    "name": "two_cones_linked_n12_167",
+    "seed_family": "two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000BRB000000B000000000000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000BRB000000B000000000000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_two_cones_linked_n12_221",
+    "seed_family": "mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000BRB000000B0000000B0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000BRB000000B0000000B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_two_cones_linked_n12_284",
+    "seed_family": "mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000RRB000000B0000000B0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000RRB000000B0000000B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_two_cones_linked_n12_316",
+    "seed_family": "mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000BRB000B00B0000000B0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000BRB000B00B0000000B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_two_cones_linked_n12_330",
+    "seed_family": "mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000BRB000000B0000000R0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000BRB000000B0000000R0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_two_cones_linked_n12_379",
+    "seed_family": "mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000RRB0000B0B00R0000B0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000RRB0000B0B00R0000B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_two_cones_linked_n12_402",
+    "seed_family": "mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000BRB000000B0000B00B0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000BRB000000B0000B00B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked_n12_418",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B00B0B0R0B00000RRB0000B0B00R0000B0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B00B0B0R0B00000RRB0000B0B00R0000B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_two_cones_linked_n12_419",
+    "seed_family": "mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000RRB000000B000000000000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000RRB000000B000000000000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_two_cones_linked_n12_477",
+    "seed_family": "mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B00B0B0R0B00000RRB000000B000000000000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B00B0B0R0B00000RRB000000B000000000000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked_n12_480",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RB000B00R00B00B0B0R0B00000RRB0000B0B00R0000B0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RB000B00R00B00B0B0R0B00000RRB0000B0B00R0000B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_two_cones_linked_n12_520",
+    "seed_family": "mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000RRB000000B0000000R0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000RRB000000B0000000R0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_two_cones_linked_n12_521",
+    "seed_family": "mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000BRBB00000B0000000B0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000BRBB00000B0000000B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked_n12_533",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00R00R00B00B0B0R0B00000RRB0000B0B00R0000B0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00R00R00B00B0B0R0B00000RRB0000B0B00R0000B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_two_cones_linked_n12_534",
+    "seed_family": "mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B0R0B00000BRB000R00B0000000B0000R00RBR00BR0BRBB",
+    "p": 4,
+    "p_private": 4,
+    "tau": 6,
+    "r": 10,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 7,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -196,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B0R0B00000BRB000R00B0000000B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "cone_C7_n8_3",
+    "seed_family": "cone_C7",
+    "n": 8,
+    "colorstring": "R0000RBR0000BR000BR00BR0BRBB",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 7,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      7
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       1,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 8 --colorstring R0000RBR0000BR000BR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_two_cones_linked_n12_300",
+    "seed_family": "mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B000000000BBB00B0000000000000000R00RBR00BR0BRBB",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      1
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B000000000BBB00B0000000000000000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_two_cones_linked_n12_307",
+    "seed_family": "mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B000000000BBR00B0000000000000000R00RBR00BR0BRBB",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      1
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B000000000BBR00B0000000000000000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_two_cones_linked_n12_361",
+    "seed_family": "mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B000000000BBB00B000000000000000BR00RBR00BR0BRBB",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      1
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B000000000BBB00B000000000000000BR00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked_n12_369",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B000000000BBR00B00000000B000000RR00RBR00BR0BRBB",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      1
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B000000000BBR00B00000000B000000RR00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked_n12_390",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RB000B00R00B0000B0R0B00000BRB0000B0B0000000B0000000R0000000BRBB",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      3,
+      5
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       5
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     [
+      [
+       9,
+       10
+      ],
+      [
+       9,
+       11
+      ],
+      [
+       10,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RB000B00R00B0000B0R0B00000BRB0000B0B0000000B0000000R0000000BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked_n12_395",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00000B0000B000B00000BR0B0B000B0000000B0000R00RBR00BR0BRBB",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 7,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      5
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00000B0000B000B00000BR0B0B000B0000000B0000R00RBR00BR0BRBB"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked_n12_400",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_two_cones_linked",
+    "n": 12,
+    "colorstring": "R00RBB00B00R00B0000B000000000BRR00B00000000B000000RR00RBR00BR0BRBB",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 0,
+    "nonprivate_red_page_counts": [],
+    "max_red_pages": 1,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      1
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      9,
+      11
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       7,
+       11
+      ]
+     ],
+     [
+      [
+       8,
+       9
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       9,
+       11
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 12 --colorstring R00RBB00B00R00B0000B000000000BRR00B00000000B000000RR00RBR00BR0BRBB"
+   }
+  ],
+  "s_positive": [
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_722",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RR000R00R00BB0R000B00BR00B000R0B000RB00B0000BBR000",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RR000R00R00BB0R000B00BR00B000R0B000RB00B0000BBR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_926",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB00RBR00000000R0B0RBRB0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB00RBR00000000R0B0RBRB0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_928",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB00RBR000000B0R0B0RBRB0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB00RBR000000B0R0B0RBRB0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_931",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB000BR000000B0R0B0RBRB0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB000BR000000B0R0B0RBRB0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_937",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB00BBR000000B0R0B0RBRB0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB00BBR000000B0R0B0RBRB0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_938",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB00BBR000000B0R0B0RBR00R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB00BBR000000B0R0B0RBR00R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_939",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB00RBR000000B0R0B0RBR00R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB00RBR000000B0R0B0RBR00R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_946",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0RB000BR000000B0R0B0RBR00R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0RB000BR000000B0R0B0RBR00R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_947",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB00RBR00000000RRB0RBRB0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB00RBR00000000RRB0RBRB0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_956",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0RB00BBR000000B0R0B0RBRB0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0RB00BBR000000B0R0B0RBRB0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_957",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0RB000BR000000B0R0B0RBRB0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0RB000BR000000B0R0B0RBRB0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_960",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0RB000BR000000R0R0B0RBR00R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0RB000BR000000R0R0B0RBR00R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_974",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB00RBR00000000RRB0RBBB0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB00RBR00000000RRB0RBBB0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_975",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0RB00RBR00000000R0B0RBRB0R0000B00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0RB00RBR00000000R0B0RBRB0R0000B00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_976",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB00BBR000000B000B0RBRR0R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB00BBR000000B000B0RBRR0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_980",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0RB000BR000000R0R0B0RBR00R0000B00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0RB000BR000000R0R0B0RBR00R0000B00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_982",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0RB000BR000000B0R0B0RB000R000RB00",
+    "p": 2,
+    "p_private": 2,
+    "tau": 3,
+    "r": 4,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.5,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 3,
+    "gap_to_that_ceiling": 0,
+    "margin_100tau_minus_199p": -98,
+    "edge_cover_certificate": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0RB000BR000000B0R0B0RB000R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_cone_odd_cycle_n11_385",
+    "seed_family": "mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000RB0R000B00BR00B000R0B000RB00BB0000RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000RB0R000B00BR00B000R0B000RB00BB0000RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_406",
+    "seed_family": "mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000RB0R000B00BR00B000R0BR00RB00BB0000RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000RB0R000B00BR00B000R0BR00RB00BB0000RR000"
+   },
+   {
+    "name": "mutant_of_cone_odd_cycle_n11_492",
+    "seed_family": "mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000RB0R000B00BR00B000R0B000RB00BB000BRR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000RB0R000B00BR00B000R0B000RB00BB000BRR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_cone_C3_n9_500",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_cone_C3",
+    "n": 9,
+    "colorstring": "R0B0BB0BRBR00000000R0B0RBRB0R000RB00",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      3,
+      6,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      8
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      6
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      [
+       0,
+       5
+      ],
+      [
+       0,
+       8
+      ],
+      [
+       5,
+       8
+      ]
+     ],
+     [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       4,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 9 --colorstring R0B0BB0BRBR00000000R0B0RBRB0R000RB00"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_531",
+    "seed_family": "mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000RB0R000B00BR00B000R0B000RB00BB0B00RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 7,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000RB0R000B00BR00B000R0B000RB00BB0B00RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_557",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000RB0R000B00BR00B000R0B000RB00BBBB00RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 7,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000RB0R000B00BR00B000R0B000RB00BBBB00RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_562",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R00000B000R00B00RB0R000B00BR00B000R0B000RB00BB0B00RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       7,
+       9
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R00000B000R00B00RB0R000B00BR00B000R0B000RB00BB0B00RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_629",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R00000B000R00B00RB0R000B00BR00BB00R0B000RB00BB0B00RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       7,
+       9
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R00000B000R00B00RB0R000B00BR00BB00R0B000RB00BB0B00RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_cone_odd_cycle_n11_634",
+    "seed_family": "mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000BB0R000B00BR00B000R0B000RB00BB000BRR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000BB0R000B00BR00B000R0B000RB00BB000BRR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_642",
+    "seed_family": "mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000BB0R000B00BR00B000R0B0000B00BB000BRR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 5,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      6
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000BB0R000B00BR00B000R0B0000B00BB000BRR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_644",
+    "seed_family": "mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000RB0R000B00BR00BB00R0B000RB00BB0000RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000RB0R000B00BR00BB00R0B000RB00BB0000RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_647",
+    "seed_family": "mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00R00BB0R000B00BR00B000R0B000RB00BB000BRR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00R00BB0R000B00BR00B000R0B000RB00BB000BRR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_648",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00R00RB0R000B00BR00B000R0BR00RB00BB0000RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00R00RB0R000B00BR00B000R0BR00RB00BB0000RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_cone_odd_cycle_n11_651",
+    "seed_family": "mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00B00RB0R000B00BR00B000R0B000RB00BB000BRR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00B00RB0R000B00BR00B000R0B000RB00BB000BRR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_660",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00R00BB0R000B00BR00B000R0B000RB00BB000B0R000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00R00BB0R000B00BR00B000R0B000RB00BB000B0R000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_662",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000BB0R000B00BR00BB00R0B000RB00BB0000RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000BB0R000B00BR00BB00R0B000RB00BB0000RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_668",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00R00BB0R000B00BR00B0R0R0B0000B00BB000B0R000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 5,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      0,
+      6
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00R00BB0R000B00BR00B0R0R0B0000B00BB000B0R000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_670",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000R0000R0R000RB0R000B00BR00BB00R0B000RB00BBBB00RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       7,
+       9
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000R0000R0R000RB0R000B00BR00BB00R0B000RB00BBBB00RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_673",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000RB0R000B00BR00B000R0B000RB00BBB000RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000RB0R000B00BR00B000R0B000RB00BBB000RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_683",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000R0000R00000RB0R000B00BR00B000R0B000RB00BBRB00RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       7,
+       9
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000R0000R00000RB0R000B00BR00B000R0B000RB00BBRB00RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_684",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000R0000R00000RR0R000B00BR00B000R0B000RB00BBRB00RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       7,
+       9
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000R0000R00000RR0R000B00BR00B000R0B000RB00BBRB00RR000"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_685",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000RB000R00000RB0R000B00BR00B000R0B000RB00BBR000RR0B0",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 6,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000RB000R00000RB0R000B00BR00B000R0B000RB00BBR000RR0B0"
+   },
+   {
+    "name": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle_n11_686",
+    "seed_family": "mutant_of_mutant_of_mutant_of_mutant_of_mutant_of_cone_odd_cycle",
+    "n": 11,
+    "colorstring": "R0000R0000R00000RB0R000B00BR00B000R0B0000B00BBRB00RR000",
+    "p": 3,
+    "p_private": 3,
+    "tau": 4,
+    "r": 5,
+    "s": 1,
+    "nonprivate_red_page_counts": [
+     [
+      7,
+      10,
+      2
+     ]
+    ],
+    "max_red_pages": 2,
+    "tau_over_p": 1.3333333333333333,
+    "ceiling_tau_le_2p_minus_1_from_role_E": 5,
+    "gap_to_that_ceiling": 1,
+    "margin_100tau_minus_199p": -197,
+    "edge_cover_certificate": [
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      6,
+      7
+     ]
+    ],
+    "packing_Q_certificates": [
+     [
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       3,
+       7
+      ]
+     ],
+     [
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       7
+      ],
+      [
+       5,
+       7
+      ]
+     ],
+     [
+      [
+       6,
+       7
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       7,
+       9
+      ]
+     ]
+    ],
+    "checks": {
+     "packing_value_matches_witness_length": true,
+     "packing_is_edge_disjoint": true,
+     "private_packing_value_matches_length": true,
+     "private_packing_is_edge_disjoint": true,
+     "private_packing_red_edges_globally_private": true,
+     "cover_size_matches_witness_length": true,
+     "cover_hits_every_triangle": true,
+     "cover_edges_are_present_edges": true,
+     "nu_le_tau": true,
+     "tau_le_3nu": true,
+     "r_le_3nu": true
+    },
+    "engine_b_certified": true,
+    "engine_b_eligible": true,
+    "methods": {
+     "p": "brute+ilp_agree=True",
+     "p_note": "brute/ilp_optimal",
+     "p_private": "brute+ilp_agree=True",
+     "pp_note": "brute/ilp_optimal",
+     "tau": "brute+ilp_agree=True",
+     "tau_note": "brute/ilp_optimal"
+    },
+    "verifier_cmd": "python verify_witness.py --n 11 --colorstring R0000R0000R00000RB0R000B00BR00B000R0B0000B00BBRB00RR000"
+   }
+  ]
+ },
+ "controls_are_not_counted_here": true,
+ "wall_s": 19.539,
+ "disclaimer": "bounded search over the listed seed families; no theorem, no universal constant, no RB(1/100) witness claimed"
+}

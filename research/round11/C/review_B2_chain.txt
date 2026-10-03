@@ -1,0 +1,5 @@
+Narrow review of research/round11/B2/{certificate.json,report.txt}.
+
+Accepted only the printed G1237 chain, independently recalculated by check_B2_literal.py using standard-library exact packing recursion. The 7-vertex, 17-edge graph has 18 triangles. The printed P is a maximum packing of n=4; the printed A is a maximum type-one packing a=1. After deleting E(A), the lexicographic optimum for P' is (b,m)=(3,3), attained by the printed P'. Deleting only its OLD edges B(P') leaves H with exactly the triangle 156, so the printed Q is maximum with c=1. All printed edge sets agree, and a+b+c-n=1.
+
+The earlier all-c=0 probes used the wrong residual H=G'-E(P') and are void. This certificate disproves the assertion that a+b+c<=n holds for every legal Wang-chain choice. It does not address whether every graph admits some optimized choice satisfying that inequality; the reported 48/264 violating choices on the fixed graph are a bounded diagnostic, not independently re-enumerated here. No Tuza-ratio conclusion follows.

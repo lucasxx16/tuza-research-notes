@@ -1,0 +1,135 @@
+ROUND 11 / D
+A SEVEN-VERTEX COUNTEREXAMPLE TO THE ALL-CHOICES LABEL CANDIDATE
+
+Status: reviewed research proof; see C/review_D_actual_counterexample.txt.
+The witness was found by the corrected delegated B2 search and was
+independently checked in C/review_B2_chain.txt. The proof below uses
+no computed packing optimum, search count, or exhaustive enumeration.
+
+1. DEFINITIONS AND WITNESS.
+
+For a finite simple graph G, let P be a maximum edge-disjoint triangle
+packing, n=|P|, and O=E(P). An edge in O is old; every other edge of G
+is new. A triangle's type is its number of old edges. Choose a maximum
+type-one packing A, put a=|A|, and form G'=G-E(A). Choose P' in G'
+to maximize first the number b of its type-two triangles and then
+its total size m. Delete only the OLD edges of P' from G'. Let S
+be the surviving type-two triangle family, and Q a maximum packing
+in S, of size c. These are Wang's packing choices and conventions.
+
+Use vertices {0,1,2,3,4,5,6}, with an edge ij denoting the unordered
+pair {i,j}, and triangle ijk denoting its three edges. Let
+  E(G)={01,03,04,05,06,13,14,15,16,24,25,26,34,35,36,46,56}.
+Take
+  P ={016,035,134,256},
+  A ={246},
+  P'={014,036,135},
+  Q ={156}.
+We prove that all these choices have their required maximality and
+that (n,a,b,m,c)=(4,1,3,3,1). Thus a+b+c=5>4=n.
+
+2. THE ORIGINAL PACKING IS MAXIMUM.
+
+The graph has 17 edges. Vertices 0,1,3,4,5 have degree 5, vertex 2
+has degree 3, and vertex 6 has degree 6. In particular, precisely
+0,1,2,3,4,5 have odd degree.
+
+The union of any edge-disjoint triangle packing has even degree at
+every vertex. Deleting that union therefore leaves a graph in which
+these six vertices still have odd degree. Each has remaining degree
+at least one, so the remaining graph has at least three edges.
+Consequently a packing of size t satisfies 3t<=17-3=14, giving t<=4.
+The four triangles of P are present and edge-disjoint, so n=4.
+
+Their old edges are
+  O={01,03,05,06,13,14,16,25,26,34,35,56};
+the new edges are
+  E(G)\O={04,15,24,36,46}.
+
+3. THE TYPE-ONE PACKING IS MAXIMUM.
+
+A type-one triangle has exactly two new edges, which must share a
+vertex. The only adjacent pairs among the listed new edges are
+  {04,24}, {04,46}, {24,46}, {36,46}.
+The first has missing closing edge 02. The other three have old
+closing edges 06,26,34 respectively. Hence the entire type-one
+family is
+  {046,246,346}.
+All three use edge 46. Its maximum packing has size one, and A={246}
+is a legal maximum choice. Thus a=1.
+
+4. P' IS LEXICOGRAPHICALLY OPTIMAL.
+
+Deleting E(A)={24,26,46} gives
+  E(G')={01,03,04,05,06,13,14,15,16,25,34,35,36,56}.
+The triangles 014,036,135 are edge-disjoint. Their respective new
+edges are 04,36,15, and each has exactly two old edges. Thus P' has
+three type-two members and total size three.
+
+Any packing in G' is edge-disjoint from A and extends with A to a
+packing in G. Since n=4, every packing in G' has size at most three.
+Therefore no packing in G' can have more than three type-two members,
+and no packing with three type-two members can have total size more
+than three. This proves the required lexicographic optimum (b,m)=(3,3).
+
+5. THE CORRECT RESIDUAL HAS c=1.
+
+The old edges of P' are
+  B(P')={01,03,06,13,14,35}.
+Deleting these, while retaining the three new edges of P', gives
+  E(H)={04,05,15,16,25,34,36,56},
+where H=G'-B(P'). Its only triangle is 156.
+
+For a direct check, vertices 0 and 3 have neighbor pairs {4,5} and
+{4,6}, whose closing edges 45 and 46 are absent. Vertex 2 has degree
+one. Vertex 4 has neighbor pair {0,3}, whose closing edge 03 is absent.
+Thus no triangle uses any of 0,2,3,4. The remaining vertices {1,5,6}
+induce triangle 156. Its edges 16,56 are old and 15 is new, so it is
+type two. Hence S={156}, Q is maximum, and c=1.
+
+6. WHAT THE LABEL GRAPH AND BOOK COST SHOW HERE.
+
+Label the four members of P by
+  L1=016, L2=035, L3=134, L4=256.
+The unique old edge 26 of A marks L4. The type-two members of P'
+give label edges
+  014: L1-L3,   036: L1-L2,   135: L2-L3.
+Thus the label graph is an unmarked three-cycle on L1,L2,L3 plus
+the marked isolated vertex L4. It has zero unmarked tree components,
+exactly n-a-b=0, while c=1. This is an actual graph obstruction to
+charging every alternate Q-page to a distinct unmarked tree.
+It does not contradict the proved marked-component lemma.
+
+Replacing page 135 by Q's page 156 replaces label edge L2-L3 by
+L1-L4. The resulting label graph is a tree with its single mark at
+L4, again satisfying that lemma.
+
+There is only one paired book: pages 135 and 156 share new spine 15.
+The other two vertices are 3 and 6, so its opposite edge is 36.
+But 36 belongs to N={04,36,15}, the new edges of P'. Thus the actual
+new-opposite-outside-N count from packing_label_constraints.txt is
+  k=0.
+Since S={156}, its red edge 15 is private and h=c=1. In particular
+this example has a+b+k=n. It does not refute a+b+k<=n.
+
+7. EXACT SCOPE AND REMAINING QUESTIONS.
+
+This refutes the assertion that a+b+c<=n holds for EVERY legal
+sequence of Wang's packing choices, by exhibiting one
+fully legal sequence. It does not show that this graph, or any graph,
+lacks some other legal sequence satisfying the inequality. The
+version allowing optimized choices remains unresolved by this work.
+
+The alternative inequality a+b+k<=n is also unresolved here, both
+in its all-choices and optimized-choice forms. At the previously
+recorded algebraic endpoint a=c=h=k=12n/59 and b=36n/59, it would
+fail since a+b+k=60n/59. That arithmetic explains its potential
+relevance, but does not prove it, realize that endpoint by a graph,
+or supply any improved universal constant. No new search is requested.
+
+The earlier B2 probes that reported only c=0 deleted all edges of P'
+instead of only B(P'). Those results are invalid for this question.
+No aggregate choice counts from the corrected search are used here.
+The conditional 467/167 calculation in packing_label_constraints.txt
+remains an implication from a universally available favorable choice;
+its premise is not proved. No universal improvement of 165/59 follows.

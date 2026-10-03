@@ -19,6 +19,33 @@ does not declare the earlier mad<8 question solved.
 
 ## Results and limits
 
+### Universal coefficient: round eleven
+
+**The uniform target `c<165/59` remains unresolved.** The
+[round-eleven report](docs/research-round11.zh-CN.txt) proves the additive
+strictness statement `59 tau(G)<=165 nu(G)-1` when `nu(G)>0`, excluding
+attainment of Wang's exact ratio. The normalized saving tends to zero
+with the packing number; this is not a smaller uniform coefficient.
+
+The [mixed-cover theorem](research/round11/E/mixed_cover_page_tails.txt)
+allows arbitrary page counts on red edges outside an all-private maximum
+packing. Selecting any set `D` of those red edges gives
+`tau(H)<=2p+|D|-p^2/(p+2B_D)`, where `B_D` counts the remaining external
+pages. It yields `tau(H)<=2p-1` and explicit necessary tails of long books
+for ratios approaching two. In particular, a strict counterexample to
+the proposed `1.99p` bound requires `p>100`; small-order searches cannot
+refute that candidate. A uniform bound on the long-book tail is still missing.
+
+A [realizable connected family](research/round11/E/multipage_matching_gap.txt)
+has an unbounded gap between auxiliary ordinary matching and triangle
+packing even with one nonprivate red edge, ruling out that simplification.
+The [independent route](research/round11/D/packing_label_constraints.txt)
+proves original-packing label restrictions and retains the actual cost
+of opposite edges in Wang's random cover. A [seven-vertex graph with a hand proof](research/round11/D/actual_counterexample.txt)
+refutes `a+b+c<=n` for arbitrary legal packing choices; existence of a
+suitable optimized choice remains unresolved. The associated `467/167`
+coefficient is only a conditional calculation.
+
 ### Universal coefficient: round ten
 
 **No unconditional coefficient below `165/59` is proved here.**

@@ -1,0 +1,279 @@
+ROUND 11 / E
+A MIXED COVER WITH ARBITRARY RED-BOOK PAGE COUNTS
+
+Status: reviewed research proof; see
+research/round11/C/review_E_mixed_cover_page_tails.txt.
+No universal coefficient below 165/59 is proved here. The result is
+an unconditional cover inequality under the exact RB premises, plus
+explicit necessary page-tail conditions on any near-two example.
+No enumeration or numerical output is used in the proof.
+
+1. SCOPE AND NOTATION.
+
+Let H be a finite simple red-blue graph in which EVERY triangle has
+exactly one red edge. Let Q be a maximum triangle packing, |Q|=p>0,
+and assume every red edge of a Q triangle is globally private: it
+belongs to exactly one H triangle. Other red edges may have arbitrarily
+many pages. The quantity tau(H) is an EDGE triangle transversal.
+
+Write R_Q for the p packed red edges, R for all participating red
+edges, r=|R|, and K=B(Q) for the 2p packed blue edges. For e in R let
+  w(e)=the number of H triangles containing e.
+Thus w(e)=1 for e in R_Q. All triangles on a fixed red edge form its
+book, and w(e) is the page count.
+
+The RB budget is r<=3p. The main cover theorem below does not require
+that budget; its tail consequences state it explicitly. Selecting a
+red edge into a cover costs one, regardless of its number of pages.
+That whole-color option is kept throughout the proof. In particular
+we never replace the maximum triangle packing by the ordinary matching
+number of the blue-edge auxiliary graph.
+
+For any chosen set D contained in R minus R_Q, put
+  q=|D|,
+  B_D=sum_{e in R minus (R_Q union D)} w(e).
+The letter B_D denotes this number of pages, not a set of blue edges.
+
+2. TWO ELEMENTARY COVER FACTS.
+
+LEMMA 1.
+K meets every triangle of H. For each Q triangle, at least one of its
+two blue edges belongs to no triangle meeting K in exactly one edge.
+
+Proof. A triangle meeting a packed red edge must be its unique Q page,
+and hence meets K. Any other triangle missing K would be edge-disjoint
+from Q and could augment it. Therefore K covers all triangles.
+
+For the second claim, write a Q triangle as uvx with uv red. Suppose
+T1=uxy and T2=vxz each meet K in exactly their displayed blue edge.
+They use no packed red edge, by privacy. If T1 and T2 are edge-disjoint,
+replace uvx by both, increasing Q. Otherwise their common edge forces
+y=z=w and their shared edge is xw; the alternative identifications
+would make one triangle equal to uvx, which meets K twice. If xw is
+red, the edges uw,vw are blue and uvw is a second uv page. If xw is
+blue, uw,vw are red and uvw is all red. Both contradict the assumptions.
+This proves the claim. It is the single-contact lemma previously
+reviewed in research/round10/E/red_budget_reduction.txt, Section 4.
+
+LEMMA 2.
+After deleting any D contained in R minus R_Q, Q remains a maximum
+packing of H-D, and all its red edges remain private. The number of
+remaining Q-external triangles is exactly B_D.
+
+Proof. A Q triangle has only its own red edge, which is not deleted.
+Thus every Q triangle survives. Deletion cannot increase nu, so Q
+remains maximum. Its privacy is preserved. Deleting a red edge only
+deletes its own pages, because every triangle has exactly one red edge.
+This proves the page-count identity and also shows that the one-red
+condition is preserved. In particular, no maximum-packing hypothesis
+is lost when applying Lemma 1 to H-D.
+
+3. THE MIXED-COVER THEOREM.
+
+THEOREM 3.
+With the assumptions and notation above, for every D contained in
+R minus R_Q,
+  tau(H)<=2p+|D|-p^2/(p+2B_D).                    (1)
+Consequently the minimum of these explicit bounds over choices of D
+is also a valid upper bound. Arbitrary page counts are allowed.
+
+Proof. Work first in H-D, where Lemma 2 permits reuse of Q and K.
+From each Q triangle select one blue edge having no single-contact
+triangle, as supplied by Lemma 1. Let Z be the p selected blue edges.
+The triangles of Q are edge-disjoint, so these p choices are distinct.
+
+Form a simple graph F on the vertex set Z. Join two members of Z when
+they are the two blue edges of a triangle of H-D. Two specified blue
+edges can form at most one triangle in a simple graph, so there is no
+multiplicity in F. A Q triangle contributes no F edge because only one
+of its two blue edges was chosen into Z. Every F edge therefore comes
+from a Q-external triangle, giving
+  |E(F)|<=B_D.
+
+There is an independent set I in F with
+  |I|>=sum_{z in Z}1/(d_F(z)+1)
+       >=p^2/(p+2|E(F)|)
+       >=p^2/(p+2B_D).                            (2)
+For completeness, order Z uniformly at random and keep each vertex
+preceding all its neighbors. The resulting set is independent and
+has the displayed expected size. Cauchy-Schwarz gives the middle
+inequality, hence some order attains the stated bound.
+
+The blue set K minus I covers every triangle of H-D. To check this
+completely, every such triangle meets K by Lemma 1. If it meets K
+once, that contact is outside Z by the way Z was chosen, and cannot
+be removed. If it meets K twice, deleting both contacts would put
+an F edge inside I, contrary to independence. A triangle has exactly
+two blue edges, so these cases exhaust its possible contacts with K.
+Thus K minus I is a cover of size at most 2p-p^2/(p+2B_D).
+Add the q red edges of D to cover their deleted pages. This proves (1).
+
+The choices of Z and I are made AFTER deleting D; no claim is made
+that the same safe blue choices work for every D. The resulting cover
+uses actual edges of H and meets every H triangle.
+
+COROLLARY 4 (AN ADDITIVE GAP, NOT A UNIFORM FACTOR).
+Every finite graph under these private-maximum-packing assumptions
+satisfies
+  tau(H)<=2p-1.                                  (3)
+
+Proof. Use D empty in (1). Since p>0 and B_empty is finite, the saving
+p^2/(p+2B_empty) is positive. Tau is an integer, giving (3).
+
+This does not prove RB(epsilon) for any fixed epsilon. In a sequence
+with p tending to infinity, the factor in (3) tends to two. It does
+show that searching these exact premises for a finite tau=2p example
+can never refute RB; a negative answer would need ratios tending to
+two to rule out EVERY fixed positive epsilon, rather than a finite
+equality example. A proposed particular epsilon can still have a
+finite strict counterexample, subject to the next size restriction.
+
+There is also an exact boundary for the specific candidate RB(1/100).
+A strict counterexample would require
+  199p/100<tau(H)<=2p-1,
+so necessarily p>100. For example every graph on at most twelve
+vertices has p<=floor(binomial(12,2)/3)=22, and therefore cannot be
+such a strict counterexample under these premises. A negative result
+from a small-graph search is thus not evidence for RB(1/100): in this
+range a counterexample is already ruled out symbolically.
+
+4. WHOLE-BOOK TRUNCATION AND NECESSARY TAILS.
+
+Assume now r<=3p. Fix any integer L>=1 and define
+  D_L={e in R minus R_Q: w(e)>L},
+  f_L=|D_L|.
+The page counts of these removed books have no upper bound.
+All remaining Q-external red edges have at most L pages, so
+  B_(D_L)<=L(r-p-f_L)<=L(2p-f_L).
+Theorem 3 yields the sharper and weaker convenient forms
+  tau(H)<=2p+f_L-p^2/[p+2L(r-p-f_L)]
+         <=2p+f_L-p^2/[p+2L(2p-f_L)]             (4)
+         <=(2-1/(4L+1))p+f_L.                    (5)
+All denominators are positive: r-p-f_L is the number of remaining
+Q-external participating red edges and is nonnegative.
+
+Thus if, for some fixed L, a graph satisfies
+  f_L<=p/[2(4L+1)],
+then it has the explicit proportional saving
+  tau(H)<=(2-1/[2(4L+1)])p.                      (6)
+This allows an arbitrary number of pages on the f_L exceptional books.
+It also allows all of the other Q-external red edges to be nonprivate;
+the argument is not restricted to a small TOTAL number of nonprivate
+red edges as in the earlier round-ten bound.
+
+The corresponding necessary obstruction must be stated conditionally.
+If this H additionally satisfies
+  tau(H)>=(2-delta)p
+for a specified delta>=0, then (5) forces, for EVERY integer L>=1,
+  f_L/p>=1/(4L+1)-delta.                         (7)
+A negative right side is simply vacuous. The sharper (4), with
+x=f_L/p in [0,2], requires
+  x+delta>=1/(1+4L-2Lx).                         (8)
+These are necessary page-tail restrictions on a near-two example;
+they are not unconditional lower bounds on f_L for arbitrary H.
+
+At the formal old critical cover value tau(H)=2p, (8) reads
+  x(1+4L-2Lx)>=1,
+which requires
+  x>=[4L+1-sqrt((4L+1)^2-8L)]/(4L).             (9)
+The larger root is greater than two, so (9) is the relevant root on
+the actual domain [0,2]. For L=1 it is exactly
+  (5-sqrt(17))/4,
+recovering the previously reviewed nonprivate-red threshold. The
+new statements for L>=2 distinguish books of different sizes rather
+than merely recording whether they are private.
+
+For finite H, condition tau(H)=2p is already impossible by (3). The
+point of (7)-(9) is quantitative and asymptotic: any sequence under
+the RB budget whose ratios tend to two must retain a positive density
+of books above EVERY fixed page threshold L. For example (7) gives
+liminf f_L/p>=1/(4L+1) for each fixed L along such a sequence. No upper
+bound contradicting this requirement is proved here.
+
+5. A SORTED-PAGE FORM AND THE PRECISE REMAINING QUESTION.
+
+List the page counts outside Q in nonincreasing order as
+  w_1>=w_2>=...>=w_(r-p).
+For q between zero and r-p, choose D to contain the first q red edges.
+Theorem 3 then gives
+  tau(H)<=2p+q-p^2/[p+2 sum_{i>q} w_i].           (10)
+If tau(H)>=(2-delta)p, rearranging (10) gives, whenever q+delta*p>0,
+  sum_{i>q} w_i >= [p^2/(q+delta*p)-p]/2.         (11)
+When q+delta*p=0 the asserted near-two lower bound is impossible,
+as the positive saving in (1) shows. Negative lower bounds in (11)
+are allowed but carry no information.
+
+This is an explicit mixed-cover choice for every red-book length
+distribution, not a substitution of ordinary matching for rainbow
+matching. Its effectiveness depends on the page-count tail. The
+glued family in multipage_matching_gap.txt illustrates why very long
+books should sometimes be selected directly into the cover; the
+cost is the number of such books, not their number of pages.
+
+The earlier implication
+  RB(epsilon) => tau(G)<=(165/59-epsilon/10000)nu(G)
+for all finite simple G is already proved in
+research/round10/E/red_budget_reduction.txt, Section 5. This file
+does not establish its premise. A remaining concrete route is to
+prove, from H-realizability and maximum packing, a uniform tail
+restriction strong enough for (4) or (10) to save a fixed fraction.
+The red-edge count r<=3p alone has not been shown to supply that
+restriction. We do not assume one without proof.
+
+EXACT CONDITIONAL UNIVERSAL COEFFICIENT.
+Suppose that there exists an integer L>=1, independent of the graph,
+such that EVERY graph satisfying the RB premises has
+  f_L<=p/[2(4L+1)].
+Then (6) proves RB(epsilon) with epsilon=1/[2(4L+1)]. The reviewed
+round-ten bridge consequently gives, for every finite simple G,
+  tau(G)<=[165/59-1/(20000(4L+1))]nu(G).          (12)
+The tail hypothesis in this paragraph is not proved here. A single
+H satisfying it gives only the local cover (6), not the universal
+conclusion (12). For L>=1, the counted heavy red edges cannot belong
+to any all-private Q, so f_L does not depend on which such Q is chosen.
+
+6. A DIRECT GLOBAL CONSEQUENCE: WANG'S EXACT RATIO IS NOT ATTAINED.
+
+THEOREM 5.
+Every finite simple graph G with n=nu(G)>0 satisfies
+  59 tau(G)<=165n-1.                             (13)
+This is an additive strictness statement, not a uniform improvement
+of the coefficient 165/59.
+
+Proof. Use Wang's packings and notation a,b,c,d,h,e as recorded in
+research/round10/E/red_budget_reduction.txt, Section 1. Its residual
+H has exactly one red edge in every triangle, and its maximum packing
+Q has size c with h private red edges. The imported covers W1-W5 and
+their exact retained-slack consequence give
+  59 tau(G)<=165n-93e-d-3(c-h-6d)_+.
+Assume for contradiction that 59 tau(G)=165n. All quantities subtracted
+on the right are nonnegative, so e=d=0 and c=h. Let g_i>=0 denote
+the right side of W_i minus tau(G), for i=1,2,3,4. The established
+weighted identity gives
+  20g1+8g2+19g3+12g4=165n-59tau(G)-93e-d=0.
+Every g_i is therefore zero. Equality in W3 gives
+  c=3n-tau(G)=12n/59>0.
+
+The residual maximum packing has h=c, so all its red edges are private.
+Corollary 4 applies without any bound on r and yields
+  tau(H)<=2c-1.
+The direct outer cover and equality in W4 now give
+  tau(G)<=3(n-e)-b+tau(H)
+         <=3n-b+2c-1
+         =tau(G)-1,
+a contradiction. Thus 59tau(G)<165n; the two sides are integers,
+which proves (13).
+
+Equivalently tau(G)<=floor((165nu(G)-1)/59) for nu(G)>0. The ordinary
+integrality rounding already makes Wang's ratio strict unless n is a
+multiple of 59; the argument above also rules out equality in that
+remaining congruence class. It does not give a fixed delta>0 with
+tau(G)<=(165/59-delta)nu(G). Taking many disjoint copies of a graph
+does not turn an additive one into such a uniform delta, since the
+normalized saving in (13) tends to zero as n grows.
+
+No current independent D-route material was read in developing this
+argument. The only imported lemma is the already reviewed round-ten
+single-contact exchange, reproved above for completeness, together
+with the explicitly cited Wang construction and retained-slack
+identity in the global corollaries.

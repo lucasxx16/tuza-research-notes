@@ -1,0 +1,64 @@
+ROUND 11 / D / BOUNDED ADVERSARIAL COMPUTATION REQUEST
+
+No code is executed by D. Parent authorizes and delegates the run.
+Target: refute the universal-over-all-admissible-choices assertion
+  a+b+c<=n
+for Wang's original packing sequence. A violating sequence disproves
+that assertion, but does not disprove an assertion allowing a specially
+optimized choice of the original maximum packing or subsequent ties.
+
+SCOPE.
+Start with K5,K6,K7. If time remains, use at most 32 already available
+connected triangle-bearing atlas graphs of order at most seven, with
+at least twelve edges, in decreasing edge-count order; ties may use
+their existing atlas order. Skip duplicate named graphs. No order-eight
+generation, new census, or expansion beyond the parent's wall budget.
+Stop on the first independently checkable positive witness, or at
+120 seconds. A timeout or a finite negative result is not a theorem.
+The parent may reduce this scope to fit available compute.
+
+EXACT DEFINITIONS FOR ONE GRAPH G.
+1. Enumerate triangles as unordered vertex triples/edge triples.
+   A packing is an edge-disjoint subset. Compute n=nu(G) exactly.
+   Choose a maximum packing P of size n; write O=union E(P).
+2. A triangle's type is its number of edges in O, computed in the
+   original G with O fixed for this entire sequence. Compute a as
+   the maximum packing number among ALL type-one triangles. Choose
+   such a maximum packing A, not merely an inclusion-maximal packing.
+3. Delete every edge in E(A), yielding G'. Preserve original edge
+   types. All triangles of G' have type two or three; verify this.
+4. Choose P' among ALL packings of G' by lexicographically maximizing
+     (number of type-two members, total number of members).
+   Thus b is first the exact maximum type-two packing number in G'.
+   Then m is the exact maximum total packing size subject to exactly
+   b type-two members. P' is NOT chosen by maximizing total size first.
+   An integer objective (n+1)*b+m is equivalent, since m<=n.
+5. Let OldPrime=O intersect E(P'). Delete these OLD edges from G'.
+   Define S to be all surviving type-two triangles, equivalently all
+   one-new-edge triangles of G'-OldPrime. The new edges of P' are
+   NOT deleted in this step. Compute c=nu(S) exactly and select a
+   maximum packing Q in S.
+6. Test a+b+c>n. When it holds, retain G,P,A,P',Q as the positive
+   witness. No upper-bound-only or greedy value may establish this.
+
+CHOICE EXPLORATION.
+Within the fixed time budget, alternative maximum P, maximum A, and
+lexicographically optimal P' may be explored, since c can depend on
+ties. There is no need to exhaust all choices after a positive witness.
+If no violation is found, report which graphs and choice counts were
+actually completed, and which searches were partial or timed out.
+
+WITNESS OUTPUT FOR VERIFICATION.
+Provide an explicit vertex/edge list and all five packings/parameters
+G,P,n,A,a,P',b,m,Q,c. Also provide either exact optimization records or
+an independent exact recomputation for
+  nu(G), nu(type-one family), nu(type-two family of G'),
+  max |P'| conditional on b, and nu(S).
+The checker must verify edge-disjointness, all type labels, E(A)
+deletion, OldPrime deletion, the complete definitions of the families,
+and a+b+c>n. It should report a+m<=n as a consistency check.
+
+Optional diagnostic, only after a positive witness: give h, the number
+of Q triangles whose new/red edge occurs in exactly one triangle of S;
+and d=nu(S after deleting Q's old/blue edges). These are not required
+to refute a+b+c<=n and must not delay the primary witness.
