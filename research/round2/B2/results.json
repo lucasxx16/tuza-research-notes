@@ -1,0 +1,79 @@
+{
+ "instance": {
+  "format": "finite-signed-template-cover-v1",
+  "candidates": 499,
+  "records": 1144,
+  "total_incidences": 66713
+ },
+ "feasible": true,
+ "upper_bounds": {
+  "supplied_greedy_11": {
+   "ids": [
+    214,
+    183,
+    87,
+    11,
+    316,
+    78,
+    130,
+    387,
+    329,
+    288,
+    451
+   ],
+   "size": 11,
+   "valid": true
+  },
+  "own_greedy": {
+   "ids": [
+    214,
+    183,
+    87,
+    474,
+    11,
+    316,
+    78,
+    130,
+    387,
+    329,
+    288,
+    451
+   ],
+   "size": 12,
+   "valid": true
+  },
+  "milp_optimal": {
+   "ids": [
+    7,
+    78,
+    195,
+    214,
+    316,
+    329,
+    387,
+    428,
+    491
+   ],
+   "size": 9,
+   "valid": true,
+   "status": 0
+  },
+  "best_valid_cover_size": 9,
+  "best_method": "milp"
+ },
+ "lower_bounds": {
+  "packing_size": 9,
+  "exact_rational_dual_total": "9",
+  "rational_dual_feasible": true,
+  "lp_relaxation_optimum": 9.0,
+  "best_rigorous_lb": 9
+ },
+ "gap": 0,
+ "finite_dictionary_optimum": 9,
+ "solver_status_note": "MILP status 7 (HiGHS Optimal) corroborates but the PROOF is independent: the packing certificate (>=9) and the exact boolean union check of the 9-cover (<=9) are re-derived from the raw incidence with integer arithmetic; see independent_check.py.",
+ "candidate_elimination": "none applied; all 499 candidates used, so output IDs are the original catalogue IDs (recoverability trivial).",
+ "scope": "finite signed-template dictionary only; not a global minimum over all conceivable templates.",
+ "timings_sec": {
+  "total": 0.216
+ }
+}

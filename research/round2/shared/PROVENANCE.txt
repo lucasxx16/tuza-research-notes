@@ -1,0 +1,7 @@
+Input: B_codegree4_certificates.json, unmodified copy from
+https://github.com/agupta/tuza-maximum-degree-seven
+commit bf8415fac44f4eeed6c0f7a2273b843d689b065e.
+Author: Anish Gupta. Certificate data licensed CC BY 4.0 according to upstream
+LICENSES.md. See https://creativecommons.org/licenses/by/4.0/.
+Research goal: read and compress the saved1144 certificates without rerunning
+the original local-graph census or original certificate finder.

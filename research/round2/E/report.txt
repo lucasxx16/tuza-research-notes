@@ -1,0 +1,35 @@
+E ROUND 2 REPORT
+
+Main mathematical results:
+1. A sufficient two-matchings recipe constructs both packing and cover.
+   Its exact hub-edge completion cost gamma is computed from at most
+   sixteen subsets of the four-vertex core, including both choices for uv.
+   Inequality gamma+t+r <= k+2*epsilon guarantees reducibility.
+2. Any local witness can keep its packing and replace all unnecessary
+   side-rim deletions by hub spokes; extra rim deletions need only be
+   core edges. Each extra core edge repairs at most one budget deficit.
+3. A proved triangle-absorption operation reduces hub-free motifs when
+   two suitable spokes are unused. It is valid but is not a universal
+   simplification algorithm: B found only thirteen saved records improve.
+4. A complete human proof settles the 2K2 core. Connected non-WKE links
+   force the attachments needed for D's T7, yielding five edge-disjoint
+   triangles and a ten-edge cover. Every excluded side configuration is
+   ruled out by an explicit WKE matching and vertex cover. The proof
+   requires neither the catalogue nor the degree-budget hypothesis.
+
+Files:
+proof.txt -- Claims 1 through 7, with complete ambient-safety proofs.
+human_case_2k2.txt -- Claims K1 and K2, full structural subcase proof.
+
+Review of D: the signed-rim transfer lemma is sound and supplies a
+universal proof for every valid signed pattern. Finite coverage and
+minimum cover calculations are handled separately by D/B2/C.
+
+Computational scope: B reports all 1144 stored packings admit completion
+with no extra core edge (1027) or one (117); these are fixed-packing
+statements. No original census or certificate finder was rerun.
+
+Remaining gap: no human derivation yet forces the template disjunction
+for all other admissible cores. The exact minimum over a fixed finite
+dictionary must not be called a global minimum over structural templates.
+The full source proposition has not thereby received a census-free proof.

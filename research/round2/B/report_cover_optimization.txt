@@ -1,0 +1,43 @@
+=== E-Targeted Cover Optimization (Full) ===
+
+For each stored packing S:
+  R = rim edges of S (non-hub), forced into cover
+  Ju = rim subgraph on C+A, Jv = rim subgraph on C+B
+  Optimize cover X = R + optional_uv + spokes only (no other rim)
+  Vertex covers via brute-force (64 subsets per side)
+
+Stage 1: X uses ONLY forced R + uv + spokes
+Stage 2: X uses forced R + 1 extra rim edge + uv + spokes
+Budget: |X| <= 2|S|
+
+--- Results ---
+Stage 1 feasible: 1027/1144 (89.8%)
+Stage 2 feasible (after R-only failure): 117/117
+Total feasible: 1144/1144
+Failed: 0
+Witness verified (all 16 cross masks): 1144/1144
+
+Method (returned solution in the staged search):
+  opt1_uv: 351
+  opt2_no_uv: 793
+
+Epsilon = 2|S| - |X_returned|:
+  eps= 0: 1063 records
+  eps= 1:   69 records
+  eps= 2:   12 records
+
+Stage 1 -> Stage 2 transition:
+  All 117 stage-1 failures resolved by adding exactly 1 extra rim edge
+  The extra edge is always a shared core edge (in both Ju-R and Jv-R)
+  Mechanism: shared core edge removal saves 1 spoke on each side (net -1)
+
+Interpretation:
+  - 1027 records: the stored packing admits a within-budget cover in its actual
+    local graph with no extra rim deletion
+  - 117 records: stored cover necessarily uses at least 1 non-packing rim edge
+  - The extra edge is a core edge NOT used by any packing triangle
+  - This is a restriction of the fixed-packing cover problem, not a failure of
+    the original certificate or a lower bound over alternative packings.
+  - Parent archive correction: the staged search does not establish the globally
+    smallest cover over every extra-rim choice; the feasible returned witnesses
+    and the minimum extra-rim cardinality assertions are the accepted results.

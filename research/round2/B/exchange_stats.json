@@ -1,0 +1,170 @@
+{
+  "baseline_off_hubs_distribution": {
+    "0": 927,
+    "1": 189,
+    "2": 26,
+    "3": 2
+  },
+  "baseline_total_off_hubs": 247,
+  "baseline_records_with_offhub": 217,
+  "final_min_off_hubs_distribution": {
+    "0": 936,
+    "1": 183,
+    "2": 24,
+    "3": 1
+  },
+  "improved_count": 13,
+  "stuck_count": 204,
+  "already_zero_count": 927,
+  "unfinished_count": 0,
+  "unfinished_keys": [],
+  "invalid_original_count": 0,
+  "invalid_original_keys": [],
+  "invalid_final_count": 0,
+  "invalid_final_keys": [],
+  "cover_size_change_distribution": {
+    "-1": 8,
+    "0": 1136
+  },
+  "total_exchanges": 13,
+  "path_depth_distribution": {
+    "0": 1131,
+    "1": 13
+  },
+  "memo_states": 1157,
+  "distinct_final_motifs": 33,
+  "final_motif_frequencies": [
+    [
+      "{\"both\": 1, \"off\": 0, \"off_partition_types\": [], \"size\": 5, \"u\": 2, \"v\": 2}",
+      730
+    ],
+    [
+      "{\"both\": 0, \"off\": 0, \"off_partition_types\": [], \"size\": 6, \"u\": 3, \"v\": 3}",
+      113
+    ],
+    [
+      "{\"both\": 1, \"off\": 1, \"off_partition_types\": [\"ACC\"], \"size\": 6, \"u\": 2, \"v\": 2}",
+      59
+    ],
+    [
+      "{\"both\": 1, \"off\": 1, \"off_partition_types\": [\"BCC\"], \"size\": 6, \"u\": 2, \"v\": 2}",
+      50
+    ],
+    [
+      "{\"both\": 0, \"off\": 0, \"off_partition_types\": [], \"size\": 5, \"u\": 2, \"v\": 3}",
+      29
+    ],
+    [
+      "{\"both\": 0, \"off\": 0, \"off_partition_types\": [], \"size\": 5, \"u\": 3, \"v\": 2}",
+      29
+    ],
+    [
+      "{\"both\": 1, \"off\": 0, \"off_partition_types\": [], \"size\": 4, \"u\": 2, \"v\": 1}",
+      28
+    ],
+    [
+      "{\"both\": 1, \"off\": 1, \"off_partition_types\": [\"CCC\"], \"size\": 6, \"u\": 2, \"v\": 2}",
+      15
+    ],
+    [
+      "{\"both\": 1, \"off\": 1, \"off_partition_types\": [\"BBC\"], \"size\": 6, \"u\": 2, \"v\": 2}",
+      14
+    ],
+    [
+      "{\"both\": 1, \"off\": 1, \"off_partition_types\": [\"AAC\"], \"size\": 6, \"u\": 2, \"v\": 2}",
+      14
+    ],
+    [
+      "{\"both\": 1, \"off\": 1, \"off_partition_types\": [\"ACC\"], \"size\": 5, \"u\": 2, \"v\": 1}",
+      12
+    ],
+    [
+      "{\"both\": 1, \"off\": 0, \"off_partition_types\": [], \"size\": 4, \"u\": 1, \"v\": 2}",
+      7
+    ],
+    [
+      "{\"both\": 1, \"off\": 2, \"off_partition_types\": [\"ACC\", \"BBC\"], \"size\": 7, \"u\": 2, \"v\": 2}",
+      6
+    ],
+    [
+      "{\"both\": 1, \"off\": 2, \"off_partition_types\": [\"ACC\", \"BCC\"], \"size\": 7, \"u\": 2, \"v\": 2}",
+      5
+    ],
+    [
+      "{\"both\": 0, \"off\": 1, \"off_partition_types\": [\"BCC\"], \"size\": 7, \"u\": 3, \"v\": 3}",
+      5
+    ],
+    [
+      "{\"both\": 0, \"off\": 1, \"off_partition_types\": [\"BCC\"], \"size\": 6, \"u\": 2, \"v\": 3}",
+      4
+    ],
+    [
+      "{\"both\": 1, \"off\": 2, \"off_partition_types\": [\"ACC\", \"ACC\"], \"size\": 7, \"u\": 2, \"v\": 2}",
+      3
+    ],
+    [
+      "{\"both\": 0, \"off\": 1, \"off_partition_types\": [\"ACC\"], \"size\": 7, \"u\": 3, \"v\": 3}",
+      2
+    ],
+    [
+      "{\"both\": 1, \"off\": 2, \"off_partition_types\": [\"BCC\", \"BCC\"], \"size\": 7, \"u\": 2, \"v\": 2}",
+      2
+    ],
+    [
+      "{\"both\": 0, \"off\": 1, \"off_partition_types\": [\"BCC\"], \"size\": 6, \"u\": 3, \"v\": 2}",
+      2
+    ],
+    [
+      "{\"both\": 0, \"off\": 2, \"off_partition_types\": [\"ACC\", \"BCC\"], \"size\": 8, \"u\": 3, \"v\": 3}",
+      2
+    ],
+    [
+      "{\"both\": 1, \"off\": 2, \"off_partition_types\": [\"BCC\", \"CCC\"], \"size\": 6, \"u\": 1, \"v\": 2}",
+      2
+    ],
+    [
+      "{\"both\": 1, \"off\": 1, \"off_partition_types\": [\"BCC\"], \"size\": 5, \"u\": 2, \"v\": 1}",
+      1
+    ],
+    [
+      "{\"both\": 1, \"off\": 1, \"off_partition_types\": [\"ACC\"], \"size\": 5, \"u\": 1, \"v\": 2}",
+      1
+    ],
+    [
+      "{\"both\": 1, \"off\": 1, \"off_partition_types\": [\"BCC\"], \"size\": 5, \"u\": 1, \"v\": 2}",
+      1
+    ],
+    [
+      "{\"both\": 1, \"off\": 3, \"off_partition_types\": [\"ACC\", \"ACC\", \"BCC\"], \"size\": 8, \"u\": 2, \"v\": 2}",
+      1
+    ],
+    [
+      "{\"both\": 0, \"off\": 1, \"off_partition_types\": [\"BBC\"], \"size\": 7, \"u\": 3, \"v\": 3}",
+      1
+    ],
+    [
+      "{\"both\": 1, \"off\": 2, \"off_partition_types\": [\"ACC\", \"BCC\"], \"size\": 6, \"u\": 2, \"v\": 1}",
+      1
+    ],
+    [
+      "{\"both\": 1, \"off\": 2, \"off_partition_types\": [\"AAC\", \"ACC\"], \"size\": 7, \"u\": 2, \"v\": 2}",
+      1
+    ],
+    [
+      "{\"both\": 0, \"off\": 1, \"off_partition_types\": [\"ACC\"], \"size\": 6, \"u\": 2, \"v\": 3}",
+      1
+    ],
+    [
+      "{\"both\": 1, \"off\": 2, \"off_partition_types\": [\"ACC\", \"CCC\"], \"size\": 7, \"u\": 2, \"v\": 2}",
+      1
+    ],
+    [
+      "{\"both\": 1, \"off\": 2, \"off_partition_types\": [\"BBC\", \"BCC\"], \"size\": 7, \"u\": 2, \"v\": 2}",
+      1
+    ],
+    [
+      "{\"both\": 0, \"off\": 1, \"off_partition_types\": [\"CCC\"], \"size\": 6, \"u\": 2, \"v\": 3}",
+      1
+    ]
+  ]
+}

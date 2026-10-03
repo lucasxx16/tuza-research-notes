@@ -1,0 +1,43 @@
+=== E normal-form cover (core-only extra rim D) ===
+
+Forced support R = packing rim edges; extra rim D subset of E(core)\R (<=64).
+Per D: exact spoke vertex cover (brute 64/side), options with / without uv.
+
+Feasible within budget 2|S|: 1144/1144
+Infeasible: 0   Invalid witnesses: 0
+
+Fewest |D| needed to reach budget:
+  |D|=0: 1027 records (89.8%)
+  |D|=1: 117 records (10.2%)
+(NB: earliest feasible |D| reaches budget but does NOT prove the returned cover
+ is the globally smallest cover over all admissible X.)
+
+Epsilon (budget - returned cover size):
+  eps=0: 1063 records
+  eps=1: 69 records
+  eps=2: 12 records
+
+Selected method (returned): opt1_uv=351  opt2_no_uv=793
+
+--- Off-hub motif classes (before vs after exchange transform) ---
+Distinct classes BEFORE: 15   AFTER: 15
+off-hub count BEFORE: {0: 927, 1: 189, 2: 26, 3: 2}
+off-hub count AFTER:  {0: 936, 1: 183, 2: 24, 3: 1}
+
+Motif class = (off-hub count : sorted off-triangle partition types). Record counts:
+  class             before   after
+  3:ACCACCBCC            2       1
+  2:AACACC               1       1
+  2:ACCACC               4       3
+  2:ACCBBC               6       6
+  2:ACCBCC               8       8
+  2:ACCCCC               1       1
+  2:BBCBCC               1       1
+  2:BCCBCC               2       2
+  2:BCCCCC               3       2
+  1:AAC                 14      14
+  1:ACC                 79      75
+  1:BBC                 15      15
+  1:BCC                 63      63
+  1:CCC                 18      16
+  0:-                  927     936

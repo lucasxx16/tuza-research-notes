@@ -1,0 +1,8 @@
+{
+  "signed_pattern_inputs.json": "1989098b5006e3dce35c51afb8ddc9b134b1f1b7cd56a6c006d005151c1a96b4",
+  "signed_patterns_all.json": "67c3a4fb69908908e4d55696d0b73b60adca454d9c3258c5fef965f476694d40",
+  "compressed_templates.json": "8a04a799168255c23ec01c2a7cb40d12c6cad2284c2083f99a9e1d7693d86822",
+  "transformed_certificates.json": "5feeafc4cd27bbef069aece77979a819727e6f88e14e4fc86e72b3f8842d2b3b",
+  "compression_summary.json": "215630d6b5742adead0e8681560c890d19c2d2f30ee92c78d312c64e05aa728c",
+  "finite_cover_incidence.json": "2c89c6fa14b78a51a4da5a8e9aa110721d9e25c43c1e9e30ac996a3a015d7561"
+}

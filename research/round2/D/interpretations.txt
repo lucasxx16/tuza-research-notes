@@ -1,0 +1,30 @@
+HUMAN STRUCTURAL READING OF D'S ELEVEN PATTERNS
+Use the exact labels and S,D,R lists in proof.txt. The descriptions below interpret those lists; they do not add hypotheses. Unspecified adjacencies are always free, and hub/side exchange and relabelling are permitted.
+
+T1. An induced path c0-c1-c2 has an A vertex attached to endpoint c2 but to neither c0 nor c1, and a B vertex attached to the other endpoint c0. The fourth common vertex is unrestricted. This single structural rule covers 614 stored configurations. Its cover deletes both spokes at c3, three private spokes, uv, and the four packing rim edges. Its packing has one uvc3 triangle plus four triangles supported by the path and its opposite-side attachments.
+
+T2. The core contains the path c1-c0-c3; the fourth vertex c2 may attach only to c1. Endpoint c3 has an A neighbor and endpoint c1 has a B neighbor. Thus the possible core is a three-vertex path plus an isolated vertex or a four-vertex path. Deleting uv and all four private spokes leaves only core triangles to cover, with the three possible core edges put into R along with two attachment edges.
+
+T3. A core edge c0c1 is accompanied by a third common vertex c3 with an A neighbor a0 and a B neighbor b1; c1 also has a B neighbor b0. The missing edges are a0a1, c3a1, and c0b0. This is a side-neighborhood rule: it does not classify the full core, and the fourth common vertex c2 is unrestricted.
+
+T4. There is a core edge c0c2. Another common vertex c1 has neighbors a1 and b0 in opposite private pairs, while c2 has neighbor b1. The missing edges are c1c3, c3a1, and c0b1. The cover chooses complementary spokes on the two hubs so that only the four support edges need rim deletion.
+
+T5. A triangle c0c3a0 avoids the hubs, and a0a1 is present. There is also a disjoint core edge c1c2 with opposite-side attachments c2b0 and c1b1. The absent edges c0a1,c3a1,c2b1 allow a five-spoke cover. This is one of only two selected patterns using an outside triangle; that triangle is c0c3a0, not a core triangle.
+
+T6. The core consists of the two required edges c0c2,c0c3 and the optional edge c0c1: it is a star with two or three leaves. Distinct required leaves c2,c3 have neighbors in opposite private pairs. One uvc1 triangle and four single-hub triangles suffice. As in T2, the cover deletes uv and all private spokes, then the core and two attachment edges.
+
+T7. The core is exactly two disjoint edges c0c3 and c1c2. The endpoints c1,c2 of one core edge can be matched to the two A vertices, and an endpoint c0 of the other has a B neighbor. This gives five single-hub triangles. The template covers all 17 supplied records with this core. That coverage alone is not yet a proof that non-WKE links force the stated attachments.
+
+T8. The core is an induced four-cycle, and either private pair is adjacent. Use alternate cycle edges at opposite hubs and add the private-pair triangle. Deleting uv, the four private spokes, the cycle edges, and the private edge gives ten cover edges for five packed triangles. This rule needs no side-to-core adjacency assumption at all. It covers 201 stored configurations.
+
+T9. The core contains disjoint edges c0c3 and c1c2. Both endpoints c0,c3 attach to distinct A vertices, while both c1,c2 attach to distinct B vertices. The crossed missing attachments c0a0,c3a1,c1b0 make six single-hub triangles sufficient. The private edge a0a1, if present, is included in the cover without being used by the packing.
+
+T10. There is a core edge c0c2. Its endpoints have opposite A neighbors, the crossed A attachments are absent, and neither private pair is adjacent. A third common vertex c3 has a B neighbor. The fourth common vertex c1 is used for the uvc1 triangle; deleting all four v-C spokes gives a particularly simple cover on the v side.
+
+T11. A triangle c0c2b0 avoids the hubs, b0b1 is present, and there is a core path c2-c1-c3, together with attachment c2a0. Missing edges c1a1,c3a1,c0b1,c2b1 permit a five-spoke cover. This is the second selected pattern using one outside triangle. No selected pattern needs a triangle wholly inside C.
+
+COMMON MATHEMATICAL MECHANISM
+The two hubs see the same core but different private vertices. Choosing which spokes to delete turns most rim edges into irrelevant optional edges. Only (i) rim edges required to support the packing and (ii) dangerous nonedges, whose presence would leave a hub triangle unhit, matter. The eleven templates expose that small signed support explicitly. They partition by packing shape into six patterns with one central plus four single-hub triangles, two with five single-hub triangles, one with six single-hub triangles, and two with one central, four single-hub, and one outside triangle.
+
+MINIMUM-COUNT PROBLEM, PRECISELY SCOPED
+The declared finite dictionary is the 499 Gamma-orbits obtained from the stored witnesses by the normalization in proof.txt. It is not the class of all imaginable fixed signed templates. Eleven is a greedy upper bound, and not an optimality claim. finite_cover_incidence.json is the complete incidence instance for exact optimization inside this dictionary. Its candidates have IDs 0 through 498 and the universe has 1,144 indexed original records. An exact set-cover result must report its dictionary scope. A lower bound from pairwise-incompatible records or rational fractional-cover dual weights would be particularly easy to audit, because it involves only this saved incidence matrix.

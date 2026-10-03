@@ -1,0 +1,146 @@
+{
+  "templates": 11,
+  "maximum_single_template_coverage": 614,
+  "selected": [
+    {
+      "index": 0,
+      "source_key": [
+        13,
+        316,
+        383
+      ],
+      "coverage": 614,
+      "required": 4,
+      "forbidden": 3,
+      "packing_size": 5
+    },
+    {
+      "index": 1,
+      "source_key": [
+        13,
+        207,
+        383
+      ],
+      "coverage": 423,
+      "required": 4,
+      "forbidden": 3,
+      "packing_size": 5
+    },
+    {
+      "index": 2,
+      "source_key": [
+        7,
+        127,
+        430
+      ],
+      "coverage": 529,
+      "required": 4,
+      "forbidden": 3,
+      "packing_size": 5
+    },
+    {
+      "index": 3,
+      "source_key": [
+        3,
+        111,
+        494
+      ],
+      "coverage": 597,
+      "required": 4,
+      "forbidden": 3,
+      "packing_size": 5
+    },
+    {
+      "index": 4,
+      "source_key": [
+        15,
+        301,
+        431
+      ],
+      "coverage": 283,
+      "required": 7,
+      "forbidden": 3,
+      "packing_size": 6
+    },
+    {
+      "index": 5,
+      "source_key": [
+        7,
+        111,
+        446
+      ],
+      "coverage": 263,
+      "required": 4,
+      "forbidden": 3,
+      "packing_size": 5
+    },
+    {
+      "index": 6,
+      "source_key": [
+        12,
+        63,
+        223
+      ],
+      "coverage": 17,
+      "required": 5,
+      "forbidden": 4,
+      "packing_size": 5
+    },
+    {
+      "index": 7,
+      "source_key": [
+        30,
+        61,
+        478
+      ],
+      "coverage": 201,
+      "required": 5,
+      "forbidden": 2,
+      "packing_size": 5
+    },
+    {
+      "index": 8,
+      "source_key": [
+        15,
+        316,
+        380
+      ],
+      "coverage": 560,
+      "required": 6,
+      "forbidden": 3,
+      "packing_size": 6
+    },
+    {
+      "index": 9,
+      "source_key": [
+        15,
+        62,
+        188
+      ],
+      "coverage": 113,
+      "required": 4,
+      "forbidden": 4,
+      "packing_size": 5
+    },
+    {
+      "index": 10,
+      "source_key": [
+        31,
+        79,
+        399
+      ],
+      "coverage": 87,
+      "required": 7,
+      "forbidden": 4,
+      "packing_size": 6
+    }
+  ],
+  "packing_sizes": {
+    "5": 1101,
+    "6": 43
+  },
+  "outside_triangles": {
+    "0": 1109,
+    "1": 35
+  }
+}

@@ -1,0 +1,95 @@
+OPTIMAL NINE PATTERNS IN THE DECLARED FINITE DICTIONARY
+
+Minimum only within the fixed 499 Gamma-orbits of normalized signed patterns extracted from the supplied 1144 saved witnesses; not over all conceivable signed templates.
+
+The labels and universal signed-rim transfer lemma are as in proof.txt. Each list (S,D,R) is fixed. P denotes required-present rim edges and N required-absent rim edges. All unlisted optional adjacencies are free. Apply an allowed core/private-pair relabelling and optional hub/side exchange; then use X=D union (R intersect E(L)).
+
+O1 (candidate ID 7; source key [3, 111, 379]).
+A core edge c0c2 has endpoints matched to the B pair, and a third common vertex c1 has an A neighbor a1. The absent edges c1c3,c3a1,c2b0 allow complementary spoke deletions. One central triangle and four single-hub triangles suffice.
+P = {c0c2, c1a1, c0b0, c2b1}
+N = {c1c3, c3a1, c2b0}
+S = {uvc3, uc0c2, uc1a1, vc0b0, vc2b1}
+D = {uc0, uc2, ua0, vc1, vc3, vb1}
+R = {c0c2, c0b0, c1a1, c2b1}
+Budget: 6 + 4 = 10 = 2*5.
+
+O2 (candidate ID 78; source key [7, 111, 446]).
+The core is a star with two required leaves c2,c3 and one optional leaf c1, centered at c0. The required leaves have neighbors in opposite private pairs. Delete uv and all four private spokes, and cover the three possible core edges and two attachment edges.
+P = {c0c2, c0c3, c2a0, c3b0}
+N = {c1c2, c1c3, c2c3}
+S = {uvc1, uc0c3, uc2a0, vc0c2, vc3b0}
+D = {uv, ua0, ua1, vb0, vb1}
+R = {c0c1, c0c2, c0c3, c2a0, c3b0}
+Budget: 5 + 5 = 10 = 2*5.
+
+O3 (candidate ID 195; source key [13, 223, 239]).
+The core consists of disjoint edges c0c3,c1c2 and the optional joining edge c0c1. Each core edge has its endpoints matched to a different private pair. Six single-hub triangles suffice, both when the core is 2K2 and when it is a four-vertex path.
+P = {c0c3, c1c2, c3a0, c0a1, c2b0, c1b1}
+N = {c0c2, c1c3, c2c3}
+S = {uc0a1, uc1c2, uc3a0, vc0c3, vc1b1, vc2b0}
+D = {uv, ua0, ua1, vb0, vb1}
+R = {c0c1, c0c3, c0a1, c1c2, c1b1, c2b0, c3a0}
+Budget: 5 + 7 = 12 = 2*6.
+
+O4 (candidate ID 214; source key [13, 316, 383]).
+An induced core path c0-c1-c2 has an A neighbor of endpoint c2 that misses c0,c1, and a B neighbor of the opposite endpoint c0. The fourth common vertex is unrestricted. This is the broad induced-path rule from the original eleven.
+P = {c0c1, c1c2, c2a0, c0b0}
+N = {c0c2, c0a0, c1a0}
+S = {uvc3, uc0c1, uc2a0, vc0b0, vc1c2}
+D = {uv, uc3, ua1, vc3, vb0, vb1}
+R = {c0c1, c0b0, c1c2, c2a0}
+Budget: 6 + 4 = 10 = 2*5.
+
+O5 (candidate ID 316; source key [15, 301, 431]).
+A triangle c0c3a0 avoids the hubs, a0a1 is present, and the disjoint core edge c1c2 has opposite B attachments. Three missing attachments permit a five-spoke cover. The packing has one central, four single-hub, and one outside triangle.
+P = {c0c3, c1c2, c0a0, c3a0, a0a1, c2b0, c1b1}
+N = {c0a1, c3a1, c2b1}
+S = {uvc0, uc1c2, ua0a1, vc1b1, vc2b0, c0c3a0}
+D = {uc1, uc2, vc0, vc3, vb0}
+R = {c0c3, c0a0, c1c2, c1b1, c2b0, c3a0, a0a1}
+Budget: 5 + 7 = 12 = 2*6.
+
+O6 (candidate ID 329; source key [15, 316, 380]).
+Two disjoint core edges have endpoints matched to the A and B pairs, respectively; three crossed attachments are absent. Six single-hub triangles suffice. The optional private edge a0a1 is included in the cover if present.
+P = {c0c3, c1c2, c3a0, c0a1, c2b0, c1b1}
+N = {c0a0, c3a1, c1b0}
+S = {uc0a1, uc1c2, uc3a0, vc0c3, vc1b1, vc2b0}
+D = {uc1, uc2, vc0, vc3, vb1}
+R = {c0c3, c0a1, c1c2, c1b1, c2b0, c3a0, a0a1}
+Budget: 5 + 7 = 12 = 2*6.
+
+O7 (candidate ID 387; source key [30, 61, 478]).
+The core is an induced four-cycle, and one private pair is adjacent. Alternating cycle edges support four triangles at the two hubs, and the private edge supports the fifth. No attachment hypothesis is required.
+P = {c0c2, c0c3, c1c2, c1c3, b0b1}
+N = {c0c1, c2c3}
+S = {uc0c2, uc1c3, vc0c3, vc1c2, vb0b1}
+D = {uv, ua0, ua1, vb0, vb1}
+R = {c0c2, c0c3, c1c2, c1c3, b0b1}
+Budget: 5 + 5 = 10 = 2*5.
+
+O8 (candidate ID 428; source key [30, 316, 511]).
+The core contains the path c0-c2-c1-c3, with optional closing edge c0c3. Its middle edge supports outside triangle c1c2b1; specified A and B attachments support six additional single-hub triangles. Four missing edges permit a fourteen-edge cover.
+P = {c0c2, c1c2, c1c3, c2a0, c0a1, c1b0, c1b1, c2b1, c3b1}
+N = {c0c1, c2c3, c0a0, c1a0}
+S = {uc0a1, uc1c3, uc2a0, vc0c2, vc1b0, vc3b1, c1c2b1}
+D = {uv, uc3, ua1, vc0, vb0}
+R = {c0c2, c0a1, c1c2, c1c3, c1b0, c1b1, c2a0, c2b1, c3b1}
+Budget: 5 + 9 = 14 = 2*7.
+
+O9 (candidate ID 491; source key [63, 30, 30]).
+The core contains path c1-c3-c2; its endpoints have opposite-side neighbors c2a0,c1b0. The unused private vertices a1,b1 miss all three of c1,c2,c3. The fourth common vertex c0 is unrestricted, and the optional edge c1c2 is covered if present. One central and four single-hub triangles suffice.
+P = {c1c3, c2c3, c2a0, c1b0}
+N = {c1a1, c2a1, c3a1, c1b1, c2b1, c3b1}
+S = {uvc0, uc1c3, uc2a0, vc1b0, vc2c3}
+D = {uv, uc0, ua0, vc0, vb0}
+R = {c1c2, c1c3, c1b0, c2c3, c2a0}
+Budget: 5 + 5 = 10 = 2*5.
+
+WHY NINE IS EXACT IN THIS DICTIONARY
+The nine selected candidate IDs are [7, 78, 195, 214, 316, 329, 387, 428, 491]. Their relabelling orbits cover all 1,144 saved records. An assignment and literal valid witness are exported for every record. The lower-bound records have indices [189, 286, 294, 754, 828, 875, 1089, 1132, 1136] and keys [[7, 239, 239], [11, 445, 446], [12, 63, 255], [15, 431, 463], [30, 63, 207], [30, 255, 271], [31, 316, 316], [63, 60, 271], [63, 271, 271]]. Every one of the 499 dictionary candidates covers at most one of these nine records, as checked exactly against the saved incidence matrix. Any cover therefore needs at least nine candidates; the selected nine attain this bound. This counting proof does not use a numerical solver bound.
+
+REPRODUCTION
+Run export_optimal.py after signed_patterns.py and compress.py. It reads the given selected IDs and lower-bound records from ../B2/selected_cover.json and ../B2/lower_bound.json, and the normalized source from ../shared/B_codegree4_certificates.json. It performs no optimization and needs only the Python standard library. It recomputes the selected incidence rows, verifies the universal conditions of each template, reconstructs and checks all 1,144 literal witnesses, and verifies the exact nine-record lower bound. The six pre-existing greedy mathematical output files are preserved.
+
+LOGICAL LIMIT
+This is an exact optimum for the declared catalogue-derived finite dictionary and a universal proof for each chosen pattern. It is not an optimum over every possible signed template, and it does not supply the missing general human proof that A1+A2 force the nine-pattern disjunction.

@@ -1,0 +1,54 @@
+# sources.txt — verified primary sources for Role A codegree-four structural-compression survey
+
+PRIMARY (read directly):
+1. Gupta, "Tuza's conjecture for graphs of maximum degree seven", arXiv:2608.06538v1,
+   Sections 5, 6, 9, 12.2.
+   HTML: https://arxiv.org/html/2608.06538v1
+   Local mirror (verified identical document; same codegree-four orbit table 3,286/1,144):
+   https://github.com/agupta/tuza-maximum-degree-seven/blob/bf8415fac44f4eeed6c0f7a2273b843d689b065e/paper/main.tex
+   Key loci in main.tex:
+   - Corollary cor:localcriterion (local reducibility criterion): lines 711-732
+   - Lemma lem:localcomplete (completeness of the local model): lines 686-704
+   - Lemma lem:budget (degree budget, hypothesis A2): lines 737-748
+   - Definition def:localgraph (10-vertex local graph L): lines 638-648
+   - Section sec:codeg4 (Triangle codegree four): lines 1065-1179
+     - Proposition prop:codeg4: lines 1111-1116
+     - Admissibility (A1)/(A2), Gamma-invariance: lines 1081-1109
+     - Orbit table 3,286 -> 1,144: lines 1118-1143
+     - Sample K4-complete-core witness; all stored certificates tight |X|=2|S|;
+       217 hub-avoiding / 22 wholly-in-C triangles: lines 1145-1176
+   - Template lemmas lem:packing (lines 778-816) and lem:template (lines 818-865);
+     "at a complete core ... must be produced by hand": lines 867-869
+   - Section sec:open, Question 12.4 / q:k5free (structural proof of prop:codeg4 open in
+     Question q:human; K5-freeness removes 364 of 1,144 orbits): lines 1300-1341
+   - Puleo framework quoted with exact hypotheses (sec:prelim): lines 284-353
+
+2. G. J. Puleo, "Tuza's conjecture for graphs with maximum average degree less than 7",
+   European J. Combin. 49 (2015) 134-152; doi:10.1016/j.ejc.2015.03.006; arXiv:1308.2211v3.
+   NOTE: read as quotations with exact hypotheses inside Gupta's main.tex (sec:prelim),
+   not in the original paper. Exact statements used (as quoted in main.tex):
+   - Lemma 4.4 (WKE link => reducible singleton / reducible edge set): main.tex lines 337-344
+   - Definition 4.1 (weak König-Egerváry): lines 325-330
+   - Corollary 4.9 (connected on <=4 vertices => WKE): lines 346-348
+   - Definition 2.1 (reducible set), Lemma 2.2, Definition 4.2, Lemma 4.3: lines 291-323
+   - Lemma 2.6 (robustness), Lemmas 2.7/2.8 (discharging; NOT used — strict, no
+     equality-case configuration): lines 288-289, 461-463
+
+3. F. Botler, C. G. Fernandes, J. Gutiérrez, "On Tuza's conjecture for triangulations and
+   graphs with small treewidth", Discrete Math. 344 (4) (2021), 112281;
+   doi:10.1016/j.disc.2020.112281; arXiv:2002.07925.
+   NOTE: read as quotation inside Gupta's main.tex (lines 204-214), not in the original paper.
+   - Lemma 3.3 (irreducible robust graph pair configuration, dg<=6, |N(x)∪N(y)|<=7,
+     deg-5/|C|=3/both links K5) and Lemma 3.2(b) (pair non-adjacent), as quoted in
+     main.tex lines 204-214. Closest prior structural pair result; does not apply to
+     the codegree-four edge case (degree 7, edge not non-edge).
+
+SECONDARY (named in source, not used as replacement candidates):
+- Cui, Haxell, Ma, Graphs Combin. 25 (2009) 817-824 (planar equality characterization).
+- Munaro, Graphs Combin. 34 (2018) 647-668 (K4-free subclasses; factor 2 tight).
+- Haxell, Discrete Math. 195 (1999) 251-254 (tau <= 66/23 nu).
+- Aparna Lakshmanan, Bujtás, Tuza, Graphs Combin. 28 (2012) 381-392.
+- Botler, Fernandes, Gutiérrez arXiv:2002.07925 (also cited for triangulation setting).
+
+Certificate catalogue (not re-enumerated, not run): ancillary files of arXiv:2608.06538;
+companion repo https://github.com/agupta/tuza-maximum-degree-seven.

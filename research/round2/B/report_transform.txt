@@ -1,0 +1,52 @@
+=== E-transform: Hub-free Triangle Exchange (Bounded, Saved Certs Only) ===
+
+Exchange: off-hub xyz -> hxy (h in {0,1}); X -> (X\{xz,yz}) U {kz: kz exists}.
+Keeps |S|, never increases |X|, removes exactly one off-hub triangle.
+Recursive all-exchange search, memoized, validated over all 16 cross masks.
+
+--- BASELINE (before transform) ---
+  Records with >=1 off-hub triangle: 217/1144
+  Total off-hub triangles: 247
+    off=0: 927 records
+    off=1: 189 records
+    off=2: 26 records
+    off=3: 2 records
+
+--- RESULT (minimum reachable off-hub count) ---
+    off=0: 936 records
+    off=1: 183 records
+    off=2: 24 records
+    off=3: 1 records
+
+  Improved: 13
+  Stuck (no off-hub removable): 204
+  Already zero: 927
+  Unfinished (>60s): 0
+  Invalid original certificates: 0
+  Invalid final certificates: 0
+  Total exchanges applied: 13
+  Path depths: {0: 1131, 1: 13}
+  |X| change (final-original): {-1: 8, 0: 1136}
+  Distinct final motifs: 33
+
+--- FINAL MOTIF SIGNATURES (top) ---
+    0off sz5 b1u2v2 types=-: 730 recs
+    0off sz6 b0u3v3 types=-: 113 recs
+    1off sz6 b1u2v2 types=ACC: 59 recs
+    1off sz6 b1u2v2 types=BCC: 50 recs
+    0off sz5 b0u2v3 types=-: 29 recs
+    0off sz5 b0u3v2 types=-: 29 recs
+    0off sz4 b1u2v1 types=-: 28 recs
+    1off sz6 b1u2v2 types=CCC: 15 recs
+    1off sz6 b1u2v2 types=BBC: 14 recs
+    1off sz6 b1u2v2 types=AAC: 14 recs
+    1off sz5 b1u2v1 types=ACC: 12 recs
+    0off sz4 b1u1v2 types=-: 7 recs
+    2off sz7 b1u2v2 types=ACCBBC: 6 recs
+    2off sz7 b1u2v2 types=ACCBCC: 5 recs
+    1off sz7 b0u3v3 types=BCC: 5 recs
+    1off sz6 b0u2v3 types=BCC: 4 recs
+    2off sz7 b1u2v2 types=ACCACC: 3 recs
+    1off sz7 b0u3v3 types=ACC: 2 recs
+    2off sz7 b1u2v2 types=BCCBCC: 2 recs
+    1off sz6 b0u3v2 types=BCC: 2 recs

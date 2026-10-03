@@ -1,0 +1,88 @@
+# Report — Structural compression of Gupta's 1,144 codegree-four reducible-pair certificates
+Role A, Westlake HPC. Primary text read directly (no re-enumeration, no checkers run):
+- Gupta, "Tuza's conjecture for graphs of maximum degree seven", arXiv:2608.06538v1,
+  Sections 5, 6, 9 (Triangle codegree four), 12.2 — local mirror:
+  https://github.com/agupta/tuza-maximum-degree-seven/blob/bf8415fac44f4eeed6c0f7a2273b843d689b065e/paper/main.tex (verified same document:
+  identical codegree-four table, 3,286 orbits under (A1), 1,144 under (A1)+(A2)).
+- Puleo 2015 statements as quoted with exact hypotheses in main.tex §2 (sec:prelim).
+
+## 1. What the codegree-four result actually is (verified facts)
+
+Source-reading note: Puleo's and Botler et al.'s results were read as quotations with
+exact hypotheses inside Gupta's paper (main.tex §2, §12.2), not in the original papers.
+
+Proposition prop:codeg4 (main.tex lines 1111–1116, arXiv §9): let G be 7-regular and
+uv ∈ E(G) with cod(uv)=4 such that both links G[N(u)], G[N(v)] are connected and not
+in WKE. Then {u,v} is reducible. Its proof is purely computational: 32,768 pairs
+(κ,λ); 4,667 give connected non-WKE links; 3,286 Γ-orbits satisfy (A1); 1,144 remain
+under the degree budget (A2); one explicit pair (S,X) per canonical orbit, each of the
+1,144 × 16 = 18,304 literal verifications checking (i)–(iii) of Corollary cor:localcriterion.
+The paper states explicitly (lines 1156–1157 and §12.2, Question q:human, lines
+1300–1310) that NO human-readable/structural proof of prop:codeg4 is provided; §12.2
+says "Section 9 has no comparable structural argument: it is a catalogue of 1,144
+certificates." So any "replacement" of the catalogue is currently a proposed route, not a
+proved theorem, in the source.
+
+## 2. The three highest-value exact statements
+
+### (S1) Puleo's WKE matching-cover lemma — the existing structural reduction engine used by Gupta
+Puleo 2015, Lemma 4.4 (restated as lem:puleo44, main.tex lines 337–344):
+"Let v ∈ V(G) and let G₀ be a nonempty union of components of G[N(v)]. If G₀ ∈ WKE,
+then G has a reducible set of edges. Also, if G[N(v)] ∈ WKE, then {v} is reducible."
+Here WKE = weak König–Egerváry (Puleo Def. 4.1): H has a matching M and Q ⊆ V(H),
+|Q| ≤ |M|, Q a vertex cover of H−M. For the first claim Puleo exhibits E₀ = {vw : w ∈ V(G₀)}
+explicitly. This is the template any structural replacement must beat: at codegree four the
+links H_u (7 vertices, determined by (κ,λ)) are NOT in WKE (that is hypothesis (A1)),
+so Lemma 4.4 cannot apply directly; the paper instead reduces the pair via the local
+criterion. Supporting exact statement: Puleo Cor. 4.9 — every connected H with |V(H)| ≤ 4
+is in WKE (used to prove robustness, lem:robust, which feeds lem:linkstructure and hence
+(A1) itself).
+
+### (S2) The local-transfer criterion — the precise theorem any compressed proof must satisfy
+Gupta, Corollary cor:localcriterion (main.tex lines 711–732, arXiv §5), resting on
+Lemma lem:localcomplete (lines 686–704): every triangle of G through u or v is a triangle
+of the 10-vertex local graph L (A–B edges and edges outside W are invisible to hub
+triangles), and conversely. Criterion: if S is a set of pairwise edge-disjoint triangles of L
+and X ⊆ E(L) with (i) |X| ≤ 2|S|; (ii) every triangle of L containing u or v meets X;
+(iii) every S-edge with both endpoints outside {u,v} lies in X — then {u,v} is reducible
+in the ambient G. Plus the 7-regularity arithmetic: Lemma lem:budget (lines 737–748),
+d_G[C](x) + |N(x)∩A| + |N(x)∩B| ≤ 5 for every x ∈ C — this is exactly hypothesis (A2)
+and is what prunes 3,286 → 1,144 orbits. Any structural proof must reproduce (i)–(iii) on
+the local graph; the transfer step is already fully proved and needs no recomputation.
+
+### (S3) Botler–Fernandes–Gutiérrez 2021, Lemma 3.3 — prior structural pair-local theorem (read as quoted in Gupta)
+Botler, Fernandes, Gutiérrez, "On Tuza's conjecture for triangulations and graphs with
+small treewidth", Discrete Math. 344 (4) (2021), 112281; arXiv:2002.07925, Lemma 3.3
+(as quoted main.tex lines 204–214): in an irreducible robust graph, a pair {x,y} with
+dg(x), dg(y) ≤ 6 and |N(x) ∪ N(y)| ≤ 7 can survive only in a specific configuration:
+both degrees are 5, the common neighbourhood has order 3, and both links are K₅;
+the pair is necessarily non-adjacent (their Lemma 3.2(b)). This is the closest prior
+structural proof of pair-local rigidity, but it differs on two axes recorded by Gupta:
+degrees ≤ 6 (not 7) and it constrains a non-edge (not the endpoints of an edge). It does
+not cover the codegree-four edge case and cannot replace the catalogue as stated.
+
+## 3. Proposed (not proved) routes visible in the source — flagged as such
+- Template route: Lemma lem:template + lem:packing (arXiv §6) gives a one-inequality
+  structural proof for codegrees 5 and 6, but the paper states (lines 867–869) that at a
+  complete core no R works and "a packing using triangles inside C must be produced by
+  hand"; at codegree four "the template does not cover all relevant local graphs" (line
+  1081). No extension to c=4 is proved.
+- K₅-freeness observation (Question 12.4 / q:k5free, lines 1327–1333): if G is K₅-free
+  and cod(uv) ≥ 3 then G[C] is triangle-free, removing 364 of the 1,144 catalogued orbits
+  (all four core types containing a triangle); the paper says "whether that observation can
+  replace the degree hypothesis is unclear." A Fano-plane witness pattern (used for complete
+  cores at c=5) is a candidate device for core-triangle cases; no codegree-four analogue
+  is proved.
+- The sample K₄-complete-core witness (lines 1158–1176) shows stored certificates are all
+  tight (|X| = 2|S|), 217 use a hub-avoiding triangle, 22 a triangle wholly inside C.
+  These are properties of the saved witnesses, not necessity statements for alternative
+  witnesses. Parent archive correction: D's final nine-template assignment avoids all
+  pure-core triangles; it still uses hub-free side triangles on some records.
+
+## 4. Verdict
+No replacement theorem for the 1,144-certificate catalogue is located in the sources
+actually checked (Gupta's paper, with Puleo/Botler results as quotations therein). The
+paper itself poses this as open (Question q:human). The reusable, fully proved pieces
+are exactly S1 (Puleo Lemma 4.4 / WKE framework) and S2 (the local-transfer criterion +
+degree budget); S3 is the nearest prior pair-structural result among the sources checked
+but does not apply.

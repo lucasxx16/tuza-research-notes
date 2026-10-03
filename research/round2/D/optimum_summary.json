@@ -1,0 +1,196 @@
+{
+  "status": "PASS",
+  "scope": "Minimum only within the fixed 499 Gamma-orbits of normalized signed patterns extracted from the supplied 1144 saved witnesses; not over all conceivable signed templates.",
+  "candidate_ids": [
+    7,
+    78,
+    195,
+    214,
+    316,
+    329,
+    387,
+    428,
+    491
+  ],
+  "candidate_count": 499,
+  "record_count": 1144,
+  "optimal_template_count": 9,
+  "lower_bound": 9,
+  "upper_bound": 9,
+  "lower_bound_method": "Nine specified records; every one of the 499 saved candidate incidence rows covers at most one. Verified with exact integer sets.",
+  "lower_bound_record_indices": [
+    189,
+    286,
+    294,
+    754,
+    828,
+    875,
+    1089,
+    1132,
+    1136
+  ],
+  "lower_bound_record_keys": [
+    [
+      7,
+      239,
+      239
+    ],
+    [
+      11,
+      445,
+      446
+    ],
+    [
+      12,
+      63,
+      255
+    ],
+    [
+      15,
+      431,
+      463
+    ],
+    [
+      30,
+      63,
+      207
+    ],
+    [
+      30,
+      255,
+      271
+    ],
+    [
+      31,
+      316,
+      316
+    ],
+    [
+      63,
+      60,
+      271
+    ],
+    [
+      63,
+      271,
+      271
+    ]
+  ],
+  "universal_template_conditions_verified": true,
+  "all_transferred_certificates_verified": true,
+  "selected_incidence_rows_recomputed": true,
+  "packing_sizes": {
+    "5": 888,
+    "6": 254,
+    "7": 2
+  },
+  "outside_triangles": {
+    "0": 1100,
+    "1": 44
+  },
+  "pure_core_packed_triangles": 0,
+  "per_candidate": [
+    {
+      "candidate_id": 7,
+      "source_key": [
+        3,
+        111,
+        379
+      ],
+      "coverage": 594,
+      "assigned": 594,
+      "packing_size": 5
+    },
+    {
+      "candidate_id": 78,
+      "source_key": [
+        7,
+        111,
+        446
+      ],
+      "coverage": 263,
+      "assigned": 72,
+      "packing_size": 5
+    },
+    {
+      "candidate_id": 195,
+      "source_key": [
+        13,
+        223,
+        239
+      ],
+      "coverage": 290,
+      "assigned": 135,
+      "packing_size": 6
+    },
+    {
+      "candidate_id": 214,
+      "source_key": [
+        13,
+        316,
+        383
+      ],
+      "coverage": 614,
+      "assigned": 207,
+      "packing_size": 5
+    },
+    {
+      "candidate_id": 316,
+      "source_key": [
+        15,
+        301,
+        431
+      ],
+      "coverage": 283,
+      "assigned": 42,
+      "packing_size": 6
+    },
+    {
+      "candidate_id": 329,
+      "source_key": [
+        15,
+        316,
+        380
+      ],
+      "coverage": 560,
+      "assigned": 77,
+      "packing_size": 6
+    },
+    {
+      "candidate_id": 387,
+      "source_key": [
+        30,
+        61,
+        478
+      ],
+      "coverage": 201,
+      "assigned": 11,
+      "packing_size": 5
+    },
+    {
+      "candidate_id": 428,
+      "source_key": [
+        30,
+        316,
+        511
+      ],
+      "coverage": 159,
+      "assigned": 2,
+      "packing_size": 7
+    },
+    {
+      "candidate_id": 491,
+      "source_key": [
+        63,
+        30,
+        30
+      ],
+      "coverage": 28,
+      "assigned": 4,
+      "packing_size": 5
+    }
+  ],
+  "normalized_input_sha256": "94c164cfe98180d73b839194735eb57ac97c5ab8203117110e6ad2d445070faf",
+  "greedy_eleven_outputs": "preserved unchanged",
+  "gap": "No general human proof here that A1+A2 force one of the nine patterns; coverage is of the supplied catalogue."
+}

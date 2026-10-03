@@ -1,0 +1,19 @@
+Round 2, C adversarial scope audit — 2026-10-03
+
+Source inspected: tuza-upstream/paper/main.tex §§5, 6, 9; data/B_codegree4_certificates.json; tests/check_codegree4.py. I read definitions and scanned the saved JSON records only. I did not run the original census, generator, or finder.
+
+Mathematical target and proof obligations
+
+1. A codegree-four local graph has hubs u,v; a four-vertex common set C; two exclusive vertices A at u and two B at v. The triple (kappa,lambda,rho) has 6+9+9 bits and omits all four possible A--B cross edges. The links of u and v are determined by (kappa,lambda) and (kappa,rho). An admissible triple satisfies (A1) both links connected and outside WKE, and (A2) at each x in C, deg_kappa(x)+deg_lambda(x)+deg_rho(x)<=5. The degree bound is necessary for occurrence in a 7-regular graph.
+
+2. The 1,144 records are canonical orbits of admissible local triples under relabelling of C, swapping vertices within A or B, and swapping the hubs/sides. This is a graph-configuration orbit count, not a count of structurally distinct witnesses, nor an a priori lower bound on the number of template cases. A family that claims to replace the catalogue must prove coverage of every admissible orbit, or give a structural argument that implies that coverage without relying on an unproved case census.
+
+3. A valid local certificate is an edge-disjoint triangle set S and edge set X contained in the local graph L, with |X|<=2|S|; X meeting every triangle of L containing u or v; and X containing every S-edge whose endpoints both avoid {u,v}. The last condition is necessary for the recursive reduction. The 16 possible A--B cross-edge patterns were checked for the stored certificates. A proposed template may instead prove that its witness uses only guaranteed L edges and that A--B edges cannot affect hub triangles; either route needs explicit ambient safety.
+
+4. The saved JSON has 1,144 records with fields (core_mask,left_side_mask,right_side_mask,packing,cover). Their packing sizes are 4:35, 5:803, 6:276, 7:27, 8:3, and every saved cover has size exactly twice its packing. This is a property of the selected certificates, not a theorem that all valid witnesses are tight. The paper notes an alternate certificate for key (63,271,271) using six triangles while the stored one uses seven: even the certificate for a fixed orbit is not canonical.
+
+5. "Minimal structural template family" needs a declared template syntax and size criterion (for example number of parameterized recipes, exceptional patterns, or distinct witness orbits). Minimizing the given 1,144 (S,X) records under symmetry is a different problem from finding the fewest structural recipes that supply some certificate for each configuration. Neither the data nor its verifier proves minimality under any such criterion. A candidate must state precisely which claim it proves; failure to prove optimality is a proof gap in a minimality claim, not evidence that the underlying reducibility proposition is false.
+
+6. The Section 6 core-R template applies only to codegrees five and six as stated. It packs triangles meeting the hubs. The codegree-four catalogue has 217 saved witnesses using a triangle avoiding both hubs, 22 using a triangle wholly in C, so a claimed direct extension of that hub-only template needs a proof that alternate witnesses exist for those configurations or a genuinely broader construction.
+
+Concrete source facts checked without recensus: JSON schema and count match the source; core frequencies sum to 1,144 (masks 3:150, 7:113, 11:25, 12:17, 13:273, 15:179, 30:227, 31:139, 63:21). The checker validates JSON keys against independently derived orbit keys and tests all 16 cross patterns, but its per-core expected tables are hard-coded consistency checks (comment in tests/check_codegree4.py); citing those tables alone is not an independent structural proof.

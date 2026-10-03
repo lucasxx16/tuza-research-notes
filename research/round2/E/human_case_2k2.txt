@@ -1,0 +1,145 @@
+ROUND 2 / E: A HUMAN PROOF FOR THE CORE 2K2
+Date: 2026-10-03
+This lemma was developed after reviewing D's completed independent
+eleven-template draft. The resulting reduction is D's template T7.
+No census, list of admissible side masks, or certificate lookup is used
+in the proof. Scanning the supplied data suggested this core as a small
+subcase, but the argument below covers every graph under its hypotheses.
+
+Definitions. A graph F is weak Konig-Egervary (WKE) if there exist a
+matching M and a set Q of vertices with |Q|<=|M| such that Q is a
+vertex cover of F-M. Equivalently, every edge with both endpoints
+outside Q belongs to M. This equivalence is immediate from the meaning
+of vertex cover. Isolated vertices do not affect this definition.
+
+Claim K1 (the seven-vertex link lemma).
+Let F have vertices z,p0,p1,q0,q1,a0,a1. The core C={p0,p1,q0,q1}
+induces exactly the two edges p0p1 and q0q1. The vertex z is adjacent
+to all four core vertices and to neither a0 nor a1. The only other
+possible edges are between C and {a0,a1}, and the edge a0a1.
+If F is connected and not WKE, then:
+(i) a0a1 is absent and each a_i has a neighbor in C;
+(ii) the attachments from {a0,a1} meet both core edges, meaning at
+     least one endpoint of each core edge is adjacent to an a_i;
+(iii) some core edge xy has edges xa_i and ya_j for distinct i,j.
+In (iii), the two core vertices and the two exclusive vertices support
+a matching of size two between them.
+
+Proof of (i).
+If a0a1 were present, choose the matching
+M={p0p1,q0q1,a0a1}
+and the set Q={z,a0,a1}. Every edge outside Q is a core edge and
+belongs to M, so Q covers F-M and |Q|=|M|=3. This contradicts
+non-WKE. Hence a0a1 is absent. Each a_i has no neighbor z and now
+no neighbor in {a0,a1}; connectivity therefore forces it to have a
+neighbor in C.
+
+Proof of (ii).
+Suppose that no attachment meets one core edge, say p0p1.
+Then all attachments meet q0q1. By (i), select an edge a_i q_j
+and write q_(1-j) for the other endpoint. Put
+M={p0p1, a_i q_j, z q_(1-j)},
+Q={z,q0,q1}.
+The three matching edges are present and pairwise vertex-disjoint.
+Every edge outside Q is p0p1: the exclusives have no p-neighbors
+and a0a1 is absent. Thus Q covers F-M and |Q|=|M|=3, a
+contradiction. Exchanging the two core edges proves the assertion.
+
+Proof of (iii).
+Assume, to the contrary, that neither core edge supports the stated
+two-edge matching to distinct exclusives.
+
+First suppose each core edge has attachments at at most one of its
+endpoints. For each core edge choose an endpoint that contains all
+attachments at that edge; if there are no attachments there, choose
+either endpoint. Call the chosen endpoints p* and q*. Then
+Q={z,p*,q*}
+is a vertex cover of all of F: z covers its incident edges, p*,q*
+cover the two core edges, and every exclusive-core edge uses one of
+the chosen endpoints. The exclusive edge is absent by (i).
+There is a matching of size three: select any attachment a_i c,
+let c' be the core mate of c, and let dd' be the other core edge.
+Then M={a_i c, zc', dd'} is a matching of size three. Hence Q is
+also a cover of F-M with |Q|=|M|, contradicting non-WKE.
+
+It remains that one core edge has attachments at both endpoints.
+Relabel it as p0p1. Failure of (iii) implies that all attachments
+at these two endpoints come from the same exclusive, say a0:
+otherwise one endpoint could be matched to a0 and the other to a1.
+More explicitly, both endpoint-neighborhoods in {a0,a1} are nonempty;
+if either contained both a0,a1, either choice for the other endpoint
+would produce distinct representatives. Thus both are the same
+singleton. Consequently a1 has no p-neighbor. By (i), a1 has a
+neighbor on q0q1.
+
+If a0 had both q0 and q1 as neighbors, a neighbor of a1 at either
+endpoint together with a0 at the other would prove (iii), contrary
+to assumption. Thus a0 has at most one q-neighbor. Choose an
+endpoint r of q0q1 that contains all q-neighbors of a0, choosing
+either endpoint if there are none, and let s be the other endpoint.
+Put Q={z,a0,r}.
+The vertices outside Q are p0,p1,s,a1. Their only possible edges
+are p0p1 and a1s: the core has no edge between its two pairs,
+a1 has no p-neighbor, and the exclusive edge is absent.
+If a1s is present, take
+M={p0p1,a1s,zr}.
+If a1s is absent, then a1r is present by (i), and take
+M={p0p1,a1r,zs}.
+In either case M is a three-edge matching containing every edge
+outside Q. Thus Q covers F-M and |Q|=|M|=3, the final contradiction.
+This proves (iii) and Claim K1.
+
+Claim K2 (unconditional human reducibility for the matching core).
+Let G be a finite simple graph with adjacent vertices u,v, with
+C=N(u) intersect N(v) of size four and exclusive neighborhoods
+A=N(u) minus ({v} union C), B=N(v) minus ({u} union C), both of
+size two. Suppose G[C] consists of two disjoint edges, and both
+G[N(u)] and G[N(v)] are connected and not WKE. Then {u,v} is
+reducible. No degree-budget assumption is required.
+
+Proof. The link G[N(u)] has the form of Claim K1, with opposite
+hub z=v, core C, and exclusives A. Claim K1(iii) supplies a core
+edge whose two endpoints can be matched to distinct A-vertices.
+Label this edge c1c2, and the exclusive vertices so that c1a1 and
+c2a0 are present. Label the other core edge c0c3 for now without
+choosing which endpoint is c0.
+
+Apply Claim K1(ii) to the other link G[N(v)], whose opposite hub
+is u and whose exclusives are B. Some endpoint of the other core
+edge has a B-neighbor. Label that endpoint c0 and that neighbor
+b1, and label the remaining B-vertex b0. We have obtained the
+five distinct rim edges
+R={c0c3,c1c2,c1a1,c2a0,c0b1}.
+These are exactly the required present edges of D's template T7;
+the four missing core cross-edges are absent because the core is 2K2.
+
+For completeness, the witness can be written directly:
+S={uc0c3, uc1a1, uc2a0, vc0b1, vc1c2},
+X={uv,ua0,ua1,vb0,vb1} union R.
+
+All five triangles exist. At u their rim pairs are
+{c0,c3}, {c1,a1}, {c2,a0}, which are pairwise disjoint, so no
+u-spoke is reused. At v their rim pairs are {c0,b1}, {c1,c2},
+also disjoint. Their rim edges are the five distinct members of R,
+so no edge is shared between different triangles. Thus |S|=5.
+
+The set X has ten edges: five hub edges and five rim edges, so
+|X|=10=2|S|. Every triangle containing both hubs uses uv. For a
+triangle through u but not v, if an exclusive A-vertex occurs then
+its u-spoke lies in X; otherwise its other two vertices belong to
+C, and their edge is one of c0c3,c1c2, both in X. The same argument
+applies at v using the B-spokes. These cases also prove coverage
+directly in the ambient graph, because any triangle through u or v
+uses only vertices in that hub's neighborhood. Added A--B edges or
+edges leaving the local neighborhood have no effect.
+
+Finally, each triangle of S has exactly one edge avoiding {u,v},
+and these edges are precisely R subset X. Hence all external
+packing edges are in X, proving the safety condition. This verifies
+all three reducibility conditions and completes the proof.
+
+Scope. This proves the complete 2K2-core subcase of the source's
+codegree-four proposition by hand. It does not prove the other
+eight nonempty core cases or a structural disjunction of all eleven
+templates. According to the supplied catalogue, 17 records have this
+core, but that count is not used anywhere in this proof.

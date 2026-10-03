@@ -1,0 +1,33 @@
+Independent saved-input audit, 2026-10-03
+
+Command: python research/round2/C/check_saved_orbits.py
+Input: research/round2/shared/B_codegree4_certificates.json (copy of upstream JSON)
+No source verifier, B script, finder, or configuration census was imported or run.
+
+saved records: 1144
+packing orbits under 192 vertex relabelings: 149
+(packing, cover) orbits under 192 vertex relabelings: 532
+saved records passing all three local reduction conditions: 1144
+gamma formula equals direct spoke-cover optimum on core representatives: 9
+
+The program decodes edge masks using the JSON metadata and checks at cross-mask zero that each packing consists of L-triangles with disjoint edges, X consists of L-edges, |X|<=2|S|, X hits all triangles containing either hub, and every non-hub S-edge lies in X. The omitted A--B edges cannot create triangles through u or v: u has no B-neighbour and v has no A-neighbour. Since S and X lie in L, their own validity is unaffected by any of the 16 A--B extensions; the same three conditions therefore hold in every extension.
+
+For the nine first records under distinct core masks, the program compares E's gamma formula (using forced non-hub S-edges plus any extra core edges in the stored X) against a direct search over subsets of uv and the 12 possible hub spokes. All nine agree. This checks the formula implementation on representatives; the proof of the formula is in C/review.txt.
+
+Independent D-template audit command: python research/round2/C/check_D_templates.py
+templates passing universal signed-rim conditions: 11
+saved graphs covered by at least one transformed template: 1144
+individual template coverage: [614, 423, 529, 597, 283, 263, 17, 201, 560, 113, 87]
+saved assignments with independently verified transferred witnesses: 1144
+
+This audit imports only my own C saved-record decoder/checker, no D/B/source verification functions. It recomputes the 192 vertex relabellings, validates P and N for each template from its explicit S,D,R, scans the 1,144 saved keys, and checks all assigned transformed witnesses. It does not enumerate the full admissible graph universe or prove minimality.
+
+Independent B2 optimum audit command: python research/round2/C/check_B2_optimum.py
+catalogue-derived signed-pattern Gamma orbits: 499
+candidate incidence lists independently matched: 499
+nine selected candidates cover saved records: 1144
+maximum lower-bound records hit by one candidate: 1
+selected-template transferred witnesses independently checked: 1144
+exact optimum within this 499-candidate dictionary: 9
+
+This script reconstructs signed profiles from the original saved (S,X), not from D's incidence lists; checks the 499 orbit classes; computes each candidate's actual coverage using the 192 vertex maps and the saved graph masks; and only then compares all 499 supplied incidence rows. The nine selected source witnesses are explicitly transferred and verified on every saved graph. The nine incompatible records give a purely integer lower bound of nine. This establishes minimum nine ONLY within the fixed catalogue-derived dictionary, not among all possible templates or as a human A1+A2 classification.

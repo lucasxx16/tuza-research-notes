@@ -1,0 +1,86 @@
+{
+ "type": "0-1 packing (independent record set) + exact rational LP dual",
+ "scope": "lower bound on cover size over the 499 supplied candidates only.",
+ "packing_size": 9,
+ "packing_record_indices": [
+  189,
+  286,
+  294,
+  754,
+  828,
+  875,
+  1089,
+  1132,
+  1136
+ ],
+ "packing_record_keys": [
+  [
+   7,
+   239,
+   239
+  ],
+  [
+   11,
+   445,
+   446
+  ],
+  [
+   12,
+   63,
+   255
+  ],
+  [
+   15,
+   431,
+   463
+  ],
+  [
+   30,
+   63,
+   207
+  ],
+  [
+   30,
+   255,
+   271
+  ],
+  [
+   31,
+   316,
+   316
+  ],
+  [
+   63,
+   60,
+   271
+  ],
+  [
+   63,
+   271,
+   271
+  ]
+ ],
+ "packing_property": "no single candidate covers two records of this set (independently checkable against finite_cover_incidence.json)",
+ "max_records_per_candidate_in_packing": 1,
+ "exact_rational_dual": {
+  "note": "weights w_j on records; every candidate has sum_{j in covered} w_j <= 1.",
+  "weights_over_records": {
+   "189": "1",
+   "286": "1",
+   "294": "1",
+   "754": "1",
+   "828": "1",
+   "875": "1",
+   "1089": "1",
+   "1132": "1",
+   "1136": "1"
+  },
+  "total_weight": "9",
+  "max_candidate_weight_sum": "1",
+  "feasible": true,
+  "implied_lb_ceil_total": 9
+ },
+ "lp_relaxation_optimum": 9.0,
+ "derived_lower_bound": 9,
+ "argument": "|cover| >= packing_size because each candidate covers at most one packing record; this is pure counting, no solver needed."
+}
