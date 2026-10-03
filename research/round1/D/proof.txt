@@ -1,0 +1,35 @@
+INDEPENDENT FIRST COMPLETE DRAFT — D
+Date: 2026-10-03
+Problem used: Does there exist a finite simple connected 7-regular graph G with positive maximum edge-disjoint triangle packing number nu(G), such that its minimum edge triangle cover number tau(G) equals 2 nu(G)? No other restrictions are imposed.
+
+RESULT: YES. The 4 by 5 rook graph G = K_4 square K_5 has 20 vertices, 70 edges, nu(G)=13 and tau(G)=26. Every edge of this example belongs to a triangle.
+
+CONSTRUCTION
+Let V(G) = {1,2,3,4} x {1,2,3,4,5}. Distinct vertices (i,j) and (i',j') are adjacent precisely when i=i' or j=j'. Thus each of four rows induces K_5, and each of five columns induces K_4. This is the Cartesian product K_4 square K_5 (and also the line graph of K_{4,5}).
+The graph is finite and simple by its definition. Each vertex has four neighbors in its row and three neighbors in its column, with no overlap, so G is 7-regular. Any two vertices (i,j),(i',j') can be joined by the path (i,j),(i,j'),(i',j'), with repeated vertices omitted, so G is connected. It has 20 vertices and (20*7)/2=70 edges.
+
+TRIANGLE DECOMPOSITION
+Every triangle lies wholly in one row or wholly in one column. Indeed, consider an edge of a triangle whose two vertices share the second coordinate, say (i,j),(i',j), with i != i'. A third vertex (a,b) adjacent to both must have b=j: if b != j, adjacency to (i,j) forces a=i, while adjacency to (i',j) forces a=i', a contradiction. The analogous argument applies to an edge whose two vertices share the first coordinate. Therefore all three vertices of any triangle lie in the row or column determined by any of its edges.
+The row and column edge sets form a partition of E(G). They may meet in vertices, but no two fibers share an edge. Every triangle is consequently assigned uniquely to one of the nine fibers.
+
+LOCAL PARAMETERS FOR K_4
+Any two distinct triangles in K_4 share two vertices and hence an edge. Thus nu(K_4)=1. A single edge does not meet all four triangles, since either triangle omitting one of its endpoints misses it. Two opposite edges meet every triangle: among any three of four vertices, both endpoints of at least one edge in a partition into two pairs occur. Therefore tau(K_4)=2.
+
+LOCAL PARAMETERS FOR K_5
+The triangles on vertex sets {1,2,3} and {1,4,5} are edge-disjoint, so nu(K_5)>=2. A packing has at most three triangles by the ten-edge count. If it had three, its union would use nine edges and leave precisely one edge. At each vertex, the number of edges used by an edge-disjoint triangle packing is even, being twice the number of its triangles containing that vertex. K_5 has degree four at every vertex; consequently every vertex must have even degree in the unused-edge graph. A graph consisting of precisely one edge has two vertices of degree one, a contradiction. Hence nu(K_5)=2.
+Deleting the edge within {1,2} and the three edges within {3,4,5} leaves K_{2,3}, which is triangle-free. Hence tau(K_5)<=4.
+For the reverse inequality, a triangle-free graph H on five vertices has at most six edges. Here is a direct proof. If its maximum degree is at most two, the sum of its degrees is at most ten and it has at most five edges. Otherwise choose a vertex of maximum degree d. If d=4, its four neighbors are independent (otherwise there is a triangle), so H has exactly four edges. If d=3, its three neighbors are independent, and the only fifth vertex is not adjacent to the chosen vertex, by its degree being three. All remaining edges must join that fifth vertex to one of the three neighbors, giving at most three additional edges and at most six in total. These cases exhaust the possibilities. A triangle cover of K_5 must therefore delete at least 10-6=4 edges. Thus tau(K_5)=4.
+
+ADDITIVITY IN THIS CONSTRUCTION
+For every triangle packing in G, its triangles within a given fiber form an edge-disjoint packing in that fiber. Since every triangle belongs to exactly one fiber, its cardinality is at most the sum of the nine local packing maxima. Conversely, choosing a maximum packing independently in each fiber and taking their union yields an edge-disjoint packing in G, because the fibers share no edges. Thus
+nu(G) = 5 nu(K_4) + 4 nu(K_5) = 5 + 8 = 13.
+For every triangle edge cover C of G, the intersection of C with each fiber's edge set must cover every triangle of that fiber. Because the fiber edge sets partition E(G), |C| is at least the sum of the nine local cover minima. Conversely, the union of minimum covers in the fibers meets every triangle of G, by the triangle decomposition proved above. Thus
+tau(G) = 5 tau(K_4) + 4 tau(K_5) = 10 + 16 = 26 = 2 nu(G).
+
+EXPLICIT OPTIMAL CERTIFICATES
+Packing (13 triangles): For each column j in {1,...,5}, take {(1,j),(2,j),(3,j)}. For each row i in {1,...,4}, take {(i,1),(i,2),(i,3)} and {(i,1),(i,4),(i,5)}.
+Cover (26 edges): In each column j take the two edges (1,j)(2,j) and (3,j)(4,j). In each row i take the four edges (i,1)(i,2), (i,3)(i,4), (i,3)(i,5), and (i,4)(i,5).
+The packing and cover are optimal by the upper and lower bounds above. In particular nu(G)>0.
+
+SCOPE AND INDEPENDENCE
+This proof uses only the assigned problem statement and elementary finite graph arguments. No parent or sibling reports, external source, computational enumeration, or unproved conjecture was used. It proves the requested existence, without claiming smallest order or uniqueness. There is no proof gap under the given hypotheses. If a later source imposes extra hypotheses, its scope must be checked separately.

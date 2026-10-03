@@ -1,0 +1,73 @@
+{
+ "name": "K4xK44_baseline_n32",
+ "n": 32,
+ "m": 112,
+ "degree_check": {
+  "expected": 7,
+  "min": 7,
+  "max": 7,
+  "regular": true
+ },
+ "connected": true,
+ "triangles": 32,
+ "edges_in_zero_triangles": 64,
+ "incidence_components": 8,
+ "component_summary": [
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  }
+ ],
+ "nu_exact": 8,
+ "tau_exact": 16,
+ "packing_size": 8,
+ "cover_size": 16,
+ "runtime_sec": 0.0007,
+ "explicit_packing_per_fiber_size": 8,
+ "explicit_cover_per_fiber_size": 16,
+ "explicit_matches_optimum": true
+}

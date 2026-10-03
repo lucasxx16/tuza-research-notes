@@ -1,0 +1,76 @@
+{
+ "name": "K4xK5_primary_n20",
+ "n": 20,
+ "m": 70,
+ "degree_check": {
+  "expected": 7,
+  "min": 7,
+  "max": 7,
+  "regular": true
+ },
+ "connected": true,
+ "triangles": 60,
+ "edges_in_zero_triangles": 0,
+ "incidence_components": 9,
+ "component_summary": [
+  {
+   "triangles": 10,
+   "edges": 10,
+   "nu": 2,
+   "tau": 4
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 4,
+   "edges": 6,
+   "nu": 1,
+   "tau": 2
+  },
+  {
+   "triangles": 10,
+   "edges": 10,
+   "nu": 2,
+   "tau": 4
+  },
+  {
+   "triangles": 10,
+   "edges": 10,
+   "nu": 2,
+   "tau": 4
+  },
+  {
+   "triangles": 10,
+   "edges": 10,
+   "nu": 2,
+   "tau": 4
+  }
+ ],
+ "nu_exact": 13,
+ "tau_exact": 26,
+ "packing_size": 13,
+ "cover_size": 26,
+ "runtime_sec": 0.001
+}

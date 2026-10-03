@@ -1,0 +1,171 @@
+A connected 7-regular graph with positive nu and tau = 2 nu
+Researcher E, round 1
+
+RESULT
+
+There exists a finite simple connected 7-regular graph G on 32 vertices
+such that nu(G) = 8 and tau(G) = 16. In particular, the 7-regular
+existence subquestion following Question 12.3 of the source paper has an
+affirmative answer, with positive triangle packing number. The example is
+G = K_4 square K_{4,4}, where square denotes the Cartesian graph product.
+There are also arbitrarily large connected 7-regular examples.
+
+DEFINITIONS AND CONSTRUCTION
+
+All graphs here are finite, simple and undirected. A triangle is a set of
+three distinct vertices with all three edges present. A triangle packing
+is a set of pairwise edge-disjoint triangles, and nu(G) is its maximum
+size. A triangle transversal is a set of edges meeting every triangle,
+and tau(G) is its minimum size.
+
+For graphs F and H, the Cartesian product F square H has vertex set
+V(F) x V(H). Distinct vertices (a,h) and (b,k) are adjacent precisely if
+one of the following holds:
+  (i) h = k and ab is an edge of F;
+  (ii) a = b and hk is an edge of H.
+Thus an edge changes exactly one coordinate, along an edge of its factor.
+
+Let I = {1,2,3,4}, and let H have disjoint vertex sets
+L = {l_1,l_2,l_3,l_4} and R = {r_1,r_2,r_3,r_4}, with an edge l_j r_k
+for every j,k in I and no other edges. Thus H = K_{4,4}. Define
+G = K_4 square H, where V(K_4) = I. Explicitly, its 32 vertices are
+(i,l_j) and (i,r_j), for i,j in I. Its edges are exactly:
+  (a) (i,h)(i',h) for every h in L union R and distinct i,i' in I;
+  (b) (i,l_j)(i,r_k) for every i,j,k in I.
+No implicit identifications, multiple edges, or further edges are used.
+
+Claim 1. G is finite, simple, connected, and 7-regular. It has 32
+vertices and 112 edges.
+
+Proof. The displayed vertex and edge sets define a finite simple graph.
+For any vertex (i,h), there are three neighbors (i',h) with i' different
+from i. There are also four neighbors (i,k), one for each H-neighbor k
+of h. These seven neighbors are distinct, so every degree is seven.
+The order is 4 times 8 = 32, and summing degrees gives
+|E(G)| = 32 times 7 / 2 = 112.
+
+The graph H is connected: two vertices in opposite parts are adjacent,
+and two distinct vertices in the same part have a common neighbor in the
+other nonempty part. Given (i,h) and (j,k), first follow an H-path from
+h to k while keeping the first coordinate i fixed. If i differs from j,
+then take the edge from (i,k) to (j,k). This gives a G-path between any
+two vertices, proving connectedness. End of proof.
+
+Claim 2. Every triangle of a Cartesian product F square H lies in a
+copy of one factor with its other coordinate fixed. In particular, if
+H is triangle-free, every triangle of K_4 square H lies inside
+Q_h = I x {h} for some h in V(H).
+
+Proof. Each of the three edges of a triangle changes exactly one
+coordinate. If both coordinate types occur among the three edges, then
+one type occurs exactly once. Traverse the closed walk around the
+triangle, starting just before that unique edge. In its coordinate the
+unique edge changes the value to a different value, and the other two
+edges do not change that coordinate. The walk therefore cannot return
+to its starting vertex. This is a contradiction. Consequently all three
+edges change the same coordinate, and the other coordinate is fixed.
+The three values in the changing coordinate form a triangle in the
+corresponding factor.
+
+The graph H = K_{4,4} is triangle-free, because each edge switches its
+bipartition class, and three such switches cannot return to the starting
+class. Thus, in our G, all triangles lie inside some Q_h. Each induced
+graph G[Q_h] is a copy of K_4 by the definition of the product. End of
+proof.
+
+Claim 3. A copy of K_4 has triangle packing number one and triangle
+transversal number two.
+
+Proof. It contains a triangle. Any two different triangles in its four
+vertices have exactly two vertices in common, and hence share the edge
+on those vertices. Thus a packing has at most one triangle, and its
+maximum size is one.
+
+No single edge is a transversal: if the removed edge is ab, and c,d
+are the other two vertices, then acd is still a triangle. The empty set
+also fails to meet a triangle. Conversely, the two edges of any perfect
+matching meet every triangle. Indeed, a three-element subset of a set
+partitioned into two pairs contains both elements of at least one pair.
+Equivalently, deleting that matching leaves a 4-cycle. Hence the minimum
+transversal size is two. End of proof.
+
+Claim 4. For G constructed above, nu(G) = 8.
+
+Proof. There are eight fibers Q_h. By Claim 2, every triangle in a
+packing belongs to one of them. By Claim 3, a packing contains at most
+one triangle from each fiber, giving nu(G) <= 8. Conversely, take the
+triangle with vertices (1,h),(2,h),(3,h) for each of the eight values
+of h. These eight triangles have disjoint vertex sets and therefore
+disjoint edge sets. They form a packing of size eight, proving equality.
+End of proof.
+
+Claim 5. For G constructed above, tau(G) = 16.
+
+Proof. Let X be any triangle transversal of G. For each h, every
+triangle in Q_h uses only edges inside Q_h. Thus
+X intersect E(G[Q_h]) must itself meet all triangles of that K_4.
+Claim 3 forces at least two edges in this intersection. The eight
+fiber edge sets are pairwise disjoint, so |X| >= 8 times 2 = 16.
+Edges outside the fibers cannot meet a triangle inside a fiber.
+
+For an explicit transversal attaining this bound, take
+X_0 = union over h in V(H) of
+      { (1,h)(2,h), (3,h)(4,h) }.
+It has sixteen edges. In each fiber it is a perfect matching, so it
+meets all triangles there by Claim 3. Claim 2 says these are all the
+triangles of G, so X_0 is a transversal. This proves tau(G) = 16.
+End of proof.
+
+The five claims establish the required conclusion:
+G is finite, simple, connected and 7-regular, and
+tau(G) = 16 = 2 times 8 = 2 nu(G), with nu(G) > 0.
+
+GENERAL FAMILY
+
+Claim 6. If H is any nonempty connected triangle-free d-regular graph,
+then K_4 square H is connected and (d+3)-regular, and
+nu(K_4 square H) = |V(H)|,
+tau(K_4 square H) = 2 |V(H)|.
+
+Proof. The degree and connectedness arguments in Claim 1 apply with d
+in place of four. Claim 2 places every triangle in a K_4 fiber, and the
+arguments in Claims 4 and 5 apply verbatim, with |V(H)| fibers instead
+of eight. The value |V(H)| is positive by the nonempty hypothesis.
+End of proof.
+
+For a fully explicit unbounded family at degree seven, let m be any
+integer at least four and define H_m on the residue classes modulo 2m.
+Join t to t+1, t-1, t+3 and t-3, with arithmetic modulo 2m. None of
+these differences is zero, and the four differences are distinct modulo
+2m, since 2m >= 8. Thus H_m is simple and 4-regular. Every difference
+is odd, so the even and odd residue classes form a bipartition; in
+particular H_m is triangle-free. The edges t(t+1) already form a spanning
+cycle, so H_m is connected. Claim 6 now gives
+
+G_m = K_4 square H_m,
+|V(G_m)| = 8m, |E(G_m)| = 28m,
+nu(G_m) = 2m, tau(G_m) = 4m,
+
+and every G_m is simple, connected and 7-regular. At m = 4, every even
+residue is adjacent to all four odd residues, so H_4 = K_{4,4} and G_4
+is the 32-vertex example above.
+
+SCOPE AND VERIFICATION
+
+This proves the existence subquestion, not a characterization of all
+graphs attaining tau = 2 nu. No minimal-order assertion is made. No
+result from the source paper, no implementation of an optimization
+solver, and no exhaustive census is used in any proof above.
+
+Optional finite sanity check for the displayed 32-vertex example:
+enumerate its 32 vertices, 112 edges and all binomial(32,3) = 4960
+vertex triples. Exactly 32 triples should be triangles, four in each
+fiber; the eight listed packing triangles and sixteen listed transversal
+edges should satisfy their definitions. Such a check is corroborative
+only and is not needed to establish optimality or the theorem.
+
+Source of the problem, not an ingredient of the proof:
+Anish Gupta, Tuza's conjecture for graphs of maximum degree at most seven,
+arXiv:2608.06538v1, Question 12.3 and its following paragraph.
+https://arxiv.org/html/2608.06538v1
+Local source inspected: tuza-upstream/paper/main.tex, lines 1312-1321.

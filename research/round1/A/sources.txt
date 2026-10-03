@@ -1,0 +1,72 @@
+Supporting sources for Role A report (verify URLs before citing downstream)
+
+PRIMARY (read directly this session)
+1. arXiv 2608.06538v1, HTML full text — Question 12.3 read verbatim.
+   https://arxiv.org/html/2608.06538v1
+   Verbatim excerpt: "Question 12.3. Which graphs of maximum degree at most seven
+   satisfy tau = 2nu? The planar case has the exact characterization of Cui, Haxell
+   and Ma [3]. ... In particular, does any 7-regular graph satisfy tau = 2nu?
+   The finite checks in this paper do not address that question."
+   Scope check: no "every edge in a triangle" condition anywhere in Q12.3;
+   K5-freeness is separate (Q12.4).
+
+LOCAL (read this session)
+2. https://github.com/agupta/tuza-maximum-degree-seven/blob/bf8415fac44f4eeed6c0f7a2273b843d689b065e/paper/main.tex
+   - line 1312-1314: question q:equality (= Q12.3, numbering identical to arXiv v1)
+   - line 1319-1321: 7-regular "in particular" remark
+   - line 1209-1267: Section 11 "Sharpness"; Proposition 1.5 (prop:sharpintro)
+     proved there: connected equality examples (K4-block graphs G_6 via
+     lem:k4blocks, pendant-edge variants G_7), none 7-regular
+     [CORRECTED: earlier attributed to "Theorem 1.3 proof"; Theorem 1.3
+     (thm:main) is the Delta<=7 inequality, proved via the Section 3/10
+     reduction chain and constructs no examples]
+   - line 1273-1275: "Cui, Haxell and Ma characterized all graphs attaining
+     tau=2nu" (planar); examples above are planar instances of that class
+   - line 1453-1457: full bibliographic entry for Cui-Haxell-Ma 2009
+
+REFERENCED, NOT FULLY READ
+3. Q. Cui, P. E. Haxell, W. Ma, "Packing and covering triangles in planar graphs",
+   Graphs and Combinatorics 25(6) (2009) 817-824. doi:10.1007/s00373-010-0881-5
+   https://dl.acm.org/doi/abs/10.1007/s00373-010-0881-5
+   https://zbmath.org/1205.05178   (Cloudflare-challenged; not read)
+4. Companion repository of the source paper:
+   https://github.com/agupta/tuza-maximum-degree-seven
+5. P. E. Haxell, "Packing and covering triangles in graphs",
+   Discrete Math. 195 (1999) 251-254 — universal tau <= (66/23) nu bound,
+   cited by the source.
+6. Haxell-Kostochka-Thomasse, K4-free planar graphs (triangles) — related
+   subclasses; surfaced via search snippet, not read.
+7. Related 2026 deposit surfaced in search, NOT read (no relevance claimed):
+   https://zenodo.org/records/19771943
+
+BLOCKED / NOT ACCESSIBLE THIS SESSION
+- zbmath.org review page: Cloudflare JS challenge.
+- Cui-Haxell-Ma characterization statement was therefore taken from the source
+  paper's own summary (item 2, lines 1273-1275), not from the original article.
+
+======================================================================
+ADDENDUM SOURCES (K4 Cartesian K5 = L(K4,5) = 4x5 rook graph check)
+
+SEARCHED, NOTHING SPECIFIC TO THIS GRAPH LOCATED
+8. Z. Tuza survey slides, "Graph covering and coloring" (Erdos-100 conference):
+   https://old.renyi.hu/conferences/erdos100/slides/tuza.pdf
+   General Tuza-conjecture background; not read in full (time budget).
+9. "On Tuza's conjecture in dense graphs", arXiv:2405.11409:
+   http://export.arxiv.org/pdf/2405.11409
+10. "Large triangle packings and Tuza's conjecture in sparse random graphs",
+    Random Structures Algorithms (2020), S0963548320000115:
+    https://www.cambridge.org/core/services/aop-cambridge-core/content/view/BDB72B1BCA1D362D08E87EE25D1BCA15/S0963548320000115a.pdf
+11. Mathieson, Prieto, Shaw, "Packing edge disjoint triangles: A parameterized
+    view", zbmath.org/pdf/02197516.pdf — parameterized packing, not tau/nu
+    values for rook graphs.
+
+STRUCTURAL FACTS USED IN ADDENDUM (standard, from first principles)
+- Triangles of L(K_{m,n}) = 3-stars of the host K_{m,n} = rook triples in a
+  single row or column; each row of 5 cells in the 4x5 grid induces a K5 in
+  the rook graph (so L(K4,5) is not K5-free, consistent with source Q12.4).
+
+NOT CHECKED (time budget)
+- Any literature computing (nu, tau) for rook graphs Hamming H(2;4,5) or
+  Cartesian additivity of tau and nu under triangle fiber decomposition.
+  These remain unverified in the literature; the construction itself is
+  independently obtained by D and awaits independent finite checks.

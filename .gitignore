@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+research/**/session.json
+research/**/models.json
+research/**/history.json
+research/**/accepted.json
+research/**/hpc_sessions*.json
+research/**/runtime*.json

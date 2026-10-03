@@ -1,0 +1,7 @@
+Scope check for Question 12.3 (arXiv:2608.06538v1, paper/main.tex, lines around 1312–1320)
+
+The paper asks broadly which graphs with maximum degree at most seven have tau=2nu and, in particular, whether ANY 7-regular graph has equality. The selected task addresses this existence subquestion only. A valid positive witness must be finite, simple, connected, 7-regular, have nu>0, and satisfy tau=2nu. It need not characterize all equality graphs.
+
+The paper's Proposition 1.5 / Section 11 constructs connected equality graphs with maximum degree seven by adding pendant edges to K4-block graphs. Those are not 7-regular, so they do not answer the selected subquestion. Triangle-free 7-regular graphs satisfy the vacuous equality tau=nu=0, which is why the task's nu>0 condition matters. Theorem 1.4 proves tau<=2nu for 7-regular graphs, but does not rule out equality.
+
+Source: https://arxiv.org/html/2608.06538v1#S12 (Question 12.3); upstream manuscript paper/main.tex, Section 12.3 and Proposition 1.5.

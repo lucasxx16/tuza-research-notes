@@ -1,0 +1,146 @@
+Role A report — Westlake HPC literature/scope check
+Task: finite simple connected 7-regular graph, nu>0, tau = 2nu (arXiv 2608.06538v1, Question 12.3).
+Date of check: this session. Max ~5 min scope.
+
+1. EXACT SOURCE STATEMENT (verified by reading the HTML, not just snippets)
+URL: https://arxiv.org/html/2608.06538v1 (Section 12, "Concluding remarks").
+Question 12.3: "Which graphs of maximum degree at most seven satisfy tau = 2nu?"
+Followed by: the planar case has the exact characterization of Cui, Haxell and Ma [3];
+it would be interesting to know what replaces their K4-based extremal class without
+planarity, and how much the K5 blocks in Tuza's general equality family contribute;
+"In particular, does any 7-regular graph satisfy tau = 2nu? The finite checks in this
+paper do not address that question."
+The 7-regular sub-question is posed as an open "in particular" inside Q12.3.
+
+2. ADDITIONAL CONDITIONS?  [CORRECTED — see CHANGE LOG items C1, C2]
+None imposed. The question is over graphs of maximum degree at most seven; there is
+NO requirement that every edge lie in a triangle, no planarity, no K5-freeness
+(K5-freeness is the separate Question 12.4). The candidate K4 square K4,4 (32
+vertices, 7-regular, nu=8, tau=16) satisfies the stated scope.
+QUOTED-SOURCE vs SECONDARY: the scope statement above is a faithful summary of the
+source text. The earlier side remark "in the graph every edge does lie in a triangle"
+was UNVERIFIED SECONDARY ANALYSIS and is FALSE: in K4 square K4,4 the 64 H-coordinate
+edges (the K4,4-factor edges; 16 per copy x 4 copies) lie in NO triangle — a third
+vertex adjacent to both endpoints would need, in the bipartite host, a common
+neighbour of endpoints in opposite parts, which cannot exist. Only the 48 K4-factor
+edges lie in triangles. This does not affect scope, since Q12.3 imposes no
+"every edge in a triangle" condition. Only the NEW primary K4 square K5 (L(K4,5))
+has all 70 edges in triangles. [Parent final correction: 112 was a mistaken
+carry-over of the baseline edge count; the primary graph has 20*7/2=70 edges.]
+
+3. LOCAL SOURCE CROSS-CHECK
+https://github.com/agupta/tuza-maximum-degree-seven/blob/bf8415fac44f4eeed6c0f7a2273b843d689b065e/paper/main.tex matches the arXiv HTML:
+- Q12.3 = label q:equality, line 1312-1314; 7-regular remark line 1319-1321.
+- No numbering drift between local tex and arXiv v1.
+
+4. PREEXISTING THEOREMS/CONSTRUCTIONS SUPPORTING OR ANSWERING THE QUESTION
+   [CORRECTED ATTRIBUTION — see CHANGE LOG item C3]
+a) ANSWERED-NO case: Proposition 1.5 of the source (label prop:sharpintro, stated
+   in Section 1, PROVED in Section 11 "Sharpness", main.tex lines 1209-1267)
+   constructs connected graphs with tau = 2nu for every positive nu: G_6 built
+   from K4-blocks (Delta<=6, via Lemma lem:k4blocks), and variants G_7 with
+   pendant edges attaining Delta=7. These attain equality but are NOT 7-regular
+   (pendant edges lie in no triangle; vertices lie in at most two blocks).
+   [WRONG attribution in the first version: "Theorem 1.3 proof Section 6".
+   Theorem 1.3 (thm:main, tau<=2nu for Delta<=7) is proved by the Section 3/10
+   reduction chain from the 7-regular case; it does NOT construct examples.
+   Numbering verified verbatim on the arXiv HTML: "Theorem 1.3. Every graph G
+   with Delta(G)<=7 satisfies tau(G)<=2nu(G)." / "Proposition 1.5. K4 has
+   (nu,tau)=(1,2) ... G7 ... (nu,tau)=(k,2k)"]
+b) Cui-Haxell-Ma 2009 (Graphs Combin. 25(6):817-824, doi:10.1007/s00373-010-0881-5):
+   exact characterization of planar graphs with tau = 2nu, an extremal class built
+   from K4s. K4 square K4,4 is nonplanar (contains K4,4), so this theorem does not
+   decide the candidate. Related: Haxell-Kostochka-Thomasse, K4-free planar graphs.
+c) Tuza's general equality family with K5 blocks: mentioned by the source but not
+   detailed there; not checked further within the time budget.
+d) Targeted searches for a preexisting 7-regular tau=2nu construction (e.g. involving
+   K4 Cartesian-product K4,4) found nothing. Per task instruction, NO novelty claim is
+   inferred from this: unresolved status below.
+
+5. ACTUAL READING SCOPE
+- arXiv 2608.06538v1 HTML: Section 12 read in full; rest of paper not read.
+- Local main.tex: lines 1255-1341 and bibliography entries read; abstract/intro
+  keywords confirm scope (Tuza's conjecture, bounded-degree graphs).
+- zbMath review of Cui-Haxell-Ma (zbmath.org/1205.05178): BLOCKED by Cloudflare
+  challenge; CHM statement taken from the source paper's own summary instead.
+- Zenodo record 19771943 (a related 2026 Tuza structural-reduction deposit) surfaced
+  in search; not read within budget.
+
+6. PRIORITY STATUS
+UNRESOLVED. The exact 7-regular tau=2nu question (and hence whether K4 square K4,4
+qualifies) is explicitly posed and explicitly left unaddressed by the source ("The
+finite checks in this paper do not address that question"). The candidate is within
+the question's stated scope (no extra conditions). No preexisting answer was located,
+but this is a bounded search, not a novelty certificate.
+
+======================================================================
+ADDENDUM (Role A, follow-up): K4 Cartesian K5 = 4x5 rook graph = L(K4,5)
+Primary construction independently obtained by D: n=20, degree 7, nu=13,
+tau=26, every edge lies in a triangle; general Cartesian additivity of nu
+and tau claimed via triangle fiber decomposition.
+
+A. SCOPE CHECK AGAINST QUESTION 12.3 (source re-read; unchanged conclusion)
+Q12.3 asks only: graphs of maximum degree at most seven with tau = 2nu.
+No extra conditions (no planarity, no K5-freeness, no "every edge in a
+triangle" hypothesis). L(K4,5) is simple, connected, 7-regular, and every
+edge lies in a triangle (within a row/column of the rook grid), so it is
+within scope and also satisfies this additional side condition.
+It is NOT K5-free: each row of 5 cells is a K5 in the rook graph, which is
+consistent with the source's Q12.3 remark that K5 blocks may contribute to
+non-planar equality instances.
+
+B. SOURCE PAPER COVERAGE  [attribution corrected — CHANGE LOG item C3]
+main.tex contains NO mention of rook graphs, line graphs, Hamming graphs,
+Cartesian products, or L(K_{m,n}) (grep on rook/line graph/Cartesian/square:
+no relevant hits). The source's own equality examples are Proposition 1.5
+(proved in Section 11 "Sharpness"): K4-block graphs G_6 and pendant-edge
+variants G_7, not rook graphs. The 7-regular case is explicitly outside its
+finite checks (line 1319-1321).
+
+C. LITERATURE SEARCH RESULT (bounded, ~2 further queries)
+- No preexisting statement of tau, nu for K4 square K5 / the 4x5 rook graph
+  was located. Searches for "Tuza conjecture line graphs", "triangle packing
+  covering L(K_{m,n})", "rook/Hamming graph triangle packing" surfaced only
+  general Tuza-conjecture material (random graphs, dense graphs,
+  parameterized edge-disjoint-triangle packing; see sources.txt items 8-11).
+- Related structural facts located (standard, not novel here): triangles of
+  L(K_{m,n}) correspond exactly to 3-stars K_{1,3} of the bipartite host
+  K_{m,n} (the host is triangle-free), i.e. rook triples in one row/column;
+  Tuza's conjecture with equality instances is discussed in Tuza's survey
+  slides. Neither yields a preexisting computation of (nu,tau) = (13,26)
+  for this graph, and per instructions NO novelty claim is made from this
+  bounded search.
+- D's triangle fiber decomposition additivity for Cartesian products was
+  not matched to any preexisting theorem within the time budget; treat as
+  independently obtained, pending literature verification.
+
+D. PRIORITY STATUS (updated)
+Still UNRESOLVED and now with a second, structurally distinct candidate:
+L(K4,5) (n=20, nu=13, tau=26). It matches Q12.3's scope exactly, has every
+edge in a triangle, and answers the source's "in particular, does any
+7-regular graph satisfy tau=2nu?" affirmatively PENDING independent finite
+verification of the claimed (nu,tau). The mathematical stopping condition is
+reached; only independent finite checks remain.
+
+======================================================================
+CHANGE LOG (parent audit corrections, applied this session)
+C1. Section 2: removed the FALSE claim that every edge of K4 square K4,4
+    lies in a triangle. Corrected fact: the 64 H-coordinate (K4,4-factor)
+    edges lie in no triangle; only the 48 K4-factor edges do. Flagged as
+    UNVERIFIED SECONDARY ANALYSIS in the original report; the source itself
+    makes no such claim. Scope of Q12.3 unaffected (no such condition).
+C2. Section 2: distinguished QUOTED-SOURCE content from SECONDARY analysis
+    throughout; the scope summary (no planarity / no K5-freeness / no
+    edge-in-triangle hypothesis in Q12.3) remains a faithful source quote.
+C3. Sections 4a and ADDENDUM B: corrected attribution of the equality-family
+    construction from "Theorem 1.3 proof (Section 6)" to Proposition 1.5
+    (label prop:sharpintro), stated in Section 1 and PROVED in Section 11
+    "Sharpness" (main.tex lines 1209-1267, via Lemma lem:k4blocks).
+    Theorem 1.3 = thm:main (Delta<=7 inequality), proved by the Section 3/10
+    reduction chain. Numbering verified verbatim against the arXiv HTML.
+C4. ADDENDUM A re-checked: the claim that every edge of the NEW primary
+    K4 square K5 = L(K4,5) lies in a triangle is SECONDARY ANALYSIS by D
+    (independent of the source); it is consistent with the rook-grid
+    structure (each edge lies within a row K5 or column K4) but was not
+    independently verified by Role A.
+No broad searches performed for this correction; scope statements unchanged.

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "n": 20,
+  "m": 70,
+  "triangles": 60,
+  "connected": true,
+  "regular_degree": 7,
+  "all_edges_in_triangles": true,
+  "packing_size": 13,
+  "cover_size": 26,
+  "D_edges_equal_B_edges": true,
+  "scope": "Exported certificate validity and record consistency. Optimality is proved in accepted_result.txt and separately computed by B."
+}

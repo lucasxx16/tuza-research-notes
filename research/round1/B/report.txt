@@ -1,0 +1,20 @@
+Role B exact numerical verification (computational evidence only, no proof)
+Run command: python verify_candidate.py
+Python: 3.14.7
+
+[K4xK44_baseline_n32] n=32 m=112 degree7_regular=True connected=True triangles=32 edges_in_zero_triangles=64
+  incidence_components=8 summary=[{'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}]
+  exact nu=8 exact tau=16 runtime=0.0007s
+  explicit fiber packing=8 cover=16 matches_optimum=True
+
+[K4xK5_primary_n20] n=20 m=70 degree7_regular=True connected=True triangles=60 edges_in_zero_triangles=0
+  incidence_components=9 summary=[{'triangles': 10, 'edges': 10, 'nu': 2, 'tau': 4}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 4, 'edges': 6, 'nu': 1, 'tau': 2}, {'triangles': 10, 'edges': 10, 'nu': 2, 'tau': 4}, {'triangles': 10, 'edges': 10, 'nu': 2, 'tau': 4}, {'triangles': 10, 'edges': 10, 'nu': 2, 'tau': 4}]
+  exact nu=13 exact tau=26 runtime=0.001s
+
+sha256:
+  verify_candidate.py: 6cb775af1029b320b366a525e535eb3990225fe89320ebd5fa5d415a29c5a333
+  graph_32.json: c425e0227e54225ea5ebd610a0c74f1dab379ce2963e329ce0a039619db85de6
+  result_32.json: 7bb238d80f6fbc5f7364d964109fd8b0219cfc00b9cfcef9016a75ea6d58fd66
+  graph_20.json: cb4d7deed43edb1fdfc68a44940f9b44a89444fde44e302ac996f342a3b1c29e
+  result_20.json: 5e1d6ab4bd32d9c5ba69f85c52b8fa6fc43e7d8766d4992e6623b99b02a7d939
+  report.txt(body): c3db3911dc9d290657ca0419eaa19c13a28133db810f54efa34c1bec182b72f0 (hash of all lines above)

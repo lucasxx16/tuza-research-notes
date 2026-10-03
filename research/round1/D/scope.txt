@@ -1,0 +1,6 @@
+D — source-scope check, performed only after independent proof.txt and report.txt were completed.
+Source: https://arxiv.org/html/2608.06538v1
+Accessed 2026-10-03.
+Question 12.3 asks for equality graphs of maximum degree at most seven, and its final sentence asks in particular whether any 7-regular graph attains equality. The surrounding paragraph explicitly moves beyond the planar setting; it adds no planarity, irreducibility, robustness, or connected-link hypothesis to this existence question. Our graph K_4 Cartesian-product K_5 answers that specific existence subquestion affirmatively. It does not characterize all equality graphs, so it is a partial answer to the broader first sentence of Question 12.3.
+The graph has a disconnected vertex link K_3 disjoint-union K_4. The connected-link restriction proved in Section 4 of the source assumes tau(G)>2nu(G), i.e. a hypothetical strict counterexample; it is not a restriction on equality examples. Our graph has tau(G)=2nu(G) and there is no conflict.
+No proof step depends on the source's computer-assisted theorem or catalogues.
