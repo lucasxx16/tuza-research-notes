@@ -1,0 +1,12 @@
+SOURCES (round 8 / A)
+- Puleo, G. J., "Tuza's Conjecture for Graphs with Maximum Average Degree
+  less than 7", arXiv:1308.2211v3 (13 Apr 2015). Inspected statements:
+  Def 2.1 (reducible), Def 2.3 (robust), Def 2.5 / 7.2 (thin 6),
+  Lemma 2.6 (minimal counterexample robust), Lemma 2.7 parts (a),(b),(c),(d)
+  (Prop 5.1 supports (a); Prop 5.2 supports (b); Lemmas 7.6 and 7.7 support
+  (c) and (d), respectively).
+  https://arxiv.org/abs/1308.2211  (v3 HTML: https://arxiv.org/html/1308.2211v3)
+  (mirror for the HTML text: https://ar5iv.labs.arxiv.org/html/1308.2211)
+The "five-link K5/K5-e" and "six-link K6/K6-e/K6-3K2" groupings are symbolic
+consequences of Lemma 2.7(a), not named theorems in this source. Reading was
+limited to the cited statements; not a complete priority survey.

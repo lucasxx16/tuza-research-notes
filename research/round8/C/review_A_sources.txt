@@ -1,0 +1,5 @@
+ROUND 8 C — LIGHT PRIMARY-SOURCE AUDIT
+
+Accepted the revised A/report.txt and A/sources.txt against Puleo, arXiv:1308.2211v3, https://arxiv.org/html/1308.2211v3 . The primary HTML confirms Definitions 2.1, 2.3, 2.5 and 7.2; Lemma 2.7 assumes robust graph with no reducible set. Its (a) gives the low-link complement matching restriction and excludes exactly two missing edges; (b) says all degree-at-most-six vertices are independent. Part (c) forbids a seven-vertex subsuming a six-vertex, whereas (d) forbids a seven-vertex adjacent to a thin six-vertex. The displayed v3 date, 13 Apr 2015, appears in the HTML header.
+
+I replaced a categorical claim that no thin-six reducibility statement eliminates the case with the narrower verified statement: these cited 7-versus-6 restrictions do not constrain this nonadjacent 5/6 pair. I also separated (c) from (d), corrected the Proposition 5.1/5.2 attribution, and removed “as cached” from the primary-source description. The link-shape and p/qr deductions are straightforward consequences of the cited (a) plus the diamond hypothesis, not source-stated theorems. No broader literature or novelty conclusion is implied.

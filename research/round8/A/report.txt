@@ -1,0 +1,56 @@
+ROUND 8 / A — primary-source hypothesis audit, five/six common-diamond case
+Target: u deg 5, v deg 6, nonadjacent, codegree exactly 4, common C={a,b,c,d}
+inducing diamond K4-e with sole missing edge ab. N(u)=C u {p}, N(v)=C u {q,r}.
+Primary source: Puleo, arXiv:1308.2211v3 (definitions and Lemma 2.7 in the primary HTML).
+No re-survey; only the import statements below were checked.
+
+SOURCE-STATED FACTS USED
+- Lemma 2.7(a): in a robust graph with no reducible set, every 6^- vertex v has
+  Delta(overline G[N(v)]) <= 1 and |E(overline G[N(v)])| != 2.
+- Lemma 2.7(b) (from Prop 5.2): the 6^- vertices form an independent set.
+- Def 2.1 reducible set, Def 2.3 robust, Def 2.5 (and 7.2) thin 6-vertex;
+  Lemma 2.7(c)/7.6 concerns 7-vertex subsumption of a 6-vertex, and
+  Lemma 2.7(d)/7.7 concerns adjacency to a thin 6-vertex (scope only).
+
+VERIFICATION OF THE BUNDLED HYPOTHESES
+1. u,v nonadjacent: FORCED (source-stated). Both are 6^-; Lemma 2.7(b) makes
+   6^- vertices pairwise nonadjacent. (No edge pair theorem is needed.)
+2. Common C={a,b,c,d} with exactly four common neighbours; N(u)=C u {p} with
+   unique private p; N(v)=C u {q,r} with the two privates q,r: FORCED by the
+   degree counts (d(u)=5, d(v)=6) once codegree 4 is given. Not a named Puleo
+   theorem; it is counting.
+3. "C induces diamond, missing ab": given hypothesis (codegree 4, diamond).
+   This labels a,b as the diamond's sole non-edge; c,d are adjacent (edge cd).
+4. Five-link / u's private p complete to C: Lemma 2.7(a) on the 5-vertex
+   neighborhood forces overline G[N(u)] in {empty, single edge}, i.e.
+   G[N(u)] in {K5, K5-e} -- a SYMBOLIC CONSEQUENCE of (a), not a named theorem.
+   Since a,b are a non-edge (diamond), G[N(u)] != K5; the unique missing edge
+   is ab, so p is complete to {a,b,c,d}. FORCED (symbolic consequence of (a)
+   plus the diamond setup).
+5. Six-link / v: Lemma 2.7(a) on the 6-vertex neighborhood forces
+   overline G[N(v)] in {empty, single edge, perfect 3-matching}, i.e.
+   G[N(v)] in {K6, K6-e, K6-3K2} (symbolic). Since ab is a non-edge, G[N(v)]
+   != K6. Two subcases, both with qr present:
+   - K6-e: sole non-edge is ab, so q,r complete to C and qr in E. FORCED.
+   - K6-3K2: complement is a perfect matching on N(v) holding ab plus a
+     2-matching on {c,d,q,r}. Because cd is an edge (diamond), cd not in the
+     complement; the 2-matching is {cq,dr} or {cr,dq}, i.e. after relabeling
+     the missing edges are {ab,cq,dr}, and qr not in the complement so
+     qr in E. FORCED.
+   Hence "qr present and (both complete to C, OR missing cq,dr after
+   relabeling)" holds in all cases. The alternative {ab,cd,qr} is impossible
+   because cd is an edge.
+6. Thin-6 scope: in the K6-3K2 subcase v is thin. Lemma 2.7(c)
+   forbids a 7-vertex subsuming a 6-vertex, while 2.7(d) forbids a
+   7-vertex adjacent to a thin 6-vertex. Neither statement restricts
+   this nonadjacent 5/6 pair or alters the p/q/r conclusions. This
+   observation concerns only the cited statements, not all possible
+   reducibility results.
+
+CONCLUSION
+Given the codegree-4 diamond setup, the bundled hypotheses are all forced.
+Nonadjacency is source-stated (Lemma 2.7(b)); every link-structure claim
+(five-link K5/K5-e; six-link K6/K6-e/K6-3K2; p complete to C; qr present with
+the two stated alternatives) is a SYMBOLIC CONSEQUENCE of Lemma 2.7(a) together
+with the diamond setup (cd edge), not a theorem stated by Puleo. Reading-scope
+statement only; no exhaustiveness or priority inference.

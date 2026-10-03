@@ -1,0 +1,247 @@
+COMPLETE HUMAN PROOF FOR THE TRIANGLE-PLUS-ISOLATE CORE
+
+Status: reviewed census-free research proof; see
+research/round8/C/review_tri_full.txt.
+The core has no perfect matching. No perfect-matching support lemma,
+saved-record count, enumeration, or numerical result is a premise.
+
+1. SETUP AND THEOREM
+
+Let u,v be adjacent degree-seven vertices in a finite simple graph.
+Their common neighborhood is C=T union {s}, where T={p,q,r}
+induces a triangle and s is isolated in the core H=G[C]. Thus
+
+  E(H)={pq,pr,qr}.
+
+Let A={a,b} and B={c,d} be their private pairs, so
+
+  N(u)={v} union C union A,
+  N(v)={u} union C union B.
+
+Edges between A and B and edges leaving this neighborhood are
+unrestricted. A graph F is WKE if a matching M and a vertex
+set Q satisfy |Q|<=|M| and every edge of F with both endpoints
+outside Q belongs to M. Assume:
+
+  (A1) Both induced links G[N(u)] and G[N(v)] are connected
+       and not WKE.
+  (A2) For each t in C,
+       deg_H(t)+|N(t) intersect A|+|N(t) intersect B|<=5.
+
+Theorem. Under (A1) and (A2), the pair {u,v} is reducible by
+five edge-disjoint triangles and a ten-edge set X meeting all
+triangles through u or v and containing every packed edge
+whose endpoints both avoid {u,v}. More specifically, the
+hypotheses force an instance of the explicit O1 recipe in
+Section 4.
+
+The proof first derives two link necessities by explicit WKE
+witnesses. In particular, support at s is proved directly;
+it is not inferred from support at the triangle vertices.
+
+2. EVERY PRIVATE VERTEX SEES TWO TRIANGLE VERTICES
+
+Work in one link F, with vertex set {z} union C union {a,b}.
+The opposite hub z is adjacent to every vertex of C and to
+neither a nor b. The only other possible edges are the three
+triangle edges, private-core attachments, and the private edge ab.
+
+Lemma 1. If F is connected and not WKE, each private vertex
+has at least two neighbors in T.
+
+Proof. Suppose b misses two triangle vertices, relabeled p,q.
+Let r be the third triangle vertex and set
+
+  Q={z,a,r}.
+
+The vertices outside Q are p,q,s,b. Their only possible edges
+are pq and sb: p,q miss b by assumption; s has no core edges.
+We exhibit a three-edge matching containing those edges that
+are present, in every case.
+
+  Case 1: sb is present.
+    M={pq,sb,zr}.
+
+  Case 2: sb is absent and rb is present.
+    M={pq,rb,zs}.
+
+  Case 3: sb and rb are both absent.
+    The vertex b has no core neighbor. It also misses z, so
+    connectedness forces ab. Take M={pq,ab,zs}.
+
+All three matchings have disjoint edges and contain every edge
+outside Q; their sizes equal |Q|=3. The edge ab may be either
+present or absent in Cases 1 and 2 because a belongs to Q.
+In Case 3 its absence is ruled out by connectedness. Thus all
+private-edge possibilities have been covered. Each case proves
+F WKE, a contradiction. Exchange the private labels to obtain
+the same conclusion for a. QED.
+
+3. FULL SUPPORT, INCLUDING THE ISOLATED CORE VERTEX
+
+Lemma 2. Under the hypotheses of Lemma 1, every vertex of C
+has a private neighbor.
+
+Proof. Suppose t in C is adjacent to neither a nor b. Put
+
+  Q=C\{t}.
+
+The vertices outside Q are z,t,a,b, whose only edges are zt
+and possibly ab. There are two cases.
+
+If ab is present, choose a triangle edge e avoiding t and
+take M={zt,ab,e}. Such an edge e always exists: if t is a
+triangle vertex, use the edge on the other two; if t=s,
+use any triangle edge. This is a three-edge matching containing
+both outside edges.
+
+If ab is absent, Lemma 1 gives each private at least two
+triangle neighbors. All these neighbors avoid t because t
+is unsupported. Choose distinct triangle vertices x,y with
+ax,by present: after any choice of x for a, b has a choice
+different from x. Take M={zt,ax,by}. These edges are disjoint
+and contain the sole outside edge zt.
+
+In both cases |M|=|Q|=3, contradicting non-WKE. This argument
+also applies verbatim when t=s, proving isolated-vertex
+support rather than assuming it. QED.
+
+4. ONE UNIVERSAL FIVE-TRIANGLE RECIPE
+
+Partition the four core vertices into the two unordered pairs
+{j,k} and {t,w}, where j,k are triangle vertices, {t,w} consists
+of the remaining triangle vertex and s, and the order within
+either pair can be chosen. In particular, jk is present and
+tw absent.
+
+Use private labels A={alpha,beta}, B={gamma,delta}. Suppose
+
+  t alpha, j gamma, k delta are present,
+  w alpha, k gamma are absent.                            (4)
+
+No restriction on either private edge or any other attachment
+is imposed. Set
+
+  S={uvw,ujk,ut alpha,vj gamma,vk delta},
+  E0={jk,t alpha,j gamma,k delta},
+  X=E0 union {uj,uk,u beta,vt,vw,v delta}.
+
+Here spacing merely separates a Greek-label vertex: for example
+ut alpha is the triangle with vertices u,t,alpha.
+
+All triangles exist. At u the two single-hub triangles use
+the disjoint rim pairs {j,k},{t,alpha}; at v the pairs are
+{j,gamma},{k,delta}. Both lists avoid w, so their hub spokes
+are disjoint from the two spokes of uvw. Their four rim edges
+are also distinct. Thus S is an edge-disjoint packing of five
+triangles. The four edges of E0 avoid the hubs, and the six
+additional hub edges are distinct, so |X|=10=2|S|. The external
+packed edges are exactly E0, all contained in X.
+
+For coverage, first consider triangles through both hubs.
+The spokes uj,uk,vt,vw cover uv together with each of the
+four core vertices. For triangles through u alone, deletion
+of uj,uk,u beta leaves the rim vertices t,w,alpha. The edge
+tw is absent and w alpha is absent by (4); the only possible
+remaining edge t alpha lies in E0. At v, deletion of vt,vw,
+v delta leaves j,k,gamma. Its possible edges jk,j gamma lie
+in E0, while k gamma is absent by (4). Thus every hub triangle
+meets X.
+
+These are ambient checks: every triangle containing a hub is
+formed from that hub and an edge of its specified link. Edges
+between A and B or leading outside the local neighborhood
+cannot create a different kind of hub triangle. Hence all
+reducibility requirements hold in the ambient graph.
+
+This is O1 from compression/templates/optimal_patterns.txt,
+with its core labels (c0,c1,c2,c3)=(j,t,k,w), attached first-side
+private a1=alpha, unused first-side private a0=beta, and second-
+side labels (b0,b1)=(gamma,delta). Its three absent edges are
+tw,w alpha,k gamma. The direct verification above is independent
+of the dictionary's source or coverage.
+
+The recipe remains valid after exchanging the two hubs with
+their private sides; this exchange is essential in the forcing
+argument below.
+
+5. FORCING THE RECIPE
+
+Apply Lemmas 1 and 2 to both links. For each triangle vertex
+t define its two attachment columns
+
+  A(t)=N(t) intersect A, B(t)=N(t) intersect B,
+
+and define A(s),B(s) in the same way at the isolate. All of
+these sets are nonempty by Lemma 2. Put
+
+  D_A={t in T:A(t)=A}, D_B={t in T:B(t)=B}.
+
+Lemma 1 implies D_A and D_B are nonempty: on either side
+each of two privates has at least two neighbors in a three-set,
+so their triangle neighborhoods intersect. Since each triangle
+vertex has core degree two, (A2) forbids it from having four
+private attachments. Therefore
+
+  D_A intersect D_B is empty.                             (5)
+
+Two nonempty disjoint subsets of the three-set T cannot both
+have size at least two. Exchange sides so |D_A|=1. Each A-private
+has at least two triangle neighbors; their union is T and their
+intersection has size one. Consequently both have exactly two
+triangle neighbors and their missing triangle vertices differ.
+Thus the three columns on T are exactly
+
+  {a}, {b}, {a,b},                                        (6)
+
+in some order.
+
+Fix any i in T and let j,k be the other two triangle vertices.
+Their A-columns are distinct nonempty subsets of the two-set A.
+Among these two columns one is a singleton. Order j,k and label
+the A-privates gamma,delta so
+
+  A(k)={delta}, gamma belongs to A(j).
+
+This is possible because the two columns differ. It gives
+the matched core edge and crossed absence
+
+  j gamma, k delta present; k gamma absent.                (7)
+
+Suppose B(i) differs from B(s). Some B-private alpha then sees
+exactly one of i,s. Let t be the seen vertex, w the missed one,
+and beta the other B-private. The pair {t,w}={i,s} is a nonedge
+of the core. Apply the recipe of Section 4 after the following
+explicit side exchange:
+
+  recipe first hub = original v;
+  recipe second hub = original u;
+  recipe first private pair {alpha,beta} = original B;
+  recipe second private pair {gamma,delta} = original A.
+
+The first-side attachments t alpha and absent w alpha come
+from the chosen difference between B(i),B(s); the second-side
+matching and crossed absence are (7). This supplies a valid
+five-triangle reduction.
+
+It remains to consider the possibility that B(i)=B(s) for
+every i in T. The three B-columns are then one constant
+nonempty subset of B. If it is a singleton, the other B-private
+has no triangle neighbor, contradicting Lemma 1. If it is B
+itself, every triangle vertex belongs to D_B, contradicting
+(5) because D_A is nonempty. These exhaust the nonempty
+subsets of a two-set. Thus some i has B(i) different from B(s),
+and the required recipe always exists. This proves the theorem.
+
+6. SCOPE
+
+The entire triangle-plus-isolate core is proved reducible under
+(A1) and (A2), using only explicit WKE obstructions, a three-column
+attachment argument, and one universally checked packing/cover
+recipe. In particular the isolated core vertex's support is
+proved separately in Lemma 2 without a core perfect matching.
+
+This theorem forces O1 for this core type only. It makes no
+global assertion that the same nine catalogue templates are
+forced in all core types, no global template-minimality claim,
+and no claim to settle the separate mad(G)<8 problem.

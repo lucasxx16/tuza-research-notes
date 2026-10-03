@@ -1,0 +1,118 @@
+COMPLETE STRUCTURAL PROOF FOR THE ORIGINAL CODEGREE-FOUR CONFIGURATIONS
+
+Status: coordinator consolidation of the independently reviewed component
+proofs. All eleven four-vertex core types are accounted for structurally.
+No upstream census, saved-certificate completeness, or solver result is a
+premise. This is not a claim of novelty or formal proof-assistant verification.
+
+1. PRECISE LOCAL THEOREM.
+
+Let G be a finite simple graph, and let u,v be adjacent vertices of degree
+seven whose common neighborhood C has exactly four vertices. Write
+  N(u)={v} union C union A,
+  N(v)={u} union C union B,
+where A,B are disjoint two-sets, and put H=G[C]. Assume
+  (A1) G[N(u)] and G[N(v)] are connected and not WKE;
+  (A2) deg_H(x)+|N(x) intersect A|+|N(x) intersect B|<=5 for every x in C.
+
+A graph F is WKE if some matching M and vertex set Q satisfy |Q|<=|M|
+and every edge of F with both endpoints outside Q belongs to M.
+
+Then there exist an edge-disjoint triangle packing S in G and an edge set
+X subset E(G) satisfying
+  |X|<=2|S|;
+  X meets every triangle containing u or v;
+  X contains every packed edge whose endpoints both avoid {u,v}.
+Thus {u,v} is a reducible set in Puleo's sense. Arbitrary edges between A
+and B and arbitrary edges outside these full hub neighborhoods are permitted.
+No additional bound on ambient degrees of private vertices is assumed.
+
+2. EXHAUSTION OF CORE TYPES WITHOUT A GRAPH CENSUS.
+
+The core has four vertices and between zero and six edges. At zero or one
+edge its type is unique. Two edges are adjacent (P3 plus isolate) or
+disjoint (2K2). At three edges, a disconnected core must be triangle plus
+isolate; a connected core is a four-vertex tree, either P4 or K1,3. At four
+edges its two missing edges are disjoint (giving C4) or adjacent (giving
+paw). Five edges give diamond, and six give K4. These are all possibilities.
+
+For the empty and single-edge types, each connected seven-vertex link is
+WKE by the explicit witnesses and the stated use of Puleo Corollary 4.12 in
+  compression/round3/E/zero_core_exclusions.txt.
+They contradict (A1) and cannot occur.
+
+For every other type, the following reviewed proof derives a complete
+structural disjunction from (A1),(A2) and supplies literal S,X for each
+branch. The file paths are relative to the repository root.
+
+  Core                   Proof file
+  P3 plus isolate        compression/round3/E/sparse_star_cores.txt
+  2K2                    compression/theory/human_case_2k2.txt
+  K1,3                   compression/round3/E/sparse_star_cores.txt
+  P4                     compression/round3/E/path_core.txt
+  Triangle plus isolate  research/round8/E/triangle_isolate_core.txt
+  Paw                    research/round8/E/paw_core.txt
+  C4                     research/round7/E/c4_core.txt
+  Diamond                research/round6/E/diamond_core.txt
+  K4                     compression/round3/D/k4_human_proof.txt
+
+Each construction checks triangle existence, edge-disjointness, X subset E,
+the factor-two budget, every ambient hub triangle, and containment of packed
+external edges. Since the core types above exhaust all four-vertex graphs,
+and the two exceptional types are impossible, one of those constructions
+always applies. This proves the local theorem.
+
+3. WHY THESE CERTIFICATES GIVE A REDUCTION.
+
+Put G'=(G-X)-{u,v}. If G' satisfies tau(G')<=2nu(G'), take a maximum packing
+P and minimum cover Y there. Every S-edge either meets {u,v} or is in X,
+so P and S are edge-disjoint. Also X union Y covers G: hub triangles meet X;
+all other triangles either meet X or survive in G'. Hence
+  tau(G)<=|X|+|Y|<=2|S|+2|P|<=2nu(G).
+This is the ambient induction bridge; checking only a standalone local
+graph would not have been sufficient.
+
+4. AUDIT TRAIL AND RECORD COUNTS.
+
+The earlier component reviews are in compression/verification/ and
+compression/round3/C/. The later exact-file reviews are
+  research/round6/C/review_E_full.txt (diamond),
+  research/round7/C/review_E_full.txt (C4),
+  research/round8/C/review_E_full.txt (paw),
+  research/round8/C/review_tri_full.txt (triangle plus isolate).
+The final dependency/scope check is research/round8/C/structural_scope.txt.
+The coordinator read and checked the new proofs and their final reviews.
+
+For context only, the saved 1,144 records split by these nine possible core
+types as follows:
+  P3+isolate 150; 2K2 17; K1,3 113; P4 273; triangle+isolate 25;
+  paw 179; C4 227; diamond 139; K4 21.
+Their sum is 1,144. No count is used in the theorem or case exhaustion.
+
+5. WHAT IS AND IS NOT COMPLETE.
+
+This completes a human-readable structural explanation of reducibility for
+the original A1+A2 codegree-four configurations. Gupta had already proved
+the corresponding original local proposition through a finite certificate
+catalogue. The starting source and data attribution remain
+  Anish Gupta, "Tuza's conjecture for graphs of maximum degree at most seven,"
+  arXiv:2608.06538v1, https://arxiv.org/html/2608.06538v1
+and its pinned companion repository/data (see compression/input/PROVENANCE.txt).
+The WKE framework and the named imported theorem above are due to
+  Gregory J. Puleo, arXiv:1308.2211v3,
+  https://arxiv.org/html/1308.2211v3 .
+No literature-priority conclusion is drawn for the component constructions.
+
+Separately, nine signed templates cover the 1,144 supplied records and are
+optimal in the fixed dictionary of 499 catalogue-derived pattern orbits.
+That exact finite-dictionary result remains proved by its independent
+upper/lower-certificate checks. The structural argument here does NOT claim
+that every A1+A2 configuration must match one of those same nine patterns;
+it may use other explicitly proved recipes. Nor does either result prove
+a global minimum over arbitrary structural-template languages.
+
+Finally, (A2) holds in the original maximum-degree-seven setting because
+each common vertex is also incident to u and v. It does not follow merely
+from mad(G)<8. The present local theorem therefore does not settle that
+separate maximum-average-degree question or replace the required low-degree
+joint counting argument.

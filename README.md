@@ -58,12 +58,23 @@ Round seven locally excludes that example by a six-triangle/twelve-cover
 certificate and proves two general reductions for nonadjacent vertices with
 a chosen common K4 and specified extra attachments, for degree sums at most
 eleven or twelve. In a robust graph with no reducible set, these forbid a
-degree-five/six pair from sharing K4: codegree is at most four, and codegree
-four forces a diamond. For a degree-six/six pair sharing a chosen K4, each
+degree-five/six pair from sharing K4. For a degree-six/six pair sharing a chosen K4, each
 link's sole missing edge must join its two vertices outside that K4. These
 are additional necessary restrictions for a minimal mad<8 counterexample;
 the global joint counting argument remains incomplete.
 
+Round eight also excludes the remaining five/six common-diamond case, including
+thin and non-thin six-links. Thus any degree-five/six pair in a robust graph
+with no reducible set has at most three common neighbors. The universal
+selected-diamond construction uses six triangles and a cover whose size equals
+the two nonadjacent centers' degree sum, allowing sums at most twelve under
+its specified attachments. This necessary restriction applies to arbitrary
+subgraph-minimal mad<8 counterexamples and still does not close global counting.
+
+- [Round-eight results and completed structural subproblem in Chinese](docs/research-round8.zh-CN.txt)
+- [Round-eight coordinator review](research/round8/review_summary.txt)
+- [Common-diamond reduction and five/six codegree at most three](research/round8/D/diamond_overlap_reduction.txt)
+- [Exact-file review of the diamond-overlap theorem](research/round8/C/review_D_full.txt)
 - [Round-seven results and limits in Chinese](docs/research-round7.zh-CN.txt)
 - [Round-seven coordinator review](research/round7/review_summary.txt)
 - [Two low-pair reductions and overlap restrictions](research/round7/D/low_degree_overlap_reductions.txt)
@@ -119,22 +130,28 @@ rebuilds the entire dictionary and incidence relation from the original witnesse
 then checks both bounds and all 1,144 exported certificates. No solver's floating
 point status is needed for this proof of optimality.
 
-Human-readable proofs now settle seven entire core types: **P3 plus an isolated
-vertex, K1,3, 2K2, P4, K4, diamond, and C4**. Together these types account for 940 of
-the 1,144 saved records; the proofs do not use those counts or the catalogue as
-premises. The diamond proof derives full private attachment support and then
-exhausts paired/split center attachments with five explicit packing-cover
-recipes. It requires the original connected non-WKE links and common-vertex
-degree budget; it does not derive that budget from maximum average degree.
-Round seven treats the whole C4 core using full support, disjoint attachment
-overlaps, an explicit WKE obstruction, and four universal packing-cover recipes.
-It also requires the original A1 and A2 hypotheses.
-Empty and single-edge cores are also excluded structurally, using explicit WKE
-witnesses and Puleo's Corollary 4.12. Two types remain: triangle plus isolated
-vertex (25 records) and paw (179), totaling 204. The upstream graph census and
-original certificate finder were not rerun.
+**The human structural-reducibility proof for all original A1+A2 configurations
+is now complete.** Empty and single-edge cores are excluded by WKE arguments;
+all nine other four-vertex core types have reviewed constructive proofs:
+P3 plus isolate, 2K2, K1,3, P4, triangle plus isolate, paw, C4, diamond, and K4.
+These types correspond to all 1,144 saved records, but neither the counts nor
+catalogue completeness is a premise. The final triangle-plus-isolate proof
+establishes support separately, without assuming a core perfect matching.
 
-- [Latest structural results and remaining cases, in Chinese](docs/research-round7.zh-CN.txt)
+The combined theorem retains connected non-WKE links (A1) and the original
+common-vertex degree budget (A2). Its component recipes need not be the same
+nine catalogue templates. Structural completeness, record coverage, and the
+finite-dictionary minimum are separate results; no unrestricted template
+minimum or full mad<8 implication follows. The upstream graph census and
+original certificate finder were not rerun for these structural proofs.
+
+- [Complete structural theorem and proof index](compression/theory/complete_structural_proof.txt)
+- [Latest structural results and precise limits, in Chinese](docs/research-round8.zh-CN.txt)
+- [Final dependency and scope review](research/round8/C/structural_scope.txt)
+- [Complete human paw-core proof](research/round8/E/paw_core.txt)
+- [Exact-file paw review](research/round8/C/review_E_full.txt)
+- [Complete human triangle-plus-isolate proof](research/round8/E/triangle_isolate_core.txt)
+- [Exact-file triangle-plus-isolate review](research/round8/C/review_tri_full.txt)
 - [Complete human C4-core proof](research/round7/E/c4_core.txt)
 - [Exact-file C4 proof review](research/round7/C/review_E_full.txt)
 - [Complete human diamond-core proof](research/round6/E/diamond_core.txt)
@@ -189,6 +206,7 @@ classification or a minimum-order question.
 | `mad8/` | Partial reductions, density barriers, source audits, and named-graph checks |
 | `research/round6/` | Diamond proof, prescribed-edge theorem, joint-counting barrier, source audits, and saved-record checks |
 | `research/round7/` | C4 proof, low-degree overlap reductions, bounded fixed-graph search, and independent reviews |
+| `research/round8/` | Final two core proofs, diamond-overlap reduction, completed structural scope, and source audits |
 | `compression/input/` | Unmodified, attributed upstream certificate catalogue |
 | `compression/templates/` | Signed patterns, incidence data, exports, and generators |
 | `compression/theory/` | Structural proofs and reusable lemmas |
@@ -207,6 +225,10 @@ session transcripts are excluded from the public record.
 
 Run from the repository root with Python 3.10 or newer. These checks require only
 the standard library. Do not use `python -O`, which disables assertions.
+
+Round eight's proofs are symbolic and have no numerical-check premise. The two
+planned fixed-patch searches were cancelled after the explicit construction
+was found; no numerical candidate was supplied to the independent researcher.
 
 Round seven's independent fixed-graph check rebuilds J and its neighborhood
 patch, checks both the 7/13 and 6/12 certificates against all ambient hub

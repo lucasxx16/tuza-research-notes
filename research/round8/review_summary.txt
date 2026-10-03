@@ -1,0 +1,79 @@
+ROUND 8 COORDINATOR DECISION
+
+Accept both remaining original core proofs and the nonadjacent diamond
+reduction with its five/six codegree bound. Stop new research at completion
+of the original human structural-reducibility subproblem. The full mad<8
+implication remains unresolved. No novelty, human peer-review, or formal
+proof-assistant-verification claim is made.
+
+PAW CORE
+E proves full support from the perfect-matching-core lemma and unique
+attachments at the degree-three core vertex. The induced-path recipe
+reduces unequal weak-private attachment; otherwise each weak private sees
+all or none of the other three core vertices. Empty/empty gives O9,
+mixed gives O5, and double-full either gives O1 or contradicts WKE/A2.
+Four explicit recipes have sizes 5/10, 5/9, 6/12, 5/10 and complete ambient
+checks. C and coordinator accept the entire A1+A2 implication, independent
+of the 179 saved paw records.
+
+TRIANGLE PLUS ISOLATE
+After the paw proof was accepted, the coordinator authorized E's bounded
+short route for the only remaining core. Separate explicit WKE witnesses
+force every private to have at least two triangle neighbors and force full
+support, including at the isolate. No perfect-matching lemma is misused.
+Disjoint nonempty double-attachment sets on the triangle force one side's
+three columns to be the two singletons and the pair. Any difference between
+the opposite side's triangle and isolate columns then supplies O1 after a
+precise hub exchange; constant columns contradict either the private-degree
+lemma or A2. The literal five-triangle/ten-edge recipe is ambient-safe.
+C and coordinator accept the complete proof; the 25 records are not a premise.
+
+ALL ORIGINAL CORES NOW COVERED STRUCTURALLY
+Empty and single-edge cores are WKE exclusions. The nine remaining types
+all have reviewed human reducibility proofs under the original A1+A2.
+The coordinator's combined theorem and proof index is
+  compression/theory/complete_structural_proof.txt.
+The dependency audit is C/structural_scope.txt. The saved-record total
+progress is 940+179+25=1,144, but no such count or catalogue completeness is
+used in the structural theorem. The eleven types exhaust four-vertex graphs
+by elementary edge-count cases, not by a renewed census.
+
+This completes the human structural explanation of the original local
+codegree-four proposition, which Gupta had already proved by certificates.
+It is separate from the nine-template minimum inside the fixed dictionary
+of 499 pattern orbits. Neither an unrestricted global minimum nor forcing
+the same nine signed templates on all A1+A2 configurations is claimed.
+
+NONADJACENT DIAMOND FAMILY AND FIVE/SIX OVERLAP
+D independently constructs six triangles for nonadjacent u,v with chosen
+common diamond C=K4-ab, p in N(u) outside C joined to c,d, and adjacent q,r
+in N(v) outside C. Even p=q or p=r is allowed. Cover the eight external
+packed edges and all hub spokes leaving C: |X|=d(u)+d(v), so degree sum at
+most twelve suffices. C and coordinator checked all coincidences, external
+packed edges, and arbitrary ambient triangles.
+
+For exact five/six codegree four in a robust graph with no reducible set,
+Puleo 2.7(a),(b) forces the five-private complete to C and the two six-
+privates adjacent. Both six-link cases were proved: non-thin misses ab;
+thin misses ab,cq,dr up to labels. Hence both receive the same 6/11 reduction.
+Together with the re-proved round-seven common-K4 exclusion, every five/six
+pair in such a graph has codegree at most three. This applies to arbitrary
+subgraph-minimal mad<8 counterexamples, without restrictions on seven-links,
+but is not yet a sufficient global joint counting argument.
+
+COMPUTATIONAL AND SOURCE SCOPE
+HPC A audited the relevant Puleo definitions and statements; C verified the
+source and corrected overbroad absence claims and the distinction between
+2.7(c) subsumption and 2.7(d) thin-six adjacency. The derived patch shapes
+are consequences of the source, not separately source-stated theorems.
+Two fixed-patch HPC B searches were planned, then cancelled after D supplied
+its independent symbolic certificate. No numerical candidate file was
+produced or sent to D. No numerical output is a premise of this round.
+No original census/finder or enlarged atlas scan was run for these proofs.
+
+NEXT GAP
+The original core list no longer needs additional structural cases. The
+mad<8 work still needs a sufficient joint low-degree/high-degree counting
+argument or further overlap exclusions, including the remaining six/six
+patterns. The original common-vertex degree budget is not supplied by
+maximum average degree alone. No further research round is started here.

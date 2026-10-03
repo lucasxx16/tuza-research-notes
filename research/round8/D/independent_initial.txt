@@ -1,0 +1,58 @@
+ROUND 8 / D / INDEPENDENT INITIAL DRAFT
+
+Recorded before reading E round-eight work or receiving any new
+numerical certificate. No numerical search has been run by D.
+
+TARGET AND EXACT TWO PATCHES.
+Let u,v be nonadjacent vertices of degrees five and six, with
+N(u) intersect N(v)=C={a,b,c,d}, inducing diamond K4-ab.
+Write N(u)\C={p}, N(v)\C={q,r}.
+
+In a robust graph with no reducible set, Puleo 2.7(a) says each
+low-degree link complement is a matching and cannot have two edges.
+Since the u-link already misses ab, it is exactly K5-ab, so p is
+complete to C.
+
+The v-link is either K6-ab (non-thin), or K6 minus a perfect matching
+of size three (thin). In the thin case, one missing edge is ab; the
+other two form a perfect matching on {c,d,q,r}. The option {cd,qr}
+is impossible because cd belongs to the common diamond. After
+interchanging q,r, the missing edges therefore are ab,cq,dr.
+In particular qr exists in BOTH cases. The private cross edges pq,pr
+are arbitrary and will not be used.
+
+UNIFIED SIX-TRIANGLE CERTIFICATE.
+Take
+  S={uac,ubd,vad,vbc,vqr,pcd},
+  X=E(G[C]) union {pc,pd,qr,up,vq,vr}.
+The two u-triangles use one perfect matching of the four-cycle
+a-c-b-d-a, and the two v-triangles use its other perfect matching.
+The triangle pcd uses the remaining common edge cd and two p-spokes.
+The triangle vqr uses the two remaining v-spokes and qr.
+Thus all six triangles are edge-disjoint. The set X has eleven edges.
+
+All packed edges with endpoints outside {u,v} belong to X. Every
+triangle through u either contains p and meets up, or uses a common
+edge in E(G[C]). Every triangle through v either contains q or r and
+meets vq or vr, or uses a common edge. Thus X covers all ambient
+triangles through either center and |X|=11<=12=2|S|.
+
+This is a genuine reduction of {u,v}, valid for arbitrary ambient
+edges outside their fixed neighborhoods; it does not just verify
+Tuza on the nine-vertex patch. It treats thin and non-thin together.
+
+POSSIBLE SYMBOLIC FAMILY, TO BE STATED PRECISELY IN THE FULL PROOF.
+The same S works when C is a chosen common diamond, p is any neighbor
+of u outside C adjacent to c,d, and q,r are adjacent neighbors of v
+outside C. Cover ALL center edges leaving C, together with
+E(G[C]) and pc,pd,qr. For nonadjacent u,v the cover size is exactly
+d(u)+d(v), so degree sum at most twelve suffices. The vertices p,q,r
+need not be pairwise private; p may equal q or r without causing an
+edge collision. For a clean first theorem they may be required
+distinct, since the intended codegree-four corollary has that property.
+
+Combining the exact degree-five/six diamond exclusion with the reviewed
+round-seven common-K4 exclusion should imply that, in any robust graph
+with no reducible set, a degree-five vertex and a degree-six vertex
+have at most three common neighbors. Full hypotheses and the ambient
+induction bridge remain to be written and adversarially checked.

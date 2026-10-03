@@ -1,0 +1,38 @@
+ROUND 8 / D STATUS
+
+Reviewed research proof:
+  diamond_overlap_reduction.txt
+Exact-file review:
+  C/review_D_full.txt
+Independent draft:
+  independent_initial.txt
+
+UNIVERSAL FAMILY.
+Two nonadjacent centers share a chosen diamond C=K4-ab. A neighbor p
+of the first center outside C sees c,d; two distinct neighbors q,r
+of the second center outside C are adjacent. Then the pair is
+reducible whenever its degree sum is at most twelve. The vertex p
+may equal q or r. The construction uses six triangles, and its cover
+size is exactly the degree sum.
+
+CLOSED FIVE/SIX CASE.
+Under robustness and absence of reducible sets, the exact codegree-
+four diamond patch has p complete to C. The six-link is either
+K6-ab or, after relabeling, K6 minus ab,cq,dr. Thus qr exists in
+both the non-thin and thin cases. The same six-triangle/eleven-edge
+certificate excludes both, without private cross edges pq,pr.
+
+Together with the reproduced common-K4 reduction, this proves that
+every degree-five vertex and degree-six vertex have at most three
+common neighbors in a robust graph with no reducible set. In
+particular the bound applies to any subgraph-minimal mad<8 Tuza
+counterexample, without a restriction on degree-seven link types.
+
+The initial draft was saved before any E round-eight material or
+numerical result. D ran no numerical search; the parent's proposed
+bounded searches were cancelled after the symbolic certificate was
+found, before any numerical candidate was sent to D.
+
+No novelty claim is made. The full mad<8 question and a complete
+joint counting argument remain open. D stops at this reviewed
+family-level reduction and the codegree bound.

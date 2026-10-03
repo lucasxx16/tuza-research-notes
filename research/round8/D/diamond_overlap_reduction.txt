@@ -1,0 +1,195 @@
+ROUND 8 / D
+A COMMON-DIAMOND REDUCTION AND A FIVE/SIX CODEGREE BOUND
+
+Status: reviewed research proof; see C/review_D_full.txt.
+No novelty claim is made. This is a symbolic proof for arbitrary
+ambient graphs; no numerical search or numerical candidate was used.
+
+1. REDUCIBILITY AND THE AMBIENT INDUCTION BRIDGE.
+
+All graphs are finite and simple. Let nu(G) be the largest number of
+edge-disjoint triangles and tau(G) the smallest size of an edge set
+meeting every triangle. A nonempty vertex set Z is reducible if there
+are an edge-disjoint triangle collection S and an edge set X satisfying
+  (i) |X|<=2|S|;
+  (ii) X meets every triangle containing a vertex of Z;
+  (iii) every S-edge with both endpoints outside Z belongs to X.
+
+Put G'=(G-X)-Z. If tau(G')<=2nu(G'), take a maximum packing P and a
+minimum cover Y of G'. By (iii), P is edge-disjoint from S. Also
+X union Y covers G: a triangle through Z meets X by (ii), and a
+triangle avoiding Z either meets X or survives in G'. Therefore
+  tau(G)<=|X|+|Y|<=2|S|+2|P|<=2nu(G).
+This explains the required ambient safety. It is stronger than merely
+checking Tuza's inequality on the displayed local patch.
+
+2. A UNIVERSAL SELECTED-DIAMOND FAMILY.
+
+THEOREM.
+Let u,v be distinct nonadjacent vertices of an arbitrary graph G.
+Let C={a,b,c,d} be a chosen subset of N(u) intersect N(v), inducing
+the diamond K4-ab. The set C need not be the entire common
+neighborhood. Suppose
+  p belongs to N(u)\C and pc,pd are edges;
+  q,r are distinct vertices of N(v)\C and qr is an edge.
+If d(u)+d(v)<=12, then {u,v} is reducible.
+
+The vertex p is permitted to equal q or r. Otherwise all of p,q,r
+are distinct. None belongs to C union {u,v}, by the stated membership
+and nonadjacency. No hypothesis requires them to be private neighbors,
+and there are no restrictions on other common neighbors, remaining
+neighbor edges, or the rest of G.
+
+Proof. Take the six triangles
+  S={uac,ubd,vad,vbc,vqr,pcd}.
+All their edges exist. The first four use the four distinct edges
+ac,bd,ad,bc of the common four-cycle and distinct spokes at u or v.
+The last triangle uses the unused common edge cd and pc,pd. The
+triangle vqr uses vq,vr outside the four common spokes, and qr.
+The edges pc,pd,qr are distinct: p,q,r lie outside C and q!=r.
+Even if p=q or p=r, qr has both endpoints outside C, whereas pc,pd
+each have one endpoint in C. None of these edges touches u or v.
+Thus all six triangles are edge-disjoint, including the permitted
+coincidences among p,q,r.
+
+Define
+  R=E(G[C]) union {pc,pd,qr},
+  Uout={ux: x in N(u)\C},
+  Vout={vy: y in N(v)\C},
+  X=R union Uout union Vout.
+The eight edges of R all avoid u,v. The outside-spoke sets Uout and
+Vout are disjoint because their only possible common edge would be
+uv, which is absent. Hence
+  |X|=8+(d(u)-4)+(d(v)-4)=d(u)+d(v)<=12=2|S|.
+
+Every triangle through u either has a neighbor outside C and meets
+Uout, or has its two other vertices in C and meets E(G[C]). The
+same dichotomy at v uses Vout or E(G[C]). This accounts for all
+ambient triangles, including any created by extra edges among outside
+neighbors or by additional common neighbors.
+
+Finally, every S-edge outside {u,v} belongs to R: these are exactly
+the five diamond edges and pc,pd,qr. The three reduction conditions
+hold, proving the theorem.
+
+The degree sum condition includes five/six, five/seven, and six/six
+degree pairs when the displayed structural hypotheses hold. No new
+classification of the latter two pairs is asserted here. The single
+unit of slack for degrees five and six can absorb one additional
+incident edge through the outside-spoke cover.
+
+3. THE EXACT FIVE/SIX PATCHES: NON-THIN AND THIN.
+
+Assume now that G is robust and has no reducible set. Here robust
+means that every component of every induced neighborhood has at
+least five vertices. We import precisely Puleo's Lemma 2.7(a),(b):
+degree-at-most-six vertices are independent, and each of their link
+complements is a matching whose size is not two. Therefore a five-link
+is K5 or K5-e, while a six-link is K6, K6-e, or K6 minus a perfect
+matching of size three. A six-vertex of the last type is thin.
+
+Suppose d(u)=5, d(v)=6, and their entire common neighborhood is
+C={a,b,c,d}, inducing K4-ab. They are nonadjacent by the imported
+independence condition. Write
+  N(u)=C union {p},
+  N(v)=C union {q,r}.
+In this exact-codegree-four application, p,q,r are distinct, p is
+not a neighbor of v, and q,r are not neighbors of u. The u-link
+already lacks ab, so its only missing edge is ab. In particular p
+is complete to C and pc,pd exist.
+
+There are exactly two possible types for the v-link.
+
+Non-thin case: the v-link is K6-ab, because ab is already missing
+and at most one edge may be missing. Thus qr exists.
+
+Thin case: its missing edges form a perfect matching of size three.
+One is ab. The other two form a perfect matching on {c,d,q,r}.
+They cannot be {cd,qr}, since cd is present in the common diamond.
+The other two possibilities are {cq,dr} and {cr,dq}. After
+interchanging q,r if necessary, its missing edges are precisely
+  ab,cq,dr.
+Again qr exists. The argument does not discard the thin case or
+silently assume that q,r are complete to C.
+
+Thus both cases satisfy the universal theorem, and they have the
+same explicit certificate
+  S={uac,ubd,vad,vbc,vqr,pcd},
+  X=E(G[C]) union {pc,pd,qr,up,vq,vr}.
+It has six triangles and eleven edges. The edges pq,pr are arbitrary
+and unused. This contradicts the assumption of no reducible set.
+
+Consequently a degree-five/six pair cannot have an entire common
+neighborhood inducing a four-vertex diamond in any robust graph
+with no reducible set.
+
+4. CLOSING THE DEGREE-FIVE/SIX CODEGREE-FOUR CASE.
+
+For completeness, the short common-K4 argument from the reviewed
+round-seven proof is reproduced here with its exact certificate.
+
+LEMMA (COMMON-K4 EXCLUSION).
+In a robust graph with no reducible set, a degree-five vertex u and
+a degree-six vertex v cannot have a chosen common four-clique
+Q={z1,z2,z3,z4}.
+
+Proof. They are nonadjacent. A thin six-link, K6 minus a perfect
+matching, has clique number three, so the presence of Q means the
+v-link has at most one missing edge. Among the two neighbors of v
+outside Q, one, say s, is complete to Q: otherwise two distinct
+missing edges would be needed. Use
+  T={u z1 z2, u z3 z4, v z1 z3, v z2 z4,
+     s z1 z4, s z2 z3}.
+Its six triangles are edge-disjoint: their Q-edges are the six
+distinct clique edges, with four distinct spokes at each of u,v,s.
+Take as cover all ten edges of the K5 on Q union {s}, all u-spokes
+leaving Q, and all v-spokes leaving Q union {s}. There are
+  10+(5-4)+(6-5)=12
+edges. All packed edges outside {u,v} lie in that K5; every triangle
+through either center uses a deleted outside spoke or a K5 edge.
+This is a reduction, a contradiction. The vertex s may also neighbor
+u; the count and the proof still hold.
+
+COROLLARY (FIVE/SIX CODEGREE AT MOST THREE).
+In every robust graph with no reducible set, vertices u,v of degrees
+five and six satisfy
+  |N(u) intersect N(v)|<=3.
+
+Proof. They are nonadjacent. If they had five common neighbors, those
+would be all of N(u). Its K5 or K5-e graph contains a four-clique,
+contradicting the preceding lemma. More than five common neighbors
+is impossible because d(u)=5. If they have exactly four common
+neighbors, their induced graph is K4 or K4-e, by the five-link
+restriction. The lemma excludes K4, and Section 3 excludes K4-e.
+These exhaust all possibilities of codegree at least four.
+
+This corollary uses no average-degree hypothesis. In particular it
+is a necessary condition for any subgraph-minimal counterexample to
+Tuza with mad<8. Such a graph has all proper subgraphs satisfying
+Tuza, since mad<8 is subgraph-closed; Section 1 therefore forbids any
+reducible set. Puleo's Lemma 2.6 gives robustness. The argument applies
+to arbitrary such minimal counterexamples, not only graphs whose
+degree-seven links belong to a previously classified family.
+
+5. SCOPE, SOURCE, AND PROVENANCE.
+
+Primary source for the imported low-link and independence facts:
+Gregory J. Puleo, "Tuza's Conjecture for Graphs with Maximum Average
+Degree less than 7," arXiv:1308.2211v3, Definitions 2.1 and 2.3-2.5,
+Lemmas 2.6 and 2.7(a),(b).
+  https://arxiv.org/html/1308.2211v3
+
+The common-K4 certificate reproduced in Section 4 is from the reviewed
+research file research/round7/D/low_degree_overlap_reductions.txt.
+The diamond family and its two patch cases above were derived
+symbolically before receiving any numerical output. The parent had
+proposed two bounded searches, but cancelled them after receiving
+the explicit construction; no numerical file or candidate was sent
+to D. The independent draft is research/round8/D/independent_initial.txt.
+No E round-eight material was inspected before that draft.
+
+The result closes the five/six common-diamond case and yields a new
+necessary overlap restriction within this project. It does not claim
+literature novelty, settle Tuza for all mad<8 graphs, or complete a
+joint degree-counting argument. The six/six residual classification
+is not expanded in this round. Research stops at this milestone.

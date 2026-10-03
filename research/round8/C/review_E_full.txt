@@ -1,0 +1,9 @@
+ROUND 8 C — EXACT-FILE REVIEW OF E/paw_core.txt
+
+VERDICT: ACCEPT the complete paw-core reduction under A1 and A2. This is a structural proof, independent of the 179 saved records. It does not establish the full mad<8 theorem.
+
+I checked the reproduced full-support Lemma S: its four support-size WKE matchings, then the unsupported-vertex Q=C\{t} argument, apply because paw has perfect matching {ps,qr}. Since deg_H(p)=3, A2 makes p have precisely one attachment on each side. The O4 path orientation in recipe A is valid for either s-p-q or s-p-r; the opposite-side attachment follows from full support. After avoiding A, each p-missing private sees all or none of {s,q,r}. If none, connectedness forces the private edge and full support makes its partner complete to C.
+
+All four literal S/X recipes were checked. A: five triangles/ten cover edges; its residual u-link edges are only tp,pw,ta, and residual v-link edges tp,pw. E: five/nine; residual edges are sp,pq on both sides. M: six/twelve; its outside qra triangle uses qr,qa,ra, all in X, while residual u-link edges are qr,qa,ra,ab and residual v-link edges ps,sd. T: five/ten; residual u-link edge ta and v-link edges ph,hd are in X. In each recipe the packed triangles are edge-disjoint, every packed edge avoiding u,v is in X, X contains only present edges, and all two-hub triangles are hit by uv or the listed complementary core spokes. Private-pair edges and A–B edges cannot evade these residual-link checks.
+
+The branch disjunction is exhaustive. Empty/empty gives E; one empty gives M. If both weak privates see {s,q,r}, differing dominant adjacency on s versus q or r gives T, whose O1 mapping has critical absence pd from p-uniqueness. Otherwise a dominant seeing only p yields exact WKE witness Q={z,p,b}, M={qr,pa,zs}; both dominants complete to C would make q's A2 value 2+2+2=6. Thus T must apply before that contradiction. No unproved census-coverage inference remains.
