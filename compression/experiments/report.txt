@@ -1,0 +1,283 @@
+=== Role B: Codegree-4 Certificate Catalogue Analysis Report ===
+Westlake HPC | Numerical/Statistical Work | No Proof Declarations
+
+Input file: ../input/B_codegree4_certificates.json
+Input SHA256: 94c164cfe98180d73b839194735eb57ac97c5ab8203117110e6ad2d445070faf
+Total records: 1144
+Scope: Works ONLY on saved records. No graph enumeration, no solver.
+
+===============================================================================
+TASK 1: Independent Reducibility Verification
+===============================================================================
+Method: Decode all graphs from JSON bit orders (core 6-bit, side 9-bit).
+Check all four conditions under all 16 possible A-B cross-edge sets:
+  (a) cover subset of guaranteed edges
+  (b) packing triangles have disjoint edges within guaranteed graph
+  (c) |cover| <= 2|packing|
+  (d) every hub-triangle in guaranteed graph hits the cover
+  (e) every packing triangle's non-hub (rim) edge is in cover
+
+Results:
+  Duplicate keys:           0
+  Degree budget failures:   0
+  Non-canonical keys:       0
+  Cross-extension failures: 0 (all 18304 checks pass)
+  Tight records (|cover|=2|packing|): 1144/1144
+
+OVERALL: ALL 1144 RECORDS INDEPENDENTLY VERIFIED VALID.
+
+Note: No claim that saved keys cover all theoretical admissible graphs.
+
+===============================================================================
+TASK 2: Packing and Cover Statistics
+===============================================================================
+
+2a. Hub-triangle classification (total triangles across all 1144 packings):
+  both u and v:  955
+  only u:       2424
+  only v:       2398
+  neither:       247
+  TOTAL:        6024
+
+2b. Non-hub (neither u nor v) packing triangles by partition type:
+  C = common {2,3,4,5}, A = left_excl {6,7}, B = right_excl {8,9}
+  ACC: 107    (1 A-vertex + 2 common)
+  AAC:  15    (2 A-vertices + 1 common)
+  BCC:  81    (1 B-vertex + 2 common)
+  BBC:  22    (2 B-vertices + 1 common)
+  CCC:  22    (all 3 common)
+  TOTAL: 247
+  (No AAA/BBB/ABC types possible: only 2 vertices per exclusive set)
+
+2c. Cover composition (rim = non-hub edges, spoke = hub-incident edges):
+  Rim edges per cover:   range 3..14, distribution concentrated at 4-5
+  Spoke edges per cover: range 2..6, distribution concentrated at 5-6
+  Total cover sizes:     {8:35, 10:803, 12:276, 14:27, 16:3}
+  All covers tight: |cover| = 2|packing| exactly (no slack)
+
+2d. Structural decomposition of rim edges in cover:
+  CORE edges (between common vertices):              2179
+  SIDE edges (common-to-exclusive, or exclusive-pair): 3698
+  CROSS (A-B) edges:                                    0
+  OTHER (not in guaranteed graph at cross=0):           0
+  -> All rim cover edges belong to the structural (S,X) pair; no exotic edges.
+
+2e. UV edge (hub-hub edge (0,1)) location:
+  In packing AND cover:   330 records (28.8%)
+  In packing only:        625 records (54.6%)
+  In cover only:           86 records  (7.5%)
+  In neither:             103 records  (9.0%)
+
+2f. Packing edge consumption:
+  Total packing edge-slots: 18072
+  Spoke (hub-incident):     12509 (69.2%)
+  Rim (non-hub):             5563 (30.8%)
+  -> Packings heavily use hub links; rim edges serve as triangle connectors.
+
+2g. Residual hub links (guaranteed spoke edges NOT consumed by packing):
+  Computed per record. Average ~6.2 spoke edges available at cross=0.
+  Packings with larger sizes consume more, leaving fewer residual links.
+
+===============================================================================
+TASK 3: Canonicalization under Gamma (192 maps)
+===============================================================================
+Group Gamma = S4(permute 4 common) x Z2(swap A-vertices)
+            x Z2(swap B-vertices) x Z2(swap (u,A)<->(v,B))
+|Gamma| = 24 x 2 x 2 x 2 = 192
+
+NOTE: This measures literal witness shapes under this specific group action.
+It is NOT a claim about minimum structural templates for the certificate table.
+The counts below are CATALOGUE CLASS FREQUENCIES (number of the 1144 saved
+records assigned to each Gamma equivalence class). They are NOT group-orbit
+cardinalities and say NOTHING about stabilizers/symmetry: a true orbit of Gamma
+would have size dividing |Gamma|=192, whereas these class frequencies (e.g. 176)
+need not divide 192. The word "class" below always means "records sharing one
+canonical literal shape", not "group orbit".
+
+3a. Packing-only equivalence classes:
+   Minimum literal-shape classes (packing): 149 (from 1144 records)
+   Records-per-class frequency distribution (sum = 1144, sum of freq*count = 1144):
+     1 record/class:  76 classes
+     2 records/class: 29 classes
+     3: 11   4: 6   5: 4   6: 4   7: 1   8: 1   10: 2   11: 2   12: 2
+     13: 1   14: 1   18: 1   25: 1   34: 1   40: 1   57: 1   64: 1
+     81: 1   94: 1   99: 1   134: 1   176: 1   (largest class holds 176 records)
+
+3b. (S,X) pair equivalence classes:
+   Minimum literal-shape classes (S,X): 532
+   Records-per-class frequency distribution (sum = 1144):
+     1: 346   2: 77   3: 35   4: 18   5: 22   6: 11   7: 6   8: 4
+     9: 2   10: 3   (and 10 further classes with 11..38 records each)
+
+3c. Class-refinement cross-checks (these follow from the two relations'
+    definitions, not from group theory):
+   - Every (S,X) class is contained in exactly one packing class. (verified)
+   - 60 of the 149 packing classes split into 2+ (S,X) classes.
+   - 52 of the 149 packing classes contain records with different core_masks.
+
+3d. Packing-class count vs size (purely empirical distribution of records):
+   size 4: 3 classes   size 5: 33 classes   size 6: 85 classes
+   size 7: 25 classes  size 8: 3 classes
+   -> The single 176-record class is the largest packing class by record count.
+   (No symmetry/orbit-size interpretation is implied by these numbers.)
+
+===============================================================================
+TASK 4: Compression Assessment and Further Work
+===============================================================================
+Key finding: Gamma canonicalization buckets the 1144 saved packing witnesses
+into 149 minimum literal-shape classes (packing); adding the cover X refines to
+532 (S,X) classes. These are class counts of the saved set, not orbit sizes.
+
+Notes / corrections carried out per parent review:
+  1. (core, packing-shape) canonicalization is a REFINEMENT of packing-shape
+     (the catalogue key already distinguishes core), so it can only SPLIT
+     classes, never merge them; the class count is >= 149. The earlier idea that
+     it "might merge more" was wrong and is removed.
+  2. The 52 packing classes that span multiple core_masks are an observation
+     about saved-record membership; it does not license a symmetry statement.
+  3. The 86 records where uv is in cover-but-not-packing vs 103 in neither are
+     plain counts; no collapse claim is made.
+  4. Cross-A-B edges never appear in rim covers (all 5877 rim cover edges are
+     core or side edges) — a structural observation on the saved set.
+
+Resources used: Python stdlib only, <10 min runtime, <512 MB peak memory.
+Files in B directory only. No Git push, no credentials, no solver dependencies.
+
+===============================================================================
+TASK E-TARGETED: Optimized Cover Construction (Bounded)
+===============================================================================
+For each stored packing S:
+  R = union of non-hub (rim) edges of packing triangles [FORCED in any valid cover]
+  Ju = rim subgraph induced on C∪A = {2,3,4,5,6,7}
+  Jv = rim subgraph induced on C∪B = {2,3,4,5,8,9}
+
+Optimize X from {R, optional uv, hub spokes only}. Vertex covers via 64 subsets.
+
+OPTION 1 (with uv):  |X| = |R| + 1 + vc(Ju-R) + vc(Jv-R)
+OPTION 2 (no uv):    |X| = |R| + min{|Qu|+|Qv| : Qu∈VC(Ju-R), Qv∈VC(Jv-R), Qu∪Qv⊇C}
+OPTIMAL = min(Opt1, Opt2).  Test: OPTIMAL <= 2|S|.
+
+--- Stage 1: Forced R only (no extra rim edges) ---
+  Feasible: 1027/1144 (89.8%)
+  Not within budget: 117 records, all exactly epsilon = -1 (restricted family
+  needs |X| = 2|S|+1). EXPECTED: Stage 1 artificially forbids every rim edge
+  outside R, so it is a cover RESTRICTION, not a certificate defect. The stored
+  covers for these 117 records legitimately contain an extra rim edge, so a
+  forced-R-only family need not hit the budget. (Confirmed by the normal-form
+  pass below: core-only D with |D|=1 restores feasibility for all 117.)
+
+--- Stage 2 / normal-form: allow extra rim restricted to core edges D ---
+  All 117 restored: 117/117 (each by exactly one shared core edge, |D|=1)
+  Total feasible: 1144/1144 (100%)
+
+--- Witness verification ---
+  All 1144 optimized witnesses verified against ALL 16 cross-mask extensions.
+  (Cover subset, packing edge-disjoint, hub-triangle coverage, rim-in-cover)
+
+--- Summary statistics ---
+  Epsilon = 2|S| - |X_returned|:
+    eps=0: 1063 records (92.9%) — tight
+    eps=1:   69 records  (6.0%) — one edge of slack
+    eps=2:   12 records  (1.0%) — two edges of slack
+
+  Selected method (returned, not a global-minimality claim):
+    opt1 (with uv):    351 records (30.7%)
+    opt2 (no uv):      793 records (69.3%)
+
+  Stage-2 extra rim analysis:
+    117/117 extra edges are CORE edges (between common vertices)
+    117/117 are in the intersection Ju-R ∩ Jv-R (shared residuals)
+    Mechanism: removing shared core edge from both residuals saves exactly 1
+    spoke on each side (net cost +1-2 = -1, bringing to budget).
+
+  Stage-2 failures by core_mask:
+    {3:36, 7:11, 11:3, 12:3, 13:29, 15:14, 30:12, 31:7, 63:2}
+
+  Outside triangle profile vs stage:
+    Stage 2 (failures):  76 with 0 outside, 37 with 1, 4 with 2
+    Stage 1 (success):  851 with 0 outside, 152 with 1, 22 with 2, 2 with 3
+
+  Note: Outside triangle count does NOT predict failure. The 117 failures occur
+  both with and without outside triangles. The determining factor is whether
+  Ju-R and Jv-R share an edge whose removal reduces both vertex covers.
+
+--- Key findings for E-targeted work ---
+  1. For 89.8% of packings, the packing rim edges ALONE (forced R) suffice to
+     build a within-budget cover using only spoke additions.
+  2. The remaining 10.2% admit no forced-R-only cover within budget (by design
+     of that restriction); they need exactly 1 extra rim edge. These are always
+     core edges not used by the packing — shared between the u-side and v-side
+     residual graphs.
+  3. The "no uv" option (Option 2) dominates at 69% of returned solutions.
+     This means most returned covers hit u-v-x triangles by choosing (u,x) or
+     (v,x) rather than spending budget on uv directly.
+  4. All witnesses are valid under all 16 cross-mask extensions simultaneously
+     (the optimization is cross-mask-independent, confirming cross edges don't
+     create new hub-triangles).
+
+  This is bounded optimization for fixed saved S, NOT a finder or new
+  graph enumeration.
+
+===============================================================================
+TASK E-TRANSFORM: Hub-free Triangle Exchange (Bounded, Saved Certs Only)
+===============================================================================
+See report_transform.txt + exchange_stats.json + transformed_records.json for
+full per-record data.
+
+Exchange: off-hub xyz -> hxy (h in {u,v}); X -> (X\{xz,yz}) U {kz: kz exists}.
+Keeps |S|, never increases |X|, removes exactly one off-hub triangle.
+All-exchange recursive search, memoized, 60 s/record bound, validated over 16
+cross masks. Original records preserved alongside the transformed witness.
+
+--- BASELINE (before transform) ---
+  Records with >=1 off-hub triangle: 217/1144
+  Total off-hub triangles: 247
+    off=0: 927, off=1: 189, off=2: 26, off=3: 2
+
+--- RESULT (minimum reachable off-hub via exchanges) ---
+    off=0: 936, off=1: 183, off=2: 24, off=3: 1
+  Improved (off decreased): 13
+  Stuck (no off-hub removable): 204
+  Already zero: 927
+  Unfinished (>60 s): 0
+  Invalid original certs: 0   Invalid final certs: 0
+  Total exchanges applied: 13   Max path depth: 1 (<=3 expected, none needed)
+  |X| change (final-original): 1136 at 0, 8 at -1
+  Distinct final motifs: 33
+
+--- FINDING ---
+  The exchange is a rigid local move. In the PACKING it swaps the rim edges xz,yz
+  for the two new spokes hx,hy (new triangle hxy). In the COVER (per theory/proof.txt
+  Claim 5) it removes the rim edges xz,yz and ADDS the hub-z edges
+  Z_z = {uz: uz edge} U {vz: vz edge} — spokes into the kept-aside vertex z, NOT
+  into x or y. Blocking comes from the packing side: the new spokes hx,hy must be
+  unused by S\{xyz}; in tight certificates those hub spokes are already consumed
+  by other packing triangles (edge-disjointness), or do not exist (e.g. u--{8,9},
+  v--{6,7}). Hence 204/217 off-hub records are genuinely blocked; only 13 admit a
+  single exchange that removes an off-hub triangle (depth 1, no depth-2/3 chains
+  observed). In 8 of the changed records the kept-aside vertex z was one-sided
+  exclusive, so only one hub-z edge was added to the cover and |X| dropped by 1
+  (still valid, now non-tight).
+
+===============================================================================
+TASK E-NORMALFORM: Core-only extra-rim cover (see report_cover_normalform.txt)
+===============================================================================
+Strengthens the 2-stage cover into a normal form: extra rim edges outside the
+mandatory support R are restricted to CORE edges (D subseteq E(core)\R, <=64
+subsets); per D the exact spoke vertex cover (brute 64/side) is run with/without
+uv. Rationale: C-A / A-A extra rim edges are replaceable by one u-spoke, C-B /
+B-B by one v-spoke, so core-only D is lossless (independently audited claim).
+
+  Feasible within budget 2|S|: 1144/1144   Invalid witnesses: 0
+  Fewest |D| reaching budget: |D|=0 -> 1027 records, |D|=1 -> 117 records.
+  Max fewest |D| = 1  =>  allowing D of size >=2 is never needed.
+  (Fewest feasible |D| is the first size that reaches budget; it does not by
+   itself prove the returned cover is the globally smallest cover.)
+  Epsilon (budget - returned |X|): 0 -> 1063, 1 -> 69, 2 -> 12.
+  Selected method (returned): opt2_no_uv 793, opt1_uv 351.
+
+  This confirms (and completes) the Stage-1/Stage-2 result: the 117 forced-R-only
+  failures are all repaired by a single extra CORE edge, and no saved S requires
+  more. Cross-checked against off-hub motif classes before/after the exchange
+  transform (distinct classes stable at 15; counts shifted by the 13 depth-1
+  exchanges). Saved records only; no new finder/census run.

@@ -1,0 +1,256 @@
+ROUND 2 / E: TWO MATCHINGS, CORE SUBSETS, AND TRIANGLE ABSORPTION
+Status: rigorous reusable sufficient theorem and witness normalization;
+catalogue coverage statistics are recorded separately when verified.
+
+1. SCOPE AND WHAT A TEMPLATE MEANS
+
+The target is the source's codegree-four reducible-pair statement, not
+the equality example settled in round 1. Write u,v for the hubs,
+C=N(u) intersect N(v), A=N(u) minus ({v} union C), and
+B=N(v) minus ({u} union C). At degree seven and codegree four,
+|C|=4 and |A|=|B|=2. Let L be the ambient induced graph on
+{u,v} union C union A union B with A--B edges omitted. Put
+H=L[C], J_u=L[C union A], J_v=L[C union B], and J=L[C union A union B].
+Every ambient triangle through u or v is in L.
+
+The source's admissible local graphs also have connected non-WKE links
+and satisfy the common-vertex degree budget. Our sufficient theorems do
+not require those extra hypotheses. Proving that all admissible local
+graphs satisfy a sufficient condition is separate from proving that
+condition sufficient, and separate from scanning the 1144 saved records.
+
+A template here is a fixed algebraic recipe whose free data are two
+matchings, an optional distinguished core vertex, a prescribed bounded
+number of hub-free triangle motifs, and optionally a subset of the six
+core edges. Its cover is derived from at most sixteen subsets of the
+four-element core by an explicit formula. It may not accept a cover X
+as input or look up an orbit key. Restricted subfamilies specify permitted
+numbers/types of hub-free motifs and permitted extra core deletions.
+Examples are the subfamilies with no hub-free motif or at most one.
+
+The theorem below proves sufficiency for this grammar. We do not claim
+its number of recipe names is globally minimal: arbitrary unions can
+be renamed as one, making unrestricted minimality vacuous. A genuine
+minimality claim requires a fixed allowed family and a lower bound.
+
+2. THE RECIPE
+
+Choose:
+(a) epsilon in {0,1}, and x in C when epsilon=1;
+(b) a matching M_u in J_u and a matching M_v in J_v, with disjoint edge
+    sets; neither may use x when epsilon=1;
+(c) a set T of t pairwise edge-disjoint triangles in J, with edges
+    disjoint from M_u union M_v;
+(d) a set D of r core edges disjoint from M_u union M_v union E(T).
+
+For restricted catalogue templates we bound t and prescribe its motifs.
+Write k=|M_u|+|M_v| and R=M_u union M_v union E(T) union D.
+Then |R|=k+3t+r. Set H'=H-R, J'_u=J_u-R, and J'_v=J_v-R.
+
+For a vertex cover U subset C of H', put
+P_u(U)={a in A : ac is an edge of J'_u for some c in C minus U}.
+Writing A={a_0,a_1}, let e_u(U)=1 if a_0a_1 survives in J'_u and
+P_u(U) is empty, and e_u(U)=0 otherwise. Define
+f_u(U)=|U|+|P_u(U)|+e_u(U).
+Define f_v(V) analogously. Minima below range over core vertex covers
+of H'; this collection is nonempty because C is one such cover.
+
+Define
+gamma_1(R)=1+min_U f_u(U)+min_V f_v(V),
+gamma_0(R)=min_{U union V=C} (f_u(U)+f_v(V)),
+gamma(R)=min(gamma_1(R),gamma_0(R)).
+The subscripts indicate whether uv is deleted. There are at most
+sixteen possible U and sixteen possible V.
+
+Claim 1 (two-matchings sufficient theorem).
+If the data satisfy
+
+    gamma(R)+t+r <= k+2 epsilon,                       (1)
+
+then {u,v} is reducible in the ambient graph. The recipe gives an
+edge-disjoint packing S of k+t+epsilon triangles and an explicit X with
+|X|=k+3t+r+gamma(R)<=2|S|, meeting all triangles through either hub and
+containing every S-edge with both endpoints outside {u,v}.
+
+Claim 2 (side cover formula).
+For fixed U covering H', f_u(U) is the minimum size of a vertex cover
+Q of J'_u with Q intersect C=U, and it constructs such a Q.
+
+Proof. U covers the core edges. If c is outside U and ac is a residual
+edge, Q must contain a, so P_u(U) is forced. Conversely U union P_u(U)
+covers every core-A edge and every core edge. Only a_0a_1 can remain.
+If absent, no addition is needed. If present and P_u(U) nonempty, it
+is already covered. If present and P_u(U) empty, exactly one exclusive
+vertex must be added, and either endpoint suffices. This proves the
+formula and construction. End of proof.
+
+Claim 3 (exact completion by hub edges).
+Among X=R union Z with Z consisting of spokes and possibly uv,
+gamma(R) is exactly the minimum |Z| that covers all hub triangles.
+
+Proof. If uv is in Z, it covers every uvc. A remaining hub triangle
+uyz is covered by R when yz is in R. Otherwise at least one of uy,uz
+must be chosen, so the endpoints of chosen u-spokes must cover J'_u.
+This is necessary and sufficient, and the analogous independent
+condition holds at v. The two spoke sets and {uv} are disjoint.
+Claim 2 gives the exact cost gamma_1(R).
+
+If uv is absent, the same two rim-cover conditions hold, together
+with the requirement that at least one of uc,vc be chosen for every
+c in C. On the core portions U,V of the two spoke covers this is
+U union V=C. Claim 2 gives exactly gamma_0(R). These exhaust all
+hub triangles. End of proof.
+
+Proof of Claim 1. Take S to be all uyz for yz in M_u, all vyz for
+yz in M_v, all triangles of T, and uvx when epsilon=1.
+The matching condition makes spokes at the same hub distinct. Spokes
+at different hubs are distinct. Disjointness of the two matchings
+makes their rim edges distinct; these are disjoint from E(T).
+The triangles of T are edge-disjoint. When uvx is included, excluding
+x from both matchings prevents reuse of ux,vx, and no other selected
+triangle uses uv. Thus S is edge-disjoint and |S|=k+t+epsilon.
+
+Choose a completion Z of size gamma(R) by Claim 3 and set X=R union Z.
+Its parts are disjoint, so |X|=k+3t+r+gamma(R)<=2(k+t+epsilon) by (1).
+Claim 3 proves hub-triangle coverage within L. The external S-edges
+are exactly M_u union M_v union E(T), all contained in R subset X.
+
+For ambient safety, a triangle through u has its other vertices in
+{v} union C union A, so it cannot use an A--B edge or a vertex outside
+L. All of its edges are retained in L. The same holds for v.
+Therefore all ambient hub triangles are already covered. All members
+of S are ambient triangles because L is a subgraph. This proves all
+three reducibility conditions. End of proof.
+
+3. NORMALIZATION TO CORE-ONLY EXTRA DELETIONS
+
+Claim 4.
+Any local witness (S,X) supported in L can be normalized, keeping S
+and not increasing |X|, so that its external cover edges are
+M_u union M_v union E(T) union D with D consisting only of extra
+core edges. The resulting parameters satisfy (1).
+
+Proof. Decompose S uniquely into its possible triangle uvx, its
+u-only triangles, its v-only triangles, and its hub-free triangles T.
+The u-only and v-only rim edges form matchings M_u and M_v: a shared
+endpoint would reuse a spoke. Their edges are disjoint, and avoid x
+if uvx is present. They are also disjoint from E(T).
+
+Let F=M_u union M_v union E(T). External-edge safety forces F subset X.
+Consider an external edge e in X minus F which is not a core edge.
+Since L has no A--B edges, it belongs to one side, say J_u, with an
+endpoint a in A. Replace e by ua, adding ua only if absent. Every
+hub triangle using e contains u and a, since a is not adjacent to v.
+It therefore meets ua. This preserves coverage without increasing
+size, and preserves external-edge safety because e is not in F.
+Repeat on both sides until all such edges are replaced.
+
+The remaining external edges are F union D for a core subset D
+disjoint from F. The other cover edges are spokes and possibly uv.
+Claim 3 replaces them by a minimum completion of no greater size.
+The inequality |F union D|+gamma(R)<=2|S| is exactly (1).
+End of proof.
+
+This is a normal-form completeness theorem, not an existence proof:
+it starts with a witness. Claim 4 alone must not be described as a
+human proof that every admissible graph has a witness. The genuinely
+restricted assertions concern small T-motif families and restricted D.
+Claim 1 gives their independent sufficiency and explicit cover synthesis.
+
+4. ABSORBING A HUB-FREE TRIANGLE
+
+Claim 5 (triangle absorption).
+Let (S,X) be a local witness and xyz a hub-free triangle of S.
+If h is a hub adjacent to x,y and hx,hy are unused by S, then xyz
+can be replaced by hxy while preserving |S| and not increasing |X|.
+The number of hub-free triangles decreases by one.
+
+Proof. The edge xy was used only by xyz, and hx,hy were unused.
+Hence S'=(S minus {xyz}) union {hxy} is edge-disjoint and |S'|=|S|.
+Both xz and yz belong to X by external-edge safety. Put
+Z_z={uz : uz is an edge} union {vz : vz is an edge},
+X'=(X minus {xz,yz}) union Z_z.
+Two distinct external edges are removed and at most two hub edges
+are added, so |X'|<=|X|<=2|S'|.
+
+A hub triangle that could become uncovered must use xz or yz. If its
+hub is q, it also uses qz, and that edge is in Z_z. Thus coverage is
+preserved. The removed edges are no longer used by S' and, by packing
+disjointness, were not used by any other packing triangle. The new
+triangle's sole external edge xy remains in X'. All other required
+external edges remain. These arguments work in the ambient graph by
+the local-completeness argument of Claim 1. End of proof.
+
+If z is exclusive, at most one edge is added, so |X'|<=|X|-1. If z
+is common, at most two are added. This can create slack even when
+the original certificate is tight. The hub h need not be adjacent
+to z; it only needs the two free spokes hx,hy.
+
+Claim 6 (necessary saturation after absorption).
+Call a neighbor w of h free when hw is unused by S. At termination
+of Claim 5, no remaining hub-free triangle contains an edge whose
+endpoints are both free neighbors of the same hub. Consequently:
+(a) a triangle CCC has at most one free vertex at each hub;
+(b) a triangle CCA has at most one free vertex at u, and its two
+    common vertices are not both free at v;
+(c) a triangle CAA has at most one free vertex at u;
+and the symmetric statements hold with B and v.
+
+Proof. Each forbidden edge would enable Claim 5. The pairwise edges
+of each listed triangle exist, giving the individual conclusions.
+Every absorption decreases the number of hub-free triangles, so the
+process terminates. End of proof.
+
+5. VERIFICATION BOUNDARY
+
+The original census and certificate finder are not used. Only saved
+records, limited witness transformations, and residual-cover arithmetic
+are considered. Coverage of the saved 1144 records is not a new proof
+that those records exhaust all admissible local graph orbits.
+
+For restricted coverage, record for each input key the matchings,
+optional uvx, T, D, minimizing core subsets, and inequality values.
+These reconstruct S,X and permit independent literal validation.
+Counts alone do not serve as proof objects.
+
+The mathematical claims above do not depend on computational statistics.
+Restricted-family coverage, absorption outcomes, and any lower bound
+within a fixed recipe grammar are reported separately after verification.
+
+Sources inspected: paper/main.tex sections 5,6,9; tests/check_codegree4.py
+(read only, not run); data/B_codegree4_certificates.json (saved records).
+
+6. WHY ONLY A SHARED CORE EDGE CAN BUY EXTRA BUDGET
+
+Claim 7 (sharp saving bound for an extra rim deletion).
+For an available core edge e not in R,
+0 <= gamma(R)-gamma(R union {e}) <= 2.
+For an available side rim edge e not in R, the corresponding upper
+bound is one. Thus paying for an extra core edge can reduce the total
+cover cost by at most one, while paying for an extra side edge can
+never reduce that cost.
+
+Proof. Deleting an additional rim edge removes requirements and never
+adds any, so gamma cannot increase. Given an optimal hub completion
+for R union {e}, restore the requirement at e. If e=xy is a core
+edge, add ux and vx to the completion. Every hub triangle based on
+e uses one of these two spokes, so the augmented completion works
+for R and uses at most two more edges. If e has an exclusive endpoint
+a, all hub triangles based on e use the single spoke to a at its
+side's hub; adding this spoke suffices. The bounds follow. The extra
+rim edge itself costs one, giving the claimed net savings. End of proof.
+
+Consequently, if a fixed packing's forced-rim-only cover exceeds its
+allowed budget by d>0, then any cover completion repairing it needs
+at least d extra core edges after normalization. This follows by
+applying Claim 7 successively, since each such edge gains at most one.
+In particular, finding one extra core edge for a deficit-one packing
+is sharp for the minimum number of extra core deletions for that
+fixed packing; it says nothing about alternative packings in the graph.
+
+B's separate saved-record calculation reports forced-rim-only feasibility
+for 1027 records; the other 117 each have deficit exactly one, and
+each is repaired by one extra core edge. The positive witnesses and
+lower bounds are entirely consistent with Claim 7. These are claims
+about completions of the stored packings, not about all packings.
+The associated per-record evidence is in round2/experiments/B_cover_normalform.json.

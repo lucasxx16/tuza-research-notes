@@ -1,2 +1,2 @@
 # Preserve the attributed source file byte-for-byte, including its CRLF endings.
-research/round2/shared/B_codegree4_certificates.json -text whitespace=cr-at-eol
+compression/input/B_codegree4_certificates.json -text whitespace=cr-at-eol

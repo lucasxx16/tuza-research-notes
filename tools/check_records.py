@@ -9,9 +9,9 @@ def edge(a, b):
     return tuple(sorted((a, b)))
 
 def main():
-    d = json.loads((ROOT / 'research/round1/D/certificates.json').read_text(encoding='utf-8'))
-    b = json.loads((ROOT / 'research/round1/B/graph_20.json').read_text(encoding='utf-8'))
-    optimum = json.loads((ROOT / 'research/round1/B/result_20.json').read_text(encoding='utf-8'))
+    d = json.loads((ROOT / 'equality/construction/certificates.json').read_text(encoding='utf-8'))
+    b = json.loads((ROOT / 'equality/computation/graph_20.json').read_text(encoding='utf-8'))
+    optimum = json.loads((ROOT / 'equality/computation/result_20.json').read_text(encoding='utf-8'))
     vertices = d['vertices']
     assert [v['id'] for v in vertices] == list(range(20))
     assert all(v['id'] == 5*(v['row']-1)+v['column']-1 for v in vertices)
@@ -47,7 +47,7 @@ def main():
     result = {'status':'PASS', 'n':20, 'm':70, 'triangles':60,
               'connected':True, 'regular_degree':7, 'all_edges_in_triangles':True,
               'packing_size':13, 'cover_size':26, 'D_edges_equal_B_edges':True,
-              'scope':'Exported certificate validity and record consistency. Optimality is proved in accepted_result.txt and separately computed by B.'}
+              'scope':'Exported certificate validity and record consistency. Optimality is proved in docs/equality.zh-CN.txt and separately computed by the exact verifier.'}
     (ROOT/'results/record_check.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(result))
 

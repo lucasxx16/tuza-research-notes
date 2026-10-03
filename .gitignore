@@ -1,8 +1,25 @@
 __pycache__/
 *.pyc
-research/**/session.json
-research/**/models.json
-research/**/history.json
-research/**/accepted.json
-research/**/hpc_sessions*.json
-research/**/runtime*.json
+# Local orchestration state is never research data.
+**/session.json
+**/models.json
+**/history.json
+**/accepted.json
+**/hpc_sessions*.json
+**/runtime*.json
+**/task*.txt
+**/parent_corrections.txt
+**/parent_audit.txt
+**/CORRECTIONS_E.txt
+**/acceptance_review.txt
+# Credentials and local editor/environment configuration.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.codex/
+.vscode/
+.idea/

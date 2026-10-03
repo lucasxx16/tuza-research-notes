@@ -1,123 +1,127 @@
-# Tuza research: equality graphs and certificate compression
+# Tuza research notes
 
-Private research record, started 2026-10-03 (Asia/Shanghai).
+AI-assisted research on triangle packing and covering, with explicit proofs,
+certificate data, and independently written verification programs. These are
+research notes, not a claim of formal proof-assistant verification or human peer
+review. No novelty or minimum-order claim is made.
 
-Round 1 selected question: does a finite simple connected 7-regular graph with
-positive triangle packing number satisfy tau(G) = 2 nu(G)? This is the
-existence subquestion of Question 12.3 in Anish Gupta,
-Tuza's conjecture for graphs of maximum degree at most seven,
-https://arxiv.org/html/2608.06538v1.
+The starting questions come from Anish Gupta,
+[Tuza's conjecture for graphs of maximum degree at most seven](https://arxiv.org/html/2608.06538v1)
+and its [companion repository](https://github.com/agupta/tuza-maximum-degree-seven),
+pinned to commit `bf8415fac44f4eeed6c0f7a2273b843d689b065e`.
 
-Source repository: https://github.com/agupta/tuza-maximum-degree-seven
-Source commit inspected: bf8415fac44f4eeed6c0f7a2273b843d689b065e.
-The upstream codegree census and certificate search are not being rerun.
+## Results and limits
 
-Roles: A (Westlake HPC), literature and scope; B (Westlake HPC), exact
-computations only; C (GPT-6 Sol), adversarial review; D (GPT-6 Astra xhigh),
-independent first draft; E (GPT-6 Astra xhigh), main mathematical research.
-The parent coordinates, reviews evidence, and records mathematical status.
+### Certificate compression
 
-## Round 2: 1,144 certificates compressed into nine templates
+**Nine signed templates cover all 1,144 supplied codegree-four records. Nine is
+optimal within the specified dictionary of 499 catalogue-derived pattern orbits.**
+It is not a global minimum over arbitrary structural templates.
 
-**Nine templates cover all 1,144 supplied codegree-four records, and nine is
-optimal within the declared dictionary of 499 catalogue-derived signed-pattern
-orbits.** This is not a global minimum over arbitrary structural templates.
+Every selected template has a universal packing/deletion construction proving
+reducibility whenever its required-present and required-absent edge conditions
+hold. The upper bound is an explicit nine-template cover. The lower bound is nine
+records such that every candidate covers at most one. The independent verifier
+rebuilds the entire dictionary and incidence relation from the original witnesses,
+then checks both bounds and all 1,144 exported certificates. No solver's floating
+point status is needed for this proof of optimality.
 
-Each template has required-present and required-absent rim edges, together with
-a fixed triangle packing and deletion recipe. A universal transfer lemma proves
-that every graph satisfying the pattern has a reducible hub pair. The 499
-candidates are obtained from the original saved witnesses, with symmetry group
-of order 192. No original local-graph census or certificate finder was rerun.
+A separate human-readable proof settles the entire **2K2 core subcase**, assuming
+both links are connected and non-WKE, without using the census or degree budget.
+Other core types still lack a complete structural argument forcing the templates.
+The upstream graph census and original certificate finder were not rerun.
 
-The upper bound is an explicit nine-template cover. The lower bound consists of
-nine records such that every candidate covers at most one. C independently rebuilt
-all 499 patterns and incidence lists from the raw input, checked both bounds,
-and checked 1,144 transferred witnesses. The proof of optimality uses integer
-counting, not a numerical solver's status.
+- [Results and scope in Chinese](docs/compression.zh-CN.txt)
+- [Nine literal templates](compression/templates/optimal_patterns.txt)
+- [Universal template lemma and historical eleven-template stage](compression/templates/proof.txt)
+- [Nine templates and record assignments](compression/templates/optimal_templates.json)
+- [All 1,144 exported witnesses](compression/templates/optimal_transformed_certificates.json)
+- [Exact nine-record lower bound](compression/set_cover/lower_bound.json)
+- [Human-readable 2K2 proof](compression/theory/human_case_2k2.txt)
+- [Matching, cover normalization, and exchange lemmas](compression/theory/proof.txt)
+- [Independent mathematical review](compression/verification/review.txt)
 
-A separate human proof settles the entire **2K2 core subcase** under connected,
-non-WKE link hypotheses. It needs neither the catalogue nor the degree budget.
-The other core types still lack a complete human argument forcing the templates.
+The final assignment uses 5, 6, or 7 packed triangles on 888, 254, or 2 records,
+respectively. Each witness has at most one hub-free triangle and no triangle
+wholly inside the four-vertex core. Historical eleven-template results are retained
+for comparison; their stronger six-triangle bound does not apply to the final nine.
 
-- [Accepted results and scope in Chinese](results/round2_accepted.txt)
-- [The nine literal templates and their interpretations](research/round2/D/optimal_patterns.txt)
-- [Universal signed-template proof](research/round2/D/proof.txt)
-- [Nine templates with record assignments](research/round2/D/optimal_templates.json)
-- [All 1,144 transferred witnesses](research/round2/D/optimal_transformed_certificates.json)
-- [Exact nine-record lower bound](research/round2/B2/lower_bound.json)
-- [Census-free 2K2 proof](research/round2/E/human_case_2k2.txt)
-- [Matching/cover normal form and exchange lemmas](research/round2/E/proof.txt)
-- [Independent adversarial review](research/round2/C/review.txt)
-- [Parent acceptance and correction record](research/round2/acceptance_review.txt)
-- [Input provenance and attribution](research/round2/shared/PROVENANCE.txt)
+### Connected 7-regular equality graphs
 
-From the repository root, the main independent check needs only standard Python:
+The graph $G=K_4\square K_5$ is simple, connected, and 7-regular, with 20 vertices,
+70 edges, $\nu(G)=13$, and $\tau(G)=26=2\nu(G)$. Every edge lies in a triangle.
+Triangles are confined to the four K5 rows and five K4 columns; their edge sets
+are disjoint, so packing and covering optima add.
 
-```powershell
-python research/round2/C/check_B2_optimum.py
-python research/round2/B2/independent_check.py
-python research/round2/C/check_optimal_export.py
+More generally, $K_4\square H$ is a 7-regular equality graph for every connected
+triangle-free 4-regular graph H. Cartesian additivity for both invariants is proved
+in the notes. This answers the regular-existence subquestion, not the full equality
+classification or a minimum-order question.
+
+- [Proof and scope in Chinese](docs/equality.zh-CN.txt)
+- [20-vertex construction and proof](equality/construction/proof.txt)
+- [Explicit packing and cover](equality/construction/certificates.json)
+- [Independent family and Cartesian additivity](equality/theory/addendum.txt)
+- [Independent review](equality/review/review.txt)
+
+## Repository map
+
+| Directory | Contents |
+| --- | --- |
+| `docs/` | Consolidated Chinese result reports |
+| `equality/` | Equality constructions, proofs, literature notes, and exact checks |
+| `compression/input/` | Unmodified, attributed upstream certificate catalogue |
+| `compression/templates/` | Signed patterns, incidence data, exports, and generators |
+| `compression/theory/` | Structural proofs and reusable lemmas |
+| `compression/verification/` | Independent decoders, audits, and review notes |
+| `compression/set_cover/` | Finite-dictionary optimizer and exact upper/lower certificates |
+| `compression/experiments/` | Supplemental fixed-packing cover/exchange experiments |
+| `compression/literature/` | Source survey with explicit reading limits |
+| `tools/`, `results/` | Cross-record checks, public-content audit, and artifact hashes |
+
+Historical role letters in reports identify separate implementations/reviews; they
+are not mathematical hypotheses. Dispatch prompts, provider configuration, and
+session transcripts are excluded from the public record.
+
+## Reproduce the checks
+
+Run from the repository root with Python 3.10 or newer. These checks require only
+the standard library. Do not use `python -O`, which disables assertions.
+
+```shell
+python tools/check_records.py
+python compression/verification/check_optimal_export.py
+python compression/set_cover/independent_check.py
 ```
 
-The first command reconstructs the dictionary and all incidence lists from the
-raw saved certificates, then verifies the exact optimum and transferred witnesses.
-The second checks the upper/lower certificates against the saved incidence matrix.
-The third repeats the main audit and checks the final exported files against it.
-None invokes a solver. Do not run these assertion-based checks with `python -O`.
-The original greedy eleven-template stage is retained as research history; its
-statistics must not be substituted for those of the final nine. The final assignment
-uses five, six, or seven triangles (888, 254, and 2 records, respectively), at most
-one hub-free triangle, and no triangle wholly inside the four-vertex core.
+The export check also runs the independent dictionary/optimality reconstruction.
+For the original eleven-template stage, optionally run
+`python compression/verification/check_D_templates.py`.
 
-## Round 1 accepted result
+For independent exact computation of the equality graphs:
 
-The selected existence question has an affirmative answer:
-
-$$G=K_4\square K_5,\qquad |V(G)|=20,\quad d(v)=7,\quad
-\nu(G)=13,\quad\tau(G)=26=2\nu(G).$$
-
-The vertices are the cells of a 4 by 5 grid, adjacent when in the same row
-or column. Every triangle belongs to a single row or column. The four K5
-rows and five K4 columns have disjoint edge sets, so their packing and
-covering optima add: nu=4(2)+5(1)=13 and tau=4(4)+5(2)=26.
-The graph is connected, and every edge belongs to a triangle.
-
-- [Full accepted proof in Chinese](results/accepted_result.txt)
-- [Independent first proof by D](research/round1/D/proof.txt)
-- [Explicit graph, packing, and cover](research/round1/D/certificates.json)
-- [Adversarial review by C](research/round1/C/review.txt)
-- [General Cartesian additivity and second proof](research/round1/E/addendum.txt)
-- [Independent exact computation by B](research/round1/B/result_20.json)
-- [Parent acceptance and correction record](research/round1/acceptance_review.txt)
-
-An additional accepted family is K4 square H for any connected triangle-free
-4-regular graph H. It has nu=|V(H)| and tau=2|V(H)|. The original
-[E proof](research/round1/E/proof.txt) gives an explicit unbounded family.
-
-For arbitrary finite simple factors, both invariants satisfy Cartesian
-additivity: f(F square H)=|V(H)|f(F)+|V(F)|f(H), for f=nu,tau.
-
-## Verification
-
-The proof is elementary and independent of the source paper's finite
-classification. B reconstructed both candidate graphs from adjacency rules,
-enumerated their triangles, discovered triangle-edge-incidence components,
-and computed exact optima by exhaustive searches confined to components
-with at most 10 edges. The parent reviewed and reran that script:
-
-```powershell
-cd research/round1/B
+```shell
+cd equality/computation
 python verify_candidate.py
 ```
 
-From the repository root, `python tools/check_records.py` independently
-checks the exported D witness and its agreement with B's generated graph.
-The saved result is [record_check.json](results/record_check.json).
+This last command regenerates that directory's graph/result files and timing report.
+The bounded set-cover search in `compression/set_cover/solve_cover.py` additionally
+requires NumPy and SciPy; `compression/templates/compress.py` uses NumPy. Neither
+is needed to verify the saved exact result.
 
-This answers the regular-existence subquestion, not the full equality
-classification. Model agreement alone is not proof. No novelty,
-minimum-order, or human peer-review claim is made.
+`results/artifact_sha256.json` records hashes of committed Git blobs. Hashes check
+artifact integrity, not mathematical correctness. The upstream input's exact bytes
+are preserved across platforms; see its [provenance and license notice](compression/input/PROVENANCE.txt).
 
-Open after these stages: human structural coverage for all codegree-four cores,
-minimum template count beyond the fixed dictionary, equality classification,
-and Tuza's conjecture for maximum average degree < 8.
+## Public repository maintenance
+
+Before publishing changes, run `python tools/check_public_content.py --history`.
+It checks tracked files and reachable Git history for selected credential patterns,
+personal filesystem paths, and internal session artifacts, printing locations only.
+It is a focused check, not a guarantee that every possible secret format is detected.
+Local session files, credentials, and editor settings are ignored by Git.
+
+Open mathematical work: a census-free structural proof for the remaining cores,
+template minimality beyond the fixed dictionary, full equality classification,
+and the maximum-average-degree-below-eight question.
