@@ -1,0 +1,66 @@
+MAD<8 / ROUND 4 / D / INDEPENDENT INITIAL DRAFT
+
+Recorded before inspecting E's round-four route or mainline ideas.
+Chosen global route: strengthen the reviewed small-edge-cut theorem from
+six to seven. Candidate conclusion: every cut of size at most seven in
+a minimum counterexample in a subgraph-closed class isolates one vertex.
+This matches the proposed average-degree threshold without claiming to
+settle it. No numerical work was used.
+
+First new lemma. A graph with ordinary matching number at most two is
+non-WKE only when its nonisolated part is K5 minus a matching. A short
+proof follows from Tutte--Berge plus the reviewed <=5-vertex WKE facts.
+If matching number is two, choose a Tutte--Berge set S. Its size is at
+most two. If |S|=2, the remainder is independent, so S is a vertex
+cover of size two. If |S|=1, deleting its vertex leaves either a single
+3-vertex component or a single 2-vertex component, plus isolates. The
+3-component case is WKE using one edge in it and a pendant edge at S
+if available; otherwise the nontrivial part has at most four vertices.
+The 2-component case is immediate. If |S|=0, the only possible components
+larger than four have exactly five vertices; all remaining vertices then
+are isolated. The reviewed five-vertex classification finishes the proof.
+
+For a nontrivial cut of size m<=7 in the minimum counterexample, previous
+4-connectivity and minimum degree five force both shores to have at least
+four vertices, and hence the bipartite cut graph B has matching number
+at least four (by Konig). Its compatibility graph H has an independent
+set of size four. If H has a 3-edge matching, a vertex cover of size at
+most three witnesses WKE. If its matching number is at most two and it
+were non-WKE, five cut edges would induce K5 minus a matching in H.
+Those five edges must form a star in B: a disjoint pair would force three
+other edges to meet both, but a bipartite graph allows at most two.
+Five star edges plus at most two other edges have matching number at
+most three, contradiction. Thus H is WKE.
+
+If B is C4-free, the reviewed cut lemma immediately reduces the cut.
+If B contains C4, its component has at most six edges; a cyclic
+seven-edge component has at most seven vertices and matching number at
+most three, contrary to the needed total four. The possible C4 components
+are exactly:
+  A: a bare C4 (other components use at most three edges);
+  B: C4 with one pendant edge (the other two edges must be isolated);
+  C: C4 with two pendants at adjacent cycle vertices (one isolated edge);
+  D: C4 with a pendant path of length two (one isolated edge).
+Other six-edge attachments have matching number at most two and are
+excluded. A is covered by the reviewed C4 certificate plus small WKE
+components.
+
+I have direct certificates for B--D, based on the number of present
+internal rims. B has four possible rims: with <=2 use one crossing
+triangle, and with >=3 there are two edge-disjoint crossing triangles;
+cover all present rims. C has six possible rims split into two disjoint
+3-rim sets, each supporting a three-triangle packing; >=5 present rims
+force one set. With three or four rims there are two edge-disjoint
+crossing triangles; with <=2 one suffices. Cover all rims.
+
+For D there are five possible rims. If neither cycle diagonal is present,
+all crossing triangles contain the middle edge of the pendant path;
+one triangle plus that cut edge and its rim gives a two-edge cover.
+With a diagonal present, <=4 rims are handled by one/two crossing
+triangles. If all five rims exist, use the internal triangle on the
+three vertices in one shore plus two crossing triangles; all five rim
+edges form the cover, within the six-edge budget.
+
+Need full labeled constructions and C's audit. The sole newly imported
+classical theorem is Tutte--Berge; this dependence must be explicit.
+No novelty claim is made and no solution of mad<8 is asserted.

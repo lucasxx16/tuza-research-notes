@@ -17,21 +17,30 @@ pinned to commit `bf8415fac44f4eeed6c0f7a2273b843d689b065e`.
 **The full implication `mad(G)<8 => tau(G)<=2nu(G)` remains unresolved here.**
 The latest round forces a reducible pair when minimum degree is at least
 seven, average degree is below eight, and every degree-seven link has
-complement either a matching or P3 plus four isolated vertices. The P3 case
-allows one exceptional degree-eight neighbor and obtains enough charge from
-the other neighbors. Assuming the degree-seven vertices are independent, a
-general counting criterion permits five high-degree neighbors when the link
-minimum degree is four. These are conditional local
+complement a matching, P3 plus four isolated vertices, or P4 plus three
+isolated vertices. The new P4 case permits two exceptional neighbors.
+In the absence of the listed reducible pairs, sending charge only along
+the seven, six, or five certified incidences for these three types gives
+an explicit positive density surplus when vertices of degree at least
+nine are present. These are conditional local
 forcing results; their extra hypotheses need not survive deletion.
 
 The independent route proves sharp local patch-density bounds, an eight-triangle
 reduction valid beyond the old common-neighbor degree budget, and closure
 across separators of order at most three. A smallest counterexample must
 therefore be 4-connected. The latest independent theorem also excludes
-every edge cut of size at most six unless it isolates one vertex. Degree-five/six
-vertices and degree-seven links outside the matching-or-P3 family remain unresolved.
+every edge cut of size at most seven unless it isolates one vertex. A small
+cut can therefore be the incident edges of a degree-five, six, or seven
+vertex; this does not assert eight-edge-connectivity. Degree-five/six
+vertices and degree-seven links outside the matching/P3/P4 families remain unresolved.
 
-- [Latest results and limits in Chinese](docs/mad8-round3.zh-CN.txt)
+- [Latest results and limits in Chinese](docs/mad8-round4.zh-CN.txt)
+- [P4-complement extension and selected-incidence density bound](mad8/round4/E/p4_complement_links.txt)
+- [No nontrivial edge cut below eight](mad8/round4/D/seven_edge_cuts.txt)
+- [Round-four coordinator review](mad8/round4/review_summary.txt)
+- [Round-four exact-file mainline review](mad8/round4/C/review_E_full.txt)
+- [Round-four exact-file independent review](mad8/round4/C/review_D_full.txt)
+- [Round-three results and limits in Chinese](docs/mad8-round3.zh-CN.txt)
 - [P3-complement links and high-degree-neighbor discharging](mad8/round3/E/p3_complement_links.txt)
 - [General counting criterion and the five-neighbor specialization](mad8/round3/E/charge_tradeoff.txt)
 - [Small-edge-cut theorem](mad8/round3/D/small_edge_cuts.txt)

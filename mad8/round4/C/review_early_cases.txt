@@ -1,0 +1,5 @@
+Round 4 early 3-missing-edge link audit (C)
+
+The P4 reduction by round-two Lemma C works for complement-isolated neighbors and the two path leaves. If the missing edges are ab,bc,cd, an isolated neighbor v has common 6-set; omit b to leave a K5 missing only cd, and b is adjacent in G to d. For leaf v=a, the private nonneighbor b is omitted from the common 5-set, which is K5 missing only cd, and b is adjacent to d. The internal vertices b,c remain unproved by that argument.
+
+The parallel P3+K2 claim has an additional gap. Let missing edges be ab,bc,de, with f,g isolated. If v=d (or symmetrically e), then its common 5-set is {a,b,c,f,g}, which induces K5 minus the TWO incident edges ab and bc. It has no K5 and is not K5 minus one edge, so neither round-two Lemma A nor the one-missing-edge repair Lemma C applies. The missing-edge pattern also lacks two disjoint missing edges within this 5-set, so the induced-C4 Lemma B is unavailable. Thus the K2 endpoints cannot be declared reducible by the proposed case split. This is a gap in a sufficient local lemma, not a counterexample to pair reducibility or Tuza.

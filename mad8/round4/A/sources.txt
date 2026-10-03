@@ -1,0 +1,7 @@
+Primary source: G. J. Puleo, "Tuza's Conjecture for Graphs with Maximum
+Average Degree less than 7", arXiv:1308.2211v3, 13 Apr 2015.
+https://arxiv.org/html/1308.2211v3
+
+Scope checked: Section 7, exact statements and displayed certificates
+in Lemmas 7.5 and 7.6. No broader literature survey or independent
+reverification of the paper's case analysis is claimed.

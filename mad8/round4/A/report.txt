@@ -1,0 +1,27 @@
+PULEO SECTION 7: TWO LOCAL SUBSUMPTION REDUCTIONS
+
+Primary source: https://arxiv.org/html/1308.2211v3, Lemmas 7.5--7.6.
+
+Lemma 7.5: G is robust, uv is an edge, d(u) is 7 or 8, d(v)=5,
+u subsumes v, and neither singleton {u} nor {v} is reducible.
+Then {u,v} is reducible. The proof puts W=N(u) intersect N(v)
+(four vertices) and Z=N(u) minus N[v] (two or three vertices).
+It either constructs a pair certificate or derives a WKE link at u,
+contradicting the singleton assumption. The case split depends on
+whether G[Z] contains an edge; the bound |Z*|+|E(G[W])|<=9 is used
+only in that edge-present case.
+
+Lemma 7.6: G is robust, uv is an edge, d(u)=7, d(v)=6, u subsumes v,
+and only {v} is assumed nonreducible. Put H=G[N(u) intersect N(v)].
+It is K5 or K5 minus one edge; relabel its vertices w1,...,w5 so
+the possible missing edge is w1w2. With p the unique vertex of
+N(u) minus N[v], Puleo's six packed triangles are
+{uw2w5,uw3w4,vw2w3,vw4w5,uvw1,w1w3w5}; the cover is
+E(H) union {uv,up}. Its size is 11 or 12, at most twice the
+packing size. The labeling ensures every displayed triangle exists.
+
+Neither lemma requires global irreducibility as a hypothesis.
+In a subgraph-minimal counterexample, global absence of reducible
+sets supplies the required singleton assumptions; this is one-way
+applicability, not an equivalence. These are local necessary
+conditions, not a proof of the mad<8 conjecture.

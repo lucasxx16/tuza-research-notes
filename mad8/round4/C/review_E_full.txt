@@ -1,0 +1,7 @@
+Exact-file review of E/p4_complement_links.txt (C)
+
+ACCEPT. For P4 missing edges ab,bc,cd, the isolate e has common W={a,c,d,f,g}=K5−cd; omitted w=b satisfies bd∈E, even though b also neighbors e. For leaf a, the common W={c,d,e,f,g}=K5−cd and the u-private w=b again satisfies bd∈E; d is symmetric. Thus all five nonexceptional positions meet the imported repaired-Fano lemma in the ambient graph.
+
+At an internal P4 neighbor v, its u-private pair is adjacent and one path leaf is complete to common K4. The same facts hold for a P3 exceptional neighbor, so mutual exceptional degree-seven endpoints satisfy the prior D dense-pair 8/16 certificate. Matching endpoints and nonexceptional P3/P4 endpoints reduce by the other imported lemmas. Hence absence of those pairs makes L independent and gives 7,6,5 selected high neighbors for matching/P3/P4 types.
+
+Each selected neighbor has at least five neighbors in the degree-seven link. Any H donor with a selected recipient consequently has five neighbors outside L and sends to at most d−5 recipients. A donor with zero selected recipients retains d≥9, which also exceeds the displayed lower bound (4d+5)/5. The summed surplus inequality and the average≤8 boundary corollary are correct; the latter uses the absence of reductions and forces eight-regularity only under the stated δ≥7/link-family hypotheses. The theorem is a conditional forcing result and makes no induction on the nonhereditary link condition. P3+K2 and degree-five/six cases remain outside scope.

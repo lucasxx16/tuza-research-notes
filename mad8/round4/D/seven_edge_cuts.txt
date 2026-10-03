@@ -1,0 +1,324 @@
+MAD<8 / ROUND 4 / D
+NO NONTRIVIAL EDGE CUT BELOW EIGHT
+
+Status: reviewed research proof; see C/review_D_full.txt.
+This records internal research review, not journal peer review or formal verification.
+No novelty claim is made. No computation is used.
+
+THEOREM.
+Let C be a class of finite simple graphs closed under arbitrary subgraphs.
+If C contains a counterexample to tau(G)<=2nu(G), choose such a G with
+|V(G)|+|E(G)| minimum. Every edge cut of G of size at most seven
+separates off a single vertex. Thus every such cut is the set of incident
+edges of a vertex of degree five, six, or seven.
+
+An edge cut means the complete bipartition cut delta(U), where U is a
+nonempty proper vertex set. A nontrivial cut means both shores contain
+at least two vertices. The theorem does not assert 8-edge-connectivity,
+since vertices of degrees five through seven are not excluded.
+
+DEPENDENCIES AND NOTATION.
+We use the reviewed round-two 4-connectivity theorem in
+mad8/round2/D/three_edge_boundary.txt, and the reviewed round-three
+minimum-degree-five and cut-reduction results in
+mad8/round3/D/small_edge_cuts.txt. The latter already excludes nontrivial
+cuts of size at most six and proves the small WKE facts recalled below.
+The only additional classical theorem used as a black box is the
+Tutte--Berge formula, stated explicitly in Section 1. A verified
+author-hosted statement is A. Schrijver, "Tutte-Berge formula", page 1,
+Theorem (1): https://homepages.cwi.nl/~lex/files/tutteb.pdf.
+See also the source record mad8/round4/A/tutte_berge_source.txt.
+
+Write nu for maximum edge-disjoint triangle packing size and tau for
+minimum triangle edge-cover size. Write mu(H) for the ordinary matching
+number of a graph H. A WKE witness in H is a matching M and vertex set Q
+with |Q|<=|M| such that Q covers H-M, or equivalently H-Q is contained
+in M. Disjoint unions of WKE graphs are WKE.
+
+The previously proved small classification says that every graph on at
+most four vertices is WKE, and the only non-WKE graphs on five vertices
+are K5 with a matching of size zero, one, or two deleted.
+
+1. A WKE CLASSIFICATION AT MATCHING NUMBER TWO.
+
+LEMMA 1.
+If mu(H)<=2, then H is non-WKE if and only if its nonisolated part is
+K5 minus a matching. All other vertices, if any, are isolated.
+
+Proof. If mu(H)<=1, the nonempty edges pairwise intersect. Their nontrivial
+part is a star or a triangle, and each is WKE (one matching edge and a
+suitable one-vertex cover after its deletion). The edgeless case is WKE.
+Thus suppose mu(H)=2 and put n=|V(H)|.
+
+The Tutte--Berge formula states
+  2mu(H)=n-max_{S subset V(H)} (o(H-S)-|S|),
+where o denotes the number of odd-order connected components, including
+isolated vertices. Choose S attaining that maximum. Then
+  o(H-S)-|S|=n-4.
+Since o(H-S)<=n-|S|, we have |S|<=2. The total excess of component
+orders over their odd-component count is
+  |V(H-S)|-o(H-S)=4-2|S|.
+An odd component of order t contributes t-1 to this excess; an even
+component of order t contributes t. All contributions are nonnegative
+even integers.
+
+If |S|=2, the excess is zero, so every component of H-S is an isolated
+vertex. Hence S is a vertex cover of size two. With any maximum matching
+of size two, this is a WKE witness.
+
+If |S|=1, write S={x}. The excess is two. Apart from isolated vertices,
+H-x has either a single component of order two or a single component
+of order three. In the order-two case, let ab be its edge. Then M={ab}
+and Q={x} witness WKE: every remaining edge is incident to x.
+
+In the order-three case, let T be that component and select an edge ab
+in T; let c be its third vertex. If x has a neighbor y that is isolated
+in H-x, take M={xy,ab} and Q={x,c}. The only possible edge outside Q
+is ab, which belongs to M, so this is a WKE witness. If no such y
+exists, all nonisolated vertices of H lie in {x} union T, a set of at
+most four vertices. The reviewed small classification gives WKE.
+
+If |S|=0, the component excess is four. Every component has order at
+most five. If a five-vertex component occurs, it has odd order and uses
+the entire excess; every other component is then an isolated vertex.
+The five-vertex classification says that H is WKE unless that component
+is K5 minus a matching. If no five-vertex component occurs, every
+component has order at most four and is WKE, so their union is WKE.
+
+Conversely, isolated vertices cannot help a WKE witness on a non-WKE
+component: removing them from Q does not affect coverage or increase
+its size, and no matching edge uses them. Therefore a K5-minus-matching
+component with only isolated vertices outside it remains non-WKE. This
+proves the lemma, including disconnected graphs and all isolated cases.
+
+2. COMPATIBILITY ON AT MOST SEVEN CUT EDGES.
+
+LEMMA 2.
+Let B be a simple bipartite graph with m<=7 edges and mu(B)>=4. Let H
+have vertex set E(B), where adjacent vertices of H must correspond to
+incident edges of B. Then H is WKE.
+
+Proof. A matching P of B of size at least four is an independent vertex
+set in H. Thus Q=E(B)\P is a vertex cover of H of size at most three.
+If mu(H)=3, use any three-edge matching of H together with Q; Q covers
+all of H and hence H-M. This is a WKE witness. A larger matching in H
+is impossible because H has at most seven vertices.
+
+If mu(H)<=2 and H were non-WKE, Lemma 1 would give five vertices
+inducing K5 minus a matching, with any other vertices isolated. Let D
+be their corresponding five edges in B. Suppose two edges e=x1y1
+and f=x2y2 in D are disjoint, with x1,x2 and y1,y2 in the respective
+bipartition classes. The vertices e,f are nonadjacent in H. Each vertex
+of K5 minus a matching has at most one nonneighbor, so each of the
+other three edges in D must be adjacent to both e and f in H, and
+therefore meet both in B. Only x1y2 and x2y1 can do that in a simple
+bipartite graph. Three distinct such edges are impossible.
+
+Thus the five edges in D pairwise intersect. Pairwise-intersecting edges
+of a bipartite graph all share one endpoint: after choosing xy and xz,
+an edge meeting both without containing x would have to be yz, which
+is not bipartite with y,z in the same class. Hence D is a five-edge
+star. A matching of B uses at most one edge of D and at most m-5 other
+edges, giving mu(B)<=1+(m-5)<=3. This contradicts the hypothesis and
+proves the lemma.
+
+3. THE CUT CERTIFICATE FRAMEWORK.
+
+For a cut E0=delta(U), its cut graph B consists of the cut edges and
+their endpoints, bipartitioned by the two shores. Every crossing triangle
+uses two cut edges and one internal rim edge. The compatibility graph H
+has vertex set E0, joining the two cut edges of each crossing triangle.
+It is a graph of the kind in Lemma 2.
+
+A certificate consists of edge-disjoint triangles S and an edge set X
+such that |X|<=2|S|, X meets every triangle using E0, and every edge
+of S outside E0 lies in X. It is valid even when S and X are empty,
+provided there are no crossing triangles. For
+  G'=G-(E0 union X),
+a packing in G' is disjoint from S, while a cover of G' together with X
+covers G. Thus Tuza for G' implies Tuza for G. A minimum counterexample
+in a subgraph-closed class has no such nonempty reducible E0.
+
+We recall the reviewed C4-free cut lemma. If B is C4-free and H is WKE,
+choose a matching M and Q covering H-M with |Q|<=|M|. Pack the crossing
+triangles represented by M, and cover their rim edges together with the
+cut edges represented by Q. Matching M prevents repeated cut edges.
+Two different crossing triangles with the same rim would form a C4
+in B, so the rims are distinct as well. The result is a valid certificate.
+
+Certificates may also be combined over components of B. Every crossing
+triangle is confined to one component, because its two cut edges share
+a vertex. All vertices used in the constructions below belong to their
+component of B, so packings from different components are vertex-disjoint
+and their covers have total size at most the sum of the separate sizes.
+This also permits a triangle wholly inside a shore, provided all its
+edges are included in its component's cover.
+
+4. THE ONLY FOUR-CYCLE COMPONENTS TO HANDLE.
+
+Suppose G has a nontrivial cut E0 of size seven. Both shores contain at
+least four vertices: a shore of size two or three has at least
+5s-s(s-1), namely eight or nine, outgoing edges because delta(G)>=5.
+A vertex cover of B of size at most three would leave vertices on both
+shores and disconnect G after deleting that cover, violating reviewed
+4-connectivity. The bipartite matching-cover equality, proved in the
+round-three file, therefore gives mu(B)>=4. Lemma 2 shows that H is WKE.
+If B is C4-free, its cut is reducible, so assume B has a C4 component K.
+
+Write r=|E(K)|. If r=7, K is connected and cyclic and has at most seven
+vertices, hence matching number at most three; with no other cut edges
+this contradicts mu(B)>=4. Thus 4<=r<=6.
+
+If r=4, K is the bare C4 and there are three edges in other components.
+If r=5, the extra edge introduces one new vertex as a pendant leaf:
+there is no extra edge available among the four vertices of K2,2.
+The component then has matching number two, so the remaining two cut
+edges must be separate isolated-edge components to reach matching four.
+
+If r=6, only one cut edge remains outside K, so mu(K)>=3. Since K is
+cyclic and connected, it has at most six vertices. Therefore it has
+exactly six vertices and a perfect matching. Relative to its C4, its
+two other edges add two vertices as attached trees. They form either a
+pendant path of length two, or two pendant leaves. In the latter case
+the leaves must attach at distinct adjacent cycle vertices: the same
+vertex could not match both leaves, while opposite cycle vertices leave
+two vertices in the same bipartition class after matching the leaves.
+Conversely adjacent attachments admit a perfect matching. The seventh
+cut edge is an isolated-edge component.
+
+Hence the list is exhaustive:
+ A. bare C4;
+ B. C4 with one pendant edge;
+ C. C4 with pendants at two adjacent cycle vertices;
+ D. C4 with a pendant path of length two.
+No numerical enumeration is used in this classification.
+
+5. LABELED CERTIFICATES FOR THE FOUR SHAPES.
+
+Common labels. The cycle has vertices x1,x2 on one shore and y1,y2
+on the other. Its four cut edges are
+ a=x1y1, b=x1y2, c=x2y1, d=x2y2.
+Its possible internal rims are p=x1x2 and q=y1y2. In shapes B--D
+add a cut edge e=x1y3, with y3 on the y-shore. This adds possible rims
+r=y1y3 and s=y2y3. Shape C adds f=x3y1, giving possible rims
+t=x1x3 and w=x2x3. Shape D instead adds f=x3y3, giving rim t=x1x3.
+
+The following table lists every possible crossing triangle through its
+two cut edges; it exists precisely when the indicated rim is present:
+
+ rim     cut-edge pairs of its triangles
+ p       (a,c), (b,d)
+ q       (a,b), (c,d)
+ r       (a,e)
+ s       (b,e)
+ t       (a,f) in C; (e,f) in D
+ w       (c,f) in C only.
+
+Writing (a,e), for example, denotes the unique triangle containing cut
+edges a,e and its specified rim r, rather than a two-edge subgraph.
+The table follows directly by listing pairs of incident cut edges.
+It is complete even if other internal edges of G exist, because an
+internal edge outside this list cannot be the rim of a crossing triangle.
+
+In the cases where X is chosen to be all present rims, coverage and the
+external-edge safety condition are automatic. We need only exhibit a
+packing with size at least half the number k of those rims. Cut-edge
+pairs listed together below are disjoint, and their rims are distinct,
+so the corresponding crossing triangles are edge-disjoint.
+
+A. BARE C4.
+Let X be the subset of {p,q} that is present. If neither is present,
+take S=empty. Otherwise choose any one crossing triangle using a present
+rim. Then |X|<=2=2|S|. This is the reviewed C4 certificate.
+
+B. ONE PENDANT EDGE.
+There are four possible rims p,q,r,s. If k=0, use the empty certificate.
+If 1<=k<=2, choose any one crossing triangle and cover all present rims.
+If k>=3, choose two triangles as follows. When p and r are present,
+use pairs (a,e),(b,d), with rims r,p. When p is present but r is absent,
+we have s present and use (b,e),(a,c), with rims s,p. When p is absent,
+all of q,r,s are present and we use (c,d),(a,e), with rims q,r.
+Their two triangles are edge-disjoint, and all present rims give
+|X|=k<=4=2|S|.
+
+C. TWO ADJACENT PENDANTS.
+There are six possible rims p,q,r,s,t,w. The cases k=0 and 1<=k<=2
+are handled by an empty or one-triangle certificate as above.
+
+If 3<=k<=4, two edge-disjoint triangles with distinct rims exist. If
+p or q is present, some one of r,s,t,w is present, and its cut-edge
+pair is disjoint from a pair with rim p or q. More explicitly:
+ - with rim p: r pairs with (b,d), s with (a,c),
+              t with (b,d), w with (b,d);
+ - with rim q: r,s,t pair with (c,d), and w with (a,b).
+In each line the first triangle is the unique pair for the listed
+extra rim in the table. If neither p nor q is present, at least three
+of r,s,t,w are present, so either both r,w or both s,t are present.
+Use (a,e),(c,f) in the first case or (b,e),(a,f) in the second.
+Covering all k rims costs at most four for these two triangles.
+
+If k>=5, at least one of the disjoint triples of rim names
+  {p,r,w}, {q,s,t}
+is wholly present: missing an edge from each would leave at most four
+rims. The first triple gives the three triangles
+  (a,e), (c,f), (b,d),
+with respective rims r,w,p. The second gives
+  (b,e), (a,f), (c,d),
+with respective rims s,t,q. Each packing uses the six distinct cut edges
+once and distinct rims. Cover all k<=6 rims; this costs at most 2|S|.
+
+D. A PENDANT PATH OF LENGTH TWO.
+There are five possible rims p,q,r,s,t.
+
+If neither p nor q is present, all crossing triangles contain cut edge
+e: their possible pairs are (a,e),(b,e),(e,f). If there is no such
+triangle use S=X=empty. Otherwise choose any one, with rim z, and use
+X={e,z}. This two-edge cover meets every crossing triangle and contains
+the selected triangle's only noncut edge.
+
+Now suppose at least one of p,q is present. For k<=2 use any one
+crossing triangle and all present rims as X. For 3<=k<=4, at least one
+extra rim r,s,t is present. An r-triangle (a,e) is disjoint from
+(b,d) with rim p or (c,d) with rim q. An s-triangle (b,e) is disjoint
+from (a,c) with rim p or (c,d) with rim q. A t-triangle (e,f) is
+disjoint from every core pair in the p and q rows. Thus two triangles
+with distinct rims exist, and covering all k<=4 rims fits the budget.
+
+Finally, if k=5, all five rims exist. Use the internal triangle
+  y1 y2 y3
+and the two crossing triangles
+  x1 x2 y1,  x1 x3 y3.
+The internal triangle uses rims q,r,s. The crossing triangles use
+cut-edge pairs (a,c),(e,f) and rims p,t. All three triangles are
+edge-disjoint. Their five noncut edges are exactly {p,q,r,s,t}; take
+X to be those five edges. It meets every crossing triangle and has
+|X|=5<=6=2|S|, including every external packing edge.
+
+All four shapes therefore have complete certificates under every
+pattern of internal edge presence. These are proved symbolic recipes,
+not an assertion of unchecked pattern enumeration.
+
+6. ASSEMBLY AND CONCLUSION.
+
+In shape A, the other components of B together have at most three cut
+edges; each has a C4-free cut graph and a compatibility graph on at
+most three vertices, hence is WKE and admits the reviewed cut certificate.
+Combine these with the bare-C4 certificate. In shapes B--D, all other
+components are isolated edges and create no crossing triangles. Their
+empty certificates combine with the displayed nonempty component's
+certificate. In every case Section 3 gives a reduction of the entire
+nonempty cut E0, contradicting minimality of G.
+
+Thus no nontrivial cut of size seven exists. The reviewed round-three
+theorem already excludes smaller nontrivial cuts and gives delta(G)>=5.
+Every cut of size at most seven therefore isolates a vertex, whose
+degree equals its size and belongs to {5,6,7}. This proves the theorem.
+
+LIMITS.
+This is a structural restriction on hypothetical minimum counterexamples,
+not a proof that mad(G)<8 implies Tuza. It leaves the degree-five/six/seven
+vertices themselves and graphs with no small nontrivial cuts. The
+matching-number-two lemma depends on the classical Tutte--Berge formula;
+the cut constructions and their exhaustiveness are proved explicitly.
+No numerical search, broad census, certificate finder, or external
+computation was used. Research stops at this theorem for review.

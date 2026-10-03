@@ -1,0 +1,30 @@
+MAD<8 / ROUND 4 / D / REVIEW MILESTONE
+
+Initial independent draft: independent_initial.txt.
+Full proof: seven_edge_cuts.txt.
+
+Reviewed result: in a minimum counterexample within any class closed
+under arbitrary subgraphs, every complete bipartition cut of size at
+most seven isolates a single vertex, necessarily of degree five,
+six, or seven. This extends the reviewed round-three bound of six.
+
+New ingredients:
+1. Matching-number-at-most-two graphs are WKE except for K5 minus a
+   matching, together with any number of isolated vertices. Proof imports
+   the classical Tutte--Berge formula, with all resulting cases detailed.
+2. Any compatibility graph on at most seven edges of a bipartite graph
+   with matching number at least four is WKE.
+3. An exhaustive four-shape description of cut components containing C4,
+   plus symbolic, labeled reduction certificates for every internal-rim
+   pattern in those shapes. One case uses an internal triangle.
+
+C accepted the complete file after exact-file adversarial audit and found
+no gap under the stated hypotheses; see C/review_D_full.txt. The imported
+formula has a parent-verified scholarly reference:
+Schrijver's author-hosted note, page 1, Theorem (1); the proof links it.
+This is internal research review, not formal verification or peer review.
+
+No novelty claim is made. No numerical search, census, finder, or
+saved-record analysis was run. E's round-four route was not inspected.
+Research has stopped at the reviewed theorem. The full
+mad<8 question remains unresolved by this independent route.

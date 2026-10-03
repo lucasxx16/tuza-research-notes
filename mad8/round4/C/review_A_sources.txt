@@ -1,0 +1,5 @@
+Puleo Section 7 source audit (C)
+
+REVISED and ACCEPTED A/report.txt and A/sources.txt against the primary HTML at https://arxiv.org/html/1308.2211v3. The original draft over-stated the hypotheses: Lemma 7.5 assumes robust G, an edge uv with degrees (7 or 8,5), subsumption, and BOTH singletons nonreducible; Lemma 7.6 assumes robust G, degrees (7,6), subsumption, and only {v} nonreducible. Neither lemma assumes globally no reducible set. The revision states these separately and records the one-way applicability in a minimal counterexample.
+
+The 7.6 six-triangle certificate requires relabeling the possible missing edge in its common K5 core as w1w2; otherwise the displayed triangles are not guaranteed to exist. The revision includes this. In 7.5 the |Z*|+|E(W)|<=9 count belongs to the case G[Z] has an edge; the revision confines it there. Source metadata date 13 Apr 2015 is consistent with the arXiv version. Private cache details were removed in favor of the public source URL. This was a narrow exact-statement check, not a reproof of Puleo's case analysis.

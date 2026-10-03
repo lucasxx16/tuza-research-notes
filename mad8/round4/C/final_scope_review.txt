@@ -1,0 +1,5 @@
+Final round-four editorial scope review (C)
+
+Checked docs/mad8-round4.zh-CN.txt, mad8/round4/review_summary.txt, and the latest mad8 section of README.md against accepted E/p4_complement_links.txt and D/seven_edge_cuts.txt. The Chinese report and coordinator summary preserve the δ≥7, link-family, and absence-of-reductions hypotheses for the selected-incidence density bound; they state the edge-cut theorem only for a smallest counterexample in an arbitrary-subgraph-closed class. Both retain the degree-five/six and unclassified-link gaps, and neither claims a full mad<8 proof or formal verification. Their P3+K2 exclusion and internal-triangle safety descriptions match the proofs.
+
+One README sentence could be read as deriving positive density surplus from link types alone. I changed it to say explicitly “In the absence of the listed reducible pairs” before the charge statement. This excludes the false unqualified inference (for example K8 has matching-type degree-seven links and average degree seven). No other factual overclaim or incorrect notation found in these three documents. No new mathematical work or numerical check was performed.

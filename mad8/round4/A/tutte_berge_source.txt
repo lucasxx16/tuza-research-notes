@@ -1,0 +1,15 @@
+TUTTE--BERGE: VERIFIED CLASSICAL INPUT
+
+Alexander Schrijver, "The Tutte-Berge formula", author-hosted CWI note,
+page 1, displayed theorem (1):
+https://homepages.cwi.nl/~lex/files/tutteb.pdf
+
+Michel X. Goemans, "Lecture notes on non-bipartite matching",
+MIT 18.433, 13 February 2011, page 1, Theorem 2.1:
+https://math.mit.edu/~goemans/18433S11/matching-nonbip-notes.pdf
+
+Both state mu(F)=min_S (|V(F)|+|S|-o(F-S))/2, where o counts odd
+components. Since the sum of floor(|K|/2) over components K of F-S
+equals (|V(F)|-|S|-o(F-S))/2, this is the component-sum form used
+in the independent proof. The coordinator opened and checked both
+public sources. The classical formula is an imported theorem.

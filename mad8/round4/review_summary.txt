@@ -1,0 +1,60 @@
+ROUND 4 COORDINATOR DECISION
+
+Target: mad(G)<8 implies tau(G)<=2nu(G).
+Decision: accepted conditional and global structural progress; full question open.
+Stop at this reviewed milestone. No novelty or formal-verification claim.
+
+MAINLINE
+E/p4_complement_links.txt extends the matching/P3 conditional forcing
+theorem to P4 plus three isolated vertices in each degree-seven link
+complement. The minimum-degree-at-least-seven assumption remains.
+The five nonexceptional P4 positions use the prior repaired-Fano lemma.
+Mutually exceptional degree-seven endpoints use the prior D dense-pair
+certificate. The reused constructions are attributed explicitly.
+
+In the absence of these reductions, degree-seven vertices are independent.
+Select respectively seven, six, and five high-degree neighbors for the
+matching, P3, and P4 types. Each selected incidence guarantees five
+non-degree-seven neighbors at its donor. Sending 1/5 only along those
+incidences gives the exact displayed surplus inequality in E's Section 5,
+including donors with no selected recipient. Average degree below eight
+is then impossible; at most eight forces eight-regularity under all
+the same hypotheses. C and coordinator accepted the full proof.
+
+INDEPENDENT ROUTE
+D/seven_edge_cuts.txt proves that every complete bipartition cut of size
+at most seven in a smallest counterexample of a subgraph-closed class
+isolates one vertex. The isolated vertex has degree five, six, or seven.
+This is stronger than the round-three bound of six, and does not assert
+eight-edge-connectivity while such vertices remain possible.
+
+New intermediate work classifies non-WKE graphs of ordinary matching
+number at most two, uses it on the cut compatibility graph, and handles
+four possible C4-containing cut components by explicit labeled recipes.
+The internal triangle in the pendant-path case has all its edges in the
+cover, so the edge-set induction bridge is preserved. Both the exhaustive
+shape argument and every recipe were checked by C and the coordinator.
+The classical Tutte--Berge formula is an explicit imported dependency,
+with two author-hosted sources verified by the coordinator.
+
+CORRECTIONS AND SOURCE SCOPE
+The attempted P3+K2 extension was rejected: a neighbor at its K2 endpoint
+has a common K5 minus two incident edges, outside the invoked lemmas.
+Only P4 was added. This rejected inference is not a nonreducibility result.
+A's Puleo 7.5/7.6 summary was corrected to distinguish their exact singleton
+nonreducibility assumptions from global absence of reducible sets; the
+possible missing edge in 7.6 requires the stated relabeling. The source
+summary and its correction are recorded separately from new results.
+
+COMPUTATION
+No B task was needed this round. No numerical certificate search or
+enumeration was run. Neither proof uses solver output or the upstream
+census. Verification was symbolic exact-file review, plus primary-source
+checks of the imported statements. Repository integrity checks do not
+constitute mathematical formal verification.
+
+REMAINING GAP
+Degree-five/six vertices and degree-seven link complements outside the
+matching/P3/P4 families. The local link condition is not hereditary, and
+no induction on that condition is claimed. The new cut restriction also
+does not rule out all graphs with these unresolved local configurations.

@@ -1,0 +1,5 @@
+Selected-incidence charge audit (C; provisional pending exact file)
+
+ACCEPT the proposed refinement. Select all seven incidences for a matching-type degree-seven vertex, its six noncentral incidences for P3 type, and its five noninternal incidences for P4 type. Each selected neighbor has at most one missing adjacency within that seven-vertex link, so it sees at least five other neighbors of the degree-seven vertex. Under L-independence, those five are outside L. A degree-d≥9 donor with at least one selected incidence therefore has at most d−5 neighbors in L, and at most that many selected recipients. Sending 1/5 on selected incidences leaves it with at least d−(d−5)/5=(4d+5)/5≥41/5. An unselected high vertex retains d≥9; degree-eight vertices send nothing.
+
+Receivers finish with charge 7+7/5, 7+6/5, or 7+5/5 for matching, P3, or P4 respectively. Summing yields 2|E|−8|V| ≥ [2|L_matching|+|L_P3|+|H|+4 sum_{v∈H}(d(v)−9)]/5. The ≥5 link-degree fact is needed only at selected incidences, not globally. This bound depends on proving L-independence and all selected neighbors degree≥9; it does not follow from link type alone without the reducibility contradiction.
