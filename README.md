@@ -15,18 +15,24 @@ pinned to commit `bf8415fac44f4eeed6c0f7a2273b843d689b065e`.
 ### Maximum average degree below eight
 
 **The full implication `mad(G)<8 => tau(G)<=2nu(G)` remains unresolved here.**
-The first round gives an explicit reduction for a pair in an eight-clique
-with at most one external incident edge in total, including a simplicial
-degree-seven vertex adjacent to a vertex of degree at most eight. A sharp
-conditional density bound forces such a pair when minimum degree is seven,
-average degree is below eight, and every degree-seven vertex is simplicial.
-This is a local forcing theorem; its extra hypotheses need not survive deletion.
+The latest round handles every degree-seven vertex whose link is K7 minus
+a matching: it forms a reducible pair with any neighbor of degree at most
+eight. Three explicit constructions and a conditional density bound force
+such a pair when minimum degree is seven, average degree is below eight,
+and all degree-seven links have matching complements. This extends the
+first round's simplicial-link theorem. These are local forcing theorems;
+their extra hypotheses need not survive deletion.
 
 The independent route proves sharp local patch-density bounds, an eight-triangle
-reduction valid beyond the old common-neighbor degree budget, and edge-gluing
-closure implying that a smallest counterexample must be 3-connected. Degree-five
-and degree-six cases and nonsimplicial degree-seven vertices remain unresolved.
+reduction valid beyond the old common-neighbor degree budget, and closure
+across separators of order at most three. A smallest counterexample must
+therefore be 4-connected. Degree-five/six vertices and degree-seven links
+whose complements have maximum degree at least two remain unresolved.
 
+- [Latest results and limits in Chinese](docs/mad8-round2.zh-CN.txt)
+- [Three constructions and all matching-complement degree-seven links](mad8/round2/E/matching_complement_links.txt)
+- [Three-edge boundary theorem and 4-connectivity](mad8/round2/D/three_edge_boundary.txt)
+- [Round-two coordinator review](mad8/round2/review_summary.txt)
 - [Results, proof ideas, and limits in Chinese](docs/mad8-progress.zh-CN.txt)
 - [Mixed-degree Fano reduction and sharp conditional density bound](mad8/round1/E/mixed_fano_and_density.txt)
 - [Why maximum average degree alone cannot prune the old local patches](mad8/round1/D/local_density_obstruction.txt)
@@ -127,12 +133,16 @@ For the new maximum-average-degree notes:
 
 ```shell
 python mad8/round1/B/check_named_graphs.py
+python mad8/round2/B/check_core_matching.py
+python mad8/round2/C/check_literal_C4.py
+python mad8/round2/B/check_repaired_fano.py
 ```
 
 This checks the literal reductions on K9 minus one edge and the maximal
 codegree-four patch, and computes exact maximum average degrees for three named
 graphs. It uses rational arithmetic over their vertex subsets; it does not run
-a graph census. The general lemmas are proved in the accompanying text.
+a graph census. The round-two checks additionally verify the literal induced-C4
+and repaired-Fano certificates. The general lemmas are proved in the text.
 
 For the certificate-compression archive:
 

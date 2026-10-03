@@ -1,0 +1,177 @@
+MAD<8 / ROUND 2 / D
+THREE SHARED EDGES, TRIANGLE SEPARATORS, AND 4-CONNECTIVITY
+
+Status: reviewed research proof; see ../C/review_final_proofs.txt.
+This is internal research review, not human peer review or formal verification.
+No claim of novelty is made. No computation or external theorem is used.
+
+SETUP AND NOTATION.
+Let G_1,G_2 be subgraphs whose union is G. Their common vertex set is S,
+their common edge set is F=E(G[S]), and G has no edge between
+V(G_1)\S and V(G_2)\S. The sides contain all the edges of G induced on
+their vertex sets. Thus every triangle of G is contained in at least one
+side; a triangle wholly in S may belong to both.
+
+For J subset F, let
+ H_i(J)=G_i-(F\J),
+ a_i=nu(H_i(empty))=nu(G_i-F),
+ N=nu(G).
+Here nu is maximum edge-disjoint triangle packing size, and tau is
+minimum triangle edge-cover size. Assume Tuza's inequality holds for
+every H_i(J), including G_i itself. This is the only hypothesis about
+the sides used below.
+
+Packings in H_1(J_1) and H_2(J_2) are edge-disjoint whenever J_1 and J_2
+are disjoint: every edge common to the sides belongs to F. Consequently
+
+ (*)  N >= nu(H_1(J_1))+nu(H_2(J_2)) whenever J_1 intersect J_2 is empty.
+
+In particular N>=a_1+a_2, and nu(G_i)<=N-a_j for j distinct from i.
+Adding a single edge increases the maximum triangle packing size by at
+most one, because at most one member of a packing can use that edge.
+Thus nu(H_i({e})) belongs to {a_i,a_i+1} for every e in F.
+
+THEOREM 1 (a complete necessary obstruction at a three-edge boundary).
+Suppose |F|<=3 and the side hypothesis above holds. If G violates
+Tuza's inequality, then |F|=3, F contains no triangle, and after
+interchanging the sides all the following hold:
+
+ (1) N=a_1+a_2+1 and nu(G_i)=a_i+1 for both sides.
+
+ (2) Restoring any nonempty subset of F on side 1 already gives its
+     entire packing gain:
+       nu(H_1(J))=a_1+1 for every nonempty J subset F.
+
+ (3) Side 2 gains a triangle only when all three boundary edges return:
+       nu(H_2(J))=a_2 for every proper J subsetneq F,
+       nu(G_2)=a_2+1.
+     Equivalently, nu(G_2-e)=a_2 for every e in F.
+
+ (4) Side 1 is Tuza-tight, tau(G_1)=2nu(G_1), and every minimum triangle
+     cover of G_1 avoids every edge of F. In fact every cover of G_1
+     of size at most 2nu(G_1) avoids F.
+
+ (5) The other side has slack: tau(G_2)<=2nu(G_2)-1.
+
+These are necessary conditions for failure of this gluing argument,
+not sufficient conditions for a counterexample.
+
+Proof. Suppose tau(G)>2N. If N=a_1+a_2, inequality (*) shows
+nu(G_i)<=a_i for both i, hence equality. Combining covers of the two
+sides gives tau(G)<=2a_1+2a_2=2N, a contradiction.
+
+If N>=a_1+a_2+2, choose all edges of F and covers of G_i-F. Every
+triangle using a boundary edge is met by F, and every remaining triangle
+is covered on its side. The resulting cover has size at most
+  |F|+2a_1+2a_2<=3+2a_1+2a_2<=2N-1,
+again a contradiction. Therefore N=a_1+a_2+1. If |F|<=2, the same
+construction has size at most 2N, so necessarily |F|=3.
+
+By (*), nu(G_i)<=a_i+1. If one side, say G_2, had nu(G_2)=a_2,
+then the union of side covers would have size at most
+2(a_1+1)+2a_2=2N. This is impossible. Thus nu(G_i)=a_i+1 for both
+sides, establishing (1).
+
+Call a boundary edge e gainful on side i if nu(H_i({e}))=a_i+1.
+Suppose some e is gainful on neither side. Select the other two edges
+F\{e}, together with covers of H_1({e}) and H_2({e}). A triangle
+containing one of the selected boundary edges is met immediately; every
+other triangle remains in at least one of the two H_i({e}) and is met
+by its cover. The total size is at most
+  2+2a_1+2a_2=2N,
+a contradiction. Therefore every edge of F is gainful on at least one
+side.
+
+Different boundary edges cannot be gainful on opposite sides: their
+singleton edge sets are disjoint, so (*) would give
+N>=a_1+a_2+2. Choose an edge e gainful on some side and name that side
+1. Each of the other two edges must then be gainful on side 1 and cannot
+be gainful on side 2. The first edge e cannot be gainful on side 2
+either, because either of those other two edges is gainful on side 1.
+Thus every edge is gainful on side 1 and none is gainful on side 2.
+Monotonicity together with nu(G_1)=a_1+1 proves (2).
+
+For e in F, if nu(G_2-e)>=a_2+1, combine a packing of that size with
+a packing of H_1({e}) of size a_1+1. Their permitted boundary sets are
+disjoint, contradicting (*). Thus nu(G_2-e)<=a_2, while the reverse
+inequality follows from G_2-F being a subgraph. Every proper J subset F
+omits some e, so H_2(J) is a subgraph of G_2-e and has packing number
+exactly a_2. This proves (3).
+
+Now consider any cover X_1 of G_1 with |X_1|<=2nu(G_1)=2a_1+2.
+If X_1 contains a boundary edge e, take a cover Y_2 of G_2-e with
+|Y_2|<=2nu(G_2-e)=2a_2. Then X_1 union Y_2 covers G: triangles on
+side 1 meet X_1, while triangles on side 2 either use e (already in
+X_1) or survive in G_2-e (and meet Y_2). Its size is at most 2N,
+a contradiction. Therefore every cover of G_1 within that budget avoids
+F. The assumed side inequality supplies such a cover. If
+tau(G_1)<=2nu(G_1)-1, adding any e in F to a minimum cover would produce
+a cover within the budget that meets F. This is impossible. Hence
+tau(G_1)=2nu(G_1), proving (4).
+
+For any e in F, the set consisting of e and a cover of G_2-e gives
+tau(G_2)<=1+2a_2=2nu(G_2)-1, proving (5).
+
+Finally, F cannot contain a triangle, since every triangle cover of
+G_1 would then have to contain an edge of F, contrary to (4). This
+finishes the proof.
+
+COROLLARY 2 (gluing across at most three vertices).
+Under the same side hypothesis, if |S|<=3 then tau(G)<=2nu(G).
+
+Proof. If |S|<=3, the induced edge set F has at most three edges. By
+Theorem 1, failure would require exactly three edges and no triangle.
+But the unique simple graph on at most three vertices with three edges
+is a triangle. This contradiction proves the corollary.
+
+COROLLARY 3 (4-connectivity of minimal counterexamples).
+Let C be any class closed under arbitrary subgraphs. If C contains a
+counterexample to Tuza, choose G in C minimizing |V(G)|+|E(G)| among
+counterexamples. Then G is 4-connected. In particular this applies to
+the class mad(G)<8.
+
+Proof. Every proper subgraph of G belongs to C and satisfies Tuza by
+minimality. Graphs on at most four vertices satisfy Tuza: if no triangle
+is present there is nothing to cover; otherwise nu>=1, while any two
+disjoint edges of K4 meet all its triangles, and intersecting this cover
+with the edge set of the graph yields a cover of size at most two.
+Thus |V(G)|>=5.
+
+If G is disconnected, take two nonempty unions of its components as
+the two sides and S=empty. Corollary 2 applies and contradicts G being
+a counterexample. More generally, suppose S is a vertex separator of
+size at most three. Partition the components of G-S into two nonempty
+groups, and let G_i be induced by S together with the vertices in group
+i. Both sides are proper subgraphs. Each H_i(J) is also a proper
+subgraph of G, so all side inequalities assumed in Corollary 2 follow
+from minimality. The corollary again proves Tuza for G, a contradiction.
+There is therefore no separator of size at most three. Together with
+|V(G)|>=5, this is 4-connectivity.
+
+COROLLARY 4 (the remaining sparse four-vertex cuts are rigid).
+For G as in Corollary 3, suppose a vertex separator S has size four and
+G[S] has at most three edges. Then G[S] is either P4 or K_{1,3}.
+Furthermore, for every partition of the components of G-S into two
+nonempty sides, those sides have the packing and cover properties
+(1)--(5) of Theorem 1, after interchanging their names if necessary.
+
+Proof. Every required side inequality holds by minimality as before.
+Theorem 1 forces exactly three shared edges and no triangle. A simple
+triangle-free graph on four vertices with three edges is a tree: the
+only possible cycle with at most three edges would be a triangle, and
+an acyclic graph with four vertices and three edges is connected. The
+only two trees on four vertices are P4 and K_{1,3}. The remaining
+statements are exactly Theorem 1.
+
+INTERPRETATION AND LIMITS.
+This strengthens the round-one 3-connectivity reduction and identifies
+the precise packing imbalance that would be needed at a separator
+carrying only three edges. The exceptional four-vertex cuts force one
+side to be Tuza-tight while every minimum cover avoids all three shared
+edges; the other side has a maximum-packing gain that requires all three
+edges jointly. No claim is made that this exceptional pattern occurs,
+or that its exclusion would by itself prove the mad<8 statement.
+
+The full question whether mad(G)<8 implies tau(G)<=2nu(G) remains open
+in this work. No numerical search, census, certificate finder, or external
+structural theorem is a premise of these proofs.

@@ -1,0 +1,27 @@
+MAD<8 / ROUND 2 / D / REVIEW MILESTONE
+
+Independent initial draft: independent_initial.txt.
+Full proof: three_edge_boundary.txt.
+
+The initial triangle-separator gluing argument was accepted by C.
+The full file, including the strengthened three-edge obstruction theorem,
+has been submitted for a complete adversarial audit. This is internal
+research review, not journal peer review or formal verification.
+
+Results proved in the full draft:
+1. Tuza glues across any vertex separation of order at most three when
+   it holds for the two sides and all their boundary-edge-deleted versions.
+2. A smallest counterexample in any arbitrary-subgraph-closed class,
+   including mad<8, must have order at least five and be 4-connected.
+3. More generally, failure across a separator with at most three shared
+   edges requires exactly three triangle-free shared edges. One side gains
+   a triangle as soon as any boundary edge returns; the other gains only
+   when all three return. The first side is Tuza-tight and every minimum
+   cover avoids the shared edges; the other side has at least one unit
+   of slack.
+4. Consequently any four-vertex separator with at most three induced
+   edges must induce P4 or K_{1,3} and have the rigid profiles in (3).
+
+No novelty claim is made. No computation, census, finder, or external
+theorem is used. D did not inspect E's round-two work. Research has stopped
+at this milestone pending review. The full mad<8 question remains open.

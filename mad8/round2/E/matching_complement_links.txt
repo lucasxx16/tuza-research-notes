@@ -1,0 +1,254 @@
+DEGREE-SEVEN LINKS WITH MATCHING COMPLEMENTS
+
+Status: three explicit universal reducibility constructions; a complete
+local theorem for every degree-seven link obtained from K7 by deleting
+a matching; and a conditional discharging theorem. No enumeration is
+used. The full implication mad(G)<8 => tau(G)<=2nu(G) remains unproved.
+
+1. SETUP AND PROVENANCE
+
+All graphs are finite and simple. For adjacent vertices u,v, write
+C=N(u) intersect N(v). A reducible pair {u,v} requires a set S of
+edge-disjoint triangles and an edge set X such that |X|<=2|S|,
+X meets every triangle through u or v, and X contains every S-edge
+whose endpoints both avoid {u,v}.
+
+The Fano construction used below is the seven-triangle construction
+appearing in Gupta's proof for a complete codegree-six core. The
+extensions and repair are proved explicitly. The round-one result
+mad8/round1/E/mixed_fano_and_density.txt handled simplicial degree-seven
+vertices; the theorem here also handles one, two, or three disjoint
+missing edges in a degree-seven link.
+
+None of the lemmas imposes a degree bound on common neighbors or
+vertices outside the displayed configuration. Every cover argument
+is made directly in the ambient graph.
+
+2. A FIVE-CLIQUE IN THE COMMON NEIGHBORHOOD
+
+Lemma A. Let u,v be adjacent, let d(u)+d(v)<=15, and suppose C
+contains a clique W={c0,c1,c2,c3,c4}. Then {u,v} is reducible.
+
+Proof. On the seven vertices {u,v} union W, take
+
+  S={uvc0, uc1c2, uc3c4, vc1c3, vc2c4, c0c1c4, c0c2c3}.
+
+These are the seven Fano triples. For direct checking their edge
+sets, in order, are
+
+  uv,uc0,vc0;
+  uc1,uc2,c1c2;
+  uc3,uc4,c3c4;
+  vc1,vc3,c1c3;
+  vc2,vc4,c2c4;
+  c0c1,c1c4,c0c4;
+  c0c2,c2c3,c0c3.
+
+They are twenty-one distinct edges, so S is a packing of size seven.
+Define
+
+  X=E(G[W]) union {uv}
+      union {ut:t in N(u) outside ({v} union W)}
+      union {vt:t in N(v) outside ({u} union W)}.
+
+The four displayed parts are edge-disjoint. There are ten edges
+inside W, and exactly d(u)-6 and d(v)-6 spokes in the last two
+parts. Hence
+
+  |X|=10+1+(d(u)-6)+(d(v)-6)=d(u)+d(v)-1<=14=2|S|.
+
+A triangle through both hubs meets uv. A triangle through u alone
+with a vertex outside W meets a deleted u-spoke. Any remaining
+triangle through u has its rim edge in G[W] and meets X. The same
+argument applies at v. All packed edges avoiding the hubs lie
+inside W, and therefore lie in X. This proves reducibility.
+
+3. AN INDUCED FOUR-CYCLE AND ANOTHER COMMON VERTEX
+
+Lemma B. Let u,v be adjacent with d(u)+d(v)<=15. Suppose four
+common vertices x1,x2,x3,x4 induce the cycle x1-x2-x3-x4-x1,
+and suppose r is another common vertex. Then {u,v} is reducible.
+
+Proof. Put W={x1,x2,x3,x4} and take
+
+  S={uvr, ux1x2, ux3x4, vx2x3, vx4x1},
+  X=E(G[W]) union {uv}
+      union {ut:t in N(u) outside ({v} union W)}
+      union {vt:t in N(v) outside ({u} union W)}.
+
+At u, the two cycle triangles use disjoint vertex pairs {x1,x2}
+and {x3,x4}; at v they use disjoint pairs {x2,x3} and {x4,x1}.
+Their four rim edges are distinct. The central triangle uvr uses
+uv and the two spokes to r, none used by the other four triangles.
+Thus S is edge-disjoint and |S|=5.
+
+The cycle has exactly four edges, so
+
+  |X|=4+1+(d(u)-5)+(d(v)-5)=d(u)+d(v)-5<=10=2|S|.
+
+Any triangle through both hubs meets uv. A triangle through just
+one hub with a rim vertex outside W meets its deleted spoke. If
+both rim vertices lie in W, their edge is a cycle edge because
+the cycle is induced; that edge lies in X. Finally the only packed
+edges avoiding the hubs are the four cycle edges, all in X.
+This verifies all three conditions in the ambient graph.
+
+The induced condition is essential to this displayed certificate:
+an added diagonal would support an uncovered hub triangle.
+
+4. REPAIRING ONE MISSING EDGE IN THE FIVE-VERTEX CORE
+
+Lemma C. Let u,v be adjacent with d(u)+d(v)<=15. Suppose W is a
+five-vertex subset of C inducing K5 minus a single edge xy, and
+suppose w is a neighbor of u outside {v} union W with wx present.
+Then {u,v} is reducible. The vertex w may or may not be adjacent
+to v, and all its other adjacencies are unrestricted.
+
+Proof. Write W={x,y,p,q,r}. The following seven formal triples
+are a Fano system on {u,v} union W:
+
+  uxy, uvp, uqr, vxq, xpr, vyr, ypq.
+
+Remove uxy, whose edge xy is absent, and insert uwx. Thus take
+
+  S={uvp, uqr, vxq, xpr, vyr, ypq, uwx}.
+
+All seven triangles now exist. The first six are edge-disjoint:
+their edges are all edges of the seven-vertex clique except the
+three edges ux,uy,xy. In particular ux is unused. The new triangle
+uwx uses the unused edge ux and two edges incident to w, a vertex
+outside those seven vertices. It is therefore disjoint from all
+six triangles. Hence |S|=7.
+
+Define
+
+  X=E(G[W]) union {uv,wx}
+      union {ut:t in N(u) outside ({v} union W)}
+      union {vt:t in N(v) outside ({u} union W)}.
+
+The displayed parts are edge-disjoint, including wx, which is a
+rim edge between W and a vertex outside W. The spoke uw is among
+the u-spokes. Since G[W] has nine edges,
+
+  |X|=9+2+(d(u)-6)+(d(v)-6)=d(u)+d(v)-1<=14=2|S|.
+
+Triangles through both hubs meet uv. A triangle through one hub
+and a rim vertex outside W meets a deleted spoke. Otherwise its
+rim edge is in G[W] and belongs to X. This covers all ambient hub
+triangles. The edges of S avoiding the hubs are edges of G[W]
+and wx, all in X. Thus the pair is reducible.
+
+5. COMPLETE LOCAL THEOREM FOR MATCHING-COMPLEMENT LINKS
+
+Theorem M. Let u have degree seven, and suppose the complement
+of the induced link G[N(u)] is a matching. For every neighbor v
+with d(v)<=8, the pair {u,v} is reducible.
+
+Proof. Let m be the number of missing edges in the link. Since
+the link has seven vertices and the missing edges are a matching,
+0<=m<=3. Also d(u)+d(v)<=15.
+
+Case 1: v is incident to no missing edge in the link.
+Then v is adjacent to all six other vertices of N(u), so C consists
+of those six vertices. Its graph is K6 minus a matching of size m.
+If m<=1, omitting an endpoint of the possible missing edge leaves
+a five-clique in C; apply Lemma A.
+If m>=2, take the endpoints of two missing edges. On these four
+vertices all other edges are present, so they induce a four-cycle.
+There are two further common vertices, so Lemma B applies.
+
+Case 2: v is incident to a missing edge vw in the link.
+The vertex w is the only member of N(u)\{v} not adjacent to v,
+so C=N(u)\{v,w} has size five. Its graph is K5 minus a matching
+of size m-1. If m=1, apply Lemma A. If m=3, the four endpoints
+of the two missing core edges induce a four-cycle, and the fifth
+core vertex supplies r for Lemma B.
+
+Finally suppose m=2. Write xy for the other missing edge. Then
+C induces K5-xy. Because the missing edges form a matching and
+w is already incident to vw, every edge from w to C is present;
+in particular wx is present. Also w is a neighbor of u outside
+{v} union C. Apply Lemma C with W=C.
+
+The two cases exhaust every neighbor v and every possible matching.
+This proves the theorem.
+
+Corollary M1. In a graph with no reducible pair, every neighbor of
+a degree-seven vertex whose link has matching complement has
+degree at least nine.
+
+This corollary requires no minimum-degree assumption elsewhere.
+It includes the non-simplicial links K7 minus one, two, or three
+disjoint edges, not only the complete link K7.
+
+6. CONDITIONAL DISCHARGING BEYOND SIMPLICIAL LINKS
+
+Lemma D. Let G be a nonempty graph of minimum degree at least
+seven. Let L be its set of degree-seven vertices. Suppose that
+every vertex of L has a link whose complement is a matching,
+and every neighbor of L has degree at least nine. Then
+
+  2|E(G)|/|V(G)| >= 8 + (3/4)|L|/|V(G)|.          (1)
+
+Proof. The neighbor-degree assumption makes L independent and
+ensures that no degree-eight vertex has a neighbor in L.
+
+Let v be a vertex of degree d>=9 with a neighbor w in L. In the
+seven-vertex link G[N(w)], the vertex v has at most one nonneighbor.
+Thus at least five of the six vertices in N(w)\{v} are adjacent
+to v. Each has degree at least nine by the neighbor-degree
+assumption at w. Therefore at least five vertices of N(v) lie
+outside L, giving
+
+  |N(v) intersect L| <= d-5.                     (2)
+
+Give each vertex its degree as initial charge. Each vertex in L
+takes 1/4 from each of its seven neighbors. Transfers conserve
+the sum of charges. A vertex in L ends with 7+7/4=35/4. A
+degree-eight vertex neither sends nor receives charge, so retains
+eight. A degree-d vertex, d>=9, with a neighbor in L ends with
+at least
+
+  d-(d-5)/4=(3d+5)/4>=8.
+
+A degree-d vertex with no neighbor in L retains d>=9. Summing
+the final charges gives (1). No assertion of sharpness is made.
+
+Theorem T. Let G have minimum degree at least seven and average
+degree below eight. If every degree-seven link has a complement
+that is a matching, then G contains an explicit reducible pair
+from Theorem M.
+
+Proof. Suppose no degree-seven vertex has a neighbor of degree
+at most eight. Then the hypotheses of Lemma D hold, giving
+average degree at least eight, a contradiction. Hence some
+degree-seven u has a neighbor v of degree at most eight; Theorem
+M makes {u,v} reducible.
+
+In particular Theorem T applies when mad(G)<8 with the same local
+hypotheses. A subgraph-minimal counterexample to Tuza in that
+maximum-average-degree class has no reducible set, so it cannot
+simultaneously have minimum degree at least seven and matching
+complements at all degree-seven links.
+
+7. WHAT HAS AND HAS NOT BEEN CLOSED
+
+The new conditional theorem extends the simplicial-link result of
+round one to all four matching-complement types on seven vertices.
+It gives a concrete donor restriction for degree-seven vertices
+and uses only three human-checkable packing-and-cover recipes.
+The special (7,8), codegree-six, K6-minus-two-disjoint-edges case
+has a five-triangle/ten-edge witness from Lemma B, with no triangle
+using the exclusive vertex of the degree-eight hub.
+
+This does not complete Question 12.1. Degree-five and degree-six
+vertices are still not eliminated. Even when minimum degree is
+seven, the argument leaves degree-seven links having a vertex
+with at least two nonneighbors in the link. No reduction or
+discharging bound for every such link has been proved here.
+
+Theorem T is a local forcing theorem. The matching-complement
+property need not survive arbitrary edge deletions, so it is not
+being used as an unsupported hereditary induction hypothesis.
+All ambient coverage and external-packing-edge conditions are
+verified separately in the three universal lemmas.

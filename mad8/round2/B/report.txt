@@ -1,0 +1,17 @@
+SUPPLEMENTARY LITERAL CERTIFICATE CHECKS
+
+The accepted targets are a hand C4 certificate (five packed triangles,
+ten cover edges) and a repaired-Fano certificate (seven, fourteen).
+They corroborate named instances of the universal human proofs in E.
+
+Commands from repository root:
+  python mad8/round2/B/check_core_matching.py
+  python mad8/round2/C/check_literal_C4.py
+  python mad8/round2/B/check_repaired_fano.py
+
+The initial optimization output is rejected: its outside-pair condition
+used the core labels in place of the hub labels. The corrected literal
+checks and independent review, not that solver output, support these
+instance verifications. The repaired-Fano checker also underwent a
+separate review correction. See C's audit and ../review_summary.txt.
+No computation here proves the general mad<8 implication.

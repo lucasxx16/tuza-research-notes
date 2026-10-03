@@ -1,0 +1,17 @@
+PRIMARY SOURCES AND READING SCOPE
+
+Botler, Fernandes, Gutierrez, On Tuza's conjecture for triangulations
+and graphs with small treewidth, arXiv:2002.07925v2, Section 3,
+Lemmas 3.2 and 3.3:
+https://arxiv.org/html/2002.07925v2
+
+Puleo, Tuza's Conjecture for Graphs with Maximum Average Degree less
+than 7, arXiv:1308.2211v3, Definitions 2.1 and 2.3, Lemmas 2.6 and 2.7:
+https://arxiv.org/html/1308.2211v3
+
+The relevant statements and hypotheses were checked; surrounding
+proofs were skimmed. This is a narrow source check, not a literature
+survey or a full re-verification of either paper. The coordinator
+corrected the original summary after C's source audit: Lemma 3.2 is a
+restatement, irreducibility is required, closed-neighborhood containment
+must be stated explicitly, and minimality within mad<8 is available.

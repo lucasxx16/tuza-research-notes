@@ -1,0 +1,59 @@
+ROUND 2 COORDINATOR DECISION
+
+Target: mad(G)<8 implies tau(G)<=2nu(G).
+Decision: substantial conditional progress; full question unresolved.
+
+Accepted mathematical results:
+- E/matching_complement_links.txt gives three universal S/X recipes:
+  common K5, common induced C4 plus a fifth common vertex, and a repaired
+  Fano construction on a common K5 minus an edge with an extra attachment.
+  Each verifies ambient hub-triangle coverage and outside-pair packing-edge
+  containment. The degree-sum budget is at most fifteen.
+- Their exhaustive symbolic matching case split proves that a degree-seven
+  vertex with link complement a matching forms a reducible pair with every
+  neighbor of degree at most eight.
+- The conditional density bound is 8+3|L|/(4n), for minimum degree at least
+  seven, matching complements at degree-seven links, and all neighbors of
+  those vertices of degree at least nine. No sharpness claim is made.
+- D/three_edge_boundary.txt proves gluing across separators of order at
+  most three under Tuza for all boundary-edge-deleted sides. A smallest
+  counterexample in any subgraph-closed class must be 4-connected.
+- D also gives necessary packing-gain profiles, cover avoidance/tightness,
+  and a P4/K1,3 restriction for four-vertex cuts with at most three edges.
+
+Scope:
+These are conditional forcing and gluing theorems. The link condition is
+not hereditary under arbitrary edge deletion, so no induction on that
+subclass is asserted. Vertices of degree five/six and degree-seven links
+whose complement has maximum degree at least two remain unresolved.
+Neither new witnesses nor minimal-counterexample conditions imply that
+a counterexample exists. No novelty or formal-verification claim is made.
+
+Computation and rejected outputs:
+A single bounded optimizer attempt for one named graph used a mistaken
+hub/core label in the outside-packing-edge constraint. Its reported
+eight-triangle/nine-cover output was rejected, not interpreted as a proof.
+The hand five-triangle/ten-cover certificate was checked using corrected
+code and an independent implementation. A separate repaired-Fano checker
+initially enumerated edge tuples instead of vertex triples and checked
+packing membership instead of coverage by X; that implementation was
+rejected and repaired. The human proofs never used either faulty output.
+Unused search artifacts are preserved privately, not published as results.
+No upstream census or original certificate finder was rerun.
+
+The coordinator reran the corrected literal checks. A targeted negative
+control also passed: replacing cover edge (2,4) by the real spoke (0,4)
+preserves the repaired-Fano cover size and X subset E, but the checker
+rejects it with nonzero exit for uncovered hub triangles and a missing
+external packing edge. This directly exercises the formerly faulty checks.
+
+Literature audit:
+The final A notes preserve the irreducible/robust hypotheses, distinguish
+degree at most six from degree exactly six, and identify Botler Lemma 3.2
+as a restatement of Puleo's result. Transfer of the local necessary
+conditions to a minimal mad<8 counterexample was already justified;
+this is not a transfer of the entire mad<7 theorem to mad<8.
+
+Next research target: the smallest degree-seven link-complement patterns
+with a vertex of degree at least two, and compatibility with low-degree
+five/six discharging. No assertion that this will close the problem.

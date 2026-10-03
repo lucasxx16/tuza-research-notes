@@ -1,0 +1,31 @@
+Round 2 C: early E K5-common-core lemma
+
+Accept as a sufficient pair reduction. Let u,v be adjacent, let five
+common neighbors induce K5, and suppose d(u)+d(v)<=15. The seven
+vertices form K7, whose Fano decomposition gives seven edge-disjoint
+triangles. Take X to be all ten K5 edges, uv, and every edge from u
+or v to a vertex outside this K7. Its size is
+11+(d(u)-6)+(d(v)-6)=d(u)+d(v)-1<=14=2|S|. An outside vertex
+adjacent to both hubs contributes two spokes, as required. Any triangle
+touching u or v and leaving the K7 meets such a spoke; one inside
+meets uv or a K5 edge. Every packed edge avoiding u,v is a K5 edge
+and belongs to X. Thus the certificate is ambient-safe and satisfies
+all three reducibility conditions.
+
+This does not imply that an arbitrary mad<8 graph contains such a pair.
+In particular an incomplete five-vertex common core is outside the
+lemma, and failure of the lemma would not be a Tuza counterexample.
+
+Second candidate: ACCEPT for an induced C4 on common vertices
+x1,x2,x3,x4, a fifth common vertex r, and d(u)+d(v)<=15. The five
+triangles uvr, ux1x2, ux3x4, vx2x3, vx4x1 use distinct spokes and
+cycle rims. X consists of the four cycle edges, uv, and all spokes
+from either hub to neighbors outside the cycle. Its size is
+4+1+(d(u)-5)+(d(v)-5)=d(u)+d(v)-5<=10. A hub triangle using an
+outside-cycle vertex meets its spoke; one on two cycle vertices
+uses a rim in X because the C4 is induced; uv covers two-hub
+triangles. The external packing edges are exactly the four cycle
+edges. The induced condition cannot be dropped: a chord would create
+a hub triangle whose rim and spokes are outside X. K6 minus a
+two-edge matching has the requisite induced C4, so this construction
+handles that core when the endpoint-degree sum bound holds.

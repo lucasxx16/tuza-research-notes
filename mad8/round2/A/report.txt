@@ -1,0 +1,27 @@
+ROUND 2: REVIEWED LITERATURE FACTS AND LIMITS
+
+1. Puleo Lemma 2.7 assumes that G is robust and has no reducible set.
+For every vertex of degree at most six, the link complement is a
+matching whose size is not two; vertices of degree at most six are
+independent.
+
+2. Botler--Fernandes--Gutierrez Lemma 3.2 restates selected parts of
+Puleo Lemma 2.7; it does not strengthen those statements. In an
+irreducible robust graph, N[y] is not contained in N[x] when either
+(d(x),d(y))=(7,6), or d(x)<=8 and d(y)=5.
+
+3. Their Lemma 3.3: in an irreducible robust graph, if d(x),d(y)<=6
+and |N(x) union N(y)|<=7, then d(x)=d(y)=5, their neighborhoods
+intersect in three vertices, and both induced neighborhoods are K5.
+
+Applicability is established, not a new uncertainty: a subgraph-minimal
+counterexample within mad<8 has no reducible set and is robust by the
+standard reduction arguments recorded in round one. Every proper
+subgraph remains in mad<8. This does not transfer Puleo's mad<7 theorem
+to mad<8; it transfers the local necessary conditions on minimal
+counterexamples.
+
+These results constrain degrees five and six. They do not imply that
+every degree-seven link has matching complement. That missing forcing
+statement is not supplied by this literature check or by the round-two
+conditional theorem. No numerical experiment or novelty claim is made.

@@ -1,0 +1,18 @@
+Round 2 C: B core-matching checker correction
+
+The original search_core_matching.py and check_core_matching.py set
+HUBS=2..7, which are the core vertices, while the selected hubs are
+0 and 1. Their condition for a packed edge avoiding the hubs was
+therefore wrong. The search's reported eight-triangle, nine-cover
+"witness" omitted required external packing edges and is rejected.
+This is a verifier/optimization error, not a graph violating Tuza.
+
+I changed the two source files to use HUBS={0,1} and CORE=2..7,
+without rerunning the optimizer. The literal checker now deduplicates
+hub triangles, checks distinct cover edges, and exits nonzero if any
+check fails. It passes the separate hand five-triangle, ten-edge
+certificate. My independent check_literal_C4.py reconstructs the
+literal nine-vertex graph and rechecks packing existence and edge
+disjointness, X subset E, |X|<=2|S|, every triangle touching hubs,
+and all packed edges avoiding hubs. It passes. The hand certificate
+is sufficient for that graph, but does not settle general mad<8.

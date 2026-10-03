@@ -1,0 +1,45 @@
+MAD<8 / ROUND 2 / D / INDEPENDENT INITIAL DRAFT
+
+Written before inspecting E's round-two work or receiving mainline ideas.
+Chosen route: strengthen the round-one separator lemma by keeping track
+of the packing gain supported on a small shared boundary.
+
+Candidate result: a graph minimal among counterexamples to Tuza in ANY
+subgraph-closed class is 4-connected, rather than merely 3-connected.
+More generally, Tuza glues across any vertex separation of order at most
+three provided it holds for the two sides and their boundary-edge-deleted
+versions. No novelty claim is made at this stage.
+
+First extension. If the common induced boundary has at most two edges F,
+put a_i=nu(G_i-F). If nu(G_i)=a_i for both sides, combine maximum
+packings avoiding F and use a union of side covers. Otherwise the full
+graph packs at least a_1+a_2+1 triangles, and deleting F plus covers of
+G_i-F costs at most |F|+2a_1+2a_2<=2nu(G). Thus such a separation cannot
+occur in a minimal counterexample.
+
+The only remaining three-vertex boundary is a triangle F={e1,e2,e3}.
+Let a_i=nu(G_i-F) and N=nu(G). Its central triangle plus the two base
+packings gives N>=a_1+a_2+1. If N>=a_1+a_2+2, covering F and the two
+edge-deleted sides costs <=3+2a_1+2a_2<2N. So only N=a_1+a_2+1 matters.
+
+Call e individually gainful on side i if
+nu(G_i-(F\{e}))=a_i+1. If an edge is gainful on neither side, delete the
+other two boundary edges and apply Tuza to the sides retaining only e;
+this gives a cover of size <=2+2a_1+2a_2=2N. Hence each boundary edge
+must be gainful somewhere. Two different boundary edges cannot be
+gainful on opposite sides, since their disjoint gains would give N>=
+a_1+a_2+2. Therefore all three are gainful on one side, say G_1, and
+none on G_2.
+
+For every e in F, nu(G_2-e)=a_2: otherwise a packing of G_2-e with one
+extra triangle could be combined with the packing gain in G_1 using
+only e, again exceeding N. Also nu(G_1)=a_1+1. A Tuza cover X_1 of G_1
+has size <=2a_1+2 and contains some edge e of its boundary triangle.
+Combine X_1 with a cover of G_2-e of size <=2a_2. The already-selected e
+covers every remaining triangle on side two that uses e, and the second
+cover meets all others. Total size <=2N: contradiction.
+
+Thus every three-vertex separation is reducible by a packing-cover
+gluing argument. Need C's adversarial review, especially shared-triangle
+accounting, the gainful-edge dichotomy, and the use of boundary-deleted
+proper subgraphs. No computation or external theorem is used.

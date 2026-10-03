@@ -1,0 +1,5 @@
+Repaired-Fano literal checker audit (C)
+
+The original B/check_repaired_fano.py enumerated combinations of graph EDGES as if they were vertex triples and tested whether a hub triangle belonged to S rather than whether X met it. Thus its graph-triangle loop was vacuous and its prior pass unsupported. The witness JSON also omitted five intended graph edges: (2,8), (2,9), (3,7), (3,8), (3,9).
+
+I changed the checker to enumerate vertex triples from range(10), test existence in its independently generated graph, and require each hub triangle to have an edge in X. It now compares the complete graph-edge set recorded in JSON with the generated graph, rejects duplicate X edges, and exits nonzero on any failure. I added the five missing edges to the JSON; no S or X edge was changed. A single literal rerun passes: 39 graph edges, 78 graph triangles, 39 hub triangles, seven existing edge-disjoint packed triangles, fourteen X edges, every ambient hub triangle hit, every external packed edge in X. This validates this named instance only. The human Lemma C was separately reviewed and does not depend on the former checker result.

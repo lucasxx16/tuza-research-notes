@@ -1,0 +1,32 @@
+Round 2 C: adversarial review of E and D candidate lemmas
+
+E's third K5-minus-one-edge repair is sound as relayed. In a Fano
+decomposition of K7, choose the line uxy containing the missing core
+edge xy. Removing this line removes the sole use of xy and frees ux;
+the triangle uwx restores a seven-triangle packing when w is u's
+exclusive neighbor and wx exists. The cover has nine existing core
+edges, uv, uw, wx, and at most two v-exclusive spokes. It meets every
+ambient hub triangle and contains each external packing edge, with
+size at most fourteen.
+
+For a degree-seven u whose link complement is a matching of size
+0..3, E's matched/unmatched neighbor split is exhaustive. A neighbor
+v of degree at most eight yields either a common K5, an induced C4
+plus another common vertex, or the repaired K5-minus-edge case.
+Thus absence of such a reducible pair makes all neighbors of these
+degree-seven vertices have degree at least nine. Conditional on
+minimum degree seven and every degree-seven vertex having this link
+type, a donor adjacent to L has at least five non-L neighbors.
+Transfers of 1/4 give L charge 35/4 and degree-9-or-more donor charge
+at least eight, forcing average degree at least
+8+3|L|/(4|V|). This is not a full mad<8 proof.
+
+D's initial three-separator gluing proof is sound. For a boundary of
+at most two edges, one packing gain pays for deleting that boundary.
+For a shared triangle, tightness forces each boundary edge to be
+individually gainful somewhere; different gainful edges cannot occur
+on opposite sides. A cover of the gainful side contains a boundary
+edge e; combining it with a cover of the other side minus e stays
+within 2nu(G). Consequently a smallest counterexample in a
+subgraph-closed class is 4-connected, after excluding order at most
+four directly. This does not establish that a counterexample exists.

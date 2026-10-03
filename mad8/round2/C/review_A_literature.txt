@@ -1,0 +1,9 @@
+Round 2 A literature audit (C; primary source statements checked)
+
+Botler--Fernandes--Gutierrez, Lemma 3.2(a),(b), explicitly cites Puleo Lemma 2.7. Its irreducible robust hypotheses encode the same no-reducible-set setting; delete the claim that it "sharpens Puleo ... to the irreducible setting." Botler Lemma 3.3 is quoted correctly: in an irreducible robust graph, d(x),d(y)<=6 and |N(x) union N(y)|<=7 force both degrees 5, three common neighbors, and both links K5. This is the useful new statement here. No novelty claim is warranted.
+
+In A/report.txt, delete the paragraph calling transfer of the irreducible-robust framework to a minimal mad<8 counterexample unverified. The transfer was established in round 1: mad<8 is arbitrary-subgraph closed, so every proper subgraph of a subgraph-minimal counterexample satisfies Tuza; it has no reducible set and is robust by Puleo Lemma 2.6. Replace the vague "no 5-vertex inside a degree-<=8 closed neighborhood" with Botler's precise exclusion N[y] not subset N[x] when d(x)<=8 and d(y)=5. This is the exact hypothesis/conclusion, and it concerns closed-neighborhood containment.
+
+In A/sources.txt, distinguish Puleo Lemma 2.7 from Proposition 5.1: Lemma 2.7 assumes G robust AND has no reducible set. The current combined hypothesis line omits the latter. Also remove its duplicate sentence saying transfer was not verified. The remaining prior-round Puleo details can be shortened, leaving Botler Lemma 3.3 and the precise scope of the source check. No broader literature search was performed.
+
+Final disposition: ACCEPT the revised A/report.txt and A/sources.txt inspected after the coordinator's edits. They now state the exact closed-neighborhood exclusions, the no-reducible-set hypothesis, and the established minimal-counterexample transfer; they avoid the false sharpening and novelty claims. The quoted Botler Lemma 3.3 matches the primary arXiv text.
