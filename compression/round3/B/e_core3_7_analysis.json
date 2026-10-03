@@ -1,0 +1,626 @@
+{
+  "note": "Catalogue-only bounded computation on the saved 1144 records. No census, no certificate finder, no proof claim.",
+  "source": "B_codegree4_certificates.json",
+  "num_records": 1144,
+  "global_side_link_wke_connected_tally": {
+    "wke=False,connected=True": 2288
+  },
+  "named_core_signature_catalogue": {
+    "core3|left": {
+      "leaf_support_excludes_isolated": true,
+      "star_leaves": [
+        1,
+        2
+      ],
+      "isolated": [
+        3
+      ],
+      "center": 0,
+      "signatures_support_cdeg_private": [
+        {
+          "leaf_support": 2,
+          "center_attach_deg": 0,
+          "private_edge": true,
+          "count": 14,
+          "example_key": [
+            3,
+            366,
+            366
+          ],
+          "example_index": 96
+        },
+        {
+          "leaf_support": 2,
+          "center_attach_deg": 1,
+          "private_edge": false,
+          "count": 54,
+          "example_key": [
+            3,
+            111,
+            111
+          ],
+          "example_index": 0
+        },
+        {
+          "leaf_support": 2,
+          "center_attach_deg": 1,
+          "private_edge": true,
+          "count": 43,
+          "example_key": [
+            3,
+            363,
+            363
+          ],
+          "example_index": 80
+        },
+        {
+          "leaf_support": 2,
+          "center_attach_deg": 2,
+          "private_edge": false,
+          "count": 26,
+          "example_key": [
+            3,
+            127,
+            190
+          ],
+          "example_index": 18
+        },
+        {
+          "leaf_support": 2,
+          "center_attach_deg": 2,
+          "private_edge": true,
+          "count": 13,
+          "example_key": [
+            3,
+            379,
+            382
+          ],
+          "example_index": 117
+        }
+      ]
+    },
+    "core3|right": {
+      "leaf_support_excludes_isolated": true,
+      "star_leaves": [
+        1,
+        2
+      ],
+      "isolated": [
+        3
+      ],
+      "center": 0,
+      "signatures_support_cdeg_private": [
+        {
+          "leaf_support": 2,
+          "center_attach_deg": 0,
+          "private_edge": true,
+          "count": 24,
+          "example_key": [
+            3,
+            111,
+            366
+          ],
+          "example_index": 7
+        },
+        {
+          "leaf_support": 2,
+          "center_attach_deg": 1,
+          "private_edge": false,
+          "count": 10,
+          "example_key": [
+            3,
+            111,
+            111
+          ],
+          "example_index": 0
+        },
+        {
+          "leaf_support": 2,
+          "center_attach_deg": 1,
+          "private_edge": true,
+          "count": 66,
+          "example_key": [
+            3,
+            111,
+            363
+          ],
+          "example_index": 6
+        },
+        {
+          "leaf_support": 2,
+          "center_attach_deg": 2,
+          "private_edge": false,
+          "count": 7,
+          "example_key": [
+            3,
+            111,
+            127
+          ],
+          "example_index": 1
+        },
+        {
+          "leaf_support": 2,
+          "center_attach_deg": 2,
+          "private_edge": true,
+          "count": 43,
+          "example_key": [
+            3,
+            111,
+            379
+          ],
+          "example_index": 9
+        }
+      ]
+    },
+    "core7|left": {
+      "leaf_support_excludes_isolated": false,
+      "star_leaves": [
+        1,
+        2,
+        3
+      ],
+      "isolated": [],
+      "center": 0,
+      "signatures_support_cdeg_private": [
+        {
+          "leaf_support": 3,
+          "center_attach_deg": 0,
+          "private_edge": true,
+          "count": 34,
+          "example_key": [
+            7,
+            362,
+            362
+          ],
+          "example_index": 200
+        },
+        {
+          "leaf_support": 3,
+          "center_attach_deg": 1,
+          "private_edge": false,
+          "count": 42,
+          "example_key": [
+            7,
+            111,
+            111
+          ],
+          "example_index": 150
+        },
+        {
+          "leaf_support": 3,
+          "center_attach_deg": 1,
+          "private_edge": true,
+          "count": 27,
+          "example_key": [
+            7,
+            363,
+            363
+          ],
+          "example_index": 218
+        },
+        {
+          "leaf_support": 3,
+          "center_attach_deg": 2,
+          "private_edge": false,
+          "count": 8,
+          "example_key": [
+            7,
+            127,
+            362
+          ],
+          "example_index": 184
+        },
+        {
+          "leaf_support": 3,
+          "center_attach_deg": 2,
+          "private_edge": true,
+          "count": 2,
+          "example_key": [
+            7,
+            379,
+            494
+          ],
+          "example_index": 253
+        }
+      ]
+    },
+    "core7|right": {
+      "leaf_support_excludes_isolated": false,
+      "star_leaves": [
+        1,
+        2,
+        3
+      ],
+      "isolated": [],
+      "center": 0,
+      "signatures_support_cdeg_private": [
+        {
+          "leaf_support": 3,
+          "center_attach_deg": 0,
+          "private_edge": true,
+          "count": 38,
+          "example_key": [
+            7,
+            111,
+            362
+          ],
+          "example_index": 155
+        },
+        {
+          "leaf_support": 3,
+          "center_attach_deg": 1,
+          "private_edge": false,
+          "count": 9,
+          "example_key": [
+            7,
+            111,
+            111
+          ],
+          "example_index": 150
+        },
+        {
+          "leaf_support": 3,
+          "center_attach_deg": 1,
+          "private_edge": true,
+          "count": 55,
+          "example_key": [
+            7,
+            111,
+            363
+          ],
+          "example_index": 156
+        },
+        {
+          "leaf_support": 3,
+          "center_attach_deg": 2,
+          "private_edge": true,
+          "count": 11,
+          "example_key": [
+            7,
+            362,
+            379
+          ],
+          "example_index": 206
+        }
+      ]
+    }
+  },
+  "focus_zero_or_one_leaf_sides": {
+    "definition": "named cores 3/7 side links whose attached actual star leaves <= 1",
+    "count": 0,
+    "distinct_side_masks": [],
+    "records": []
+  },
+  "hypotheses": {
+    "scope": "saved records only; NOT a census-free proof",
+    "H_star_nonWKE_leaf_support_ge2": {
+      "statement": "every non-WKE side of core 7 (K1,3) has leaf support >= 2",
+      "holds": true,
+      "counterexamples": [],
+      "num_counterexamples": 0
+    },
+    "H_p3_leaf_support_ge1": {
+      "statement": "every side of core 3 (P3+isolated) has leaf support >= 1",
+      "holds": true,
+      "counterexamples": [],
+      "num_counterexamples": 0
+    },
+    "H_p3_singleton_center_both": {
+      "statement": "if a core-3 side has singleton leaf support then the center attaches to BOTH private vertices",
+      "num_p3_singleton_sides": 0,
+      "holds": true,
+      "vacuous": true,
+      "counterexamples": [],
+      "num_counterexamples": 0
+    }
+  },
+  "coverage_by_core_matrix": {
+    "row_order": [
+      3,
+      7,
+      11,
+      12,
+      13,
+      15,
+      30,
+      31,
+      63
+    ],
+    "template_candidate_ids": [
+      7,
+      78,
+      195,
+      214,
+      316,
+      329,
+      387,
+      428,
+      491
+    ],
+    "rows": [
+      {
+        "core_mask": 3,
+        "core_profile": [
+          [
+            1,
+            2
+          ],
+          [
+            3
+          ],
+          0
+        ],
+        "applies_to_templates": [
+          0,
+          1
+        ],
+        "applies_to_candidate_ids": [
+          7,
+          78
+        ],
+        "counts_by_template": {
+          "0": 108,
+          "1": 42,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "8": 0
+        },
+        "total": 150
+      },
+      {
+        "core_mask": 7,
+        "core_profile": [
+          [
+            1,
+            2,
+            3
+          ],
+          [],
+          0
+        ],
+        "applies_to_templates": [
+          0,
+          1
+        ],
+        "applies_to_candidate_ids": [
+          7,
+          78
+        ],
+        "counts_by_template": {
+          "0": 83,
+          "1": 30,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "8": 0
+        },
+        "total": 113
+      },
+      {
+        "core_mask": 11,
+        "core_profile": [
+          [],
+          [
+            3
+          ],
+          0
+        ],
+        "applies_to_templates": [
+          0
+        ],
+        "applies_to_candidate_ids": [
+          7
+        ],
+        "counts_by_template": {
+          "0": 25,
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "8": 0
+        },
+        "total": 25
+      },
+      {
+        "core_mask": 12,
+        "core_profile": [
+          [
+            0,
+            1,
+            2,
+            3
+          ],
+          [],
+          0
+        ],
+        "applies_to_templates": [
+          2
+        ],
+        "applies_to_candidate_ids": [
+          195
+        ],
+        "counts_by_template": {
+          "0": 0,
+          "1": 0,
+          "2": 17,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "8": 0
+        },
+        "total": 17
+      },
+      {
+        "core_mask": 13,
+        "core_profile": [
+          [
+            2,
+            3
+          ],
+          [],
+          0
+        ],
+        "applies_to_templates": [
+          0,
+          2
+        ],
+        "applies_to_candidate_ids": [
+          7,
+          195
+        ],
+        "counts_by_template": {
+          "0": 155,
+          "1": 0,
+          "2": 118,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "8": 0
+        },
+        "total": 273
+      },
+      {
+        "core_mask": 15,
+        "core_profile": [
+          [
+            3
+          ],
+          [],
+          0
+        ],
+        "applies_to_templates": [
+          0,
+          3
+        ],
+        "applies_to_candidate_ids": [
+          7,
+          214
+        ],
+        "counts_by_template": {
+          "0": 170,
+          "1": 0,
+          "2": 0,
+          "3": 9,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "8": 0
+        },
+        "total": 179
+      },
+      {
+        "core_mask": 30,
+        "core_profile": [
+          [],
+          [],
+          0
+        ],
+        "applies_to_templates": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "applies_to_candidate_ids": [
+          214,
+          316,
+          329,
+          387,
+          428
+        ],
+        "counts_by_template": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 159,
+          "4": 11,
+          "5": 44,
+          "6": 11,
+          "7": 2,
+          "8": 0
+        },
+        "total": 227
+      },
+      {
+        "core_mask": 31,
+        "core_profile": [
+          [],
+          [],
+          0
+        ],
+        "applies_to_templates": [
+          0,
+          3,
+          4,
+          5,
+          8
+        ],
+        "applies_to_candidate_ids": [
+          7,
+          214,
+          316,
+          329,
+          491
+        ],
+        "counts_by_template": {
+          "0": 53,
+          "1": 0,
+          "2": 0,
+          "3": 39,
+          "4": 18,
+          "5": 27,
+          "6": 0,
+          "7": 0,
+          "8": 2
+        },
+        "total": 139
+      },
+      {
+        "core_mask": 63,
+        "core_profile": [
+          [],
+          [],
+          0
+        ],
+        "applies_to_templates": [
+          4,
+          5,
+          8
+        ],
+        "applies_to_candidate_ids": [
+          316,
+          329,
+          491
+        ],
+        "counts_by_template": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 13,
+          "5": 6,
+          "6": 0,
+          "7": 0,
+          "8": 2
+        },
+        "total": 21
+      }
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+Role B round3 - catalogue-only scan of saved 1144 records. No census/finder/proof.
+Reproduce: `python analyze_e.py`; evidence `e_core3_7_analysis.json`.
+
+Setup. Labels u=0,v=1; C=c0..c3=2..5; A=6,7; B=8,9, decoded via
+core_bit_order/side_bit_order. WKE/connected = same 7-vertex link as
+round3/C/check_leaf_links.py (hub + C + side). Star leaves = degree-1 common
+vertices; isolated vertex excluded for core 3.
+
+Named cores. core 3 (P3+isolated): leaves {c1,c2}, isolated {c3}, center c0.
+core 7 (K1,3): leaves {c1,c2,c3}, center c0.
+
+Whole saved catalogue: all 2288 side links are non-WKE and connected. Core-3
+sides all have star-leaf support 2; core-7 sides support 3. So no saved side has
+0 or 1 attached leaf: focus masks, edge lists and keys are empty. Core-3
+support-2 sides show center-attach {0,1,2} and both private-edge states;
+center-attach=0 forces the private edge.
+
+Hypotheses vs saved data (no counterexamples found):
+H_star (non-WKE core-7 sides support>=2): holds, 0 counterexamples.
+H_p3 (core-3 sides support>=1): holds, 0 counterexamples.
+H_singleton (core-3 singleton support => center has both private neighbours):
+vacuous, 0 singleton sides.
+
+Coverage by core (rows = 9 masks 3,7,11,12,13,15,30,31,63; cols = templates
+T0..T8 = ids 7,78,195,214,316,329,387,428,491). This is SELECTED-assignment
+support (which template was chosen per record), NOT the full applicable-template
+set; a template may apply to a core yet go unchosen on saved records. Recomputable on request.
+m3 {T0,T1}; m7 {T0,T1}; m11 {T0}; m12 {T2}; m13 {T0,T2}; m15 {T0,T3};
+m30 {T3,T4,T5,T6,T7}; m31 {T0,T3,T4,T5,T8}; m63 {T4,T5,T8}.
+
+Labels: catalogue observations only, not a census-free proof.
+
+D/K4 addendum: 21 saved core_mask=63 (K4) records decoded; every common vertex
+has a unique A- and B-neighbour (uniqueness holds). 2x2 A-by-B multiplicity
+matrices (8 distinct canonical forms), side-edge flags a0a1/b0b1, and readable
+packings/covers are in `k4_saved_summary.txt` + `k4_saved_summary.json`
+(script `analyze_k4_saved.py`). Catalogue examples for D's human proof, not a
+proof from data.
+
+E-request addendum (core 13 / P4): 273 saved core_mask=13 records. Path order
+c2-c1-c0-c3 derived from degrees; distance-2 common pairs = (c0,c2),(c1,c3).
+Cross condition (a dist-2 pair, one A-attached one B-attached, reversal allowed
+= signal for the known 5-triangle template): HOLDS on all 273; FAILURES = 0, so
+the failure support-set/private-edge listing and smallest-3 examples are empty.
+Code `analyze_p4_dist2.py`; files `p4_distance_two_summary.txt` +
+`p4_distance_two_summary.json`. Catalogue only, no enumeration/finder.
+
+Final validation (D/k4_human_proof.txt, accepted): both six-triangle recipes were
+instantiated on all 21 saved core_mask=63 records by bounded labelling search
+(24 core perms x 2x2 private-name choices). alpha:C->A and beta:C->B rebuilt from
+side masks (uniqueness reconfirmed). Recipe usage: G=18, E=3; the E d-switch
+fired both ways (1130/1134 d=w since a0a1 absent; 1142 d=a since a0a1 present).
+Each produced 6 edge-disjoint triangles and a 12-edge cover passing all three
+local reduction conditions (cover subset of edges; packing present and
+edge-disjoint; every hub triangle met; every packing edge avoiding {u,v} in
+cover). Code `check_k4_recipes.py`; outputs `k4_recipe_check.json` (21 witnesses)
+and `k4_validation_report.txt`. Bounded instantiation of an accepted human proof;
+not a model-free proof claim; no further research performed.
+
+Checker hardening: enforces exactly 21 distinct K4 record keys and exits nonzero
+unless all maps unique, all audits pass, and no problems (verified: normal run
+exit 0; injected non-unique maps -> OVERALL FAIL exit 1). Each JSON witness now
+carries numeric `packing` (6 vertex triples) and `cover_edges` (12 pairs) beside
+the human labels for independent C audit; `build_maps` guards empty/malformed
+neighbour lists so non-uniqueness is reported instead of crashing. Module body is
+`__main__`-guarded so helpers import cleanly for re-verification.

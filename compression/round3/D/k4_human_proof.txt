@@ -1,0 +1,184 @@
+ROUND 3 / D: A HUMAN REDUCIBILITY PROOF FOR THE COMPLETE FOUR-VERTEX CORE
+
+Status: complete proof; adversarial reviewer C accepted the argument after
+line-by-line review of both lemmas and both certificate constructions.
+The argument was developed independently of the saved K4 certificates and
+other new mainline routes. No census, certificate finder, or numerical
+experiment is used. The source-paper definitions and the previously known
+2K2 argument are the only mathematical inputs beyond elementary facts.
+
+THEOREM.
+Let u,v be adjacent vertices in a finite simple graph. Let
+C=N(u) intersect N(v),
+A=N(u) minus ({v} union C),
+B=N(v) minus ({u} union C).
+Suppose |C|=4, |A|=|B|=2, H=G[C]=K4, both links G[N(u)] and
+G[N(v)] are connected and non-WKE, and
+    deg_H(c)+deg_A(c)+deg_B(c)<=5  for every c in C.
+Then {u,v} is reducible using six edge-disjoint triangles and twelve cover
+edges. The assertion permits arbitrary A--B edges and arbitrary edges from
+the displayed vertices to the rest of G.
+
+Notation. A graph F is WKE if it has a matching M and vertex set Q with
+|Q|<=|M| such that every edge of F with both endpoints outside Q belongs
+to M. Equivalently, Q covers F-M. A certificate for {u,v} consists of an
+edge-disjoint triangle set S and an edge set X satisfying |X|<=2|S|,
+meeting every triangle containing u or v, and containing every edge of S
+whose endpoints both avoid u,v. We write xyz for triangle {x,y,z}.
+
+LEMMA 1: THE LINK CHARACTERIZATION.
+Let F have vertices {z} union C union {a,a'}, where {z} union C induces
+K5, neither za nor za' is present, and the remaining possible edges are
+C--{a,a'} attachments and aa'. If F is connected, then F is non-WKE if
+and only if every c in C has a neighbor in {a,a'}.
+
+Proof. First suppose a core vertex c has no such neighbor. Put Q=C\{c},
+so |Q|=3. The edges outside Q are zc and, if present, aa'. If aa' exists,
+choose any two vertices x,y of Q; the matching {zc,aa',xy} has size three
+and contains every edge outside Q. If aa' is absent, connectedness gives
+an attachment a* x for some a* in {a,a'} and x in Q. Write y,w for the
+other vertices of Q. The matching {zc,a*x,yw} again has size three and
+contains every edge outside Q. Either matching with Q witnesses WKE.
+
+Conversely, suppose every core vertex has an attachment and a WKE pair
+(M,Q) exists. A matching on seven vertices has size at most three, so
+|Q|<=3. As F-Q is contained in M, it has maximum degree at most one.
+Consequently Q must remove at least three vertices of the K5: otherwise
+three remaining vertices induce a triangle. Hence Q consists of exactly
+three K5 vertices and contains no exclusive vertex. The two remaining
+K5 vertices are adjacent and at least one is a core vertex c. Its edge
+to an exclusive vertex is also outside Q, giving degree at least two in
+F-Q, a contradiction. This proves the lemma.
+
+Apply Lemma 1 to both links. Every c has at least one A-neighbor and at
+least one B-neighbor. Since deg_H(c)=3, the degree budget gives
+deg_A(c)+deg_B(c)<=2. Therefore each c has exactly one neighbor in A and
+exactly one in B. Denote them by alpha(c) and beta(c). Thus alpha:C->A
+and beta:C->B are two maps, with possibly empty fibers. Edges inside A
+and B remain arbitrary. Connectedness requires a side edge if one fiber
+is empty, but the constructions below do not need to use that fact.
+
+LEMMA 2: ARRANGING TWO BINARY PARTITIONS.
+Let alpha:C->A and beta:C->B, with |C|=4 and |A|=|B|=2. Exactly one of
+the following alternatives applies:
+(G) The vertices of C can be named x,y,z,w, and one vertex a- in A and
+    one vertex b- in B can be chosen, so that
+        alpha^{-1}(a-) is contained in {w,z},
+        beta^{-1}(b-)  is contained in {w,y}.
+(E) Both maps have two fibers of size two, and their partitions of C
+    into fibers are identical, after exchanging the names in a side.
+
+Proof. If both maps have fibers of size two and their partitions differ,
+choose any fiber P of alpha and any fiber Q of beta. Their intersection
+has size one: intersection zero or two would make the partitions equal.
+Let w be the common vertex, z the other vertex of P, y the other vertex
+of Q, and x the fourth vertex. This is (G).
+
+If exactly one map has two fibers of size two, exchange the two maps
+temporarily if needed so that it is alpha. Choose any size-two fiber P
+of alpha and a fiber Q of beta of size at most one. If Q={q} and q is
+in P, choose w=q, let z be the other vertex of P, and choose y outside
+P. If Q={q} and q is outside P, choose w,z as the two vertices of P and
+let y=q. If Q is empty, choose w,z as the two vertices of P and any y
+outside P. In every case the remaining vertex is x, and the required
+containments hold. Interchanging the maps interchanges the roles of y,z,
+so this argument also handles the initially exchanged case.
+
+If neither map has two fibers of size two, each has a fiber of size at
+most one. Choose those fibers P,Q. If they are distinct nonempty
+singletons, put z in P, y in Q, and choose w outside their union. If
+they are the same singleton, put that vertex at w and choose distinct
+y,z elsewhere. If exactly one is nonempty, put its vertex at w and
+choose distinct y,z elsewhere. If both are empty, choose any distinct
+w,y,z. Again the remaining vertex is x and (G) holds.
+
+Finally, (G) is impossible for identical balanced partitions: its two
+selected fibers would have to be exactly {w,z} and {w,y}, which intersect
+in exactly one vertex; fibers of identical partitions are equal or
+disjoint. Thus (G) and (E) are disjoint and exhaustive.
+
+GENERIC SIX-TRIANGLE CONSTRUCTION (G).
+Use the labels and choices in (G). Let a+ be the other vertex of A and
+b+ the other vertex of B. Define
+
+ S = { xyz, uvx, uyw, vzw, uz alpha(z), vy beta(y) },
+
+ R = { xy,xz,yz,yw,zw,z alpha(z),y beta(y) },
+
+ X = R union { uv,uw,vw,u a+,v b+ }.
+
+All the listed triangles exist. The sole triangle avoiding the hubs is
+xyz. At u, the other triangles use the disjoint spoke sets
+{x}, {y,w}, {z,alpha(z)}; at v, they use {x}, {z,w}, {y,beta(y)}.
+The central triangle uses uv only once. Their external edges are the
+seven distinct edges of R: three from xyz and one from each of the four
+one-hub triangles. No edge in R is reused. Hence S is an edge-disjoint
+six-triangle packing. The five additional edges of X are distinct hub
+edges, disjoint from R, so |X|=7+5=12=2|S|. R contains every external
+packing edge by definition.
+
+To verify coverage, every triangle containing both hubs is met by uv.
+For a triangle through u but not v, its other two vertices are in C union
+A. If both lie in C, their edge is in R except possibly xw, and that
+exception is met by uw. If one is a+, its spoke u a+ meets the triangle.
+If one is a-, its core neighbor must lie in {w,z}; at w the edge uw
+meets the triangle, and at z its edge z a-=z alpha(z) belongs to R.
+A triangle using both vertices of A is met by u a+. These possibilities
+cover every triangle through u. For v, the same argument uses vw,
+v b+, and the containment beta^{-1}(b-) subset {w,y}; an attachment at
+y is the edge y beta(y) in R. Thus X meets every required triangle.
+
+EXCEPTIONAL SIX-TRIANGLE CONSTRUCTION (E).
+Write the common two-part partition as {x,y} union {z,w}, and name the
+exclusive vertices so that
+ alpha(x)=alpha(y)=a,  alpha(z)=alpha(w)=a',
+ beta(x)=beta(y)=b,    beta(z)=beta(w)=b'.
+Define a vertex d by
+ d=a if aa' is present;  d=w if aa' is absent.
+Thus a'd is an existing edge in either case. Put
+
+ S = { axy, uvx, uyz, u a'd, vyb, vzw },
+
+ R = { ax,ay,xy,yz,a'd,yb,zw },
+
+ X = R union { uz,uw,vx,vy,vb' }.
+
+All six triangles exist. The first uses only the external edges ax,ay,xy.
+At u the hub triangles use disjoint spoke sets {x}, {y,z}, {a',d}:
+d is either a or w, so the disjointness holds in both cases. At v they
+use disjoint spoke sets {x}, {y,b}, {z,w}. The seven external edges in
+R are pairwise distinct, uv occurs once, and u-spokes and v-spokes are
+distinct. Thus S is edge-disjoint. Again |R|=7, the five added hub
+edges are distinct from R, |X|=12=2|S|, and every external packing edge
+is in X.
+
+The four triangles containing both hubs are met, respectively, by
+vx (for core vertex x), vy (for y), uz (for z), and uw (for w).
+For triangles using one hub and two core vertices, R contains the core
+edges xy,yz,zw. The remaining edges are xz,xw,yw. At u they are met by
+the spokes uz,uw,uw, respectively; at v they are met by vx,vx,vy.
+The A-attachments ax,ay are themselves in R; the A-attachments a'z,a'w
+are met at u by uz,uw. If aa' is present, a'd=aa' is in R; if absent,
+there is no triangle of that type. The B-attachments bx,by are met at
+v by vx,vy, and the B-attachments b'z,b'w are met by vb'. A possible
+edge bb' is also harmless because its triangle through v is met by vb'.
+This exhausts all triangles containing a hub and proves coverage.
+
+AMBIENT SAFETY AND CONCLUSION.
+A triangle through u uses only vertices in N(u)={v} union C union A;
+a triangle through v uses only vertices in N(v)={u} union C union B.
+Thus edges between A and B cannot create additional hub triangles, nor
+can edges to vertices outside the displayed neighborhood. Each recipe
+uses only edges proved present and covers all possible hub triangles.
+It contains in X every packing edge avoiding the hubs. Therefore either
+recipe is a valid reducibility certificate in the ambient graph G.
+Lemmas 1 and 2 show that one always applies, completing the theorem.
+
+SCOPE.
+This proves the complete K4-core case under the stated hypotheses,
+including the configurations represented by all 21 saved K4 records.
+The count 21 and those records are not used in the proof. The other
+eight nonempty core types are outside this result; no overall template
+minimality claim is made. A stronger observation established here is that
+six triangles suffice for every admissible K4-core configuration, whether
+or not the chosen saved certificate uses more.

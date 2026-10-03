@@ -1,0 +1,38 @@
+Independent draft D, round 3.
+
+Chosen direction: dense core K4. This draft is recorded before reading any
+new mainline route or new templates. Sources read: verification/scope.txt,
+upstream paper definitions and codegree-four statement, and the known
+human_case_2k2.txt baseline.
+
+Observation: Let a seven-vertex link consist of a K5 on {z} union C,
+two exclusive vertices a,b, no edges za,zb, arbitrary C attachments,
+and optional ab. Assume the link is connected. Then it is non-WKE iff
+every core vertex has an attachment to {a,b}.
+
+Necessity (contrapositive): if c has no attachment, choose Q=C\{c},
+of size three. The induced graph outside Q on {z,c,a,b} has edge zc
+and optional ab, with no other edge. If ab exists, the matching
+{zc,ab,xy}, where xy is any edge inside Q, has size three and contains
+all edges outside Q. If ab is absent, connectedness gives an attachment
+a'x with x in Q; choose the other two Q vertices y,w and use matching
+{zc,a'x,yw}. Again it contains all edges outside Q. This is WKE.
+
+Sufficiency: every matching has size at most three. If Q has size at most
+three and F-Q is a matching, the K5 forces Q to contain at least three of
+its vertices, hence exactly three and no exclusive. Its two remaining
+K5 vertices form an edge. One of these is a core vertex, and its attachment
+to an exclusive makes degree at least two in F-Q, impossible.
+
+Consequently, under the paired degree budget for H=K4, every core vertex
+has exactly one A-neighbor and exactly one B-neighbor. Thus the attachment
+graphs on each side are functions C -> A and C -> B. An empty fiber is
+allowed only if the corresponding exclusive edge is present, by connectivity.
+
+Next proof task: construct a uniform reducibility witness for two such
+two-colorings of C and optional exclusive edges. The four attachment
+types form a 2x2 multiplicity matrix of total four, up to row/column
+permutations and transpose. This replaces arbitrary side masks by a small
+human class whose cases may admit explicit witnesses.
+
+No catalogue scan, census, or finder has been run for this draft.

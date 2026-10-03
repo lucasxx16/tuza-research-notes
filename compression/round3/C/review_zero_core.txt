@@ -1,0 +1,14 @@
+Round 3 C review of E/zero_core_exclusions.txt
+
+Accept. I checked Puleo's Corollary 4.12 against the primary source:
+every connected seven-vertex graph with an independent four-set is WKE.
+With empty core, C itself is such a set. With only core edge pq,
+Q={z,a0,a1} leaves pq as the sole possible outside edge. If a0a1 is
+present, M={pq,a0a1,zr} is a present three-edge matching containing pq.
+If a0a1 is absent and some private vertex attaches to r or s, relabel
+the isolated core vertices to obtain M={pq,ra_i,zs}, again a present
+three-edge matching containing pq. In the remaining case,
+{r,s,a0,a1} is independent, so Corollary 4.12 applies. The cases are
+exhaustive; link connectivity is the only hypothesis needed. These
+two zero-count core types are now excluded structurally rather than
+inferred from the upstream census table.

@@ -1,0 +1,21 @@
+Round 3 C: adversarial scope audit
+
+The nine signed templates each give a universally valid packing and deletion
+whenever its signed rim conditions hold. The independent reconstruction and
+exact nine-record lower bound establish nine as optimal only among the fixed
+499 catalogue-derived pattern orbits on the 1,144 supplied records. They do
+not prove that the nine patterns cover every admissible graph without the
+upstream census. The 2K2-core case has a separate human argument. The eight
+other nonempty core types still need a structural implication from connected
+non-WKE links and the common-vertex degree budget to at least one sufficient
+template, or a different direct certificate construction. A recipe theorem or
+normal form proves sufficiency or conditional conversion, not existence.
+
+A global minimum must fix the universe (supplied records or all admissible
+local graphs), template grammar and allowed parameters, equivalence under
+relabeling, applicability semantics, and objective (number of templates,
+conditions, or witness types). Unrestricted named recipes can encode an
+arbitrary disjunction as one template, so an unqualified global minimum is
+undefined. A lower bound for one finite dictionary cannot transfer to a
+larger grammar without proving that every permitted template hits at most
+one of the lower-bound configurations.

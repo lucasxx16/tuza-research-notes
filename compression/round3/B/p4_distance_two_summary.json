@@ -1,0 +1,11 @@
+{
+  "note": "Bounded decode of the 273 saved core_mask=13 (P4) records only. No new graphs, no finder/solver/census.",
+  "source": "B_codegree4_certificates.json",
+  "condition": "exists core-distance-2 common pair with one A-attached and one B-attached endpoint (reversal allowed)",
+  "path_legend": "core 13 = P4 c3-c0-c1-c2; order derived from degrees",
+  "num_records": 273,
+  "num_failures": 0,
+  "num_condition_holds": 273,
+  "distinct_failure_support_and_private": [],
+  "smallest_three_failures": []
+}

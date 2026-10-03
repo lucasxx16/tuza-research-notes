@@ -1,0 +1,140 @@
+HUMAN STRUCTURAL PROOF FOR THE FOUR-VERTEX PATH CORE
+
+Status: census-free complete P4-core proof, using a general attachment
+support lemma for cores with a perfect matching. No saved graph,
+certificate, side-mask list, or graph enumeration is a premise.
+
+1. SETUP
+
+There are adjacent hubs u,v, a four-vertex common set C, and two
+exclusive pairs A={a0,a1}, B={b0,b1}. In a link write z for the
+opposite hub and a0,a1 for that link's private vertices. The vertex
+z is adjacent to every vertex of C and to neither private vertex.
+The core is H, and only core-private edges and the private edge
+a0a1 are possible in addition to H and the z-spokes.
+
+A graph F is WKE if there are a matching M and a set Q of vertices
+with |Q| <= |M| such that every edge with both endpoints outside Q
+belongs to M. Equivalently, Q is a vertex cover of F-M.
+
+The attachment support of one private pair is the set of core
+vertices having at least one neighbor in that pair.
+
+2. A PERFECT-MATCHING CORE FORCES THREE ATTACHED VERTICES
+
+Lemma M. If H has a perfect matching, and the link is connected and
+not WKE, its attachment support has size at least three.
+
+Proof. Suppose the attachment support is contained in a two-element
+set T={x,y} in C. If it has fewer than two elements, enlarge it
+arbitrarily to such a T. Put Q={z,x,y}.
+
+The vertices outside Q are the two core vertices C\T and a0,a1.
+No core-private edge lies outside Q. Thus the only possible edges
+outside Q are the core edge e joining the two vertices of C\T,
+and the private edge a0a1. We construct a matching of size three
+containing each of these two edges that is present.
+
+Case 1: e and a0a1 are both present.
+Take M={e,a0a1,zx}. Its edges are disjoint, and it contains all
+edges outside Q.
+
+Case 2: e is present and a0a1 is absent.
+Connectivity implies that a private vertex has a core neighbor.
+Such a neighbor lies in T; relabel T as necessary so that xa_i
+is an edge. Take M={e,xa_i,zy}. These edges are disjoint and
+contain the only edge e outside Q.
+
+Case 3: e is absent and a0a1 is present.
+Take the two edges of any perfect matching of H, together with
+a0a1. This gives a three-edge matching containing the only edge
+a0a1 outside Q.
+
+Case 4: neither e nor a0a1 is present.
+Connectivity gives a private-core edge ca_i. Let P be a perfect
+matching of H, and let f be its edge not incident with c. Let d
+be the fourth core vertex, outside {c} union V(f). Then
+M={ca_i,f,zd} is a three-edge matching. There are no edges outside
+Q, so the required containment is automatic.
+
+In all four cases |Q|=|M|=3 and Q covers F-M, contrary to non-WKE.
+This proves the lemma.
+
+3. A DISTANCE-TWO ATTACHMENT CONSTRUCTION
+
+Lemma D. Let H be precisely the path p-q-r-s. Suppose pa and rb
+are present, with a in A and b in B. Then {u,v} is reducible by
+a packing of five triangles and a cover of ten edges. No other
+attachment restriction or link hypothesis is required.
+
+Proof. Set
+
+  S={uvs, uqr, upa, vpq, vrb},
+  X={uv,ua0,ua1,vb0,vb1,pq,qr,rs,pa,rb}.
+
+All five triangles are present. At u, the u-only triangles have
+disjoint rim pairs {q,r} and {p,a}; at v they have disjoint rim
+pairs {p,q} and {r,b}. None uses a spoke to s. Their four rim
+edges qr,pa,pq,rb are distinct, so the five triangles are
+edge-disjoint. Thus |S|=5, while all ten listed X-edges are distinct,
+giving |X|=10=2|S|.
+
+A triangle through both hubs meets uv. A triangle through just u
+whose rim includes an A-vertex meets one of ua0,ua1. Otherwise its
+rim edge lies in the core and is one of pq,qr,rs, all in X. The
+same argument at v uses vb0,vb1. Therefore X meets every triangle
+through either hub. The only packed edges avoiding both hubs are
+qr,pa,pq,rb, all contained in X.
+
+This verifies the ambient safety condition as well: every triangle
+through a hub uses only vertices in its neighborhood. A-B edges
+and edges leaving the local neighborhood cannot create another kind
+of hub triangle. The displayed triangles remain present in every
+ambient graph containing this local graph.
+
+The same construction applies when the A and B attachment vertices
+are q and s, or after exchanging the two hubs: relabel the path
+in reverse order and/or exchange the two sides.
+
+4. COMPLETE PATH-CORE THEOREM
+
+Theorem. If H=P4 and both links are connected and non-WKE, the
+pair {u,v} is reducible. The common-vertex degree budget is not
+needed.
+
+Proof. Write the path as p-q-r-s, and let S_A,S_B be the two
+attachment supports. The core has the perfect matching {pq,rs},
+so Lemma M gives |S_A| >= 3 and |S_B| >= 3.
+
+Define the involution i on C by exchanging p with r and q with s.
+Thus c and i(c) are exactly the pairs at distance two on the path.
+If there were no c in S_A with i(c) in S_B, then
+
+  i(S_A) is a subset of C\S_B.
+
+The left set has at least three elements and the right set at most
+one, an impossibility. Hence there are opposite-side attachment
+vertices at distance two. Every such pair contains one endpoint
+and one internal vertex of the path. Relabel the path and exchange
+the hubs if necessary to obtain edges pa and rb, where a is in A
+and b in B. Lemma D proves reducibility.
+
+5. SCOPE
+
+This settles the entire P4-core case (mask 13 in the existing bit
+convention) by a human structural proof. The existing catalogue has
+273 records of this core type, but neither that number nor the
+catalogue's completeness is used above. Lemma D is the path
+specialization of historical template T2, with its full certificate
+verified directly here.
+
+Lemma M also applies to other four-vertex cores with a perfect
+matching. Its application alone does not settle their reducibility.
+In particular, this document does not claim a human proof for C4
+or any other remaining core.
+
+A census-free proof for all admissible local graphs also requires
+structural exclusion or reduction of core types omitted by the
+upstream census, including the empty core and the single-edge core.
+Those exclusions are not proved here and must not be inferred from
+the saved catalogue's core-type list.

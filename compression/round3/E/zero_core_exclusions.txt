@@ -1,0 +1,80 @@
+CENSUS-FREE EXCLUSION OF EMPTY AND SINGLE-EDGE CORES
+
+Status: complete structural exclusions under link connectivity and
+non-WKE. No degree budget or enumeration is needed.
+
+1. SETUP AND CITED RESULT
+
+A link F has vertices z,p,q,r,s,a0,a1. The core is C={p,q,r,s};
+the opposite hub z is adjacent to all four core vertices and to
+neither private vertex a0,a1. Apart from core edges and z-spokes,
+the only possible edges are core-private attachments and a0a1.
+
+A graph F is WKE if some matching M and vertex set Q satisfy
+|Q| <= |M| and every edge with both endpoints outside Q belongs
+to M. Equivalently, Q covers F-M.
+
+We use the following published result, specialized to seven vertices:
+a connected seven-vertex graph containing an independent four-set
+is WKE. This is Corollary 4.12 of Gregory J. Puleo, "Tuza's
+Conjecture for Graphs with Maximum Average Degree less than 7,"
+arXiv:1308.2211v3, Section 4. The general statement applies to
+connected n-vertex graphs, n >= 6, with an independent (n-3)-set.
+
+Primary source, checked directly:
+https://arxiv.org/html/1308.2211v3#S4
+
+The result is used only where an independent four-set is displayed
+below. The other branches have explicit matching-and-cover witnesses.
+
+2. EMPTY CORE
+
+Proposition Z. If the core has no edges and F is connected, F is WKE.
+
+Proof. The four core vertices are independent. Apply the cited
+seven-vertex consequence of Corollary 4.12.
+
+3. SINGLE-EDGE CORE
+
+Proposition E. If the only core edge is pq and F is connected,
+F is WKE.
+
+Proof. First put Q={z,a0,a1}. The vertices outside Q are precisely
+the core vertices, and their only edge is pq.
+
+If a0a1 is present, take
+
+  M={pq,a0a1,zr}.
+
+These three edges are present and pairwise vertex-disjoint. They
+include pq, so Q covers F-M and |Q|=|M|=3.
+
+Now suppose a0a1 is absent. If either isolated core vertex has a
+private neighbor, exchange r and s if needed so that ra_i is
+present, and take
+
+  M={pq,ra_i,zs}.
+
+Again M is a three-edge matching containing pq, and the same Q
+proves WKE.
+
+In the remaining case a0a1 is absent and neither r nor s has a
+private neighbor. Thus {r,s,a0,a1} is an independent four-set:
+rs is absent because pq is the only core edge; all four indicated
+core-private edges are absent by the case assumption; and a0a1
+is absent. Since F is connected, Corollary 4.12 applies.
+
+These cases exhaust all possibilities, proving the proposition.
+
+4. CONSEQUENCE AND LIMIT
+
+If both seven-vertex links of a codegree-four hub pair are connected
+and non-WKE, its four-vertex core has at least two edges. Indeed,
+either of the two smaller core types would make each connected link
+WKE by Proposition Z or Proposition E, contradicting the hypothesis.
+
+These are direct structural exclusions, independent of the upstream
+core census and the saved certificate catalogue. They close the
+empty-core and single-edge-core obligations identified in the scope
+note of compression/round3/E/path_core.txt. They do not settle the
+remaining denser core types or assert complete codegree-four coverage.

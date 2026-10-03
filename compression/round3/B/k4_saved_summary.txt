@@ -1,0 +1,141 @@
+Role B round3 -- D request: 21 saved core_mask=63 (K4) records. Catalogue only;
+no new graphs enumerated, no solver/finder. JSON: k4_saved_summary.json
+
+UNIQUENESS CHECK: every c0..c3 has exactly one A-neighbour and one B-neighbour in all 21 records: True
+2x2 matrix legend: rows = A-neighbour (a0,a1); cols = B-neighbour (b0,b1); entry = #common.
+
+Distinct canonical multiplicity patterns (count):
+  [[0, 0], [0, 4]] x1
+  [[0, 0], [1, 3]] x2
+  [[0, 0], [2, 2]] x2
+  [[0, 1], [1, 2]] x3
+  [[0, 1], [2, 1]] x4
+  [[0, 1], [3, 0]] x3
+  [[0, 2], [2, 0]] x3
+  [[1, 1], [1, 1]] x3
+
+record 1123  key=[63, 30, 30]  a0a1=False b0b1=False  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a0 B:b0 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[3, 0], [0, 1]]   canonical=[[0, 1], [3, 0]]
+   packing: u+v+c0 u+c1+c3 u+c2+a0 v+c1+b0 v+c2+c3
+   cover:   uv c0u a0u c0v b0v c1c2 c1c3 b0c1 c2c3 a0c2
+
+record 1124  key=[63, 30, 45]  a0a1=False b0b1=False  unique=True
+   per-common: c0->A:a1 B:b0 c1->A:a0 B:b1 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 1], [1, 0]]   canonical=[[0, 1], [1, 2]]
+   packing: u+v+c1 u+c0+a1 u+c2+a0 v+c0+c2 v+c3+b0
+   cover:   uv c1u c3u c1v c3v b0v c0c2 a1c0 a0c2 b0c3
+
+record 1125  key=[63, 30, 60]  a0a1=False b0b1=False  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a0 B:b1 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 1], [0, 1]]   canonical=[[0, 1], [2, 1]]
+   packing: u+v+c1 u+c0+a1 u+c2+a0 v+c0+c2 v+c3+b0
+   cover:   c1u c3u c0v c2v b1v c0c2 a1c0 c1c3 a0c2 b0c3
+
+record 1126  key=[63, 30, 271]  a0a1=False b0b1=True  unique=True
+   per-common: c0->A:a1 B:b0 c1->A:a0 B:b0 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[3, 0], [1, 0]]   canonical=[[0, 0], [1, 3]]
+   packing: u+v+c3 u+c0+a1 u+c2+a0 v+c1+c2 v+b0+b1
+   cover:   c1u c2u c3u c0v c3v b0v a1c0 c1c2 a0c2 b0b1
+
+record 1127  key=[63, 30, 286]  a0a1=False b0b1=True  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a0 B:b0 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[3, 0], [0, 1]]   canonical=[[0, 1], [3, 0]]
+   packing: u+v+c3 u+c0+a1 u+c1+c2 v+c0+c1 v+b0+b1
+   cover:   c1u c2u c3u c0v c3v b0v c0c1 a1c0 c1c2 b0b1
+
+record 1128  key=[63, 30, 301]  a0a1=False b0b1=True  unique=True
+   per-common: c0->A:a1 B:b0 c1->A:a0 B:b1 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 1], [1, 0]]   canonical=[[0, 1], [1, 2]]
+   packing: u+v+c1 u+c0+a1 u+c2+a0 v+c0+c2 v+b0+b1
+   cover:   uv c1u c3u c1v c3v b0v c0c2 a1c0 a0c2 b0b1
+
+record 1129  key=[63, 30, 316]  a0a1=False b0b1=True  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a0 B:b1 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 1], [0, 1]]   canonical=[[0, 1], [2, 1]]
+   packing: u+v+c0 u+c1+c3 u+c2+a0 v+c1+c2 v+c3+b0
+   cover:   c0u c1u c3u c0v c2v b1v c1c2 c1c3 a0c2 b0c3
+
+record 1130  key=[63, 60, 60]  a0a1=False b0b1=False  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a1 B:b1 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 0], [0, 2]]   canonical=[[0, 2], [2, 0]]
+   packing: u+v+c0 u+c1+a1 u+c3+a0 v+c1+b1 v+c2+c3
+   cover:   c0u c2u c3u c0v c1v b0v a1c1 b1c1 c2c3 a0c3
+
+record 1131  key=[63, 60, 90]  a0a1=False b0b1=False  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a1 B:b0 c2->A:a0 B:b1 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[1, 1], [1, 1]]   canonical=[[1, 1], [1, 1]]
+   packing: u+c0+c3 u+c1+a1 u+c2+a0 v+c1+c2 v+c3+b0
+   cover:   c0u c3u c1v c2v b1v c0c3 c1c2 a1c1 a0c2 b0c3
+
+record 1132  key=[63, 60, 271]  a0a1=False b0b1=True  unique=True
+   per-common: c0->A:a1 B:b0 c1->A:a1 B:b0 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 0], [2, 0]]   canonical=[[0, 0], [2, 2]]
+   packing: u+c0+a1 u+c1+c3 u+c2+a0 v+c0+c3 v+c1+c2 v+b0+b1
+   cover:   c0u c3u a1u c1v c2v b0v c0c3 a1c0 c1c2 c1c3 a0c2 b0b1
+
+record 1133  key=[63, 60, 286]  a0a1=False b0b1=True  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a1 B:b0 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 0], [1, 1]]   canonical=[[0, 1], [2, 1]]
+   packing: u+c0+a1 u+c1+c3 u+c2+a0 v+c0+c3 v+c1+c2 v+b0+b1
+   cover:   c1u c2u c3u c0v c3v b0v c0c3 a1c0 c1c2 c1c3 a0c2 b0b1
+
+record 1134  key=[63, 60, 316]  a0a1=False b0b1=True  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a1 B:b1 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 0], [0, 2]]   canonical=[[0, 2], [2, 0]]
+   packing: u+c0+c2 u+c1+a1 u+c3+a0 v+c1+c3 v+c2+b0
+   cover:   c0u c2u c1v c3v b1v c0c2 c1c3 a1c1 b0c2 a0c3
+
+record 1135  key=[63, 60, 346]  a0a1=False b0b1=True  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a1 B:b0 c2->A:a0 B:b1 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[1, 1], [1, 1]]   canonical=[[1, 1], [1, 1]]
+   packing: u+c0+c3 u+c1+a1 u+c2+a0 v+c0+c2 v+c1+c3 v+b0+b1
+   cover:   c0u c2u c3u c1v c3v b1v c0c2 c0c3 c1c3 a1c1 a0c2 b0b1
+
+record 1136  key=[63, 271, 271]  a0a1=True b0b1=True  unique=True
+   per-common: c0->A:a0 B:b0 c1->A:a0 B:b0 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[4, 0], [0, 0]]   canonical=[[0, 0], [0, 4]]
+   packing: u+v+c0 u+c1+c3 u+c2+a0 v+c2+c3 v+b0+b1 c0+c3+b0 c1+c2+b0
+   cover:   uv a0u c0c1 c0c2 c0c3 b0c0 c1c2 c1c3 b0c1 c2c3 a0c2 b0c2 b0c3 b0b1
+
+record 1137  key=[63, 271, 286]  a0a1=True b0b1=True  unique=True
+   per-common: c0->A:a0 B:b1 c1->A:a0 B:b0 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[3, 1], [0, 0]]   canonical=[[0, 0], [1, 3]]
+   packing: u+c0+c2 u+c1+c3 u+a0+a1 v+c0+c3 v+c1+c2 v+b0+b1
+   cover:   c1u c2u a0u c0v c3v b0v c0c2 c0c3 c1c2 c1c3 a0a1 b0b1
+
+record 1138  key=[63, 271, 316]  a0a1=True b0b1=True  unique=True
+   per-common: c0->A:a0 B:b1 c1->A:a0 B:b1 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 2], [0, 0]]   canonical=[[0, 0], [2, 2]]
+   packing: u+c0+c2 u+c1+c3 v+c0+c3 v+c1+c2 v+b0+b1 c2+c3+b0
+   cover:   uv a0u b1v c0c1 c0c2 c0c3 c1c2 c1c3 c2c3 b0c2 b0c3 b0b1
+
+record 1139  key=[63, 286, 286]  a0a1=True b0b1=True  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a0 B:b0 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[3, 0], [0, 1]]   canonical=[[0, 1], [3, 0]]
+   packing: u+c0+a1 u+c1+c2 u+c3+a0 v+c0+b1 v+c1+c3 v+c2+b0
+   cover:   uv c0u a0u c0v b0v a1c0 b1c0 c1c2 c1c3 c2c3 b0c2 a0c3
+
+record 1140  key=[63, 286, 301]  a0a1=True b0b1=True  unique=True
+   per-common: c0->A:a1 B:b0 c1->A:a0 B:b1 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 1], [1, 0]]   canonical=[[0, 1], [1, 2]]
+   packing: u+v+c2 u+c1+c3 u+a0+a1 v+c0+c3 v+c1+b1 c1+c2+a0
+   cover:   c0u c3u c1v c2v b0v c0c3 c1c2 c1c3 a0c1 b1c1 a0c2 a0a1
+
+record 1141  key=[63, 286, 316]  a0a1=True b0b1=True  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a0 B:b1 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 1], [0, 1]]   canonical=[[0, 1], [2, 1]]
+   packing: u+v+c0 u+c1+c2 u+a0+a1 v+c1+c3 v+b0+b1 c2+c3+b0
+   cover:   uv c0u a0u c0v b1v c1c2 c1c3 c2c3 b0c2 b0c3 a0a1 b0b1
+
+record 1142  key=[63, 316, 316]  a0a1=True b0b1=True  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a1 B:b1 c2->A:a0 B:b0 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[2, 0], [0, 2]]   canonical=[[0, 2], [2, 0]]
+   packing: u+v+c0 u+c2+c3 u+a0+a1 v+c1+b1 v+c2+b0 c0+c1+a1
+   cover:   c2u c3u c0v c1v b0v c0c1 a1c0 a1c1 b1c1 c2c3 b0c2 a0a1
+
+record 1143  key=[63, 316, 346]  a0a1=True b0b1=True  unique=True
+   per-common: c0->A:a1 B:b1 c1->A:a1 B:b0 c2->A:a0 B:b1 c3->A:a0 B:b0
+   2x2 [[a0b0,a0b1],[a1b0,a1b1]]= [[1, 1], [1, 1]]   canonical=[[1, 1], [1, 1]]
+   packing: u+v+c0 u+c1+a1 u+c2+c3 v+c1+c2 v+b0+b1 c1+c3+b0
+   cover:   uv c0u a0u c0v c1c2 c1c3 a1c1 b0c1 c2c3 b1c2 b0c3 b0b1

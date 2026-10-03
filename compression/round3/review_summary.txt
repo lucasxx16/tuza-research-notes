@@ -1,0 +1,59 @@
+Round 3 integrated mathematical review, 2026-10-03
+
+Accepted: complete structural reducibility proofs for cores P3 plus isolated,
+K1,3, P4, and K4; structural exclusion of empty and single-edge cores. The
+existing 2K2 proof remains part of the combined result. All exact new proof
+files were read by the coordinating reviewer and reviewed line by line by the
+independent adversarial reviewer. This is mathematical review, not formal
+proof-assistant certification or a literature-priority claim.
+
+Key proof checks:
+- Every WKE contradiction exhibits a genuine matching M and a vertex set Q,
+  with |Q|<=|M| and every edge outside Q included in M.
+- Sparse/star and P4 constructions explicitly verify all local reducibility
+  conditions; the P3 center budget is the only degree budget used there.
+- K4 link characterization plus the degree budget forces exactly one attachment
+  per side. The two-binary-partition lemma is exhaustive, with the coincident
+  balanced partition treated separately. Optional private edges are handled.
+- Every hub triangle is local, so omitted A-B edges and external edges cannot
+  invalidate either construction.
+- Puleo Corollary 4.12 was read directly in the primary source by the literature
+  researcher, coordinator and adversarial reviewer. The independent-four-set
+  branches satisfy its connected-seven-vertex hypotheses exactly.
+
+Computational evidence:
+C's independent saved-record decoder constructs and checks 150 P3+isolated,
+113 star and 273 P4 witnesses: 536 in total. B implements the two explicit K4
+recipes on the 21 saved K4 records, with 18 generic and 3 exceptional outputs.
+C independently decodes the source graphs and checks every exported K4 packing
+and cover, including agreement of numeric and readable encodings. The coordinator
+reran both C checks successfully. These computations test formula implementation;
+the human forcing/exclusion arguments have no catalogue or enumeration premise.
+
+The original census and certificate finder were not rerun. One initial diagnostic
+enumerated the 512 possible nine-bit side masks for each of two fixed cores; it
+was stopped as a research direction and is explicitly excluded from proof premises
+and main reproduction commands. The saved diagnostic is research history only.
+
+Review corrections:
+- The literature notes proposed a bipartite shortcut for a single-edge core.
+  It was rejected: the core edge and opposite hub always form a triangle.
+  The accepted exclusion uses E's explicit WKE branches and Corollary 4.12.
+- An assertion that an n<=6 proof transfers verbatim to n=7 was removed; it is
+  only an analogy. Bibliographic statements are limited to sources actually read.
+- B's K4 checker was hardened to fail for missing/duplicate records or failed
+  audits and to export numeric witnesses for independent checking. All 21
+  constructions passed before and after that implementation correction.
+- Catalogue template assignments are distinguished from the complete applicability
+  relation; the initial B report is an assignment summary only.
+- The earlier audit's empty/single-edge gap is now closed by the later accepted
+  proof; initial scope notes are preserved as history, not current status.
+
+Final boundary: five proved nonempty core types correspond to 574 saved records;
+four types (triangle+isolated, paw, C4, diamond) remain, corresponding to 570.
+Nine-template optimality is unchanged and applies only to the declared 499-pattern
+dictionary. The new parameterized constructions are not silently counted as
+atomic signed templates, and do not prove a global minimum.
+
+Decision: accept this as the next substantial research milestone. Continue later
+with the remaining four core types; no ongoing search is required for this record.

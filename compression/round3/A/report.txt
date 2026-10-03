@@ -1,0 +1,47 @@
+# Final survey — Role A (round 3): published WKE structure for the codegree-four human proof
+
+Scope: literature only. No census, finder, numerical search, or new mathematical proof
+was produced. Puleo's paper was read directly from the arXiv LaTeX source (v3); the
+theorem numbers below are from the published/arXiv HTML rendering, independently
+verified. This note supplements the earlier survey of results quoted in Gupta.
+
+Source: G. J. Puleo, "Tuza's conjecture for graphs with maximum average degree less
+than 7", European J. Combin. 49 (2015) 134-152; https://arxiv.org/abs/1308.2211
+(source lines refer to sparse-tuza.tex of v3).
+
+Verified results, with their roles:
+
+- Corollary 4.10 (LaTeX label cor:small, lines 900-927): if H is connected with
+  alpha'(H) <= 1, then H is WKE; also connected with |V(H)| > 5 and alpha'(H) = 2
+  implies WKE. Its proof records that every connected non-WKE graph contains a cycle
+  of length at least 5 (which may include any vertex, e.g. the opposite hub of a link).
+  Role: a connected non-WKE 7-vertex link has alpha' >= 3, bounding certificate search.
+
+- Corollary 4.12 (cor:ind, lines 962-971): a connected graph on n >= 6 vertices with an
+  independent set of size n - 3 is WKE. Role: for the empty four-vertex core 4K_1 the
+  core is an independent set of size 4 = 7 - 3 in the connected 7-vertex link, so its
+  exclusion from hypothesis (A1) follows directly.
+
+- Proposition 4.13 (prop:weak-comp-matching, lines 975-1032): a connected graph on
+  n in {5, 6} vertices whose complement has maximum degree > 1 is WKE; its residual
+  case is exactly K_3 + K_1, with an explicit matching and cover. Role: nearest
+  published per-core device; stated for n <= 6 only, and any transfer of its technique
+  to n = 7 is unproved.
+
+- No-long-odd-cycle theorem (Puleo Proposition 4.8, prop:longodd, lines 869-896, via
+  lem:missv lines 836-868 and Hsu-Ikura-Nemhauser 1981, doi:10.1007/BF01589347): a
+  graph with no odd cycle of length greater than 3 is WKE. Role: a sufficient WKE
+  condition; a 5-cycle occurs for the single-edge core K_2 + 2K_1, so it does not
+  cover that family.
+
+Also relied on: Puleo's Corollary 4.9 (connected, <= 4 vertices implies WKE; disconnected
+cores follow by closure of WKE under disjoint union of witnesses) and his fully explicit
+Lemma 4.4, which needs no recomputation. Puleo Corollary 4.10/4.12 give only structural
+constraints; a per-core argument must exhibit a pair certificate (S, X) or contradict
+the assumed non-WKE link.
+
+E's zero_core_exclusions.txt now closes the empty-core 4K_1 and single-edge K_2 + 2K_1
+exclusions. Five further types have separate human proofs
+(P_3 + K_1, K_{1,3}, P_4, K_4, 2K_2); triangle plus isolated vertex, paw, C4,
+and diamond remain open in this project. Full reading notes, line references, and the
+source-access record are in sources.txt.

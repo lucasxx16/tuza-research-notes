@@ -26,10 +26,20 @@ rebuilds the entire dictionary and incidence relation from the original witnesse
 then checks both bounds and all 1,144 exported certificates. No solver's floating
 point status is needed for this proof of optimality.
 
-A separate human-readable proof settles the entire **2K2 core subcase**, assuming
-both links are connected and non-WKE, without using the census or degree budget.
-Other core types still lack a complete structural argument forcing the templates.
-The upstream graph census and original certificate finder were not rerun.
+Human-readable proofs now settle five entire core types: **P3 plus an isolated
+vertex, K1,3, 2K2, P4, and K4**. Together these types account for 574 of the 1,144
+saved records; the proofs do not use those counts or the catalogue as premises.
+Empty and single-edge cores are also excluded structurally, using explicit WKE
+witnesses and Puleo's Corollary 4.12. Four types remain: triangle plus isolated
+vertex, paw, C4, and diamond (570 saved records). The upstream graph census and
+original certificate finder were not rerun.
+
+- [Latest structural results and remaining cases, in Chinese](docs/structural-progress.zh-CN.txt)
+- [New sparse-core proofs: P3 plus isolated and K1,3](compression/round3/E/sparse_star_cores.txt)
+- [P4 proof and perfect-matching support lemma](compression/round3/E/path_core.txt)
+- [K4 proof using two binary attachment partitions](compression/round3/D/k4_human_proof.txt)
+- [Empty/single-edge exclusions](compression/round3/E/zero_core_exclusions.txt)
+- [Final independent scope review](compression/round3/C/final_scope_review.txt)
 
 - [Results and scope in Chinese](docs/compression.zh-CN.txt)
 - [Nine literal templates](compression/templates/optimal_patterns.txt)
@@ -76,6 +86,7 @@ classification or a minimum-order question.
 | `compression/verification/` | Independent decoders, audits, and review notes |
 | `compression/set_cover/` | Finite-dictionary optimizer and exact upper/lower certificates |
 | `compression/experiments/` | Supplemental fixed-packing cover/exchange experiments |
+| `compression/round3/` | New structural proofs, source reading, and bounded witness checks |
 | `compression/literature/` | Source survey with explicit reading limits |
 | `tools/`, `results/` | Cross-record checks, public-content audit, and artifact hashes |
 
@@ -97,6 +108,20 @@ python compression/set_cover/independent_check.py
 The export check also runs the independent dictionary/optimality reconstruction.
 For the original eleven-template stage, optionally run
 `python compression/verification/check_D_templates.py`.
+
+For the new human constructions, these standard-library checks use only saved
+records and independently check 536 sparse/path witnesses and 21 K4 witnesses:
+
+```shell
+python compression/round3/C/check_sparse_witnesses.py
+python compression/round3/C/check_k4_export.py
+```
+
+The K4 witnesses can be regenerated from the two explicit recipes with
+`python compression/round3/B/check_k4_recipes.py`. These scans are supplementary
+checks of the constructions, not premises of the human forcing arguments. The
+one-link diagnostic `check_leaf_links.py` is retained as research history, is not
+part of these reproduction commands, and is not used in any proof.
 
 For independent exact computation of the equality graphs:
 

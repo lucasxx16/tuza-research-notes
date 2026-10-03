@@ -1,0 +1,23 @@
+Round 3 C bounded scope review
+
+I accept the saved structural proofs for P3 plus isolated, K1,3, P4,
+2K2, and K4. The first three E proofs and D's K4 proof were checked
+line by line; the earlier 2K2 proof remains the established baseline.
+Their hypotheses are exactly the connected non-WKE link conditions,
+with the common-vertex degree budget needed only for P3 plus isolated
+and K4. Each construction explicitly checks edge-disjoint packing,
+cover budget, all hub triangles, external packing edges, and ambient
+safety. These five types account for 574 of the 1,144 saved records,
+but their human proofs do not rely on that record count.
+
+Four nonempty core types remain without a complete human forcing proof:
+triangle plus isolated vertex (25 records), paw (179), C4 (227), and
+K4 minus an edge (139), totalling 570 saved records. A census-free proof
+now excludes the empty and single-edge cores via E's saved
+zero_core_exclusions.txt, using Puleo's Corollary 4.12 for connected
+seven-vertex links with an independent four-set and two explicit WKE
+matchings. The nine-template optimum remains a theorem only for the
+fixed 499-pattern dictionary over the saved records, not for unrestricted
+structural templates or every admissible graph. The bounded one-link
+diagnostic check_leaf_links.py is not part of the main reproduction
+command or any existence proof.

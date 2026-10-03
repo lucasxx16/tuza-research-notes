@@ -1,0 +1,151 @@
+HUMAN STRUCTURAL PROOFS FOR THE P3+ISOLATED AND K1,3 CORES
+
+Status: census-free proofs. The proof uses explicit WKE witnesses for the
+contrapositive and one five-triangle reducibility construction. No saved
+certificate, side-mask list, or graph enumeration is a premise.
+
+1. DEFINITIONS
+
+A graph F is WKE if there are a matching M and a vertex set Q such that
+|Q| <= |M| and every edge of F with both endpoints outside Q belongs
+to M. Equivalently, Q covers F-M.
+
+The local graph has adjacent hubs u,v, common set C of size four, and
+exclusive pairs A={a0,a1}, B={b0,b1}. The links are the induced graphs
+on N(u) and N(v). In either link write z for the opposite hub and
+{a0,a1} for that link's private pair. Then z is adjacent to every core
+vertex and to neither private vertex. Besides the core and z-spokes,
+only core-private edges and the private edge a0a1 are possible.
+
+The common-vertex degree budget is
+
+  deg_H(c) + |N(c) intersect A| + |N(c) intersect B| <= 5
+
+for each c in C, where H is the induced core graph.
+
+2. A STAR LINK HAS AT LEAST TWO ATTACHED LEAVES
+
+Lemma S. Suppose H is the star with center p and leaves q,r,s. If the
+link is not WKE, at least two leaves have private neighbors.
+Connectivity is unnecessary for this lemma.
+
+Proof. Suppose all private attachments at leaves lie at at most one
+leaf, called q. Choose q arbitrarily if no leaf is attached.
+
+If a0a1 is present, take
+  Q={z,p,q}, M={a0a1,zr,ps}.
+These are three disjoint edges. Outside Q, the only possible edge is
+a0a1, which belongs to M. Thus the link is WKE.
+
+If a0a1 is absent and qa_i is present for some i, take
+  Q={z,p,q}, M={qa_i,pr,zs}.
+Now Q covers the entire link, and M has three edges, so again it is WKE.
+
+If there is neither a private edge nor any attached leaf, take
+  Q={z,p}, M={pr,zs}.
+Again Q covers the entire link, and |Q|=|M|. All cases contradict
+non-WKE, proving the lemma.
+
+3. TWO NECESSARY CONDITIONS FOR A PATH-PLUS-ISOLATED LINK
+
+Lemma P. Suppose H has precisely the edges pq,pr, with s isolated.
+If the link is connected and not WKE, then:
+(i) at least one of q,r has a private neighbor;
+(ii) if just one of q,r has private neighbors, p is adjacent to both
+     private vertices.
+
+Proof of (i). Suppose neither q nor r has a private neighbor.
+
+If a0a1 is present, take
+  Q={z,p,s}, M={a0a1,pq,zr}.
+Outside Q the only possible edge is a0a1, which belongs to M.
+
+If a0a1 is absent but sa_i is present for some i, take
+  Q={z,p,s}, M={sa_i,pq,zr}.
+Here Q covers the entire link. Finally, if there is no private edge
+and no attachment at s, all attachments are at p; take
+  Q={z,p}, M={pq,zs}.
+Here Q again covers the entire link. In each case M is a matching
+and |Q|=|M|, a contradiction.
+
+Proof of (ii). Suppose r has no private neighbor, and p is not
+adjacent to both private vertices. Label a1 so that pa1 is absent.
+Put Q={z,q,a0}. The vertices outside Q are p,r,s,a1. Their only
+possible edges are pr and sa1.
+
+If sa1 is present, M={pr,sa1,zq} is a matching containing every edge
+outside Q. If sa1 is absent, connectivity forces a1q or a1a0 to
+be present: all other possible neighbors of a1 have been excluded.
+In the former case take M={pr,a1q,zs}; in the latter take
+M={pr,a1a0,zs}. In both cases the only edge outside Q is pr,
+which belongs to M. Thus |Q|=|M|=3 gives WKE, a contradiction.
+This proves (ii).
+
+4. UNIVERSAL OPPOSITE-LEAF REDUCIBILITY CONSTRUCTION
+
+Lemma R. Suppose the core has edges pq,pr and possibly ps, and no
+other edges. Suppose qa and rb exist, where a belongs to A and b
+belongs to B. Then {u,v} is reducible, with five packed triangles.
+No assumption on other attachments, private edges, WKE, or the
+degree budget is needed for this sufficient lemma.
+
+Proof. Define
+
+  S={uvs, upr, uqa, vpq, vrb},
+  X={uv,ua0,ua1,vb0,vb1,pq,pr,qa,rb}
+      union ({ps} if ps is present, otherwise the empty set).
+
+All triangles exist. The two u-only triangles use disjoint rim pairs
+{p,r} and {q,a}; the two v-only triangles use disjoint rim pairs
+{p,q} and {r,b}. Neither uses s, so the central triangle uvs
+shares no spoke with them. Their four rim edges are distinct.
+Consequently S is edge-disjoint and |S|=5. Also |X| is nine if
+ps is absent and ten if ps is present, so |X| <= 2|S|.
+
+Every triangle containing both hubs meets uv. A triangle containing
+u and a private A-vertex meets an A-spoke in X; otherwise its rim
+edge is a core edge and belongs to X. The symmetric statement holds
+at v. Thus X hits all hub triangles. The only packed edges avoiding
+both hubs are pr,qa,pq,rb, and all four are in X.
+
+These statements hold in the ambient graph: every triangle through
+a hub uses vertices in its neighborhood. An A-B edge cannot occur
+in such a triangle; edges leaving the local neighborhood cannot occur
+either. Hence arbitrary such edges do not affect the witness.
+This proves every required reducibility condition.
+
+5. COMPLETE STRUCTURAL CONSEQUENCES
+
+Theorem S. If H=K1,3 and both links are non-WKE, {u,v} is reducible.
+Neither link connectivity nor the common-vertex degree budget is needed.
+
+Proof. Lemma S gives at least two leaves with A-neighbors and at least
+two leaves with B-neighbors. Choose distinct leaves q and r from these
+two sets, respectively, and label the remaining leaf s. Apply Lemma R.
+
+Theorem P. If H=P3 plus an isolated vertex, both links are connected
+and non-WKE, and the common-vertex degree budget holds at the center
+p of P3, then {u,v} is reducible.
+
+Proof. By Lemma P(i), each link's private attachments meet at least
+one of the two actual path leaves q,r. If one can choose distinct
+leaves with an A-neighbor and a B-neighbor, apply Lemma R, with s
+the isolated core vertex.
+
+Otherwise the two nonempty leaf-support sets are the same singleton.
+By Lemma P(ii), p has two A-neighbors and two B-neighbors. Since
+deg_H(p)=2, its budget sum is 2+2+2=6, contradicting the upper
+bound five. This proves the theorem.
+
+6. SCOPE
+
+These are complete human proofs for core types P3+isolated and K1,3
+(masks 3 and 7 in the existing bit convention). The saved catalogue
+has 150 and 113 records respectively; these counts play no role in
+the proof. Lemma R is a specialization of template O2, but its full
+packing, cover, and ambient safety have been proved above directly.
+
+Theorems P and S do not settle the P4 core, the C4 core, or the
+remaining core types. They can be combined with the separate 2K2
+proof in compression/theory/human_case_2k2.txt without asserting a
+structural proof for every saved record.

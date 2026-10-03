@@ -1,0 +1,28 @@
+Round 3 C adversarial review: sparse-core and K4 link lemmas
+
+I checked the complete saved sparse proof in round3/E/sparse_star_cores.txt.
+Accept. Every WKE witness in Lemmas S and P has a present, pairwise-disjoint
+matching, and every edge outside its Q is contained in that matching. In
+P(ii), connectivity correctly forces a1q or a1a0 when all other neighbors
+of a1 are excluded. Failure of distinct path-leaf representatives across
+A and B forces both sides to attach only at the same leaf. P(ii) then gives
+two private neighbors of the center on each side, so its budget is
+2+2+2=6>5. Lemma R's five triangles are edge-disjoint; X has size nine
+or ten, hits all hub triangles, and contains all four external packing
+edges. Ambient A--B edges cannot affect a hub triangle. Both stated core
+theorems therefore follow without a census premise.
+
+D's K4 link characterization is sound. If a core vertex c lacks a private
+attachment, Q=C minus c leaves only zc and perhaps ab outside; the proposed
+three-edge matching exists in either case (connectivity supplies an attachment
+when ab is absent). Conversely K5 forces a Q of size at most three whose
+outside graph is a matching to remove exactly three K5 vertices. The remaining
+core vertex has a private neighbor, so its outside degree is at least two.
+Paired degree budget then forces exactly one A and one B attachment per core
+vertex. This does not yet construct a reducibility witness for K4.
+
+The separate saved-record check in check_sparse_witnesses.py constructs and
+validates Lemma R witnesses for all 150 core-3 and 113 core-7 records.
+Those record counts are diagnostics, not premises of the structural proof.
+The bounded seven-vertex diagnostic in check_leaf_links.py likewise has
+no proof role.

@@ -1,0 +1,27 @@
+Round 3 C adversarial review of saved K4 and P4 proofs
+
+I reviewed D/k4_human_proof.txt line by line and accept it. Lemma 1's WKE
+matchings and K5 obstruction are correct; the degree budget then makes each
+core vertex have exactly one private neighbor on each side. Lemma 2 exhausts
+all pairs of binary partitions. In generic case G, the six triangles use
+distinct spokes and seven distinct external edges. The five other cover
+edges meet uv-core triangles, the sole uncovered K4 rim xw, both private
+fibers, and possible private-pair edges. A selected fiber may be empty;
+the packed z-alpha(z) or y-beta(y) rim is still valid. In exceptional case E,
+d=a when aa' exists and d=w otherwise makes a'd present and preserves
+edge-disjointness. Its five spoke cover edges handle all four uv-core
+triangles, the three omitted K4 rims, A/B attachments, and optional bb'.
+Both covers have twelve edges and contain every external packing edge.
+
+I also reviewed E/path_core.txt and accept it. Lemma M gives explicit
+three-edge WKE matchings in every case when attachment support has size
+at most two. The P4 distance-two involution forces opposite-side attached
+vertices, and reversal or hub exchange gives Lemma D's form. Lemma D's
+five-triangle packing and ten-edge cover satisfy all reduction conditions
+in the ambient graph. The degree budget is not used in this P4 proof.
+
+These are complete structural proofs for their stated core types, not a
+proof that the listed core types exhaust admissible configurations. E's
+later zero_core_exclusions.txt supplies a structural exclusion of empty
+and single-edge cores using Puleo's Corollary 4.12 and explicit WKE
+witnesses; I reviewed that saved text separately.

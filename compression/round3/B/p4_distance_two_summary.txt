@@ -1,0 +1,10 @@
+Role B round3 E-request: 273 saved core_mask=13 (P4) records. Catalogue only;
+no new graphs/finder/solver. JSON: p4_distance_two_summary.json
+
+Core 13 is P4 c3-c0-c1-c2 (path order read from degrees). Distance-2 common
+pairs = (c3,c1),(c0,c2). Condition = one A-attached + one B-attached endpoint,
+reversal allowed (a signal for the known 5-triangle template).
+
+CONDITION HOLDS: 273 / 273 ; FAILURES: 0
+
+Distinct failure (A-support, B-support, a0a1, b0b1) classes and counts:

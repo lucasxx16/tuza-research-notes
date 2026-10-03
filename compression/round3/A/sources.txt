@@ -1,0 +1,179 @@
+# sources.txt — Role A (round 3), codegree-four human structural proof: WKE / link-structure sources
+
+Reading discipline: entries marked READ DIRECTLY were read from the original primary
+source in this round (not via Gupta's paper). Entries marked AS QUOTATION IN GUPTA are
+known only through main.tex sec:prelim; see the round-1 survey for those loci.
+
+## 1. Gupta (context, previously verified)
+
+Anish Gupta, "Tuza's conjecture for graphs of maximum degree at most seven",
+arXiv:2608.06538v1.
+- HTML: https://arxiv.org/html/2608.06538v1
+- Local mirror: https://github.com/agupta/tuza-maximum-degree-seven/blob/bf8415fac44f4eeed6c0f7a2273b843d689b065e/paper/main.tex
+- Re-verified loci this round (READ DIRECTLY): Definition def:reducible (lines 291-303),
+  WKE Definition def:wke (lines 325-330), Lemma lem:puleo44 (lines 337-344),
+  Corollary cor:puleo49 (lines 346-348), Section sec:codeg4 (lines 1065-1179,
+  Proposition prop:codeg4 at 1111-1116, per-core orbit table at 1123-1143,
+  statement that no human-readable proof is provided at lines 1156-1157).
+
+## 2. Puleo 2015 — READ DIRECTLY from the arXiv source this round (NEW beyond Gupta's quotations)
+
+G. J. Puleo, "Tuza's conjecture for graphs with maximum average degree less than 7",
+European J. Combin. 49 (2015) 134-152; doi:10.1016/j.ejc.2015.03.006.
+- Abstract: https://arxiv.org/abs/1308.2211 (latest version v3)
+- Full source read: arXiv e-print 1308.2211v3 (file sparse-tuza.tex); rendered copy:
+  https://ar5iv.labs.arxiv.org/html/1308.2211
+
+New primary-source results (line numbers refer to sparse-tuza.tex of v3). Published
+numbering independently verified in the arXiv HTML rendering
+(https://arxiv.org/abs/1308.2211): Corollary 4.10 = cor:small, Corollary 4.12 =
+cor:ind, Proposition 4.13 = prop:weak-comp-matching. Scope reminder: a direct per-core
+proof must either produce an explicit pair certificate (S, X) satisfying Gupta's
+Corollary cor:localcriterion, or contradict the assumed connected non-WKE link (e.g.
+by proving the link WKE, which via Puleo's Lemma 4.4 yields reducibility); showing
+non-WKE-ness alone is not progress toward reducibility.
+
+- P1. Definition of weak König-Egerváry (lines 679-685): H is WKE if H has a matching M
+  and a vertex set Q with |Q| <= |M| and Q a vertex cover in H - M. Note: KE subset WKE
+  (observed lines 686-688); every bipartite graph is KE by the König-Egerváry Theorem
+  (Deming 1979; König 1931; Egerváry 1931 — originals unopened, quoted only via Puleo).
+
+- P2. Lemma lem:wke (= Lemma 4.4; lines 716-793). Exact statement: let v in V(G) and
+  G_0 a nonempty union of components of G[N(v)]. If G_0 is WKE, then G has a reducible
+  set of edges. Also, if G[N(v)] is WKE, then {v} is reducible. The original proof is
+  fully explicit: E_0 = {vw : w in V(G_0)}, S = {vuw : uw in M}, X = M ∪ {vx : x in Q};
+  the verification of (i)-(iii) is by edge incidence. No recomputation is needed to
+  reuse this lemma; only the WKE hypothesis is ever in question.
+
+- P3. Theorem thm:HIN = Hsu-Ikura-Nemhauser 1981 (lines 810-814); the original paper
+  was NOT opened — quoted only via Puleo's exact restatement: if H is 2-connected
+  and has no odd cycle of length greater than 3, then H is bipartite, or H = K_4, or
+  H = K_2 join (complement of K_r) for some r >= 1.
+  Original: W. L. Hsu, Y. Ikura, G. L. Nemhauser, "A polynomial algorithm for maximum
+  weighted vertex packings on graphs without long odd cycles", Math. Programming 20(2)
+  (1981) 225-232; doi:10.1007/BF01589347.
+
+- P4. Lemma lem:missv (lines 836-868): if H is 2-connected with no odd cycle of length
+  greater than 3, then for EVERY v in V(H) there exist Q, M with |Q| <= |M|, Q a vertex
+  cover of H - M, and (v in Q or v is in no edge of M). In particular H is WKE. Proof
+  is by explicit witnesses in the three HIN cases (K_3; K_4 and K_2 join comp(K_2);
+  K_2 join comp(K_m), m >= 3). This "positional" strengthening is a usable tool when a
+  specified vertex (e.g. the hub v in a link) must be avoided by M or absorbed into Q.
+
+- P5. Proposition prop:longodd (lines 869-896): if H has no odd cycle of length greater
+  than 3, then H is WKE. Proof: induction on |V(H)| using leaf blocks and P4.
+  Consequence recorded by Puleo: Corollary cor:wheel (lines 931-943), if G has no
+  subgraph W_n for odd n >= 5 (odd-wheel-free), then tau(G) <= 2 nu(G).
+
+- P6. Corollary cor:deg4 (lines 897-899): if H is connected and |V(H)| <= 4, then H is
+  WKE. (This is the statement Gupta quotes as Corollary 4.9.) The hypothesis of
+  connectedness is required, so the statement applies directly only to the connected
+  core types (K_{1,3}, P_4, paw, C_4, K_4 - e, K_4). For disconnected cores (4K_1,
+  K_2 + 2K_1, P_3 + K_1, K_3 + K_1, 2K_2), use that WKE is closed under disjoint
+  union: if each component H_i has a witness (M_i, Q_i) with |Q_i| <= |M_i| and Q_i a
+  vertex cover of H_i - M_i, then (union of M_i, union of Q_i) witnesses the disjoint
+  union. Every component of a disconnected core has at most 4 vertices, so Corollary
+  4.9 per component plus the union witness gives WKE of the whole core. Either way a
+  core alone never supplies the non-WKE link; non-WKE-ness of the 7-vertex link must
+  come from the interaction of the core with the two exclusive side vertices A
+  (equivalently B).
+
+- P7. Corollary 4.10 (LaTeX label cor:small, lines 900-927), quoted nowhere in Gupta:
+  (a) if H is connected and alpha'(H) <= 1 then H is WKE;
+  (b) if H is connected, |V(H)| > 5, and alpha'(H) = 2, then H is WKE;
+  proof records the structural fact that every connected non-WKE graph contains a
+  cycle of length at least 5 (hence a matching of size >= 2; the cycle may pass
+  through any vertex, including the opposite hub in a link), and its proof exhibits
+  an explicit matching of size 3 when a C_5 has an outside neighbour.
+  For the codegree-four situation (7-vertex links): a connected non-WKE link on 7
+  vertices has alpha'(H) >= 3 by (b).
+
+- P8. Corollary 4.12 (LaTeX label cor:ind, lines 962-971), quoted nowhere in Gupta:
+  let H be a connected graph on n >= 6 vertices. If H has an independent set of size
+  n - 3, then H is WKE (via alpha' <= 2 giving WKE by P7/Corollary 4.10, else the
+  complement of a maximum independent set is a vertex cover of size <= 3 giving KE).
+  For 7-vertex links: a connected non-WKE link has independence number alpha(H) <= 3.
+  In particular, for the empty four-vertex core 4K_1 the core itself is an independent
+  set of size 4 = 7 - 3 in the connected link, so the exclusion follows from this
+  corollary alone.
+
+- P9. Proposition 4.13 (LaTeX label prop:weak-comp-matching, lines 975-1032), quoted
+  nowhere in Gupta: let H be a connected graph on n in {5, 6} vertices. If the
+  complement of H has maximum degree > 1 (i.e. some vertex is non-adjacent to two
+  others), then H is WKE. The proof's residual case is exactly H - {z_1, z_2} =
+  K_3 + K_1 (four-vertex core containing a triangle plus an isolated vertex), handled
+  by an explicit matching/cover (its Figure fig:k1k3). Stated for n in {5, 6} only; it
+  does not settle n = 7. That the proof technique transfers to the 7-vertex link
+  situation is UNPROVED and is recorded here as a possible analogy only.
+
+- P10. Supporting primary sources for P1 (READ via Puleo's bibliography, not opened):
+  R. W. Deming, "Independence numbers of graphs - an extension of the Koenig-Egervary
+  theorem", Discrete Math. 27(1) (1979) 23-33; doi:10.1016/0012-365X(79)90066-9
+  (introduced König-Egerváry graphs). P. M. Kayll, "König-Egerváry graphs are
+  non-Edmonds", Graphs Combin. 26(5) (2010) 721-726; doi:10.1007/s00373-010-0940-y.
+
+## 3. Botler-Fernandes-Gutiérrez 2021 — AS QUOTATION IN GUPTA (unchanged from round 1)
+
+F. Botler, C. G. Fernandes, J. Gutiérrez, "On Tuza's conjecture for triangulations and
+graphs with small treewidth", Discrete Math. 344(4) (2021) 112281;
+doi:10.1016/j.disc.2020.112281; https://arxiv.org/abs/2002.07925.
+- Lemma 3.3 and Lemma 3.2(b) as quoted in Gupta's main.tex lines 204-214: in an
+  irreducible robust graph a pair {x, y} with d(x), d(y) <= 6 and |N(x) ∪ N(y)| <= 7
+  survives only with both degrees 5, |common N| = 3 and both links K_5; the pair is
+  necessarily non-adjacent. Does not apply to the codegree-four edge case (degree 7,
+  endpoints of an edge). Not read in the original this round.
+
+## 5. Round-3 addendum: the two zero-side-count core families (census-free WKE)
+
+Target: published theorems implying WKE of the 7-vertex link H_u = G[{v} ∪ C ∪ A]
+without any census, for G[C] = 4K_1 (empty four-vertex core) and G[C] = K_2 + 2K_1
+(single-edge core). Recall H_u structure: v is adjacent to all of C and to no vertex
+of A; C-C edges only the core edge (if any); A-C edges and a_0a_1 are the free bits.
+
+- (F1) Empty core 4K_1 — follows from published results read directly, no census:
+  - Puleo Corollary 4.12 (LaTeX label cor:ind; arXiv:1308.2211v3, sparse-tuza.tex
+    lines 962-971): if H is a connected graph on n >= 6 vertices with an independent
+    set of size n - 3, then H is WKE. For G[C] = 4K_1 the core C is an independent set
+    of size 4 = 7 - 3 in the connected link H_u; hence H_u is WKE. Directly applicable
+    as stated.
+  - Redundant second route: if a_0a_1 is not an edge, H_u is bipartite with bipartition
+    {v} ∪ A vs C (v joins only C, A joins only C, no A-A or C-C edges), hence WKE by the
+    classical König-Egerváry Theorem (König 1931; Egerváry 1931; see also Deming 1979,
+    doi:10.1016/0012-365X(79)90066-9).
+  - Status: E's zero_core_exclusions.txt now closes this exclusion.
+
+- (F2) Single-edge core K_2 + 2K_1 — the accepted proof is now in
+  ../E/zero_core_exclusions.txt. Two explicit matching/cover branches handle a
+  present private edge or a private attachment at an isolated core vertex. In the
+  remaining branch the two isolated core vertices and the private pair form an
+  independent four-set, so Puleo Corollary 4.12 applies.
+  - Parent review rejected an earlier proposed bipartite shortcut: the opposite
+    hub v and the endpoints c_1,c_2 of the core edge always form a triangle,
+    regardless of private attachments. That assertion and an unsupported matching
+    existence shortcut have been removed; neither is used in an accepted proof.
+  - Corollary 4.10 still correctly applies if the matching number is at most two.
+  - Proposition 4.8 alone does not cover this whole family: a 5-cycle occurs when
+    a private vertex a attaches to c_1 and an isolated core vertex c_3, giving
+    c_1-c_2-v-c_3-a-c_1. This observation is not a proof of non-WKE.
+
+## 6. Certificate data (not re-enumerated, not run)
+
+Ancillary files of arXiv:2608.06538; companion repository
+https://github.com/agupta/tuza-maximum-degree-seven (pinned commit bf8415fa...).
+Per-core admissible-orbit table verified against main.tex lines 1123-1143.
+
+## 7. Source-access record (honest disclosure)
+
+- Puleo arXiv:1308.2211v3 full LaTeX source: downloaded and read directly (e-print).
+- ar5iv HTML render of 1308.2211: request timed out twice; not read. Not needed — the
+  e-print source was read instead. Timeouts are access failures, not proof of absence
+  of any result.
+- Hsu-Ikura-Nemhauser 1981 (Math. Programming) and Deming 1979 (Discrete Math): read
+  only through Puleo's exact restatements (thm:HIN at sparse-tuza.tex lines 810-814)
+  and Puleo's bibliography entries; the original journal papers were NOT opened.
+  Theorem (P3) above is therefore Puleo's restatement as read, not independently
+  verified against the 1981 original.
+- Web sources returned by bounded searches (Springer 1-König-Egerváry papers,
+  Munaro thesis, shodhganga chapter): titles/snippets only; none opened and none used.
+- Botler-Fernandes-Gutiérrez 2021: read only as quotation inside Gupta's main.tex
+  (lines 204-214); original not opened.

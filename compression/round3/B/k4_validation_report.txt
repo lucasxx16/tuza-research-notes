@@ -1,0 +1,32 @@
+Role B round3 -- bounded validation of D/k4_human_proof recipes on 21 saved K4 records.
+No new graph, no finder/solver/census. JSON: k4_recipe_check.json
+
+exactly 21 distinct K4 record keys: True (records=21 distinct=21)
+unique alpha/beta maps on all records: True
+construction usage: G=18  E=3
+E-recipe d-switch: aa' present->d=a=1 ; aa' absent->d=w=2
+ALL 21 recipes PASS the three local reduction conditions: True
+problems: none
+
+per-record: idx key recipe |S| |X| hubtris_checked PASS
+  1123 [63, 30, 30] G 6 12 24 True
+  1124 [63, 30, 45] G 6 12 24 True
+  1125 [63, 30, 60] G 6 12 24 True
+  1126 [63, 30, 271] G 6 12 25 True
+  1127 [63, 30, 286] G 6 12 25 True
+  1128 [63, 30, 301] G 6 12 25 True
+  1129 [63, 30, 316] G 6 12 25 True
+  1130 [63, 60, 60] E 6 12 24 True
+  1131 [63, 60, 90] G 6 12 24 True
+  1132 [63, 60, 271] G 6 12 25 True
+  1133 [63, 60, 286] G 6 12 25 True
+  1134 [63, 60, 316] E 6 12 25 True
+  1135 [63, 60, 346] G 6 12 25 True
+  1136 [63, 271, 271] G 6 12 26 True
+  1137 [63, 271, 286] G 6 12 26 True
+  1138 [63, 271, 316] G 6 12 26 True
+  1139 [63, 286, 286] G 6 12 26 True
+  1140 [63, 286, 301] G 6 12 26 True
+  1141 [63, 286, 316] G 6 12 26 True
+  1142 [63, 316, 316] E 6 12 26 True
+  1143 [63, 316, 346] G 6 12 26 True

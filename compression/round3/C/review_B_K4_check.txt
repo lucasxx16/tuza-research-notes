@@ -1,0 +1,18 @@
+Round 3 C review of B's bounded K4 verifier
+
+I compared check_k4_recipes.py with D/k4_human_proof.txt. Its generic
+and exceptional packing, rim, cover, and d-switch formulas match D's
+proof. It reconstructs K4 and side edges from the saved masks, requires
+one A and one B neighbor per core vertex, instantiates only the two
+proved recipes under relabeling, and checks all three reduction conditions
+against every hub triangle. The final revision exits with failure unless
+there are exactly 21 distinct K4 keys, unique attachment maps, and valid
+witnesses for all records.
+
+I independently decoded its numeric packing and cover fields in
+check_k4_export.py, reconstructed the 21 source graphs, and checked edge
+existence, packing disjointness, twelve-edge cover size, every hub triangle,
+and external packing-edge containment. The numeric and named exports agree.
+Both scripts pass: 18 generic and three exceptional witnesses. This
+finite saved-record check corroborates D's structural proof; it is not a
+configuration census or proof that the source records are exhaustive.
