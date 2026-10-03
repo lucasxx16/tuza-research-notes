@@ -1,0 +1,252 @@
+ROUND 10 / D
+RETAINED SLACK AND THE LIMITS OF A PRIVATE-RED IMPROVEMENT
+
+Status: reviewed research proof; see C/review_D_full.txt.
+No universal constant below 165/59 is proved in this file. No claim
+of literature novelty is made. The work gives a quantitative version
+of retained slack and settles a precise proposed colored-family
+improvement negatively, with an explicit red-budget scope boundary.
+No mad<8 hypothesis or numerical search is used.
+
+1. NOTATION AND THE PRECISE MISSING GAIN.
+
+For a family F of triangles, nu(F) is the largest number of pairwise
+edge-disjoint members and tau(F) the smallest number of graph edges
+meeting every member. In a red-blue graph H, F(H) consists of ALL
+triangles with exactly one red edge. An edge is private in F if
+exactly one member of F contains it.
+
+Use Wang's Section 3 notation:
+  n=nu(G), P an original maximum packing, O=E(P);
+  A a maximum packing of triangles with one O-edge, a=|A|;
+  G'=G-E(A);
+  P' a packing maximizing first its type-2 count b, then its size m;
+  S the type-2 family after deleting all old edges of P';
+  Q a maximum packing of S, c=|Q|;
+  h the number of Q-members with red edges private in S;
+  Q1 a maximum packing after also deleting the blue edges of Q,
+  d=|Q1|.
+Here new edges are red, old edges blue, and e=n-a-m>=0.
+The new-edge graph is triangle-free: otherwise a triangle avoiding
+O could be added to the original maximum packing P.
+
+The following construction estimates are imported from Wang's proof,
+retaining its exact a+m terms rather than replacing them by n:
+  (W1) tau(G)<=3n-a;
+  (W2) tau(G)<=3n/2+5a/2+3b/2-c+3h/8;
+  (W3) tau(G)<=3(a+m)-c-d;
+  (W4) tau(G)<=3(a+m)-b+9c/4+3d/2-h/4.
+Wang's intermediate second colored transversal also gives
+  tau(S)<=2c+3d-r<=2c+3d,
+where r counts private red edges in the next surviving packing and
+is nonnegative. Thus the same outer cover gives the additional bound
+  (W5) tau(G)<=3(a+m)-b+2c+3d.
+This cover is already present as an intermediate construction in
+Wang's Lemma 2.3. It is not claimed as a new construction here.
+
+PROPOSITION 1 (RETAINED SLACK).
+With this notation,
+  59 tau(G) <= 165n - 93e - d - 3(c-h-6d)_+,
+where x_+=max(x,0).
+
+Proof. Weight W1,W2,W3,W4 by 20,8,19,12, respectively. The a,b,c,h
+coefficients cancel. The d coefficient is -1. Replacing the two
+3n terms of Wang's final displayed estimates by 3(a+m)=3n-3e
+retains an additional -(19+12)*3e=-93e. Consequently
+  59 tau(G)<=165n-93e-d.
+The right-hand side of W4 minus the right-hand side of W5 equals
+  (c-h-6d)/4.
+Using the better of W4 and W5 in that same weighted sum therefore
+subtracts 12*(c-h-6d)_+/4, proving the assertion.
+
+For example, a graph with
+  tau(G)>(165/59-epsilon)n
+must have
+  93e+d+3(c-h-6d)_+<59 epsilon n.
+This is a precise necessary small-slack condition near the current
+constant. It does not provide a positive uniform lower bound on the
+left-hand side, which would be required for a strict universal gain.
+
+2. THE ENHANCED ALGEBRAIC SYSTEM STILL HAS AN EQUALITY POINT.
+
+The nonnegative parameter choice
+  a=c=h=12n/59,
+  b=36n/59, m=47n/59,
+  d=e=0
+satisfies a+m=n, d<=c<=b<=m, and h<=c. If n is a multiple
+of 59, all listed parameters are integers. At this point every
+right-hand side in W1-W5 equals 165n/59. Thus neither retaining
+a+m nor adding W5 alone excludes equality in the algebraic system.
+
+This is an algebraic feasibility statement. No graph is claimed to
+realize all the packings, coloring, covers, and equalities at once.
+The four-inequality optimality already noted in Wang's Remark is
+not counted as a result here. The point of this calculation is the
+additional all-private endpoint h=c after W5 is retained.
+
+At this endpoint, the colored part has p=c packed triangles, all
+their red edges private, and q=d=0 after their blue edges are deleted.
+A proposed way to improve would be a fixed delta>0 satisfying
+  tau(F)<= (2-delta)p
+for every such colored family whose red-edge graph is triangle-free.
+The next section disproves this assertion if no bound on the total
+number of red edges is imposed. Section 4 explains exactly why this
+does not rule out an improvement sensitive to b near b=3c.
+
+3. CONE FAMILIES: AN EXACT COUNTEREXAMPLE TO THAT PROPOSED BONUS.
+
+Let R be a nonempty triangle-free graph with matching number p>0,
+vertex-cover number beta(R), and independence number alpha(R).
+Add a new vertex z adjacent to every vertex of R. Color every edge
+of R red and every edge from z blue. Let F be all one-red triangles.
+Then
+  F={zxy: xy in E(R)}.
+Every red edge is private in F. In fact R is triangle-free, so these
+are also all triangles of the underlying uncolored graph.
+
+PROPOSITION 2 (EXACT PARAMETERS).
+For this family,
+  nu(F)=p=mu(R), tau(F)=beta(R)=|V(R)|-alpha(R).
+For every maximum packing Q of F, all p red edges are private and
+deleting B(Q) leaves no triangle of F.
+
+Proof. Two distinct triangles zxy and zst are edge-disjoint exactly
+when xy and st are disjoint edges of R. Thus packings correspond
+exactly to matchings, proving the packing identity.
+A vertex cover U of R gives the transversal {zx:x in U}, so
+tau(F)<=beta(R). Conversely, take any transversal X of F. Every
+blue edge in X is zx for some x; put x in a vertex set U. For each
+red edge xy in X, put either endpoint in U. This uses at most |X|
+vertices. Every edge xy of R is covered by U, because its triangle
+zxy was met either by zx, by zy, or by xy. Hence beta(R)<=|X|,
+proving equality and the standard complementary independence formula.
+
+A maximum matching leaves an independent set of unmatched vertices:
+an edge between two of them could be added to the matching. Deleting
+the blue edges of the corresponding packing removes every apex edge
+to a matched vertex. A surviving triangle would require an edge of R
+between two unmatched vertices, which is impossible. The privacy
+assertion holds for every red edge by construction.
+
+PROPOSITION 3 (RATIOS APPROACH TWO).
+There are triangle-free graphs R with alpha(R)=o(|V(R)|). Consequently
+the cone families above satisfy tau(F)/nu(F)->2 along a sequence,
+while every packed red edge is private and the blue-deletion residual
+packing number is zero.
+
+Self-contained existence proof. Start with a random graph on N
+vertices, choosing each edge independently with probability
+  rho=N^(-3/4).
+The expected number T of triangles is at most N^(3/4)/6. Markov's
+inequality gives
+  Pr(T>N^(7/8))<=N^(-1/8)/6 ->0.
+Put t=ceil(4N^(3/4) log N). For sufficiently large N, t<N. The expected
+number of independent t-sets is at most
+  N^t exp(-rho*t*(t-1)/2).
+Since rho*(t-1)>=4 log N-rho, its logarithm is at most
+  -t*(log N-rho/2),
+which tends to minus infinity. By the first-moment bound, with
+probability tending to one there is no independent t-set.
+
+For sufficiently large N there is therefore a realization with both
+T<=N^(7/8) and alpha<t. Choose one vertex from each of its triangles
+and delete the union of the chosen vertices. At most T vertices are
+deleted, and the resulting graph R is triangle-free. It has order
+  M>=N-N^(7/8)
+and independence number below t=o(M). This proves the existence claim.
+
+For these graphs, mu(R)<=M/2 and beta(R)=M-alpha(R), so
+  beta(R)/mu(R)>=2-2alpha(R)/M ->2.
+The reverse bound beta(R)<=2mu(R) follows by taking all endpoints
+of a maximum matching as a vertex cover. Thus the ratios converge
+to two. By Proposition 2 the same is true for the colored families.
+
+In particular, for every fixed delta>0, one of these families violates
+tau(F)<=(2-delta)nu(F), despite having a triangle-free red graph,
+private red edges on every packed triangle, and zero residual q.
+This settles only that unbudgeted colored-family strengthening.
+
+4. RED-BUDGET SCOPE: THESE CONES DO NOT OBSTRUCT b APPROXIMATELY 3c.
+
+The enhanced algebraic equality point has b=3c. Here b bounds the
+number of red edges available in Wang's residual family. In contrast,
+the cones approaching ratio two necessarily have an unbounded ratio
+of total red edges to their packing number. The following estimate
+makes that distinction quantitative without any numerical search.
+
+LEMMA (TRIANGLE-FREE MATCHING/COVER ESTIMATE).
+Let R be triangle-free with p=mu(R)>0 and m=|E(R)|. Then
+  beta(R)<=2p-p^2/(2m-p).
+
+Proof. Fix a maximum matching M of size p, and let U be the unmatched
+vertex set. It is independent. For each matched edge xy, at least
+one endpoint has no neighbor in U. Otherwise take a neighbor s in U
+of x and a neighbor t in U of y. If s!=t, replacing xy by xs and yt
+increases the matching size. If s=t, then x,y,s form a triangle.
+Both are impossible.
+
+Choose one such endpoint from each matched edge, obtaining a set Z
+of p vertices with no edges to U. Its induced graph has at most m-p
+edges, since none of the p matching edges lies in Z. It has an
+independent set I of size at least
+  p^2/(2(m-p)+p)=p^2/(2m-p).
+To verify this standard elementary bound, order the vertices of
+R[Z] uniformly at random and select vertices preceding all their
+neighbors. The selected set is independent and has expected size
+sum_{x in Z}1/(d_Z(x)+1). Cauchy-Schwarz bounds this sum below by
+p^2/(2|E(R[Z])|+p), giving the displayed lower bound.
+
+All matched endpoints form a cover of size 2p. Remove I from it.
+The remaining set is still a cover: U is independent, I is
+independent, and there are no edges from I to U. Its size is at
+most 2p-p^2/(2m-p), proving the lemma.
+
+COROLLARY FOR THE CONE SUBCLASS.
+If a cone above has at most Lp red edges, where L>=1, then
+  tau(F)<= (2-1/(2L-1))p.
+In particular, at a red budget m<=3p it satisfies
+  tau(F)<=9p/5.
+Conversely, tau(F)/p>=2-epsilon forces
+  m/p >= (1+1/epsilon)/2.
+Thus a sequence of cones approaching ratio two cannot have a fixed
+red-edge/packing budget.
+
+SCOPE DISTINCTION.
+The cone counterexamples do NOT refute a strict improvement for
+Wang's residual families with b near 3c. The cone-specific 9/5 bound
+also does NOT prove such an improvement for all those families:
+in a cone every red edge is globally private, whereas h=c in Wang's
+notation only makes the red edges of one maximum packing private.
+Other red edges may have many pages, and the entire family need not
+be representable by matchings of a single base graph.
+
+Therefore an unresolved concrete route is a red-budget-sensitive
+colored lemma for that larger class, together with its global
+embedding constraints. This file makes no claim about its truth.
+
+5. SOURCE BOUNDARY AND STATUS.
+
+Primary source: Sichen Wang, "A Bound Below 2.8 for Tuza's Conjecture,"
+arXiv:2609.13831v1, Lemma 2.3 and Section 3, including the Remark.
+  https://arxiv.org/html/2609.13831v1
+The four final inequalities and their optimal weights are already
+proved there. W5 is its existing intermediate colored transversal.
+Proposition 1 merely retains the resulting slack explicitly; it
+does not evade the Remark's barrier by a new weighting.
+
+The cone construction, its exact parameter calculation, the elementary
+probabilistic existence argument, and the finite-red-budget estimate
+are proved in full above. No inference about the existence of a graph
+realizing the global algebraic equality point is made.
+
+The independent draft was saved at research/round10/D/independent_initial.txt
+before E round-ten material or numerical results. The parent later
+flagged the importance of the b=3c budget distinction; Section 4
+records it explicitly with a symbolic bound. No numerical search,
+enumeration, or sparse-graph hypothesis was used in this work.
+
+The requested universal constant strictly below 165/59 is not achieved
+here. The result is a reviewed stopping point for this
+independent route: exact retained slack, a precise negative answer
+to the unbudgeted private-red proposal, and the remaining scope issue
+that proposal must address before it can affect the global constant.

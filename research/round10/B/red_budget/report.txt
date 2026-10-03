@@ -1,0 +1,49 @@
+# Round10 / Role B (v4, REPAIRED) - Tuza EDGE transversal search for E: tau <= 199p/100
+
+Withdrawn: first red_budget run (tau was a VERTEX cover; greedy Q was not a certified
+maximum packing; per-n quota never decremented so the cap was spent before n=6..8).
+Here tau = min EDGE set meeting every triangle and nu = max edge-disjoint triangle
+packing, both EXACT bitset branch and bound with returned witnesses; nu_private is the
+same packing restricted to globally-private-red triangles. If an optimum is not
+certified inside the node budget the instance is SKIPPED (no fractional/timeout value).
+Premises imposed (not derived): every triangle exactly 1 red; nu_private==nu>0; r<=3nu; H connected.
+
+## Self-checks before searching
+- single triangle: nu=1 tau=1 nu_private=1 r=1 -> ratio 1, premise holds
+- K4, red = perfect matching: every triangle exactly 1 red = True; EDGE tau=2 nu=1 tau==2nu: True; nu_private=0 -> premise nu_private==nu: False (gate: private_premise_fails)
+- so the ratio-2 example is a GLOBAL tau/nu fact that the private premise EXCLUDES: every K4 edge (hence every red edge) lies in 2 triangles. Global cover/packing and
+  private-only packing are different objects and are not conflated below.
+- C5 red-base/blue-apex: nu=2 nu_private=2 EDGE tau=3 r=5; checks={'nu_le_tau': True, 'tau_le_3nu': True, 'tau_le_2nu_under_private_premise': True, 'cover_size_eq_tau': True, 'cover_hits_every_triangle': True, 'Q_length_eq_nu': True, 'Q_edge_disjoint': True, 'Q_red_globally_private': True, 'r_le_3nu': True}
+
+## Per-n accounting  (attempts / eligible / exact / nu-histogram / best tau-over-nu)
+  n  attempts  eligible  exact  tau>2nu  not_exact  best tau/nu  nu hist
+  3        27         3      3        0          0       1.0000  {'1': 3}  systematic scanned=27/27 complete=True
+  4       729        96     96        0          0       1.0000  {'1': 96}  systematic scanned=729/729 complete=True
+  5      2147       200    200        0          0       1.0000  {'1': 200}  systematic scanned=2147/59049 complete=False
+  6      1143       200    200        0          0       1.0000  {'1': 86, '2': 114}
+  7      1583       200    200        0          0       1.0000  {'2': 118, '1': 63, '3': 19}
+  8      2155       200    200        0          0       1.0000  {'1': 59, '2': 61, '3': 80}
+- totals: coloured attempts 7784 (cap 20000), eligible 899; stop: per-n eligible caps / attempt caps reached for n=6,7,8; wall 0.22s (hard 120s)
+- eligible counts are instance occurrences; sampled colourings are not deduplicated
+  by key or graph isomorphism. The C5 ratio-3/2 self-check is separate from search results.
+- premise rejections (global): {'no_triangle': 1425, 'not_exactly_one_red': 4855, 'disconnected': 410, 'private_premise_fails': 145, 'r_gt_3nu': 4}
+- ratios seen among eligible: ['1/1', '2/2', '3/3']
+
+## Best eligible instance (max tau/nu)
+- n=3 tau=1 nu=1 nu_private=1 r=1 tau/nu=1.000000 margin(100tau-199nu)=-99
+- colouring RBB over pairs [[0, 1], [0, 2], [1, 2]]
+- edge cover (1 edges): [[0, 1]]  |  Q (1 triangles): [[[0, 1], [0, 2], [1, 2]]]
+- literal checks: {'nu_le_tau': True, 'tau_le_3nu': True, 'tau_le_2nu_under_private_premise': True, 'cover_size_eq_tau': True, 'cover_hits_every_triangle': True, 'Q_length_eq_nu': True, 'Q_edge_disjoint': True, 'Q_red_globally_private': True, 'r_le_3nu': True}
+- single-instance re-check (same implementation): python red_edge_search.py --verify 3 RBB
+
+## Witness: tau > 199nu/100 (i.e. tau == 2nu here) with nu <= 9
+- none found in this budget. Every eligible instance examined here had tau/nu <= best
+  above, so this run neither produces a counterexample to E nor establishes E. Not a theorem.
+
+## Scope / honesty
+- systematic loops on n=3,4,5 are exhaustive only where the per-n 'complete' flag is True;
+  n=5 may stop early at its eligible quota. Stratified seeded samples for n=6,7,8 use
+  at most 200 eligible per n and <=20000 attempts total. No exhaustive claim for
+  quota-truncated or randomly sampled orders.
+- p_private==p and r<=3p are imposed; no graph-theoretic reason is asserted for either.
+- No census, no downloads, no LP for tau. Full data: results_v3.json in this directory.

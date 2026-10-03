@@ -1,0 +1,81 @@
+ROUND 10 — COORDINATOR DECISIONS
+
+Active target: an explicit uniform coefficient strictly below 165/59 for
+all finite simple graphs, as explicitly confirmed by the user. The
+mad(G)<8 implication is not the assumption or the achievement of this round.
+The requested universal improvement remains UNPROVED.
+
+Accepted after the C reviews and a separate coordinator reading:
+
+1. Wang's existing four-cover system and its optimal weights are the
+literature baseline, not a new result. The LP experiment's hypothetical
+d+h>=eta*c input leaves an exact equality face for every 0<=eta<=1.
+The K_{1,2,2} colored example also refutes that input as a universal
+statement about complete one-red triangle families. It is not asserted
+to realize Wang's complete sequence of outer choices.
+
+2. D retains the exact slack
+  59 tau <= 165n-93e-d-3(c-h-6d)_+.
+The enhanced abstract system still has an equality point with h=c,
+b=3c, and d=e=0. No realizing graph is claimed.
+
+3. D's triangle-free cone construction rules out any uniform private-red
+bonus when the participating-red-edge budget is unrestricted. Its exact
+matching/cover correspondence and probabilistic sequence are proved
+without numerical search. The finite-budget estimate
+  beta(R)<=2p-p^2/(2m-p)
+shows why these examples do not rule out a gain when m<=3p.
+
+4. E extends that estimate through an auxiliary graph to the class where
+EVERY participating red edge is private. It proves tau(H)<=9p/5 when
+r<=3p. This is stronger privacy than the unresolved candidate requires.
+Deleting s nonprivate participating red edges gives the more general
+bound
+  tau(H)<=2c+s-h^2/(2(b-s)-h), h>0.
+The h=0 boundary is handled separately. At the abstract critical profile,
+this bound can leave tau(H)=2c possible only if
+  s/c >= (5-sqrt(17))/4.
+This necessary condition neither constructs nor excludes such a residual.
+
+5. The candidate RB(epsilon) is explicitly UNPROVED. It assumes every
+triangle is one-red, existence of an all-private maximum packing, and
+r<=3p. E's deletion bridge and exact conditional implication are valid:
+  RB(epsilon) => tau(G)<=(165/59-epsilon/10000)nu(G),
+for 0<epsilon<=1 and every finite simple G. The rational constants and
+the zero-packing boundary were checked. RB(1/100) would give a gain of
+1/1000000, but no such unconditional gain is claimed.
+
+The proofs use complete triangle families and maximum packings; replacing
+either by a selected subfamily or a merely maximal packing is invalid.
+No graph-order bound, mad bound, enumeration, or numerical output is a
+premise of any accepted theorem. No literature novelty, human peer review,
+or proof-assistant verification is claimed.
+
+Review references:
+  C/review_A.txt
+  C/review_B.txt
+  C/review_B_red_budget_final.txt
+  C/review_baseline.txt
+  C/review_density_candidate.txt
+  C/review_D_full.txt
+  C/review_E_full.txt
+
+Numerical diagnostic: the original run computed a vertex transversal,
+not the required edge transversal, and also had packing-certificate and
+quota errors. Its results were withdrawn. The repaired fixed-budget run
+records 7784 colored input attempts and 899 eligible input occurrences
+(not distinct graphs), with no witness to 100*tau>199*nu. Only n=3,4
+are completely scanned; n=5 is quota-truncated at 2147/59049 colorings;
+n=6,7,8 are seeded samples. Connectedness is an additional imposed filter.
+Every eligible sampled input has tau=nu, so this is weak evidence about
+the difficult class, not an exclusion theorem. The separate C5-cone
+control has nu=nu_private=2, tau=3, r=5 and passes every literal check.
+The coordinator also ran its read-only single-instance verification.
+Final numerical review is recorded separately under C. None of this
+numerical evidence is a premise of the accepted mathematical proofs.
+
+Decision: preserve these reviewed subtheorems and the conditional bridge
+as a substantial stage of the research. The next mathematical gap is the
+budgeted extension with multipage red edges outside the private maximum
+packing, or a counterexample to that extension. Stop and report this
+milestone, without marking the active universal objective achieved.

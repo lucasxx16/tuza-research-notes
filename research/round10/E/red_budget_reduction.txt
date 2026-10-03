@@ -1,0 +1,320 @@
+ROUND 10 / E
+RED-BUDGET COVERS, A NECESSARY MULTIPAGE OBSTRUCTION,
+AND A CONDITIONAL TRANSFER TO A UNIVERSAL CONSTANT
+
+Status: reviewed research proof; see research/round10/C/review_E_full.txt.
+The requested universal constant below 165/59 is NOT proved here.
+All graphs are finite and simple. No maximum-average-degree hypothesis,
+bounded-degree hypothesis, numerical enumeration, or saved graph census
+is used in any proof below. No literature novelty claim is made.
+
+The proved results are an auxiliary-graph representation, a 9/5 cover
+bound for a stronger all-red-private subclass, a general residual cover
+bound involving the number of nonprivate red edges, and a local exchange
+restriction. A separate red-budget conjecture remains open here. Its
+conditional implication for a smaller exact universal constant is proved
+explicitly, so it is not confused with an unconditional improvement.
+
+1. WANG'S RESIDUAL AND ITS EXACT SCOPE.
+
+We use the notation of Wang, arXiv:2609.13831v1, Lemma 2.3 and Section 3:
+  n=nu(G), P an original maximum triangle packing, O=E(P);
+  A a maximum packing of triangles with exactly one old (O) edge;
+  a=|A|, G'=G-E(A);
+  P' a packing in G' maximizing first its number b of type-2 triangles
+     (two old edges), then its total size m;
+  H=G'-B(P'), where B(P') consists of all old edges in P';
+  S the type-2 triangle family of H;
+  Q a maximum packing of S, c=|Q|;
+  h the number of Q triangles whose new edge is private in S;
+  d the maximum packing size after deleting the two old edges of
+     each triangle of Q;
+  e=n-a-m>=0.
+Color new edges red and old edges blue. Private means contained in exactly
+one triangle of the specified family, not merely used once by a packing.
+
+In fact EVERY triangle of H has exactly one red edge:
+  * An all-red triangle could augment the original packing P.
+  * A two-red triangle in G' could augment A.
+  * An all-blue triangle in H avoids every edge of P': all its edges
+    are old, and B(P') has been deleted. Adding it preserves the type-2
+    count and increases the total size, contrary to the choice of P'.
+Thus S is the entire triangle family of H. This last fact is necessary
+for the auxiliary graph argument below; a claim only about a selected
+one-red subfamily would not suffice.
+
+Every participating red edge of H belongs to a type-2 triangle of P'.
+Otherwise a triangle of H using that red edge avoids all edges of P'
+and could increase its type-2 count. Consequently the number r of red
+edges participating in triangles of H satisfies r<=b.
+
+We import the following valid covers, retaining a+m rather than replacing
+it by n:
+  (W1) tau(G)<=3n-a;
+  (W2) tau(G)<=3n/2+5a/2+3b/2-c+3h/8;
+  (W3) tau(G)<=3(n-e)-c-d;
+  (W4) tau(G)<=3(n-e)-b+9c/4+3d/2-h/4;
+  (W5) tau(G)<=3(n-e)-b+2c+3d.
+W1-W4 and their weights 20,8,19,12 are Wang's existing construction.
+W5 is its intermediate colored cover, not a new inequality discovered
+here. More generally that outer construction gives
+  tau(G)<=3(n-e)-b+tau(H).                         (1)
+Indeed E(A) together with B(P') has 3a+3m-b edges, and deleting those
+edges leaves exactly H; add any triangle cover of H.
+The exact retained-slack consequence, proved in the D file cited below,
+is
+  59 tau(G)<=165n-93e-d-3(c-h-6d)_+.              (2)
+Here x_+=max(x,0). We do not count reweighting W1-W4 as progress.
+
+2. AN AUXILIARY GRAPH WHEN ALL PARTICIPATING RED EDGES ARE PRIVATE.
+
+THEOREM A.
+Let H be a red-blue graph in which every triangle has exactly one red
+edge. Suppose every red edge participating in a triangle is private.
+Write p=nu(H)>0 and r for the number of participating red edges. Then
+  tau(H)<=2p-p^2/(2r-p).                          (3)
+In particular r<=3p implies tau(H)<=9p/5.
+
+Proof. Form an ordinary simple graph J whose vertices are the blue
+edges of H. Each triangle of H gives a J edge joining its two blue
+edges. Two specified blue edges can lie in at most one triangle, so
+J is simple. Global privacy of every participating red edge gives
+  |E(J)|=r.
+Two H triangles can share a blue edge exactly when their J edges share
+a vertex. They cannot share a red edge. Thus
+  mu(J)=nu(H)=p.
+A vertex cover of J gives a blue-edge triangle cover of H. Conversely,
+in any triangle cover of H, replace a chosen red edge by either blue
+edge of its unique triangle. This never increases the cover size and
+proves
+  beta(J)=tau(H),
+where beta is the ordinary vertex-cover number.
+
+J is triangle-free. Three pairwise intersecting distinct edges in a
+simple graph form either a three-edge star or a triangle. If three
+vertices of J formed a triangle, their corresponding blue edges in H
+would have one of these forms. A blue triangle violates the assumption
+on every H triangle. In a blue star, each pair of leaves is joined by
+the red edge of the corresponding H triangle; the three leaves would
+therefore form an all-red triangle, also impossible.
+
+Apply the elementary triangle-free matching/cover estimate
+  beta(J)<=2p-p^2/(2|E(J)|-p).                    (4)
+For completeness, fix a maximum matching M of size p, with unmatched
+vertex set U. U is independent. On each matching edge xy, at least one
+endpoint has no neighbor in U: distinct unmatched neighbors at the two
+ends augment M, and a common unmatched neighbor forms a triangle.
+Choose one such endpoint on every matching edge to form Z, |Z|=p.
+There are no edges between Z and U, and J[Z] has at most |E(J)|-p edges.
+Ordering Z uniformly at random and keeping vertices preceding all
+their neighbors gives an independent set I of size at least
+  sum_{z in Z} 1/(d_{J[Z]}(z)+1)
+  >= p^2/(2|E(J[Z])|+p)
+  >= p^2/(2|E(J)|-p).
+Remove I from the cover consisting of all 2p matched endpoints.
+The result remains a cover, because U and I are independent and there
+are no edges between them. This proves (4), hence (3).
+
+The matching/cover estimate (4) is the elementary estimate proved in
+research/round10/D/colored_slack_and_private_red_barrier.txt, Section 4.
+The additional representation above applies it to every H satisfying
+Theorem A, not only to the single-apex cone construction in that file.
+
+3. A GENERAL COVER WITH AN EXPLICIT NONPRIVATE-RED PARAMETER.
+
+THEOREM B.
+Let H have exactly one red edge in every triangle. Let Q be a maximum
+triangle packing of size c, of which h>0 have private red edges. Let r
+be the number of participating red edges, let s be the number of these
+that are nonprivate, and let b>=r. Then
+  tau(H)<=2c+s-h^2/(2(r-s)-h)
+         <=2c+s-h^2/(2(b-s)-h).                  (5)
+Both denominators are positive. For h=0 the separately valid crude
+statement is tau(H)<=2c+s; no expression 0/0 is used.
+
+Proof. Delete the s nonprivate red edges. Every remaining participating
+red edge is private; its unique original triangle survives because that
+triangle has no other red edge. The resulting graph H0 thus has exactly
+t=r-s participating red edges, all private. Its maximum packing size k
+satisfies h<=k<=c: the h original private Q triangles remain, and deletion
+cannot increase the maximum packing number. In particular t>=k>=h>0.
+Theorem A and adding back the deleted red edges as cover edges give
+  tau(H)<=s+2k-k^2/(2t-k).
+The function x^2/(2t-x) is increasing on 0<x<=t (its derivative is
+x(4t-x)/(2t-x)^2). Hence this is at most
+  s+2c-h^2/(2t-h).
+Using t<=b-s proves (5). If h=0 and k>0, simply drop the nonnegative
+saving from Theorem A; if k=0, the deleted red edges alone cover H.
+
+For Wang's residual, (1) and (5) give the valid additional estimate
+  tau(G)<=3(n-e)-b+2c+s-h^2/(2(b-s)-h),           (6)
+when h>0. This introduces genuine additional structural information s;
+it does not supply a bound on s by itself.
+
+EXACT CRITICAL-PROFILE CONSEQUENCE.
+The already enhanced algebraic system W1-W5 still admits
+  a=c=h=12n/59, b=36n/59=3c, m=47n/59, d=e=0.
+This is only an algebraic parameter point, not an asserted graph.
+At this point, for (5) not to exclude tau(H)=2c, it is necessary that
+  s >= c^2/(5c-2s).
+Since c>0 and s<=b-h=2c, the denominator is positive. Writing x=s/c,
+  x(5-2x)>=1,
+and therefore
+  s/c >= (5-sqrt(17))/4.                         (7)
+This is the necessary condition imposed by the NEW cover together with
+the old critical parameters. It does not claim the existence of a
+residual attaining tau(H)=2c, nor exclude that value when (7) holds.
+
+A convenient rational subcase is: if h=c>0, r<=3c, and s<=c/6, apply
+(5) with b=3c and weaken its denominator to 2b-h=5c to obtain
+  tau(H)<=2c+c/6-c/5=59c/30.                     (8)
+The whole desired class allows s as large as 2c; no proof here reduces
+that range to the one in (8).
+
+4. A LOCAL EXCHANGE RESTRICTION FOR THE LARGER CLASS.
+
+LEMMA C (SINGLE CONTACT).
+Suppose every triangle of H has exactly one red edge, and Q is a maximum
+packing all of whose red edges are private. Put K=B(Q). For a fixed
+Q triangle uvx with red edge uv, its two blue edges ux and vx cannot
+both belong to triangles meeting K in exactly one edge.
+
+Proof. Suppose T1=uxy and T2=vxz are such triangles. Neither can use any
+red edge of Q, by privacy, and each avoids the other blue edges of Q.
+If T1,T2 are edge-disjoint, replace uvx by both to augment Q. If they
+share an edge, y=z=w and their shared edge is xw (the alternatives
+would make one of them uvx, which has two edges in K). If xw is red,
+uw and vw are blue, so uvw is a second triangle on private red edge uv.
+If xw is blue, uw and vw are red, so uvw is all red. Both cases are
+impossible.
+
+This is only a local restriction. Triangles meeting two blue edges of
+Q can obstruct choosing one blue edge per Q triangle as a cover. No
+global saving is inferred solely from Lemma C.
+
+5. THE REMAINING BUDGETED CLAIM IS A CONJECTURE HERE.
+
+For 0<epsilon<=1, let RB(epsilon) be the following statement:
+
+  If every triangle of a finite simple red-blue graph H has exactly
+  one red edge, p=nu(H)>0, some maximum packing has all its red edges
+  private, and the number of participating red edges is at most 3p,
+  then tau(H)<=(2-epsilon)p.
+
+The quantifier is existence of an all-private maximum packing, not a
+claim that every maximum packing has that property. The numerical
+diagnostic requested through the parent tests RB(1/100) only on a small
+bounded collection. No diagnostic result is used in this proof file.
+
+RB(1/100) IS NOT PROVED HERE. Theorem A proves a stronger-privacy
+subclass; Theorem B also allows a small number of other nonprivate red
+edges. Neither statement makes the unproved extension automatic.
+
+The following bridge explains exactly why a proof of RB would matter.
+
+LEMMA D (CONDITIONAL DELETION BRIDGE).
+Assume RB(epsilon). Let H have one red edge in every triangle, let Q
+be maximum of size c with h private red edges, and suppose at most b
+red edges participate. Then
+  tau(H)<=3(c-h)+(2-epsilon)h+(b-c-2h)_+.         (9)
+
+Proof for h>0. Delete all three edges of each of the c-h nonprivate
+Q triangles. The surviving h private Q triangles form a maximum
+packing: a larger residual packing, together with the deleted Q
+triangles, would exceed c. All h red edges remain private. There are
+at most b-(c-h) participating red edges. If more than 3h remain,
+delete the excess red edges, choosing them outside the h surviving
+Q triangles. There are enough such edges, and this costs at most
+(b-c-2h)_+. The h-packing remains maximum, its red edges remain private,
+and RB(epsilon) applies. Adding the deleted edges gives (9).
+For h=0, using all participating red edges covers H at cost at most b;
+the right side 3c+(b-c)_+ is at least b. This handles the empty-packing
+edge case without applying RB to p=0.
+
+THEOREM E (EXACT CONDITIONAL UNIVERSAL CONSTANT).
+If RB(epsilon) holds for some 0<epsilon<=1, then every finite simple
+graph G satisfies
+  tau(G)<=(165/59-epsilon/10000)nu(G).            (10)
+In particular RB(1/100) would imply the exact universal coefficient
+  165/59-1/1000000.
+This is a conditional implication, NOT the asserted conclusion of
+round ten.
+
+Proof. If n=nu(G)=0, then tau(G)=0. Otherwise normalize every count by
+n and write T=tau(G)/n, K0=165/59, Delta=K0-T>=0. In the rest of this
+proof all lower-case packing parameters are normalized, so n=1.
+Put c0=3-K0=12/59, l=c-h>=0, and let g_i be the right side of W_i
+minus T, for i=1,2,3,4. Every g_i is nonnegative. The established
+weighted identity is
+  20g1+8g2+19g3+12g4=59Delta-93e-d.
+Together with (2), it implies
+  e<=59Delta/93<=Delta, d<=59Delta,
+  g3<=59Delta/19<=4Delta, g4<=59Delta/12<=5Delta,
+  d+3(l-6d)_+<=59Delta.                          (11)
+
+The last inequality gives l<=354Delta: if l<=6d use d<=59Delta;
+otherwise 3l<=59Delta+17d<=18*59Delta. Solving W3 for c gives
+  c=c0+Delta-3e-d-g3,
+hence
+  c0-65Delta<=c<=c0+Delta,
+  h=c-l>=c0-419Delta.                            (12)
+Solving W4 for b gives
+  b-3c=c0-c+Delta+l/4+3d/2-3e-g4
+       <=(65+1+354/4+3*59/2)Delta
+       =243Delta.                               (13)
+
+The outer cover (1) and Lemma D give a further valid upper bound
+  Wnew=3(1-e)-b+2c+l-epsilon*h+(b-3c+2l)_+.
+Subtracting the right side of W4 yields
+  Wnew-W4=3l/4-epsilon*h+(b-3c+2l)_+-3d/2.
+Since T<=Wnew and W4=T+g4, (11)-(13) imply
+  epsilon*h
+  <=g4+3l/4+(b-3c+2l)_+-3d/2
+  <=(5+3*354/4+243+2*354)Delta
+  <=1222Delta.
+Together with (12), this gives
+  epsilon*c0<=(1222+419epsilon)Delta<=1641Delta,
+so
+  Delta>=12epsilon/(59*1641)>epsilon/10000.
+The last comparison is exact: 120000>59*1641=96819.
+This proves the weaker non-strict inequality in (10), including any
+parameter boundary such as h=0.
+
+6. A FIXED COUNTEREXAMPLE TO A DIFFERENT PROPOSED INPUT.
+
+The claim that d+h>=eta*c for a uniform eta>0 in every complete
+one-red triangle family is false, independently of RB. Take
+H=K_{1,2,2} with parts {u},{v,z},{x,y}, red edges uv,uz, and all other
+edges blue. Its complete triangle family is
+  uvx, uvy, uzx, uzy.
+The packing Q={uvx,uzy} has c=2 and is maximum, since every triangle
+uses one of the two red edges. Neither packed red edge is private,
+so h=0. Deleting B(Q)={ux,vx,uy,zy} removes every triangle, so d=0.
+The two red edges form a cover and Q is a packing, hence tau=nu=2.
+This example rejects that proposed positive lower bound; it does not
+claim to realize all of Wang's preceding global choices or equalities.
+
+7. REFERENCES, PROVENANCE, AND REMAINING GAP.
+
+Primary source for the imported construction and notation:
+Sichen Wang, "A Bound Below 2.8 for Tuza's Conjecture,"
+arXiv:2609.13831v1, Lemma 2.3 and Section 3, including its Remark.
+  https://arxiv.org/html/2609.13831v1
+
+Internal independently drafted and reviewed reference:
+  research/round10/D/colored_slack_and_private_red_barrier.txt
+Its Section 4 supplies the elementary triangle-free estimate reused
+and reproduced above. Its cone construction disproves a uniform
+private-red bonus when the total red-edge budget is unrestricted.
+That construction does not refute RB, because its ratios approaching
+two require an unbounded red-edge/packing ratio.
+
+What is proved: the complete auxiliary representation and cover (3),
+the residual cover (5)-(6), the necessary critical-profile condition
+(7), the local exchange Lemma C, and the conditional bridge (9)-(10).
+What is not proved: RB(1/100), any positive-epsilon version of RB for
+its entire stated class, or any universal coefficient below 165/59.
+In particular h=c means only the packed red edges are private; this
+file never substitutes that for privacy of every participating red
+edge. Multipage red edges not used by Q remain the precise obstruction
+to applying Theorem A directly at Wang's critical profile.

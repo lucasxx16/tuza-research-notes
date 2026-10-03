@@ -1,0 +1,63 @@
+ROUND 10 / D / INDEPENDENT INITIAL DRAFT
+
+Recorded before inspecting E round-ten work or receiving any numerical
+result. The target is a universal constant strictly below 165/59.
+No mad<8 hypothesis is assumed or used.
+
+INDEPENDENT ROUTE.
+Wang's new edges form a triangle-free graph: a triangle consisting
+entirely of edges outside the original maximum packing could be
+added to it. I investigated whether this extra structure strengthens
+the one-red-edge covering lemma near the critical parameters.
+
+The source also supplies a cover omitted from the final four-line
+combination. With its notation n,a,m,b,c,d,h, the intermediate bound
+tau(S)<=2c+3d-r<=2c+3d gives
+  tau(G)<=3(a+m)-b+2c+3d.
+This is an existing intermediate construction, not a new theorem or
+a rediscovery of a better weighting of the old four inequalities.
+
+RETAINED-SLACK CANDIDATE IDENTITY.
+Put e=n-a-m>=0. Keep the exact 3(a+m) terms in Wang's third and fourth
+covers, and take the better of its fourth cover and the displayed
+additional cover. The same established weights then give
+  59 tau(G) <= 165 n - 93e - d
+              - 3 max(0,c-h-6d).
+The derivation is short algebra: replacing the fourth cover improves
+it by max(0,c-h-6d)/4, and its weight is twelve.
+This is a quantitative stability observation, not a new universal
+constant. It targets a precise missing structural gain.
+
+The strengthened system still has an exact algebraic equality point
+  a=c=h=12n/59, b=36n/59, m=47n/59, d=e=0.
+Every old and additional cover equals 165n/59 there. The two available
+colored bounds for S both equal 2c. This profile is only algebraic;
+no graph realizing the entire Wang construction is asserted.
+
+PRECISE OBSTRUCTION TO A PRIVATE-RED BONUS.
+Let R be an arbitrary triangle-free graph on a vertex set V. Add one
+new apex z, color all edges of R red, and color every edge zx blue.
+The family F of all one-red triangles is exactly
+  {zxy: xy in E(R)}.
+All red edges are globally private in F. Its packing number equals
+the matching number mu(R), because two such triangles share an edge
+exactly when their base edges share an endpoint. Its transversal
+number equals the vertex-cover number beta(R): apex edges of a
+vertex cover suffice, and any transversal choosing red base edges
+can replace each chosen red edge by one endpoint's apex edge without
+increasing its size.
+
+There are triangle-free graphs with independence number o(|V|).
+Then beta(R)=|V|-alpha(R), mu(R)<=|V|/2, so
+  tau(F)/nu(F) >= 2-2alpha(R)/|V| ->2.
+Consequently no fixed positive bonus delta*u can improve the bound
+tau(F)<=2p when all p packed red edges are private, even with the
+red graph triangle-free. Here every maximum packing has u=p and
+deleting its blue edges leaves no family triangle, so q=0 exactly.
+
+I will give a self-contained probabilistic existence proof for the
+triangle-free bases, or cite a verified primary theorem. This barrier
+does not rule out a global improvement using how S is embedded in
+the preceding old-edge packings. It identifies why a private-red
+colored-family bonus alone cannot eliminate the strengthened
+critical profile. No numerical computation is needed.

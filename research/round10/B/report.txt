@@ -1,0 +1,49 @@
+# Round10 / Role B - exact-input LP (maximize z) on the 7-var domain
+
+Domain: `a+m<=1`, `d<=c<=b<=m`, `h<=c`, all of `a,b,c,d,h,m,z >= 0`; objective max z.
+Wang rows W1..W4 as given. Solver status alone is not a proof; the exact
+face below certifies only this LP relaxation. The `d+h>=eta*c` rows are
+hypothetical and have no graph-theoretic justification here.
+
+| case | z* (LP) | nearest rational | a,b,c,d,h,m,z at argmax | active rows |
+|---|---|---|---|---|
+| baseline_165_59_domain | 2.7966101695 | 165/59 | 12/59,39/59,12/59,0,0,47/59,165/59 | a+m<=1; W1 z<=3-a; W2 z<=3/2+5a/2+3b/2-c+3h/8; W3 z<=3-c-d; W4 z<=3-b+9c/4+3d/2-h/4 |
+| hyp_d+h>=eta*c[eta=1/20] | 2.7966101695 | 165/59 | 12/59,777/1180,12/59,0,3/295,47/59,165/59 | a+m<=1; W1 z<=3-a; W2 z<=3/2+5a/2+3b/2-c+3h/8; W3 z<=3-c-d; W4 z<=3-b+9c/4+3d/2-h/4; S d+h>=1/20*c |
+| hyp_d+h>=eta*c[eta=1/10] | 2.7966101695 | 165/59 | 12/59,387/590,12/59,0,6/295,47/59,165/59 | a+m<=1; W1 z<=3-a; W2 z<=3/2+5a/2+3b/2-c+3h/8; W3 z<=3-c-d; W4 z<=3-b+9c/4+3d/2-h/4; S d+h>=1/10*c |
+| hyp_d+h>=eta*c[eta=1/4] | 2.7966101695 | 165/59 | 12/59,153/236,12/59,0,3/59,47/59,165/59 | a+m<=1; W1 z<=3-a; W2 z<=3/2+5a/2+3b/2-c+3h/8; W3 z<=3-c-d; W4 z<=3-b+9c/4+3d/2-h/4; S d+h>=1/4*c |
+| hyp_d+h>=eta*c[eta=1/2] | 2.7966101695 | 165/59 | 12/59,75/118,12/59,0,6/59,47/59,165/59 | a+m<=1; W1 z<=3-a; W2 z<=3/2+5a/2+3b/2-c+3h/8; W3 z<=3-c-d; W4 z<=3-b+9c/4+3d/2-h/4; S d+h>=1/2*c |
+| hyp_d+h>=eta*c[eta=1] | 2.7966101695 | 165/59 | 12/59,36/59,12/59,0,12/59,47/59,165/59 | a+m<=1; h<=c; W1 z<=3-a; W2 z<=3/2+5a/2+3b/2-c+3h/8; W3 z<=3-c-d; W4 z<=3-b+9c/4+3d/2-h/4; S d+h>=1*c |
+
+## Implementation validation (known inputs, re-derived rows only)
+- point `{'a': '12/59', 'b': '39/59', 'c': '12/59', 'd': '0', 'h': '0', 'm': '39/59', 'z': '165/59'}`: feasible=True, tight rows=5/9,
+  z=165/59=2.7966101695 matches baseline LP optimum: True
+- known point satisfies extra row `d+h>=eta*c`: {'1/20': False, '1/10': False, '1/4': False, '1/2': False, '1': False}
+
+## Active-row duals (for Role C exact-certificate work)
+- see `results.json` -> runs[*].rows[*].dual (HiGHS marginals) and lower_duals,
+  - baseline_165_59_domain: W1 z<=3-a=-0.3389830508474576, W2 z<=3/2+5a/2+3b/2-c+3h/8=-0.13559322033898305, W3 z<=3-c-d=-0.3220338983050848, W4 z<=3-b+9c/4+3d/2-h/4=-0.2033898305084746
+  - hyp_d+h>=eta*c[eta=1/20]: W1 z<=3-a=-0.3389830508474577, W2 z<=3/2+5a/2+3b/2-c+3h/8=-0.13559322033898308, W3 z<=3-c-d=-0.3220338983050848, W4 z<=3-b+9c/4+3d/2-h/4=-0.20338983050847462
+  - hyp_d+h>=eta*c[eta=1/10]: W1 z<=3-a=-0.3389830508474576, W2 z<=3/2+5a/2+3b/2-c+3h/8=-0.13559322033898305, W3 z<=3-c-d=-0.3220338983050848, W4 z<=3-b+9c/4+3d/2-h/4=-0.2033898305084746
+  - hyp_d+h>=eta*c[eta=1/4]: W1 z<=3-a=-0.3389830508474576, W2 z<=3/2+5a/2+3b/2-c+3h/8=-0.13559322033898305, W3 z<=3-c-d=-0.3220338983050848, W4 z<=3-b+9c/4+3d/2-h/4=-0.2033898305084746
+  - hyp_d+h>=eta*c[eta=1/2]: W1 z<=3-a=-0.3389830508474576, W2 z<=3/2+5a/2+3b/2-c+3h/8=-0.13559322033898305, W3 z<=3-c-d=-0.3220338983050848, W4 z<=3-b+9c/4+3d/2-h/4=-0.2033898305084746
+  - hyp_d+h>=eta*c[eta=1]: W1 z<=3-a=-0.3389830508474576, W2 z<=3/2+5a/2+3b/2-c+3h/8=-0.13559322033898305, W3 z<=3-c-d=-0.3220338983050848, W4 z<=3-b+9c/4+3d/2-h/4=-0.2033898305084746
+
+## Quantitative targets handed to mainline
+- Baseline LP optimum over the stated domain: z* = 165/59 (2.7966101695); wall 0.009s for 6 solves.
+- Under each hypothetical eta floor, the LP gap versus 165/59 (see table) is the only
+  thing this round measures: eta-sensitivity of the relaxation, not of the graph problem.
+- Scope note: no graph enumeration performed; no new source read; no graph theorem claimed.
+
+## Exact rational certificate candidate (from HiGHS duals; algebra only, for Role C)
+- lambda(W1..W4) = (20, 8, 19, 12)/59, sum = 1; weighted row sum is exactly
+  `z + d/59 <= 165/59` (residuals: a,b,c,h,m = 0, d = 1/59, z = 1). Exact check: True.
+- The domain rows (a+m<=1, d<=c<=b<=m, h<=c) are UNUSED by this upper bound: the four Wang rows plus
+  d>=0 cap z at 165/59. This upper cap alone does not rule out a lower optimum.
+- Equality forces d = 0 and all four Wang rows tight simultaneously (all lambda > 0).
+- For every 0<=eta<=1, the exact feasible face a=c=12/59, d=0, h=eta*c,
+  b=39/59-h/4, m=47/59, z=165/59 satisfies all domain and eta rows, with
+  all four Wang inequalities tight. This lower witness plus the upper
+  certificate proves the LP optimum remains 165/59 for these eta values.
+- Reading: beating 165/59 needs an input beyond these four Wang bounds
+  and the stated domain. This is arithmetic on an abstract relaxation,
+  not a graph-theoretic improvement or a claimed realizable graph profile.

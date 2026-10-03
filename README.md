@@ -10,7 +10,34 @@ The starting questions come from Anish Gupta,
 and its [companion repository](https://github.com/agupta/tuza-maximum-degree-seven),
 pinned to commit `bf8415fac44f4eeed6c0f7a2273b843d689b065e`.
 
+**Current research target (updated 2026-10-03):** prove a uniform bound
+`tau(G)<=c nu(G)` for every finite simple graph with an explicit
+`c<165/59`, improving [Wang's bound](https://arxiv.org/html/2609.13831v1).
+The user explicitly confirmed the unrestricted graph class. See the
+[persistent objective](research/current_objective.txt). This target
+does not declare the earlier mad<8 question solved.
+
 ## Results and limits
+
+### Universal coefficient: round ten
+
+**No unconditional coefficient below `165/59` is proved here.**
+The [round-ten report](docs/research-round10.zh-CN.txt) records an explicit
+retained-slack inequality and a red-edge-budget route. In a red-blue graph
+whose every triangle has exactly one red edge, if all participating red
+edges are private and their number is at most three times the maximum
+triangle packing number `p`, an auxiliary triangle-free graph gives
+`tau<=9p/5`. A further cover bound quantifies the obstruction from
+nonprivate red edges.
+
+The remaining conjectural extension asks for `tau<=(2-epsilon)p` when
+only the red edges of some maximum packing are required to be private,
+under the same red-edge budget. The [main proof](research/round10/E/red_budget_reduction.txt)
+shows that this extension, **if proved**, would imply the explicit universal
+coefficient `165/59-epsilon/10000`. The extension itself remains unproved.
+See the [independent route](research/round10/D/colored_slack_and_private_red_barrier.txt),
+[main proof review](research/round10/C/review_E_full.txt), and
+[independent proof review](research/round10/C/review_D_full.txt).
 
 ### Maximum average degree below eight
 

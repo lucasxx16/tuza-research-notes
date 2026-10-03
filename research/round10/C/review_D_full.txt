@@ -1,0 +1,5 @@
+ROUND 10 C — D EXACT-FILE REVIEW
+
+File reviewed: research/round10/D/colored_slack_and_private_red_barrier.txt. Mathematical arguments accepted. W3/W4 retain 3(a+m), W5 uses Wang Lemma 2.3's second raw colored cover, and the 20:8:19:12 sum gives precisely 59tau≤165n−93e−d−3(c−h−6d)_+. The stated all-private algebraic point makes W1–W5 equal 165n/59; no realizability is claimed.
+
+The cone gives exactly ν=matching(R), τ=vertex-cover(R), all red edges private, and residual q=0 for every maximum packing. The random-graph first-moment/triangle-deletion construction gives triangle-free R with alpha=o(order), so its τ/ν tends to 2. The safe matched endpoint proof of β≤2p−p²/(2m−p) is valid, including the common-unmatched-neighbor triangle case; for m≤3p it yields β≤9p/5. This confines the negative result to the unbudgeted colored-family proposal and leaves Wang's b≈3c regime open. No universal coefficient improvement follows. D removed an unsupported extra domain relation from Section 2 after this review. Final exact-file verdict: accepted at the stated scope.

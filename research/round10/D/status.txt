@@ -1,0 +1,38 @@
+ROUND 10 / D STATUS
+
+Reviewed research proof:
+  colored_slack_and_private_red_barrier.txt
+Independent exact-file review:
+  C/review_D_full.txt
+Independent initial draft:
+  independent_initial.txt
+
+The universal target c<165/59 has NOT been achieved by this route.
+
+1. Retaining Wang's existing intermediate cover and a+m slack yields
+   59tau<=165n-93(n-a-m)-d-3(c-h-6d)_+.
+   This is a quantitative necessary condition near the bound, not a
+   new universal constant or a reweighting solution to the old LP.
+
+2. The enhanced algebraic system still permits an all-private equality
+   point with a=c=h=12n/59, b=36n/59, m=47n/59, d=0.
+   No actual graph realizing that entire global profile is asserted.
+
+3. A triangle-free graph R with a blue apex and red base edges gives
+   nu(F)=mu(R), tau(F)=beta(R), all red edges private, and zero
+   residual after a maximum packing's blue edges are deleted.
+   A self-contained random-graph argument gives ratios approaching
+   two, refuting an unbudgeted uniform private-red bonus below 2p.
+
+4. This does not obstruct Wang's bounded-red-budget endpoint. For
+   these cone families, beta(R)<=2p-p^2/(2m-p), where p=mu(R),
+   m=|E(R)|. In particular m<=3p gives tau(F)<=9p/5. Cones approaching
+   ratio two must have m/p tending to infinity. The finite-budget
+   inequality is proved by maximum-matching exchange and an elementary
+   independent-set bound; it is not generalized to arbitrary colored
+   families with only the packed red edges private.
+
+All literature inputs and scope distinctions are stated in the proof.
+No numerical search or mad<8 hypothesis was used. No novelty claim is
+made. D stops at this reviewed exact partial result and obstruction;
+the general red-budget-sensitive colored lemma remains unresolved.

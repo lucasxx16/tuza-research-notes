@@ -1,0 +1,38 @@
+ACTIVE RESEARCH OBJECTIVE — USER CONFIRMED 2026-10-03
+
+Find an explicit constant c < 165/59 and prove
+  tau(G) <= c * nu(G)
+for EVERY finite simple graph G.
+The user explicitly selected "any finite simple graph" when asked to
+distinguish this target from the class mad(G)<8. The decimal 2.797 is
+understood as a rounded reference to Wang's exact 165/59, approximately
+2.79661016949; a merely smaller rounded decimal is not an improvement.
+
+tau is the minimum number of edges meeting all triangles; nu is the
+maximum number of pairwise edge-disjoint triangles. The case nu=0 is
+trivial. The desired constant is uniform, independent of graph order.
+An asymptotic bound or a bound with an additive term requires a separate
+argument to imply the stated uniform result. Numerical searches supply
+candidates and counterexamples to proposed lemmas, not universal proofs.
+
+This is the current active target. Gupta's Question 12.1, whether
+mad(G)<8 implies tau<=2nu, remains unresolved in these notes. Earlier
+questions 1 and 2 are completed within the precise scopes in README.
+Their results and the round-nine mad<8 structural work remain available
+as lemmas when their hypotheses are met; mad<8 is not an assumption in
+the new universal-coefficient task.
+
+Primary starting point: Sichen Wang, "A Bound Below 2.8 for Tuza's
+Conjecture", arXiv:2609.13831v1, submitted 12 September 2026.
+  https://arxiv.org/html/2609.13831v1
+The existing four inequalities have optimal weights 20:8:19:12 within
+the stated parameter system. This was already recorded in round-one
+source notes. Reweighting that unchanged system is not a new advance.
+
+Workflow: coordinator dispatches and reviews; E does mainline research;
+D develops an independent route before reading E's current approach;
+C attacks candidates. Westlake HPC A audits primary sources and B handles
+numerics, with at most five HPC sessions running concurrently. Public
+reports contain concise results, proofs, and verification artifacts;
+raw orchestration records stay private. Stop and report at a substantial
+reviewed milestone or a completed problem, as requested by the user.

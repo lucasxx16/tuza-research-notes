@@ -1,0 +1,7 @@
+ROUND 10 C — E EXACT-FILE REVIEW
+
+Reviewed research/round10/E/red_budget_reduction.txt in full. Accepted at its stated, conditional scope. Wang's H has only one-red triangles for the three stated maximality reasons, and every participating red edge lies among the b red edges of the selected type-2 packing. The outer cover E(A)∪B(P') has size 3(a+m)−b and leaves H.
+
+The auxiliary graph J is simple and triangle-free; global privacy gives |E(J)|=r, ν(H)=matching(J), and τ(H)=vertex-cover(J). Its matching estimate and 9p/5 red-budget corollary are valid only when ALL participating red edges are private. Theorem B correctly deletes s nonprivate red edges; both denominators in (5) are positive, and monotonicity yields the sharpened denominator b−s. The critical-profile threshold (5−sqrt(17))/4 and the small-s 59c/30 bound check algebraically. The single-contact exchange is valid; it does not handle double-contact triangles.
+
+The deletion bridge preserves a maximum h-packing and yields (9), including h=0. The explicit conditional proof of τ≤(165/59−ε/10000)ν checks: W5 and weighted slacks imply l≤354Δ, h≥12/59−419Δ, b−3c≤243Δ; (9) then gives εh≤1222Δ and the claimed exact constant. The K1,2,2 example refutes only a universal d+h floor. The central RB(ε) lemma is explicitly unproved; no unconditional coefficient below 165/59 has been established.

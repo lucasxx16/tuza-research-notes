@@ -1,0 +1,66 @@
+ROUND 10 C — WANG BASELINE AND ADVERSARIAL SCOPE (2026-10-03)
+
+Primary text read narrowly: Sichen Wang, arXiv:2609.13831v1,
+Sections 2–3, https://arxiv.org/html/2609.13831v1 . The established
+universal theorem is tau(G)<=165/59 nu(G) for every finite simple graph.
+The new target is one fixed rational or real c STRICTLY less than 165/59
+valid for every such graph; 2.797 is only a rounded decimal and is not
+the comparison threshold.
+
+Colored-family quantifier. Section 2 defines F(H) as ALL triangles of
+the red/blue graph H with exactly one red edge. Lemma 2.1 uses that
+completeness: if xy is red and ux,uy are blue, then uxy must belong
+to F(H), enabling the replacement of one packed triangle by two.
+The lemma need not hold for an arbitrary chosen subfamily. Literal
+counterexample: take red uv,xy and blue ux,vx,uy,vy,uz,vz; choose
+the subfamily {uvx,uvy,uvz}, omitting uxy. Its maximum packing
+P={uvx} has uvy surviving deletion of B(P), xy outside R(P), yet
+the red edge uv lies in both surviving uvy and uvz. This attacks a
+subfamily extension of the lemma, not Wang's complete-family claim.
+
+Maximum versus maximal. In the SAME full F(H), P={uvx} is maximal:
+all uv-pages meet uv, uxy meets ux, and vxy meets vx. It is not
+maximum, since {uxy,uvz} is edge-disjoint. The same uvy/uvz remain
+after deleting B(P), so Lemma 2.1 also fails if "maximum" is weakened
+to "maximal." Section 3 deliberately uses a maximum type-1 packing A,
+a lexicographically selected P' maximizing first type-2 count and then
+total size, and maximum residual packings Q,Q1; the all-pages-maximal
+condition of Lemma 2.2 is a different, precisely stated hypothesis.
+
+Global versus sparse. Wang's theorem has no mad or degree hypothesis.
+Any proof only for mad(G)<8, bounded degree, or a red/blue subclass
+does not meet this round's universal goal without a valid reduction
+covering the remaining graphs. An additive estimate tau<=c nu+K with
+one constant K uniform over ALL finite graphs, or an estimate tau<=c nu
+for ALL graphs with nu above one fixed threshold, DOES imply the
+universal coefficient by amplification: apply it to the disjoint
+union of t copies of any fixed G, use additivity of tau and nu,
+divide by t, and let t grow. A graph-dependent loss that grows
+linearly under copying is not removed this way. Mere asymptotics on
+one subclass remain insufficient.
+
+Fixed-system barrier. Section 3 produces four bounds (3)–(6) and
+combines them with nonnegative weights 20:8:19:12, yielding
+59 tau<=165 n-d<=165 nu. The paper's Remark gives the feasible
+parameter point a=c=12n/59, b=m=39n/59, d=h=0 at which all four
+right sides equal 165n/59. Under ONLY the listed constraints
+a+m<=n, d<=c<=b<=m, h<=c, no reweighting or LP solve of those same
+four inequalities can improve the universal constant. A genuine route
+must strengthen an inequality, add a valid structural constraint that
+excludes the extremal tuple, or introduce a different global argument.
+The tuple is an abstract feasible point, not a claimed realizable graph.
+
+Do not mistake the particular displayed m=b=39n/59 for an additional
+restriction. If one keeps the pre-relaxation third transversal
+tau<=3a+3m-c-d instead of replacing a+m by n, choose the equally
+feasible abstract tuple a=c=12n/59, b=39n/59, m=47n/59=n-a,
+d=h=0. It satisfies b<=m and a+m=n; the first, second, fourth,
+and now also the unrelaxed third right-hand sides all remain
+165n/59. Thus this single unrelaxation alone cannot beat the bound.
+
+Audit rule for candidates: verify every triangle-family closure needed
+for exchanges; distinguish maximum from maximal; check the exact source
+of each inequality and any new constraint; derive a uniform coefficient
+strictly below 165/59, with disjoint-union amplification when its
+hypotheses permit, rather than merely a sparse-class improvement.
+Numerical LP status alone is not a mathematical proof.

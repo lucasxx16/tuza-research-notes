@@ -1,0 +1,95 @@
+ROUND 10 / A — SOURCE AUDIT (Role A), Wang arXiv:2609.13831
+User target now: ALL finite simple graphs, tau <= c·nu for an exact
+c < 165/59 (not mad<8). This report records the primary source facts only.
+The baseline four-inequality system weighted 20:8:19:12 and its optimality
+are ALREADY KNOWN (mad8/round1/A, research/round10/C); NOT presented as new.
+
+SOURCES (verified, with dates)
+- Sichen Wang, "A Bound Below 2.8 for Tuza's Conjecture",
+  arXiv:2609.13831v1 [math.CO], submitted 12 Sep 2026 09:35:40 UTC (7 KB).
+  HTML: https://arxiv.org/html/2609.13831v1  Abs: https://arxiv.org/abs/2609.13831
+- Current arXiv abstract/version page fetched for this audit: submission
+  history showed [v1] only. The round-1 note's secondary-site claim of a
+  "v2 of 15 Sep 2026" was not confirmed; this audit uses v1 only.
+- Existing notes reread: mad8/round1/A/report.txt, sources.txt;
+  research/round10/C/review_baseline.txt.
+- Cited Lean repo (paper footnote 1): https://github.com/sichen-wang/tuza-lean
+  — NOT built, NOT verified, no Lean claims made. Theorem scope located from
+  the paper text itself: Theorem 1 is UNIVERSAL (every finite simple graph),
+  no mad/degree hypothesis.
+
+THEOREM (source-stated scope)
+Theorem 1: every finite simple graph G satisfies tau(G) <= (165/59) nu(G).
+Universal; constant 165/59 ~ 2.797 below Haxell's 66/23 and below Yi's
+(162+4sqrt3)/59 route barrier 54/19 ~ 2.842. No factor-2 or mad<8 statement
+follows from this theorem alone.
+
+SECTION 2 — EXACT ASSUMPTIONS (source-stated)
+- Graphs finite and simple; a triangle is its 3-edge set; triangles "meet"
+  if they share an edge. Packing = pairwise edge-disjoint members; maximal
+  and maximum packings as usual (maximum => maximal).
+- F(H) = family of ALL triangles of the red/blue edge-colored H with exactly
+  one red edge. Completeness (all such triangles) is essential: Lemma 2.1's
+  exchange replaces uvx by uxy+uvz using that uxy in F(H).
+- For P a packing: R(P),B(P) = red/blue edges of its members;
+  F_P = F(H - B(P)) = one-red-edge triangles surviving deletion of B(P).
+  If P is maximum, every member of F_P has its red edge in R(P), meets E(P)
+  exactly in its red edge, and meets exactly one member of P.
+- "private" edge = contained in exactly one family member.
+- Lemma 2.1 (exchange): P maximum in F(H), uvx in P red edge uv, uvy in F_P.
+  If xy is a red edge outside R(P), then uv is private in F_P.
+- Lemma 2.2 (books): books of <=3 pages, pairwise edge-disjoint supports;
+  every selection of one page per book is a MAXIMAL packing in T. Then C
+  (edges of one-page books + spines) plus opposite edges of two-page books
+  is a transversal of T of size <= sum_B (4-|B|).
+- Lemma 2.3: P maximum in F(H), Q maximum in F_P, p=|P|, q=|Q|,
+  u = #members of P with a red edge private in F(H). Then
+  (1) tau(F) <= (8/3)p - (2/3)u ;
+  (2) tau(F) <= (9/4)p + (3/2)q - (1/4)u.  [u = "private" shaving terms]
+
+SECTION 3 — VARIABLES AND INEQUALITIES (source-stated)
+- P max triangle packing in G; n=|P|=nu(G); O=E(P)=old edges; no type-0
+  triangles by maximality. Type j = contains exactly j old edges.
+- A max packing of type-1 triangles; a=|A|. Books P+A:
+  (3) tau(G) <= 3n - a.
+- G' = G - E(A), O' = O\E(A), |O'| = 3n-a; new edges red, old blue in G';
+  F(G') = F_2 (type-2 triangles).
+- P' packing in G' maximizing first #type-2 then size m; B* = its type-2
+  members, b=|B*|; R(B*)=N, |N|=b. Source-stated relation: a + m <= n.
+- S = F(G' - B(P')) (type-2 triangles with old edges avoiding E(P')); B*
+  maximum in F_2; Q maximum packing in S; c=|Q|; h = #members of Q with a
+  red edge private in S.
+  Books B*/Q + random bit bipartition:
+  (4) tau(G) <= (3/2)n + (5/2)a + (3/2)b - c + (3/8)h.
+- Q1 max packing in S_Q = F(G' - B(P') - B(Q)); d=|Q1|. Third-page books:
+  (5) tau(G) <= 3n - c - d.
+- Lemma 2.3 on G'-B(P') (Q,Q1,c,d,h in roles P,Q,p,q,u), eq (2):
+  (6) tau(G) <= 3n - b + (9/4)c + (3/2)d - (1/4)h.
+
+COMBINATION (baseline, already known — not new here)
+Weights 20:8:19:12 on (3),(4),(5),(6); coefficients of a,b,c,h cancel:
+  59 tau(G) <= 165 n - d <= 165 nu(G).  [known]
+
+KNOWN EQUALITY PARAMETER POINT (from paper Remark)
+a = c = 12n/59, b = m = 39n/59, d = h = 0: all four right-hand sides equal
+165n/59. Remark states these weights are best possible for equations (3)-(6)
+under the parameter constraints used in the proof. The tuple is an abstract
+feasible point, not a claimed realizable graph.
+
+CONSTRAINTS EXPLICITLY LISTED IN THE REMARK'S DOMAIN
+The Remark lists a+m <= n, d <= c <= b <= m, h <= c as relations used
+for its four-inequality optimality witness. The cited passages do not
+provide a universal d+h lower bound. This is a bounded reading claim,
+not an assertion that the full source has no other implicit structural
+relation. Re-weighting/LP on the same four inequalities under only
+this displayed domain cannot beat 165/59 (known fixed-system barrier,
+research/round10/C); a true route needs a new valid constraint, a
+strengthened inequality, or a different global argument.
+
+BOUNDED SCOPE
+Version check and Section 2/3 text are read; non-primary (Haxell/Yi/Tuza)
+items appear only as in-paper citations and were not surveyed this round.
+Lean repo not built or claimed verified. No numerical search, no new math,
+no credibility/priority claims beyond the audited source facts.
+
+END. URL and date of Wang primary: arXiv:2609.13831v1, 12 Sep 2026.

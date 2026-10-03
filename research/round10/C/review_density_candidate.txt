@@ -1,0 +1,17 @@
+ROUND 10 C — REJECTION OF UNIVERSAL d+h DENSITY CLAIM
+
+The proposed inequality d+h>=eta*c for any fixed eta>0 does NOT hold
+for all complete one-red-edge triangle families. On the complete
+tripartite graph K_{1,2,2} with parts {u},{v,z},{x,y}, color uv,uz
+red and the remaining six tripartite edges blue. Its complete
+one-red family is exactly {uvx,uvy,uzx,uzy}. The two edge-disjoint
+triangles Q={uvx,uzy} form a maximum packing, since every triangle
+uses one of only two red edges. Both red edges occur in two family
+triangles, so h=0. Deleting Q's blue edges ux,vx,uy,zy removes every
+family triangle, so the next residual maximum d=0 while c=2.
+The two red edges themselves cover the family, so tau=2: this
+configuration is cheaply coverable, not a counterexample to a
+better global bound. Any useful replacement must encode a valid
+cover-saving alternative or prove a genuinely stronger property of
+Wang's particular residual families; a numerical LP sensitivity
+under the false universal density inequality proves no theorem.
