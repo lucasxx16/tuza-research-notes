@@ -1,0 +1,52 @@
+MAD<8 / ROUND 5 / D
+BOUNDED COMPUTATIONAL CHECK OF A NECESSARY EQUALITY OBSTRUCTION
+
+Status: completed research computation with independent exact checking;
+see C/review_B_D_atlas.txt. This is bounded computational evidence, not
+a theorem covering larger graphs or a formal machine-checked proof.
+
+SCOPE AND AUTHORIZATION.
+The parent authorized a staged search delegated to the HPC B_D agent,
+using code in the shared workspace and connected NetworkX graph-atlas
+entries of order at most seven, with a fixed wall-time budget. Order
+eight was not authorized or searched. D did not execute the numerical
+search. The final corrected metadata
+and logical quantifier were accepted by C.
+
+ACTUAL CHECKED RANGE.
+- 906 connected triangle-bearing atlas graphs of orders 3 through 7.
+- 27 of these satisfy tau(H)=2nu(H).
+- Zero triangle-containing edges e among those tight graphs satisfy
+  tau(H-e)=tau(H).
+- Zero timeouts in the checked range.
+
+The first stage therefore found no necessary edge for the richer
+three-edge separator profile, and the induced-star/path profile stage
+was not triggered. This is not a report of a separately executed
+three-edge-profile enumeration.
+
+EXACT MEANING OF THE NEGATIVE RESULT.
+For each of the 27 tight graphs, EVERY edge that belongs to a triangle
+belongs to SOME minimum triangle cover. The minimum cover may depend
+on the edge. The result does not say that one minimum cover contains
+all triangle edges, or that every minimum cover contains every edge.
+
+Lemma 1 in equality_boundary_profiles.txt proves the equivalence between
+an edge lying in no minimum cover and tau(H-e)=tau(H). Thus none of
+the connected graphs in this checked range has the necessary edge
+property of the rich separator obstruction. No conclusion is asserted
+for graphs of order eight or larger.
+
+VERIFICATION.
+C reports an independent brute verifier matching every computed nu and
+tau in the 906-graph range, and matching every tested tau(H-e) for the
+tight graphs. See C/review_B_D_atlas.txt for the audit record. These
+calculations are separate from the human proofs in
+equality_boundary_profiles.txt, which do not depend on them.
+
+OPEN.
+It remains unknown here whether a larger Tuza-tight graph can contain
+a triangle edge lying in no minimum cover, and whether any graph realizes
+the full rich three-edge boundary profile. Such a profile would be only
+a necessary side of the separator obstruction, not a Tuza counterexample.
+The mad<8 question is not resolved by this bounded check.

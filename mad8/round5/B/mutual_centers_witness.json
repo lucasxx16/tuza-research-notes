@@ -1,0 +1,323 @@
+{
+ "certificate": true,
+ "certificate_meaning": "true only if the literal exact checks below pass; solver status alone proves nothing",
+ "instance": {
+  "vertices": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ],
+  "hubs": [
+   0,
+   1
+  ],
+  "C": [
+   2,
+   3,
+   4,
+   5
+  ],
+  "A": [
+   6,
+   7
+  ],
+  "B": [
+   8,
+   9
+  ],
+  "edges": [
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    0,
+    4
+   ],
+   [
+    0,
+    5
+   ],
+   [
+    0,
+    6
+   ],
+   [
+    0,
+    7
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    1,
+    9
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    2,
+    7
+   ],
+   [
+    2,
+    8
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    3,
+    7
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    8,
+    9
+   ]
+  ],
+  "deg0": 7,
+  "deg1": 7,
+  "num_edges": 36,
+  "missing_in_C": [
+   2,
+   3
+  ],
+  "A_B_pairs_absent": true
+ },
+ "counts": {
+  "triangles_all": 62,
+  "hub_triangles": 32,
+  "S_candidates": 62,
+  "x_vars": 36,
+  "constraint_rows": 187
+ },
+ "model": {
+  "objective": "min |X| - 2|S|",
+  "budget": "|X| <= 2|S| (inequality, not equality)",
+  "packing": "each graph edge in at most one selected triangle",
+  "coverage": "X meets every triangle of G containing 0 or 1",
+  "containment": "x_e >= s_T for every edge e of T with both ends outside {0,1}",
+  "restrictions": "none: no forced spokes, no forbidden X edges, all 10 vertices packable"
+ },
+ "solver": {
+  "calls": 1,
+  "status": "0 | Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+  "time_limit_s": 60,
+  "wall_time_s": 0.131,
+  "objective": 0,
+  "infeasible_or_timeout_is": "diagnostic only, not a proof"
+ },
+ "S": [
+  [
+   0,
+   2,
+   5
+  ],
+  [
+   0,
+   3,
+   4
+  ],
+  [
+   0,
+   6,
+   7
+  ],
+  [
+   1,
+   2,
+   4
+  ],
+  [
+   1,
+   3,
+   5
+  ],
+  [
+   1,
+   8,
+   9
+  ],
+  [
+   4,
+   5,
+   9
+  ]
+ ],
+ "X": [
+  [
+   0,
+   1
+  ],
+  [
+   0,
+   6
+  ],
+  [
+   0,
+   7
+  ],
+  [
+   1,
+   8
+  ],
+  [
+   1,
+   9
+  ],
+  [
+   2,
+   4
+  ],
+  [
+   2,
+   5
+  ],
+  [
+   3,
+   4
+  ],
+  [
+   3,
+   5
+  ],
+  [
+   4,
+   5
+  ],
+  [
+   4,
+   9
+  ],
+  [
+   5,
+   9
+  ],
+  [
+   6,
+   7
+  ],
+  [
+   8,
+   9
+  ]
+ ],
+ "sizes": {
+  "|S|": 7,
+  "|X|": 14,
+  "slack_2|S|-|X|": 0
+ },
+ "exact_checks": {
+  "S_triangles_exist": true,
+  "S_edge_disjoint": true,
+  "hub_triangle_coverage": true,
+  "packed_hubfree_edges_in_X": true,
+  "budget": true,
+  "X_subset_E": true
+ },
+ "problems": [],
+ "claims": "restricted-free local pair certificate for THIS graph only; no proof of irreducibility; transfer decided by mainline/C"
+}

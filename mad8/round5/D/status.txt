@@ -1,0 +1,33 @@
+MAD<8 / ROUND 5 / D / REVIEWED MILESTONE
+
+Initial independent draft: independent_initial.txt.
+Reviewed symbolic proof: equality_boundary_profiles.txt.
+Separate bounded computational report: bounded_atlas_scan.txt.
+
+C accepted the full symbolic proof in C/review_D_full.txt. Results:
+1. Exact test for an edge lying in no minimum cover: tau(H-e)=tau(H).
+2. At tau(H)=2nu(H)=2k, assuming Tuza for H-D, deleting r edges loses
+   at most floor(r/2) packed triangles. If even one deleted edge lies
+   in no minimum cover, the loss is at most floor((r-1)/2).
+3. Hence every triangle extends to a maximum packing, and every
+   two-triangle packing touching such an excluded edge extends too,
+   under the stated edge-deleted-subgraph Tuza hypotheses.
+4. The rich three-edge separator obstruction has the exact profile
+   nu=k-1,k,k,k and tau=2k-2,2k-1,2k,2k by subset size 0,1,2,3.
+   Its nonempty packing gains follow from the other hypotheses.
+5. This rich profile cannot have k=1.
+
+The parent-authorized atlas check, delegated to HPC B_D using code in
+the shared workspace, completed 906 connected
+triangle-bearing graphs of orders 3--7, found 27 tight graphs, and found
+no triangle edge excluded from all minimum covers. B_D's separate brute
+verifier recomputed nu and tau on all 906 and edge-deletion values on
+the 27 tight graphs; C audited both implementations and accepted the corrected metadata
+in C/review_B_D_atlas.txt. No larger order or profile-stage search ran.
+
+No novelty claim is made. These are internal research reviews, not
+journal peer review or formal verification. No E round-five material
+was inspected before the independent draft, and D did not execute the
+numerical search. Work has stopped at this reviewed symbolic and bounded-evidence
+milestone. General profile realizability and the full mad<8 question
+remain unresolved here.

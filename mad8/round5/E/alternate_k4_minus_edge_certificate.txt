@@ -1,0 +1,45 @@
+AN ALTERNATE EIGHT-TRIANGLE CERTIFICATE FOR A K4-MINUS-EDGE CORE
+
+This symbolic construction was obtained before the bounded search found
+the smaller seven-triangle certificate used in the main proof file
+p3_plus_edge_complements.txt. The hypotheses differ: this construction
+does not require the u-private edge ab, but uses more private-core
+attachments. No comparison of global optimality is claimed.
+
+Lemma. Let u,v be adjacent degree-seven vertices with common
+neighborhood C={x,y,p,q}, inducing K4 minus xy. Let their private
+pairs be A={a,b} at u and B={c,d} at v. Suppose
+
+  ax, by, cd, dx, dy, dp, dq
+
+are present. Then {u,v} is reducible. The edge ab need not be
+present, and no other private-core attachment is required.
+Edges between the two private pairs are unrestricted.
+
+Proof. Set
+
+  S={uax,uby,upq,vxp,vyq,vcd,dxq,dyp},
+  R=E(G[C]) union {dx,dy,dp,dq,ax,by,cd},
+  X=R union {uv,ua,ub,vc}.
+
+The three u-triangles use disjoint rim pairs {a,x}, {b,y}, {p,q}.
+The three v-triangles use disjoint pairs {x,p}, {y,q}, {c,d}.
+The two triangles avoiding the hubs use core edges xq,yp and
+the four distinct d-core edges dx,dq,dy,dp. The core edges used
+are pq,xp,yq,xq,yp, each exactly once. The remaining rim edges
+ax,by,cd are distinct. Thus S is edge-disjoint and |S|=8.
+
+The set R has 5+4+3=12 edges. The four additional hub edges
+are distinct from each other and from R, so |X|=16=2|S|.
+
+Every triangle through both hubs meets uv. A triangle through u
+and a private vertex meets ua or ub; otherwise its rim lies in
+E(G[C]). A triangle through v and c meets vc. A triangle through
+v and d without c or u meets a d-core edge in R. The triangle
+vcd meets cd. All other v-triangles meet a core edge. These
+cases exhaust the ambient hub triangles.
+
+The external packing edges are exactly R, proving the safety
+condition. Edges between A and B cannot create another hub
+triangle, and edges leaving the displayed local vertex set do
+not affect the specified complete hub neighborhoods.

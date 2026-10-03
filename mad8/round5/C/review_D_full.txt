@@ -1,0 +1,9 @@
+Exact-file adversarial review of D/equality_boundary_profiles.txt (3 October 2026): ACCEPT the symbolic claims with stated hypotheses.
+
+Lemma 1 is an equivalence: a minimum H-cover containing e yields an H-e cover one smaller; conversely an H-e cover of size tau(H)-1 becomes a minimum H-cover containing e. Theorem 2's ordinary and strengthened integer bounds follow from D plus a minimum H-D cover, with the strengthened inequality valid because that constructed H-cover contains a cover-excluded edge. Corollary 3 uses exactly the stated deleted-subgraph Tuza hypotheses, and the extension cases combine edge-disjoint packings correctly.
+
+Theorem 4: deleting any nonempty A subset F forces tau(H-A)+|A|>=2k+1. The lower/upper bounds give tau(H-F)=2k-2 and cover values 2k-1,2k,2k at one, two, three retained edges. Tuza and integrality force nu=k in each nonempty case; nu(H-F)=k-1 is assumed. Thus singleton packing gains are derived, not assumed. No hereditary-class induction is hidden.
+
+Lemma 5 is valid: nu=1 makes all triangles pairwise edge-intersecting; tau=2 produces a triangle avoiding a chosen common edge, forcing K4. Any further triangle would need at least two K4 edges to meet all four K4 triangles, so lies in that K4. Each K4 edge has an opposite-edge minimum cover; hence no triangle edge is excluded from every minimum cover. Since the profile forces each F edge to occur in a triangle, k=1 is impossible.
+
+The proofs neither establish existence of a rich side nor the full mad<8 theorem. The bounded atlas scan is independent evidence only.

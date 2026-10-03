@@ -1,0 +1,201 @@
+MAD<8 / ROUND 5 / D
+EQUALITY, EDGE DELETION, AND THE THREE-EDGE SEPARATOR OBSTRUCTION
+
+Status: reviewed research proof; see C/review_D_full.txt.
+This is internal research review, not journal peer review or formal verification.
+No novelty claim is made. No numerical result is a premise below.
+
+PURPOSE AND NOTATION.
+The reviewed round-two separator theorem in
+mad8/round2/D/three_edge_boundary.txt leaves one necessary obstruction
+when the shared edge set F has size three and is triangle-free. One
+side H must be Tuza-tight, tau(H)=2nu(H), while every minimum cover of
+H avoids F. Its packing number drops by one on deleting all three
+edges, but not on retaining any nonempty subset. This file derives an
+exact cover profile, simplifies the hypotheses needed to recognize it,
+and proves packing-extension properties of equality graphs.
+
+For any graph H, nu(H) is its maximum edge-disjoint triangle packing size
+and tau(H) its minimum triangle edge-cover size. H-D means edge deletion,
+retaining all vertices. All applications of Tuza to an edge-deleted
+graph are explicitly hypotheses; the full conjecture is not assumed.
+
+1. RECOGNIZING AN EDGE IN NO MINIMUM COVER.
+
+LEMMA 1.
+For any e in E(H), the following are equivalent:
+ (a) no minimum triangle cover of H contains e;
+ (b) tau(H-e)=tau(H).
+
+Proof. Monotonicity and adding e to a cover give
+tau(H)-1<=tau(H-e)<=tau(H). If a minimum cover of H contains e,
+removing e from that cover covers H-e and yields tau(H-e)<=tau(H)-1.
+Conversely, if tau(H-e)=tau(H)-1, a minimum cover of H-e together
+with e is a minimum cover of H containing e. These implications prove
+the equivalence. An edge in no triangle trivially has this property;
+such edges are excluded in the proposed numerical search.
+
+2. THE DELETION BOUND AT EQUALITY.
+
+THEOREM 2.
+Suppose tau(H)=2nu(H)=2k and D is any subset of E(H) such that
+tau(H-D)<=2nu(H-D). Then
+  nu(H-D)>=k-floor(|D|/2).
+If D contains even one edge that belongs to no minimum cover of H,
+the stronger bound holds:
+  nu(H-D)>=k-floor((|D|-1)/2).
+The stronger assertion is used only for nonempty D.
+
+Proof. Let Y be a minimum cover of H-D. The disjoint union D union Y
+covers H: triangles meeting D are handled by D, and the others remain
+in H-D. Therefore
+  2k<=|D|+tau(H-D)<=|D|+2nu(H-D).
+Integer rounding proves the first bound.
+
+If D contains an edge absent from every minimum cover of H, the cover
+D union Y cannot be a minimum cover of H, since it contains that edge.
+Its cardinality is an integer, so
+  2k+1<=|D|+tau(H-D)<=|D|+2nu(H-D).
+Rearranging and rounding gives the stronger bound.
+
+COROLLARY 3 (edge avoidance and packing extension).
+Under tau(H)=2nu(H)=2k, with Tuza assumed for the particular deleted
+graphs that occur in each assertion:
+
+ (i) Every edge can be avoided by some maximum triangle packing of H.
+     Here Tuza is needed for H-e.
+
+ (ii) Any two distinct edges, at least one of which belongs to no minimum
+      cover of H, can be avoided simultaneously by a maximum packing.
+      Here Tuza is needed for deletion of those two edges.
+
+ (iii) Every triangle T belongs to some maximum packing.
+       Here Tuza is needed for H-E(T).
+
+ (iv) Every packing of two triangles that uses an edge belonging to no
+      minimum cover of H extends to a maximum packing of H.
+      Here Tuza is needed for deletion of the six edges of those triangles.
+
+Proof. In (i), the first bound of Theorem 2 with |D|=1 gives
+nu(H-e)>=k, hence equality by monotonicity. In (ii), the stronger bound
+with |D|=2 similarly gives nu(H-D)=k.
+
+For (iii), delete the three edges of T. The first bound gives
+nu(H-E(T))>=k-1. The reverse inequality follows because T can be
+combined with any packing in H-E(T). Equality follows, and such a
+maximum packing together with T has size k.
+
+For (iv), let P be the two-triangle packing and D=E(P), so |D|=6.
+The stronger bound gives nu(H-D)>=k-2. Conversely any packing of H-D
+can be combined with P, giving nu(H-D)<=k-2. Combining a maximum
+packing of H-D with P gives the required extension.
+
+3. THE EXACT THREE-EDGE PROFILE.
+
+THEOREM 4.
+Let F be a three-edge subset of E(H), and for J subset F put
+  H(J)=H-(F\J).
+Assume:
+ (a) tau(H)=2nu(H)=2k;
+ (b) every edge of F belongs to no minimum cover of H;
+ (c) nu(H(empty))=k-1;
+ (d) Tuza holds for every H(J), including H(empty).
+Then for all J subset F,
+  tau(H(J))=2k-2+min(|J|,2),
+and
+  nu(H(J))=k-1 if J is empty, and k otherwise.
+
+In particular the packing gains for nonempty J need not be separately
+assumed: the other hypotheses force them. These are the complete
+packing and cover profiles of the rich side required by the reviewed
+round-two separator obstruction.
+
+Proof. For every nonempty A subset F, any minimum cover of H-A combined
+with A covers H and contains an edge of F. It cannot be a minimum
+cover of H, by (b). Hence
+  tau(H-A)+|A|>=2k+1.                 (*)
+
+With A=F, this gives tau(H(empty))>=2k-2. Assumptions (c) and (d)
+give the reverse inequality, so tau(H(empty))=2k-2.
+
+If |J|=1, then |F\J|=2, and (*) gives tau(H(J))>=2k-1.
+Adding the single edge of J to a minimum cover of H(empty) gives a
+cover of H(J) of size 2k-1. Thus equality holds. If |J|=2, apply (*)
+with the single deleted edge to obtain tau(H(J))>=2k; monotonicity
+gives tau(H(J))<=tau(H)=2k. If J=F the value is already assumed.
+This proves the stated cover profile.
+
+For nonempty J, the cover number is at least 2k-1. Assumption (d)
+and integrality therefore give nu(H(J))>=k, while H(J) being a
+subgraph of H gives the opposite inequality. This proves the packing
+profile and completes the theorem.
+
+The eight values can be summarized by subset size:
+  |J|       0         1         2         3
+  nu       k-1        k         k         k
+  tau      2k-2      2k-1       2k        2k.
+
+Thus H-F and each graph retaining exactly two boundary edges are
+Tuza-tight. Restoring one edge raises packing and cover by one; restoring
+the second raises only the cover; restoring the third changes neither.
+
+4. THE OBSTRUCTION CANNOT HAVE PACKING NUMBER ONE.
+
+LEMMA 5.
+If nu(H)=1 and tau(H)=2, then all triangles of H lie in one K4,
+and every edge that belongs to a triangle belongs to some minimum
+triangle cover of H. Consequently Theorem 4's hypotheses cannot hold
+with k=1.
+
+Proof. Any two triangles of H share an edge because nu(H)=1. Their
+common intersection cannot contain an edge shared by every triangle,
+since that edge alone would be a cover and tau(H) would be one.
+Choose distinct triangles abc and abd. Since not all triangles contain
+ab, some triangle T avoids ab and still meets both chosen triangles
+in edges. The only possibilities are acd and bcd: choosing disjoint
+edges from the two original triangles cannot produce a triangle, while
+choosing incident edges forces one of those two triples. Either choice
+makes all six edges on {a,b,c,d} present, so H contains a K4.
+
+Every triangle of H must meet each of the four triangles of this K4
+in an edge. One K4 edge lies in only two of its four triangles, so such
+a triangle must contain at least two distinct K4 edges. Those two edges
+meet and force all three of its vertices into the K4. Thus there are
+no triangles outside this K4.
+
+Given any edge of that K4, its union with the opposite edge is a
+two-edge triangle cover of the K4 and therefore of H. Its size is
+tau(H), so every triangle edge belongs to a minimum cover. Finally,
+Theorem 4 forces each edge e in F to create a triangle-packing gain
+when it alone is restored to H-F. Such an edge must belong to a triangle.
+But (b) excludes every edge of F from every minimum cover, impossible
+when k=1. The claimed obstruction therefore requires k>=2.
+
+5. WHAT IS OPEN, AND WHAT A FINITE SEARCH CAN SAY.
+
+The symbolic results do not establish whether any graph with the full
+three-edge profile exists. For the unresolved sparse four-vertex cuts,
+F would induce a star K_{1,3} or a path P4 on four vertices. A graph
+realizing the rich profile is only one necessary side of the obstruction;
+it is not itself a Tuza counterexample, nor is it sufficient to defeat
+gluing without the second side and its different packing profile.
+
+The staged numerical protocol asks first for a Tuza-tight graph with
+an edge that lies in a triangle but in no minimum cover. Lemma 1 provides
+the exact test tau(H-e)=tau(H). If such graphs occur, inspect induced
+four-vertex stars and paths whose three edges all pass that test, and
+test nu(H-F)=nu(H)-1. Under the boundary-subgraph Tuza hypothesis,
+Theorem 4 then forces the full profile; explicit checks of all eight
+states may serve as independent verification.
+
+The authorized first scan of connected NetworkX atlas graphs of order
+at most seven has completed through the delegated HPC B_D agent using
+code in the shared workspace, and received independent verification.
+Its bounded conclusion is recorded separately
+in bounded_atlas_scan.txt. No negative finite result is promoted to a
+general impossibility theorem, and no computation is needed for the
+proofs in Sections 1--4.
+
+The full mad<8 question and the realizability of the rich three-edge
+profile remain unresolved by this file. Research stops at the reviewed
+symbolic results and the separately bounded computational report.

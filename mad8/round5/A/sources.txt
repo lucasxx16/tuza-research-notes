@@ -1,0 +1,6 @@
+Primary source: G. J. Puleo, "Tuza's Conjecture for Graphs with Maximum Average Degree less than 7", arXiv:1308.2211v3 (13 Apr 2015).
+https://arxiv.org/html/1308.2211v3
+
+Scope read: Section 4, Definition 4.2, Lemmas 4.3-4.4, Theorem 4.5, Lemma 4.7, Proposition 4.8, Corollary 4.11, and displayed WKE witness constructions. Verified: the item numbered 4.11 is Corollary 4.11; there is no Lemma 4.11 in v3 (label discrepancy vs task wording noted).
+
+No full paper copy, private paths, session data, or credentials included. No broader literature survey claimed.

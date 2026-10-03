@@ -1,0 +1,245 @@
+{
+ "role": "B_D",
+ "task": "bounded exact atlas scan (order<=7, connected, triangles>0)",
+ "status": "COMPLETE within budget",
+ "phases": {
+  "enumeration": true,
+  "nu_tau_exact": true,
+  "free_edge_test": true,
+  "fan_profile_stage": null
+ },
+ "budget_s": 240,
+ "self_cap_s": 215.0,
+ "wall_s": 0.12,
+ "counts": {
+  "atlas_entries_order_3_to_7": 1249,
+  "connected": 994,
+  "scanned_with_triangles": 906,
+  "timeouts": 0,
+  "tight_tau_eq_2nu": 27,
+  "positive_free_edge": 0,
+  "profile_witnesses": 0,
+  "deadline_hit": false
+ },
+ "tight_census": [
+  {
+   "graph": "G18",
+   "order": 4,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G45",
+   "order": 5,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G52",
+   "order": 5,
+   "nu": 2,
+   "tau": 4,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G133",
+   "order": 6,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G134",
+   "order": 6,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G142",
+   "order": 6,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G169",
+   "order": 6,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G191",
+   "order": 6,
+   "nu": 2,
+   "tau": 4,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G473",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G474",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G475",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G487",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G491",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G501",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G545",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G626",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G637",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G653",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G689",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G704",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G832",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G841",
+   "order": 7,
+   "nu": 1,
+   "tau": 2,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G884",
+   "order": 7,
+   "nu": 2,
+   "tau": 4,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G885",
+   "order": 7,
+   "nu": 2,
+   "tau": 4,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G895",
+   "order": 7,
+   "nu": 2,
+   "tau": 4,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G1009",
+   "order": 7,
+   "nu": 2,
+   "tau": 4,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  },
+  {
+   "graph": "G1036",
+   "order": 7,
+   "nu": 2,
+   "tau": 4,
+   "free_edges": 0,
+   "each_triangle_edge_in_some_minimum_cover": true
+  }
+ ],
+ "graphs_with_profile_witness": [],
+ "timed_out_or_aborted": [],
+ "note": "exact per-graph branch-and-bound completions only; no scipy/MILP used; bounded computational evidence, not a proof"
+}

@@ -1,0 +1,5 @@
+Puleo Section 4 source audit (C)
+
+Checked the primary arXiv v3 HTML at https://arxiv.org/html/1308.2211v3. The labels and quantifiers in A's report are correct after editing: Lemma 4.4 transforms a WKE union of link components into a reducible edge set, and a WKE full link into a reducible vertex. Proposition 4.8 states that absence of odd cycles longer than three implies WKE; its proof uses Lemma 4.7 and Theorem 4.5. The item numbered 4.11 is Corollary 4.11, asserting Tuza for graphs without odd wheels W_n with odd n≥5.
+
+I corrected two misleading statements. A degree-eight vertex has an eight-vertex link, so the old “5--7-vertex neighborhood at degree-7/8” wording was wrong. More importantly, applicability of Lemma 4.4/Proposition 4.8 to degree-seven/eight links is universal, not conjectural; only whether an unresolved particular link meets the WKE hypothesis remains open. The revised report says this and keeps the source result separate from any new mad<8 claim.

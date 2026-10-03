@@ -1,0 +1,9 @@
+PULEO SECTION 4: WKE CRITERIA / REDUCTION MOVES
+
+Scope read: arXiv:1308.2211v3 Section 4. Numbering note: there is no "Lemma 4.11" in v3; the item numbered 4.11 is Corollary 4.11 (odd-wheel-free). Neighboring Section 4 items verified: Def 4.2, Lemmas 4.3-4.4, Thm 4.5, Lemma 4.7, Prop 4.8.
+
+Criterion A (Lemma 4.4, edge/vertex reduction from WKE). If G0 is a nonempty union of components of G[N(v)] with G0 in WKE, then E0={vw:w in G0} is reducible; if G[N(v)] in WKE then {v} is reducible. Witness transform: (M,Q) -> (S,X), S={vuw:uw in M}, X=M union {vx:x in Q}, |X|<=2|S|. For a degree-7 or degree-8 vertex, checking its whole 7- or 8-vertex link for WKE is a direct sufficient reduction test.
+
+Criterion B (Prop 4.8 / Lemma 4.7 + Thm 4.5). A graph with no odd cycle longer than 3 is WKE: its 2-connected blocks are bipartite, K4, or K2 vee \bar{K_r}. Via Lemma 4.4, such neighborhoods force reducibility. Corollary 4.11 says a graph with no wheel W_n for odd n>=5 satisfies Tuza; its proof obtains a reducible vertex by applying these link criteria.
+
+These universal criteria apply to links of every order, including degrees 7 and 8. Whether a particular unresolved link satisfies WKE is a separate structural question not established here. No new theorem claims.

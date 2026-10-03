@@ -1,0 +1,65 @@
+ROUND 5 COORDINATOR DECISION
+
+Target: mad(G)<8 implies tau(G)<=2nu(G).
+Decision: accepted conditional and equality-structure progress; full question open.
+Stop at this reviewed milestone. No novelty or formal-verification claim.
+
+MAINLINE
+The degree-seven link-complement families now include matching, P3, P4,
+and P3+K2, padded with isolates. Minimum degree at least seven and average
+degree below eight force an explicit reducible pair in this family.
+The new case uses a symbolic seven-triangle repair of a common K5 minus
+P3, and an HPC-discovered seven-triangle/fourteen-edge certificate for a
+common K4 minus one edge. Both now have complete universal proofs of
+ambient coverage and outside-hub packed-edge containment. The alternate
+eight-triangle construction has different sufficient attachments.
+
+All six selected-neighbor positions of P3+K2 are treated. Mutual new-type
+exceptions use the second certificate; mixed exceptions with P3/P4 are
+impossible because the same core would be both K4 and K4-minus-edge.
+Absence of the reductions makes degree-seven vertices independent. The
+selected-incidence surplus formula adds |L_R|/5 for the new family.
+C and coordinator accepted the complete proof and its exact hypotheses.
+
+HPC CERTIFICATE SEARCH
+Two fixed ten-vertex MILPs, each capped at 60 seconds, returned 7/14
+candidates. C reconstructed both graphs and checked every certificate
+condition independently with exact set operations. Three damaged controls
+per case were rejected; the coordinator reran the verifier successfully.
+The second search improved the initial symbolic 8/16 pattern on its
+guaranteed instance. Solver status is not a premise of the universal
+proofs, and no optimality or unrestricted irreducibility is inferred.
+
+INDEPENDENT EQUALITY ROUTE
+At tau(H)=2nu(H)=2k, assuming Tuza on H-D, the packing loss is at most
+floor(|D|/2), improved to floor((|D|-1)/2) if D contains an edge excluded
+from every minimum cover. Exact corollaries give edge avoidance and
+packing extension under their stated deleted-subgraph hypotheses.
+For the rich side of the prior three-shared-edge obstruction, tightness,
+exclusion of F from minimum covers, nu(H-F)=k-1, and Tuza on all boundary-
+deleted graphs force the complete nu/tau profile. A K4 argument excludes
+k=1. C and coordinator accepted the proof; no computation is a premise.
+
+BOUNDED ATLAS EXPERIMENT
+A separate HPC-model task completed all 906 connected triangle-bearing
+NetworkX atlas graphs through order seven under a 240-second cap. It
+found 27 tight graphs with positive packing number and no triangle edge
+e with tau(H-e)=tau(H). A separate brute verifier rechecked nu and tau
+on all 906 graphs, and tau(H-e) on the 27 tight graphs. C audited recurrences, filters,
+the verifier, and the final metadata. This is bounded computational
+evidence, not a theorem excluding larger graphs or a formal verification.
+
+The original ALL-versus-SOME cover quantifier was corrected: every
+triangle edge in these graphs lies in some minimum cover. Completion
+flags and conditional conclusions were also corrected. No positive
+passed the first filter, so the eight-state profile branch was not
+exercised. No order-eight scan ran. The existing atlas is distinct from
+the upstream Gupta census/finder, neither of which was rerun.
+
+LITERATURE AND LIMITS
+A re-read Puleo's WKE criteria; C corrected link-order/applicability
+wording and the odd-wheel corollary. These are imported results.
+Degree-five/six vertices and other degree-seven link complements remain
+unresolved. The four-family condition is not used as an unsupported
+hereditary induction hypothesis. The rich-profile existence problem
+also remains open; one such side alone would not be a Tuza counterexample.

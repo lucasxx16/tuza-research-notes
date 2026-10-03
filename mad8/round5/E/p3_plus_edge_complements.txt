@@ -1,0 +1,329 @@
+ADDING THE P3+K2 COMPLEMENT AT DEGREE SEVEN
+
+Status: two explicit universal reducibility certificates, a complete
+case analysis for the P3+K2 complement, and an enlarged conditional
+forcing theorem. The proof is symbolic and does not depend on a
+solver or graph census. The full mad(G)<8 implication remains open.
+
+1. DEFINITIONS AND PREVIOUS RESULTS
+
+All graphs are finite and simple. A reducible pair {u,v} has a set S
+of edge-disjoint triangles and an edge set X with |X|<=2|S|, such
+that X meets every triangle through u or v and contains every S-edge
+whose endpoints both avoid {u,v}.
+
+The complement types below concern the seven-vertex induced link
+G[N(u)] of a degree-seven vertex u. Isolated complement vertices are
+included so that each complement has seven vertices.
+
+  M: a matching, possibly empty;
+  P: a P3 and four isolated vertices;
+  Q: a P4 and three isolated vertices;
+  R: a P3, a disjoint K2, and two isolated vertices.
+
+Type M has no exceptional neighbor. The P3 center is exceptional
+for types P and R; the two internal P4 vertices are exceptional
+for type Q. All other neighbors are called selected neighbors.
+There are respectively seven, six, five, and six selected neighbors.
+
+The accepted inputs are the following.
+
+(A) At a type-M degree-seven vertex, every neighbor of degree at
+    most eight gives a reducible pair. See Theorem M in
+    mad8/round2/E/matching_complement_links.txt.
+
+(B) At a type-P or type-Q degree-seven vertex, every selected
+    neighbor of degree at most eight gives a reducible pair.
+    See mad8/round3/E/p3_complement_links.txt and
+    mad8/round4/E/p4_complement_links.txt.
+
+(C) Adjacent degree-seven vertices of types P/Q that are exceptional
+    for each other form a reducible pair. Their common core is K4,
+    and the certificate is the one in
+    mad8/round1/D/dense_pair_certificate.txt. Its exact application
+    across P and Q is proved in the round-four file.
+
+(D) The repaired K5-minus-edge lemma: for adjacent u,v with
+    d(u)+d(v)<=15, suppose a common five-set W induces K5-xy.
+    If a neighbor w of u lies outside {v} union W and wx is
+    present, then {u,v} is reducible. The vertex w may also be a
+    neighbor of v. This is Lemma C in the round-two file.
+
+These inputs include ambient triangle coverage and the external-
+packing-edge requirement. No degree bound on common neighbors is
+part of them.
+
+2. REPAIRING TWO INCIDENT MISSING CORE EDGES
+
+Lemma F. Let u,v be adjacent, with d(u)+d(v)<=15. Suppose a
+five-set W={a,b,c,p,q} in N(u) intersect N(v) induces precisely
+K5 minus the two edges ab,bc. Suppose w is a neighbor of u
+outside {v} union W, and wa,wc are present. Then {u,v} is
+reducible. No other adjacency of w is required.
+
+Proof. Take
+
+  S={uva,apq,ubp,vbq,ucq,vcp,wac}.
+
+For direct verification, the edge lists of these seven triangles are
+
+  uv,ua,va;
+  ap,aq,pq;
+  ub,up,bp;
+  vb,vq,bq;
+  uc,uq,cq;
+  vc,vp,cp;
+  wa,wc,ac.
+
+All twenty-one edges exist and are distinct. Equivalently, start
+with the Fano triples
+
+  abc, uva, apq, ubp, vbq, ucq, vcp
+
+on {u,v} union W. The two missing edges occur only in abc.
+Remove that triple, which also frees ac, and insert wac. Thus
+S is an edge-disjoint packing of seven triangles.
+
+Define
+
+  X=E(G[W]) union {wa,wc,uv}
+      union {ut:t in N(u) outside ({v} union W)}
+      union {vt:t in N(v) outside ({u} union W)}.
+
+The displayed parts are edge-disjoint. Since W has eight edges,
+
+  |X|=8+3+(d(u)-6)+(d(v)-6)
+      =d(u)+d(v)-1<=14=2|S|.
+
+A triangle through both hubs meets uv. A triangle through just
+one hub with a rim vertex outside W meets its deleted hub spoke.
+Otherwise its rim edge lies in G[W] and belongs to X. This covers
+all ambient hub triangles. The packed edges avoiding both hubs
+are exactly E(G[W]) union {wa,wc}, all in X.
+
+This verifies every reducibility condition. In particular, the
+new outside triangle wac is paid for by including all three of
+its edges in X; ac was already among the eight core edges.
+
+3. A PAIR WITH COMMON CORE K4 MINUS ONE EDGE
+
+Lemma K. Let u,v be adjacent degree-seven vertices with common
+neighborhood C={x,y,p,q}, inducing K4 minus xy. Let their private
+pairs be A={a,b} at u and B={c,d} at v. Suppose
+
+  ab, cd, dp, dq
+
+are present. Then {u,v} is reducible by seven triangles and a
+fourteen-edge cover. No other private-core attachment is required.
+Edges between the two private pairs are unrestricted.
+
+Provenance. This smaller pattern was discovered in the bounded
+local search recorded in
+mad8/round5/B/mutual_centers_witness.json, then independently
+checked by literal reconstruction. The universal proof below
+does not rely on a solver status. An earlier symbolic eight-
+triangle construction, with different attachment hypotheses,
+is retained in alternate_k4_minus_edge_certificate.txt.
+
+Proof. Set
+
+  S={uxq,uyp,uab,vxp,vyq,vcd,dpq},
+  R=E(G[C]) union {ab,cd,dp,dq},
+  X=R union {uv,ua,ub,vc,vd}.
+
+All seven triangles exist. At u the three hub triangles use
+disjoint rim pairs {x,q}, {y,p}, {a,b}; at v they use disjoint
+pairs {x,p}, {y,q}, {c,d}. Their four core rims are xq,yp,xp,yq.
+The triangle dpq uses the fifth core edge pq and the two new
+edges dp,dq. The private edges ab,cd are used once each.
+Hence all triangles are edge-disjoint and |S|=7.
+
+The rim set R has 5+4=9 edges, and the five additional hub
+edges are distinct from each other and from R. Thus
+|X|=14=2|S|.
+
+Every triangle through both hubs meets uv. A triangle through
+u and either private vertex meets ua or ub. Otherwise its rim
+is a core edge and belongs to X. The same argument at v uses
+vc,vd and the core edges. These cases exhaust all ambient
+hub triangles because both full neighborhoods are specified.
+
+The external packing edges are exactly R, so the safety
+condition is satisfied. Arbitrary edges between A and B cannot
+create another hub triangle; edges leaving the displayed local
+vertex set cannot affect triangles through the hubs either.
+
+The listed hypotheses are exactly the optional edges needed
+by the displayed packing and cover. Mutual type-R centers
+supply stronger adjacencies, but the sufficient lemma does
+not require them. No minimum-packing or optimality claim is made.
+
+4. EVERY SELECTED NEIGHBOR IN TYPE R REDUCES
+
+Lemma R. Let d(u)=7 and suppose the complement of G[N(u)] has
+edges
+
+  ab,bc,de,
+
+with f,g its other two vertices. The unique exceptional neighbor
+is b. If v is any of a,c,d,e,f,g and d(v)<=8, then {u,v} is
+reducible.
+
+Proof. There are three kinds of selected neighbor.
+
+First let v=f; the case v=g is symmetric. The vertex f is
+adjacent to all six other vertices of N(u). The common five-set
+
+  W={a,c,d,e,g}
+
+induces K5 minus de. The vertex w=b is a neighbor of u outside
+{v} union W and bd is present. Apply input (D), the repaired
+K5-minus-edge lemma. Here w is also a common neighbor, which
+that lemma allows.
+
+Next let v=a; the case v=c is symmetric. Its only nonneighbor
+inside N(u) is b, and the common core is
+
+  W={c,d,e,f,g},
+
+inducing K5 minus de. Again w=b and bd is present, so input (D)
+applies.
+
+Finally let v=d; the case v=e is symmetric. Its only nonneighbor
+inside N(u) is e. Thus its common core with u is
+
+  W={a,b,c,f,g},
+
+inducing K5 minus ab,bc. Take w=e. This vertex is a neighbor
+of u outside {v} union W and is adjacent to both a and c.
+Lemma F applies, with f,g playing the roles of p,q.
+
+All applications use d(u)+d(v)<=15. The six selected neighbors
+have now all been covered.
+
+5. MUTUAL EXCEPTIONS AND INDEPENDENCE
+
+Lemma I. Suppose every degree-seven vertex has type M, P, Q,
+or R. If none of the pairs supplied by the preceding reductions
+occurs, then the set L of degree-seven vertices is independent.
+Every selected neighbor of a vertex in L has degree at least nine.
+
+Proof. Suppose u,v are adjacent degree-seven vertices. If one
+has type M, input (A) supplies a reduction. Otherwise both have
+type P, Q, or R. If at least one is selected for the other,
+input (B) or Lemma R supplies a reduction.
+
+It remains that each is exceptional for the other. Each has
+exactly two nonneighbors at the opposite hub's position in its
+link, so the common neighborhood has four vertices and each
+side has two private vertices.
+
+For types P and Q the common four-vertex core is K4, as proved
+in the round-four case analysis. For type R it is K4 minus the
+isolated missing edge de: the two missing P3 edges use the
+exceptional hub and its private vertices, and disappear from
+the common core. Therefore a mutual-exception pair with one
+endpoint of type R and the other of type P or Q is impossible:
+the same induced common core cannot be both K4 and K4 minus
+one edge.
+
+When neither endpoint has type R, input (C) applies. When both
+have type R, the common core is K4 minus one edge. Each private
+pair is adjacent and complete to the common core: in the
+complement, the private vertices are the two P3 leaves, each
+incident only to its missing edge to the opposite hub. Hence
+all hypotheses of Lemma K hold after relabeling, so it supplies
+a reduction.
+
+These cases exhaust all possible L-L edges and prove independence.
+Finally any selected neighbor of degree at most eight would give
+one of (A), (B), or Lemma R. Thus selected neighbors have degree
+at least nine.
+
+6. THE SELECTED-INCIDENCE DENSITY BOUND
+
+Let H be the vertices of degree at least nine, and let L_M,L_P,
+L_Q,L_R be the four subsets of L. Suppose G has minimum degree
+at least seven and none of the reductions in Lemma I occurs.
+Then, with n=|V(G)|,
+
+  2|E(G)|-8n >= [
+      2|L_M|+|L_P|+|L_R|+|H|
+      +4 sum over v in H of (d(v)-9)
+    ]/5.                                                   (1)
+
+Proof. At a type-M vertex select all seven neighbors; at types P
+and R select the six nonexceptional neighbors; at type Q select
+the five nonexceptional neighbors. By Lemma I they all belong
+to H, and L is independent.
+
+Every selected vertex has at most one missing edge in the
+corresponding seven-vertex link, so it has degree at least five
+inside that link. If a donor v in H has any selected recipient
+w, choose one. At least five vertices of N(w) are adjacent to
+v; none belongs to L because L is independent. Thus N(v)
+contains at least five vertices outside L, and
+
+  |N(v) intersect L|<=d(v)-5.
+
+Give each vertex its degree as initial charge. A vertex of H
+sends 1/5 to precisely the degree-seven vertices that selected
+it. Receivers of types M,P,Q,R finish with respectively
+
+  42/5, 41/5, 8, 41/5.
+
+A donor with a selected recipient sends to at most d(v)-5
+vertices and therefore retains at least
+
+  d(v)-(d(v)-5)/5
+      =8+[1+4(d(v)-9)]/5.
+
+A donor with no selected recipient keeps d(v), which is at
+least that same lower bound. Degree-eight vertices neither
+send nor receive charge. Summing these estimates proves (1).
+No sharpness claim is made.
+
+7. CONDITIONAL FORCING THEOREM AND ITS LIMITS
+
+Theorem. Let G have minimum degree at least seven and average
+degree below eight. Suppose every degree-seven link has
+complement of type M, P, Q, or R. Then G has a reducible pair
+given by one of the proved constructions.
+
+Proof. If none of those pairs occurs, inequality (1) gives
+average degree at least eight, a contradiction.
+
+The same estimate shows that, in this family and in the absence
+of the listed reducible pairs, average degree at most eight
+forces the graph to be eight-regular. Indeed if H is nonempty
+the right side of (1) is positive. If L is nonempty, it has
+selected neighbors and therefore H is nonempty. Thus both
+sets must be empty, leaving only degree-eight vertices.
+
+Consequently a subgraph-minimal counterexample to Tuza with
+mad(G)<8, if it has minimum degree at least seven, must have
+a degree-seven link outside these four complement families.
+This is a conditional local forcing theorem, not a completed
+proof of the mad<8 question.
+
+The degree-five and degree-six cases remain open in this route.
+The three-edge star and triangle complements, and more general
+complements, have not been settled here. No assertion is made
+that every exceptional mixed (7,8) pair in types P,Q,R is
+reducible; those pairs are not needed by the selected-incidence
+argument.
+
+The link-family condition is not hereditary under arbitrary edge
+deletions. It is used at a minimal counterexample after the
+standard reducibility framework, rather than as an unsupported
+induction hypothesis. Common-neighbor degrees are unrestricted;
+the old pointwise degree budget from the 7-regular setting is
+not assumed.
+
+Lemma F was derived symbolically, and the bounded search also
+found and literally verified a relabeling of that pattern. The
+smaller Lemma K pattern was found by the bounded search and
+independently checked, then promoted to the universal proof
+given above. An alternate symbolic certificate is preserved
+separately. No solver status, failed search, or catalogue
+completeness claim is a premise of these proofs.

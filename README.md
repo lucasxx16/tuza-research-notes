@@ -17,10 +17,11 @@ pinned to commit `bf8415fac44f4eeed6c0f7a2273b843d689b065e`.
 **The full implication `mad(G)<8 => tau(G)<=2nu(G)` remains unresolved here.**
 The latest round forces a reducible pair when minimum degree is at least
 seven, average degree is below eight, and every degree-seven link has
-complement a matching, P3 plus four isolated vertices, or P4 plus three
-isolated vertices. The new P4 case permits two exceptional neighbors.
+complement a matching, P3, P4, or P3+K2, padded with isolated vertices to
+order seven. Two new universal seven-triangle constructions handle P3+K2;
+one was found by a bounded HPC-model search and then proved symbolically.
 In the absence of the listed reducible pairs, sending charge only along
-the seven, six, or five certified incidences for these three types gives
+the seven, six, five, or six certified incidences for these four types gives
 an explicit positive density surplus when vertices of degree at least
 nine are present. These are conditional local
 forcing results; their extra hypotheses need not survive deletion.
@@ -28,13 +29,27 @@ forcing results; their extra hypotheses need not survive deletion.
 The independent route proves sharp local patch-density bounds, an eight-triangle
 reduction valid beyond the old common-neighbor degree budget, and closure
 across separators of order at most three. A smallest counterexample must
-therefore be 4-connected. The latest independent theorem also excludes
+therefore be 4-connected. Another independent theorem excludes
 every edge cut of size at most seven unless it isolates one vertex. A small
 cut can therefore be the incident edges of a degree-five, six, or seven
 vertex; this does not assert eight-edge-connectivity. Degree-five/six
-vertices and degree-seven links outside the matching/P3/P4 families remain unresolved.
+vertices and degree-seven links outside the matching/P3/P4/P3+K2 families remain unresolved.
 
-- [Latest results and limits in Chinese](docs/mad8-round4.zh-CN.txt)
+The equality route now gives packing-loss bounds under edge deletion and
+the exact packing/cover profile required on one side of the unresolved
+three-shared-edge separator obstruction. A bounded atlas experiment checked
+906 connected triangle-bearing graphs through order seven, finding 27 tight
+graphs and no triangle edge excluded from every minimum cover. This is
+finite computational evidence; the general obstruction remains unresolved.
+
+- [Latest results and limits in Chinese](docs/mad8-round5.zh-CN.txt)
+- [P3+K2 extension and two universal seven-triangle certificates](mad8/round5/E/p3_plus_edge_complements.txt)
+- [Equality, edge deletion, and the exact boundary profile](mad8/round5/D/equality_boundary_profiles.txt)
+- [Two fixed MILP instances and their witnesses](mad8/round5/B)
+- [Independent exact certificate verifier](mad8/round5/C/check_literal_certificates.py)
+- [Bounded atlas experiment and its limits](mad8/round5/B_D/report.txt)
+- [Round-five coordinator review](mad8/round5/review_summary.txt)
+- [Round-four results in Chinese](docs/mad8-round4.zh-CN.txt)
 - [P4-complement extension and selected-incidence density bound](mad8/round4/E/p4_complement_links.txt)
 - [No nontrivial edge cut below eight](mad8/round4/D/seven_edge_cuts.txt)
 - [Round-four coordinator review](mad8/round4/review_summary.txt)

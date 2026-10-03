@@ -1,0 +1,5 @@
+Preliminary D equality-lemma review (C)
+
+ACCEPT both mathematical lemmas in D/independent_initial.txt. On the rich side H of a hypothetical failed three-edge gluing, let k=nu(H), F the boundary, and H(J)=H−(F\J). Since every H-cover of size ≤2k avoids F, for every nonempty A⊆F the union of A and any cover of H−A has size at least 2k+1. Hence tau(H(J))≥2k−2+|J| for every proper J. Tuza at H−F with nu=k−1 supplies equality at J=empty; adding one edge raises tau by at most one, giving exact values 2k−1 and 2k at |J|=1,2; J=F has tau=2k. The stated packing/cover increment profile follows. This profile is a necessary condition for a gluing failure, not an example of one.
+
+If H is Tuza-tight with nu(H)=k and H−E(T) obeys Tuza for a triangle T, then nu(H−E(T))≤k−1. A value ≤k−2 would give a cover of H−E(T) of size ≤2k−4, and adjoining three T edges would cover H with ≤2k−1 edges. Contradiction. Thus T extends to a maximum packing. The proposed connected-graph scan through order eight would test only a bounded realization question; solver/census absence cannot prove impossibility in larger graphs. No computation was run by C.

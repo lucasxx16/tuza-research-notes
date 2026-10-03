@@ -1,0 +1,22 @@
+BOUNDED EQUALITY-GRAPH SEARCH
+
+Completed on the NetworkX atlas through order seven: 1,249 entries of
+orders 3--7, 994 connected, 906 containing triangles. Exact branching
+found 27 with nu>0 and tau=2nu. None had a triangle-containing edge e
+with tau(H-e)=tau(H). No timeouts occurred; no order-eight search ran.
+Reported runtime: 0.12 seconds for the scan and about one second for
+the separate verifier, within the 240-second cap.
+
+A separately implemented verifier checked nu and tau on all 906 graphs,
+then checked edge-deletion values on the 27 retained tight graphs, with
+no mismatches. C audited both implementations.
+
+The correct interpretation is: each triangle edge in these graphs lies
+in SOME minimum cover. An initial metadata label incorrectly said ALL;
+the label was corrected. Completion fields, conditional conclusions,
+positive-export handling, and timeout bookkeeping were also corrected.
+
+No graph passed the necessary-edge filter, so the eight-state separator
+profile stage was never exercised. This negative result is bounded
+computational evidence, not a general nonexistence theorem. The symbolic
+proof in ../D/equality_boundary_profiles.txt uses none of these outputs.

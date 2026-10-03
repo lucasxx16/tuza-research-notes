@@ -1,0 +1,8 @@
+round5/B instance 2 (mutual exceptional P3+K2-style links, 10 vertices, |E|=36 asserted, d(0)=d(1)=7 asserted, triangles=62, hub triangles=32)
+Unrestricted local reducible pair: S over all triangles (all 10 vertices), X over all edges, no forced spokes, no forbidden edges, budget |X|<=2|S| as inequality, objective min |X|-2|S|.
+solver: 1 call(s), status=0, wall=0.131s (limit 60s) -> proposes a candidate only.
+certificate: True | |S|=7 [(0, 2, 5), (0, 3, 4), (0, 6, 7), (1, 2, 4), (1, 3, 5), (1, 8, 9), (4, 5, 9)]
+|X|=14 [(0, 1), (0, 6), (0, 7), (1, 8), (1, 9), (2, 4), (2, 5), (3, 4), (3, 5), (4, 5), (4, 9), (5, 9), (6, 7), (8, 9)] | slack 2|S|-|X| = 0 -> tight
+exact re-checks (triangles rebuilt from the literal edge list): ALL PASS: existence, distinctness, edge-disjointness, hub-triangle coverage, hub-free-edge containment, budget, X subset E
+Control (human-supplied certificate for this graph, NOT from this run): S=026,037,045,124,135,189,259,349 (|S|=8), X=16 edges (core 24,25,34,35,45 + 29,39,49,59 + 26,37,89,01,06,07,18): recomputed exact checks all pass, slack 0. The S,X above is this run's solver proposal.
+No proof claimed; nothing inferred from status. Fixed-edge coverage holds inside this literal graph; transfer to the mainline is for mainline/C to decide.

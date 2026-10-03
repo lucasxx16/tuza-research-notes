@@ -1,0 +1,23 @@
+DATASET AND RUNTIME RECORD
+
+The input is NetworkX graph_atlas_g(), an existing catalogue, not the
+Gupta upstream census or certificate finder. Its official documentation
+describes 1,253 atlas graphs through order seven; the order-seven slice
+has 1,044 entries. Restricting to orders three through seven leaves
+1,249 entries before the connected/triangle-bearing filters.
+
+Official API documentation checked by the coordinator:
+https://networkx.org/documentation/stable/reference/generated/networkx.generators.atlas.graph_atlas_g.html
+
+The documented source is Ronald C. Read and Robin J. Wilson,
+An Atlas of Graphs, Oxford University Press, 1998.
+
+Local runtime versions checked during this round:
+Python 3.14.7; NetworkX 3.6.1; NumPy 2.5.2; SciPy 1.18.1.
+The atlas search uses NetworkX and exact integer branching, not SciPy.
+The two separate local certificate searches in ../B use SciPy MILP.
+Their independent literal verifier needs only the Python standard library.
+
+The bounded atlas result is computational evidence. Dataset scope,
+implementation review, and exact arithmetic are not a claim of a human
+classification proof or formal verification.

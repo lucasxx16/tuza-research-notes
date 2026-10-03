@@ -1,0 +1,52 @@
+MAD<8 / ROUND 5 / D / INDEPENDENT INITIAL DRAFT
+
+Recorded before inspecting E's round-five route or any mainline ideas.
+Chosen route: resolve or sharpen the three-shared-edge separator
+obstruction from round two by studying equality in Tuza, rather than
+extending another edge-cut bound by one.
+
+NEW EXACT COVER PROFILE.
+Round two proved that a failed gluing across three shared edges F forces
+one side H to satisfy tau(H)=2nu(H), with every minimum cover avoiding F.
+Put k=nu(H), H(J)=H-(F\J), for J subset F. Its packing profile is
+ nu(H(empty))=k-1 and nu(H(J))=k for every nonempty J.
+All H(J) satisfy Tuza by the minimal-counterexample setup.
+
+I claim that its cover profile is forced exactly:
+ tau(H(J))=2k-2+min(|J|,2) for every J subset F.
+Proof: for nonempty A subset F, any cover of H-A together with A covers
+H and meets F. Since no minimum cover of H meets F, this gives
+tau(H-A)+|A|>=2k+1. In particular tau(H-F)>=2k-2; Tuza and nu(H-F)=k-1
+give equality. Adding one edge increases tau by at most one. Thus for
+|J|=1 the upper bound is 2k-1, matching the preceding lower bound with
+|F\J|=2. For |J|=2 the lower bound with one edge deleted is 2k and
+monotonicity gives the same upper bound. For J=F the value is 2k.
+
+Consequences: H-F is also Tuza-tight. Each graph retaining exactly two
+boundary edges is Tuza-tight too. Restoring one edge raises both packing
+and cover by one; restoring a second raises only the cover; restoring
+the third raises neither. This is much more rigid than a lone tight side.
+
+EQUALITY EXTENDABILITY LEMMA.
+If tau(H)=2nu(H) and Tuza holds for every subgraph H-E(T), where T is a
+triangle, then EVERY triangle T belongs to some maximum packing.
+Indeed let nu(H)=k. Combining T with a packing of H-E(T) gives its packing
+number at most k-1. If it were at most k-2, then covering H-E(T) and
+adding the three edges of T would give tau(H)<=2(k-2)+3=2k-1, a
+contradiction. Hence nu(H-E(T))=k-1 and T extends to a maximum packing.
+
+POSSIBLE NUMERICAL TARGET, ROUTED ONLY THROUGH PARENT/HPC B.
+Use connected unlabeled graphs of order at most eight (bounded by the
+standard 12,346 order-eight graphs; no larger order). First filter exact
+Tuza-tight graphs. Look for a triangle-containing edge e with
+tau(H-e)=tau(H), i.e. an edge lying in no minimum triangle cover.
+Such an edge is necessary for the rich separator obstruction. If these
+exist, inspect induced four-vertex stars/P4 with all three edges having
+that property, and test the exact packing/cover profile above. A positive
+instance would yield a small symbolic barrier; a negative result would
+remain explicitly bounded evidence, not a theorem beyond order eight.
+Do not start the computation unless parent accepts the precise budget.
+
+This draft provides rigorous candidate lemmas but not a complete mad<8
+proof or a claim that the separator obstruction is realizable. No local
+numerical search was run. No novelty claim is made.

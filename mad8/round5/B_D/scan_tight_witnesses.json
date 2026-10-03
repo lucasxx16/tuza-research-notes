@@ -1,0 +1,8 @@
+{
+ "positives": [],
+ "n_positives": 0,
+ "export_truncated": false,
+ "scan_status": "COMPLETE within budget",
+ "profile_witnesses": 0,
+ "conclusion": "no triangle edge e of any tight atlas graph in the scanned range satisfies tau(H-e)=tau(H); fan/profile stage not triggered"
+}
