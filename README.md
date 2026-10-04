@@ -5,6 +5,16 @@ certificate data, and independently written verification programs. These are
 research notes, not a claim of formal proof-assistant verification or human peer
 review. No claim of novelty or a smallest equality graph is made.
 
+## Manuscript preprint
+
+**A structural proof for codegree four and seven-regular equality examples in Tuza's conjecture**, by Yanzhong Xu (Westlake University), October 3, 2026.
+
+The [v0.1.0-preprint release](https://github.com/lucasxx16/tuza-research-notes/releases/tag/v0.1.0-preprint) contains the clean 25-page PDF, matching LaTeX source, and SHA-256 checksums.
+
+The manuscript gives a human-readable structural proof under A1 (connected non-WKE links) and A2 (the common-neighbor degree budget), implying Proposition 9.1 and addressing Question 12.2 of [Gupta, arXiv:2608.06538v1](https://arxiv.org/abs/2608.06538v1). It also gives $K_4\square K_5$ with $\nu=13$ and $\tau=26$, and an infinite family of connected seven-regular equality graphs, answering the seven-regular existence subquestion following Question 12.3.
+
+The full equality classification and the $\operatorname{mad}(G)<8$ implication remain unresolved here. This AI-assisted preprint has not undergone human peer review or formal proof-assistant verification. arXiv submission is in preparation, with endorsement pending; the manuscript has no arXiv identifier.
+
 The starting questions come from Anish Gupta,
 [Tuza's conjecture for graphs of maximum degree at most seven](https://arxiv.org/html/2608.06538v1)
 and its [companion repository](https://github.com/agupta/tuza-maximum-degree-seven),
@@ -420,6 +430,6 @@ personal filesystem paths, and internal session artifacts, printing locations on
 It is a focused check, not a guarantee that every possible secret format is detected.
 Local session files, credentials, and editor settings are ignored by Git.
 
-Open mathematical work: a census-free structural proof for the remaining cores,
-template minimality beyond the fixed dictionary, full equality classification,
-and the maximum-average-degree-below-eight question.
+Open mathematical work: template minimality beyond the fixed dictionary, full
+equality classification, the maximum-average-degree-below-eight question, and an
+unconditional uniform coefficient below 165/59 for all finite simple graphs.
