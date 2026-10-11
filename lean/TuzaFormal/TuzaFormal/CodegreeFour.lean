@@ -92,62 +92,6 @@ axiom puleo_large_indep {α : Type*} [Fintype α] [DecidableEq α]
     IsWKE F
 
 
-/-- **Proposition 3.1.** If a hub link satisfies (A1) connectivity/non-WKE and the core has
-at most one edge, contradiction. Edgeless cores use `puleo_large_indep`; one-edge cores use
-the constructive WKE witnesses once a labelling is supplied by case analysis (partial). -/
-theorem prop31 (H : HubConfig G) (hA1 : H.A1) (hle : H.numCoreEdges ≤ 1) : False := by
-  have hNcard : (G.neighborFinset H.u).card = 7 := by
-    simpa [← SimpleGraph.card_neighborFinset_eq_degree] using H.hdu
-  obtain h0 | h1 : H.numCoreEdges = 0 ∨ H.numCoreEdges = 1 := by omega
-  · -- Edgeless core ⇒ C is an independent 4-set in the link
-    have hind : ∀ a ∈ H.C, ∀ b ∈ H.C, a ≠ b → ¬ (linkGraph G H.u).Adj a b := by
-      intro a ha b hb hab hAdj
-      have : H.numCoreEdges = 0 := h0
-      have hedge : ({a, b} : Finset V) ∈
-          (H.C.powersetCard 2).filter (fun e => ∃ x ∈ e, ∃ y ∈ e, x ≠ y ∧ G.Adj x y) := by
-        refine mem_filter.2 ⟨?_, ⟨a, by simp, b, by simp, hab, hAdj.2.2⟩⟩
-        exact mem_powersetCard.2 ⟨by
-          intro z hz; simp only [mem_insert, mem_singleton] at hz
-          rcases hz with rfl | rfl <;> assumption,
-          by simp [card_insert_of_notMem, hab]⟩
-      have hpos : 0 < H.numCoreEdges := by
-        unfold HubConfig.numCoreEdges
-        exact Finset.card_pos.2 ⟨_, hedge⟩
-      omega
-    have hV : Fintype.card V = 7 := by
-      -- Link connectivity + deg(u)=7 ⇒ V = N(u) (no isolated vertices outside N(u))
-      have hNu_univ : G.neighborFinset H.u = univ := by
-        ext w; simp only [mem_univ, iff_true]
-        by_contra hw
-        have hdeg0 : (linkGraph G H.u).degree w = 0 := by
-          simp only [← card_neighborFinset_eq_degree]
-          refine card_eq_zero.2 (eq_empty_iff_forall_notMem.2 ?_)
-          intro x hx
-          have hAdj : (linkGraph G H.u).Adj w x := (mem_neighborFinset _ _ _).1 hx
-          exact hw hAdj.1
-        obtain ⟨x, hx⟩ : (G.neighborFinset H.u).Nonempty := by
-          rw [← card_pos, hNcard]; omega
-        have hxne : w ≠ x := fun h => hw (h ▸ hx)
-        have hreach : (linkGraph G H.u).Reachable w x := hA1.1.preconnected w x
-        exact (not_reachable_of_left_degree_zero hxne hdeg0) hreach
-      calc Fintype.card V = (univ : Finset V).card := by simp [card_univ]
-        _ = (G.neighborFinset H.u).card := by rw [hNu_univ]
-        _ = 7 := hNcard
-    have hWKE : IsWKE (linkGraph G H.u) :=
-      puleo_large_indep (linkGraph G H.u) (by omega) hA1.1 H.C
-        (by simp [hV, H.hCcard]) hind
-    exact hA1.2.1 hWKE
-  · -- One-edge core (paper Prop 3.1): unique core edge pq; Q = {v, d0, d1} (= private + hub-mate).
-    -- Cases: private edge present → wke_private_edge; else attachment at a non-edge core
-    -- vertex → wke_private_attach; else independent 4-set {r,s,d0,d1} → Puleo.
-    -- Labelling extraction from HubConfig + numCoreEdges = 1 is the remaining combinatorial work.
-    have : IsWKE (linkGraph G H.u) := by
-      -- Obtain the unique core edge and private pair A = {d0,d1}, then case-split as in the paper.
-      -- The constructive witnesses `Prop31.wke_private_edge` / `wke_private_attach` discharge
-      -- the first two cases once labels and the "only edges outside Q" hypothesis are supplied.
-      sorry
-    exact hA1.2.1 this
-
 /-- **Theorem 1.3 (Structural codegree-four reduction).** -/
 theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2) :
     IsReducible G ({H.u, H.v} : Finset V) := by
@@ -286,7 +230,361 @@ theorem wke_private_attach (hub z p q r s d0 d1 : V)
         card3_edges (sym2_ne_of_disj d1j) (sym2_ne_of_disj d2j) (sym2_ne_of_disj d3j)])
   · intro e he hQ; rcases honly e he hQ with h | h <;> simp [h]
 
+/-- Unique core edge when `numCoreEdges = 1`. -/
+lemma exists_unique_core_edge (H : HubConfig G) (h1 : H.numCoreEdges = 1) :
+    ∃ p q, p ∈ H.C ∧ q ∈ H.C ∧ p ≠ q ∧ G.Adj p q ∧
+      (∀ x ∈ H.C, ∀ y ∈ H.C, x ≠ y → G.Adj x y → s(x, y) = s(p, q)) := by
+  classical
+  unfold HubConfig.numCoreEdges at h1
+  obtain ⟨e, heq⟩ := (card_eq_one.1 h1)
+  have he : e ∈ (H.C.powersetCard 2).filter
+      (fun t => ∃ a ∈ t, ∃ b ∈ t, a ≠ b ∧ G.Adj a b) := by simp [heq]
+  obtain ⟨hep, ⟨a, ha, b, hb, hab, hAdj⟩⟩ := mem_filter.1 he
+  have hsub := (mem_powersetCard.1 hep).1
+  refine ⟨a, b, hsub ha, hsub hb, hab, hAdj, ?_⟩
+  intro x hx y hy hxy hxyAdj
+  have hedge : ({x, y} : Finset V) ∈
+      (H.C.powersetCard 2).filter (fun t => ∃ u ∈ t, ∃ v ∈ t, u ≠ v ∧ G.Adj u v) := by
+    refine mem_filter.2 ⟨mem_powersetCard.2 ⟨by
+      intro z hz; simp only [mem_insert, mem_singleton] at hz
+      rcases hz with rfl | rfl <;> assumption,
+      by simp [card_insert_of_notMem, hxy]⟩,
+      ⟨x, by simp, y, by simp, hxy, hxyAdj⟩⟩
+  have hxe : ({x, y} : Finset V) = e := by simpa [heq] using hedge
+  have hab_e : ({a, b} : Finset V) = e := by
+    apply Finset.eq_of_subset_of_card_le
+    · intro z hz; simp only [mem_insert, mem_singleton] at hz
+      rcases hz with rfl | rfl <;> assumption
+    · rw [(mem_powersetCard.1 hep).2]; simp [card_insert_of_notMem, hab]
+  have hpair : ({x, y} : Finset V) = ({a, b} : Finset V) := hxe.trans hab_e.symm
+  have hxab : x = a ∨ x = b := by
+    have : x ∈ ({a, b} : Finset V) := by simp [← hpair]
+    simpa using this
+  have hyab : y = a ∨ y = b := by
+    have : y ∈ ({a, b} : Finset V) := by simp [← hpair]
+    simpa using this
+  rcases hxab with rfl | rfl <;> rcases hyab with rfl | rfl
+  · exact absurd rfl hxy
+  · rfl
+  · exact Sym2.eq_swap
+  · exact absurd rfl hxy
+
+/-- From HubConfig + connectedness of the u-link: `|V| = 7`. -/
+lemma card_of_link_connected (H : HubConfig G)
+    (hconn : (linkGraph G H.u).Connected) : Fintype.card V = 7 := by
+  have hNcard : (G.neighborFinset H.u).card = 7 := by
+    simpa [← SimpleGraph.card_neighborFinset_eq_degree] using H.hdu
+  have hNu_univ : G.neighborFinset H.u = univ := by
+    ext w; simp only [mem_univ, iff_true]
+    by_contra hw
+    have hdeg0 : (linkGraph G H.u).degree w = 0 := by
+      simp only [← card_neighborFinset_eq_degree]
+      refine card_eq_zero.2 (eq_empty_iff_forall_notMem.2 ?_)
+      intro x hx
+      exact hw ((mem_neighborFinset _ _ _).1 hx).1
+    obtain ⟨x, hx⟩ : (G.neighborFinset H.u).Nonempty := by
+      rw [← card_pos, hNcard]; omega
+    have hxne : w ≠ x := fun heq => hw (heq ▸ hx)
+    exact (not_reachable_of_left_degree_zero hxne hdeg0) (hconn.preconnected w x)
+  calc Fintype.card V = (univ : Finset V).card := by simp [card_univ]
+    _ = (G.neighborFinset H.u).card := by rw [hNu_univ]
+    _ = 7 := hNcard
+
+private lemma mem_C_of_N_not_QA (H : HubConfig G) {d0 d1 a : V}
+    (hAeq : H.A = {d0, d1})
+    (haN : a ∈ G.neighborFinset H.u)
+    (haQ : a ∉ ({H.v, d0, d1} : Finset V)) : a ∈ H.C := by
+  rw [H.hNu] at haN
+  simp only [mem_insert, mem_union] at haN
+  rcases haN with rfl | hC | hA
+  · exact absurd (by simp) haQ
+  · exact hC
+  · have : a = d0 ∨ a = d1 := by rw [hAeq] at hA; simpa using hA
+    exact absurd (by rcases this with rfl | rfl <;> simp) haQ
+
+/-- Edges of the u-link with both ends outside `Q = {v} ∪ A` are exactly the unique core edge. -/
+lemma only_core_edge_outside_Q (H : HubConfig G)
+    {p q d0 d1 : V}
+    (hAeq : H.A = {d0, d1})
+    (hunique : ∀ x ∈ H.C, ∀ y ∈ H.C, x ≠ y → G.Adj x y → s(x, y) = s(p, q)) :
+    ∀ e ∈ (linkGraph G H.u).edgeFinset,
+      (∀ x ∈ e, x ∉ ({H.v, d0, d1} : Finset V)) → e = s(p, q) := by
+  intro e he hQ
+  revert he hQ
+  refine Sym2.inductionOn e fun a b he hQ => ?_
+  have hab : (linkGraph G H.u).Adj a b := (mem_edgeFinset (G := linkGraph G H.u)).1 he
+  have hGAdj : G.Adj a b := hab.2.2
+  have hne : a ≠ b := fun h => G.irrefl (h ▸ hGAdj)
+  have haC := mem_C_of_N_not_QA G H hAeq hab.1 (hQ a (by simp))
+  have hbC := mem_C_of_N_not_QA G H hAeq hab.2.1 (hQ b (by simp))
+  exact hunique a haC b hbC hne hGAdj
+
+/-- Independence of `{r,s,d0,d1}` in the one-edge/no-attach case. -/
+lemma indep_rest_core_priv (H : HubConfig G)
+    {p q r s d0 d1 : V}
+    (hpC : p ∈ H.C) (hqC : q ∈ H.C) (hrC : r ∈ H.C) (hsC : s ∈ H.C)
+    (hAeq : H.A = {d0, d1})
+    (hunique : ∀ x ∈ H.C, ∀ y ∈ H.C, x ≠ y → G.Adj x y → s(x, y) = s(p, q))
+    (hrne : r ∉ ({p, q} : Finset V)) (hsne : s ∉ ({p, q} : Finset V))
+    (hpriv : ¬ G.Adj d0 d1)
+    (hr_no : ¬ G.Adj r d0 ∧ ¬ G.Adj r d1)
+    (hs_no : ¬ G.Adj s d0 ∧ ¬ G.Adj s d1) :
+    ∀ a ∈ ({r, s, d0, d1} : Finset V), ∀ b ∈ ({r, s, d0, d1} : Finset V),
+      a ≠ b → ¬ (linkGraph G H.u).Adj a b := by
+  intro a ha b hb hab hAdj
+  have hG : G.Adj a b := hAdj.2.2
+  have ha' : a = r ∨ a = s ∨ a = d0 ∨ a = d1 := by
+    simpa [mem_insert, mem_singleton] using ha
+  have hb' : b = r ∨ b = s ∨ b = d0 ∨ b = d1 := by
+    simpa [mem_insert, mem_singleton] using hb
+  rcases ha' with (har | has | had0 | had1) <;> rcases hb' with (hbr | hbs | hbd0 | hbd1)
+  · exact absurd (har.trans hbr.symm) hab
+  · -- a=r, b=s
+    have hem := hunique a (har ▸ hrC) b (hbs ▸ hsC) hab hG
+    have : a = p ∨ a = q := by
+      have : a ∈ s(p, q) := by
+        simpa [hem] using (Sym2.mem_mk_left a b : a ∈ s(a, b))
+      simpa [Sym2.mem_iff] using this
+    exact hrne (by simpa [mem_insert, mem_singleton, ← har] using this)
+  · -- a=r, b=d0
+    have : G.Adj r d0 := by rw [← har, ← hbd0]; exact hG
+    exact hr_no.1 this
+  · have : G.Adj r d1 := by rw [← har, ← hbd1]; exact hG
+    exact hr_no.2 this
+  · -- a=s, b=r
+    have hem := hunique a (has ▸ hsC) b (hbr ▸ hrC) hab hG
+    have : a = p ∨ a = q := by
+      have : a ∈ s(p, q) := by
+        simpa [hem] using (Sym2.mem_mk_left a b : a ∈ s(a, b))
+      simpa [Sym2.mem_iff] using this
+    exact hsne (by simpa [mem_insert, mem_singleton, ← has] using this)
+  · exact absurd (has.trans hbs.symm) hab
+  · have : G.Adj s d0 := by rw [← has, ← hbd0]; exact hG
+    exact hs_no.1 this
+  · have : G.Adj s d1 := by rw [← has, ← hbd1]; exact hG
+    exact hs_no.2 this
+  · have : G.Adj r d0 := by rw [← hbr, ← had0]; exact hG.symm
+    exact hr_no.1 this
+  · have : G.Adj s d0 := by rw [← hbs, ← had0]; exact hG.symm
+    exact hs_no.1 this
+  · exact absurd (had0.trans hbd0.symm) hab
+  · have : G.Adj d0 d1 := by rw [← had0, ← hbd1]; exact hG
+    exact hpriv this
+  · have : G.Adj r d1 := by rw [← hbr, ← had1]; exact hG.symm
+    exact hr_no.2 this
+  · have : G.Adj s d1 := by rw [← hbs, ← had1]; exact hG.symm
+    exact hs_no.2 this
+  · have : G.Adj d0 d1 := by rw [← hbd0, ← had1]; exact hG.symm
+    exact hpriv this
+  · exact absurd (had1.trans hbd1.symm) hab
+
+/-- **Prop 3.1, one-edge case:** unique core edge ⇒ the u-link is WKE. -/
+theorem one_edge_is_wke (H : HubConfig G)
+    (hconn : (linkGraph G H.u).Connected) (h1 : H.numCoreEdges = 1) :
+    IsWKE (linkGraph G H.u) := by
+  classical
+  obtain ⟨p, q, hpC, hqC, hpq, hpqAdj, hunique⟩ := exists_unique_core_edge G H h1
+  obtain ⟨d0, d1, hd01, hAeq⟩ := (card_eq_two (s := H.A)).1 H.hA
+  have hV := card_of_link_connected G H hconn
+  set z := H.v with hzdef
+  have hpqC : ({p, q} : Finset V) ⊆ H.C := by
+    intro x hx; simp at hx; rcases hx with rfl | rfl <;> assumption
+  have hrest_card : (H.C \ {p, q}).card = 2 := by
+    have hinter : {p, q} ∩ H.C = {p, q} := by
+      rw [inter_comm]; exact inter_eq_right.2 hpqC
+    rw [card_sdiff, hinter, H.hCcard]
+    simp [card_insert_of_notMem, hpq]
+  obtain ⟨r, s, hrs, hRest⟩ := (card_eq_two (s := H.C \ {p, q})).1 hrest_card
+  have hrC : r ∈ H.C := (mem_sdiff.1 (by rw [hRest]; exact mem_insert_self _ _)).1
+  have hsC : s ∈ H.C := (mem_sdiff.1 (by rw [hRest]; simp)).1
+  have hrne : r ∉ ({p, q} : Finset V) :=
+    (mem_sdiff.1 (by rw [hRest]; exact mem_insert_self _ _)).2
+  have hsne : s ∉ ({p, q} : Finset V) :=
+    (mem_sdiff.1 (by rw [hRest]; simp)).2
+  have hzC : z ∉ H.C := H.hvA.2
+  have hzA : z ∉ H.A := H.hvA.1
+  have hd0A : d0 ∈ H.A := by rw [hAeq]; simp
+  have hd1A : d1 ∈ H.A := by rw [hAeq]; simp
+  have D : SixDistinct z p q r d0 d1 := by
+    refine ⟨?_, ?_, ?_, ?_, ?_, hpq, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, hd01⟩
+    · intro h; subst h; exact hzC hpC
+    · intro h; subst h; exact hzC hqC
+    · intro h; subst h; exact hzC hrC
+    · intro h; subst h; exact hzA hd0A
+    · intro h; subst h; exact hzA hd1A
+    · intro h; subst h; exact hrne (by simp)
+    · intro h; subst h; exact absurd hpC (Finset.disjoint_left.1 H.hAdisj hd0A)
+    · intro h; subst h; exact absurd hpC (Finset.disjoint_left.1 H.hAdisj hd1A)
+    · intro h; subst h; exact hrne (by simp)
+    · intro h; subst h; exact absurd hqC (Finset.disjoint_left.1 H.hAdisj hd0A)
+    · intro h; subst h; exact absurd hqC (Finset.disjoint_left.1 H.hAdisj hd1A)
+    · intro h; subst h; exact absurd hrC (Finset.disjoint_left.1 H.hAdisj hd0A)
+    · intro h; subst h; exact absurd hrC (Finset.disjoint_left.1 H.hAdisj hd1A)
+  have hs_ne_z : s ≠ z := by intro h; subst h; exact hzC hsC
+  have hs_ne_p : s ≠ p := by intro h; subst h; exact hsne (by simp)
+  have hs_ne_q : s ≠ q := by intro h; subst h; exact hsne (by simp)
+  have hs_ne_r : s ≠ r := hrs.symm
+  have hs_ne_d0 : s ≠ d0 := by intro h; subst h; exact absurd hsC (Finset.disjoint_left.1 H.hAdisj hd0A)
+  have hs_ne_d1 : s ≠ d1 := by intro h; subst h; exact absurd hsC (Finset.disjoint_left.1 H.hAdisj hd1A)
+  have hCN : ∀ c ∈ H.C, c ∈ G.neighborFinset H.u := fun c hc => by
+    rw [H.hNu]; exact mem_insert_of_mem (mem_union_left _ hc)
+  have hzN : z ∈ G.neighborFinset H.u := by rw [H.hNu]; exact mem_insert_self _ _
+  have hd0N : d0 ∈ G.neighborFinset H.u := by rw [H.hNu, hAeq]; simp
+  have hd1N : d1 ∈ G.neighborFinset H.u := by rw [H.hNu, hAeq]; simp
+  have hN6 : ({z, p, q, r, d0, d1} : Finset V) ⊆ G.neighborFinset H.u := by
+    intro x hx; simp only [mem_insert, mem_singleton] at hx
+    rcases hx with h | h | h | h | h | h
+    · rw [h]; exact hzN
+    · rw [h]; exact hCN p hpC
+    · rw [h]; exact hCN q hqC
+    · rw [h]; exact hCN r hrC
+    · rw [h]; exact hd0N
+    · rw [h]; exact hd1N
+  have hz_adj (c : V) (hc : c ∈ H.C) : G.Adj z c := by
+    have : c ∈ G.neighborFinset z := (mem_inter.1 (H.hC ▸ hc)).2
+    exact (G.mem_neighborFinset _ _).1 this
+  have honly := only_core_edge_outside_Q G H hAeq hunique
+  by_cases hpriv : G.Adj d0 d1
+  · exact isWKE_of_witness _
+      (wke_private_edge G H.u z p q r d0 d1 D hpqAdj hpriv (hz_adj r hrC) hN6 honly)
+  by_cases hr0 : G.Adj r d0
+  · have honly' : ∀ e ∈ (linkGraph G H.u).edgeFinset,
+        (∀ x ∈ e, x ∉ ({z, d0, d1} : Finset V)) →
+          e = s(p, q) ∨ e = s(r, d0) := fun e he hQ => Or.inl (honly e he hQ)
+    exact isWKE_of_witness _
+      (wke_private_attach G H.u z p q r s d0 d1 D (hCN s hsC)
+        hs_ne_z hs_ne_p hs_ne_q hs_ne_r hs_ne_d0 hs_ne_d1
+        hpqAdj hr0 (hz_adj s hsC) hN6 honly')
+  by_cases hr1 : G.Adj r d1
+  · have D' : SixDistinct z p q r d1 d0 :=
+      ⟨D.zp, D.zq, D.zr, D.zd1, D.zd0, D.pq, D.pr, D.pd1, D.pd0, D.qr,
+        D.qd1, D.qd0, D.rd1, D.rd0, D.d01.symm⟩
+    have hN6' : ({z, p, q, r, d1, d0} : Finset V) ⊆ G.neighborFinset H.u := by
+      intro x hx; simp only [mem_insert, mem_singleton] at hx
+      rcases hx with h | h | h | h | h | h
+      · rw [h]; exact hzN
+      · rw [h]; exact hCN p hpC
+      · rw [h]; exact hCN q hqC
+      · rw [h]; exact hCN r hrC
+      · rw [h]; exact hd1N
+      · rw [h]; exact hd0N
+    have honly1 : ∀ e ∈ (linkGraph G H.u).edgeFinset,
+        (∀ x ∈ e, x ∉ ({z, d1, d0} : Finset V)) → e = s(p, q) := by
+      intro e he hQ
+      exact honly e he (fun x hx hxQ =>
+        hQ x hx (by simpa [or_left_comm, or_assoc, or_comm] using hxQ))
+    have honly' : ∀ e ∈ (linkGraph G H.u).edgeFinset,
+        (∀ x ∈ e, x ∉ ({z, d1, d0} : Finset V)) →
+          e = s(p, q) ∨ e = s(r, d1) := fun e he hQ => Or.inl (honly1 e he hQ)
+    exact isWKE_of_witness _
+      (wke_private_attach G H.u z p q r s d1 d0 D' (hCN s hsC)
+        hs_ne_z hs_ne_p hs_ne_q hs_ne_r hs_ne_d1 hs_ne_d0
+        hpqAdj hr1 (hz_adj s hsC) hN6' honly')
+  by_cases hs0 : G.Adj s d0
+  · have Ds : SixDistinct z p q s d0 d1 :=
+      ⟨D.zp, D.zq, hs_ne_z.symm, D.zd0, D.zd1, D.pq, hs_ne_p.symm, D.pd0, D.pd1, hs_ne_q.symm,
+        D.qd0, D.qd1, hs_ne_d0, hs_ne_d1, D.d01⟩
+    have hN6s : ({z, p, q, s, d0, d1} : Finset V) ⊆ G.neighborFinset H.u := by
+      intro x hx; simp only [mem_insert, mem_singleton] at hx
+      rcases hx with h | h | h | h | h | h
+      · rw [h]; exact hzN
+      · rw [h]; exact hCN p hpC
+      · rw [h]; exact hCN q hqC
+      · rw [h]; exact hCN s hsC
+      · rw [h]; exact hd0N
+      · rw [h]; exact hd1N
+    have honly' : ∀ e ∈ (linkGraph G H.u).edgeFinset,
+        (∀ x ∈ e, x ∉ ({z, d0, d1} : Finset V)) →
+          e = s(p, q) ∨ e = s(s, d0) := fun e he hQ => Or.inl (honly e he hQ)
+    exact isWKE_of_witness _
+      (wke_private_attach G H.u z p q s r d0 d1 Ds (hCN r hrC)
+        D.zr.symm (fun h => hrne (by simp [← h])) (fun h => hrne (by simp [h]))
+        hrs D.rd0 D.rd1 hpqAdj hs0 (hz_adj r hrC) hN6s honly')
+  by_cases hs1 : G.Adj s d1
+  · have Ds' : SixDistinct z p q s d1 d0 :=
+      ⟨D.zp, D.zq, hs_ne_z.symm, D.zd1, D.zd0, D.pq, hs_ne_p.symm, D.pd1, D.pd0, hs_ne_q.symm,
+        D.qd1, D.qd0, hs_ne_d1, hs_ne_d0, D.d01.symm⟩
+    have hN6s : ({z, p, q, s, d1, d0} : Finset V) ⊆ G.neighborFinset H.u := by
+      intro x hx; simp only [mem_insert, mem_singleton] at hx
+      rcases hx with h | h | h | h | h | h
+      · rw [h]; exact hzN
+      · rw [h]; exact hCN p hpC
+      · rw [h]; exact hCN q hqC
+      · rw [h]; exact hCN s hsC
+      · rw [h]; exact hd1N
+      · rw [h]; exact hd0N
+    have honly1 : ∀ e ∈ (linkGraph G H.u).edgeFinset,
+        (∀ x ∈ e, x ∉ ({z, d1, d0} : Finset V)) → e = s(p, q) := by
+      intro e he hQ
+      exact honly e he (fun x hx hxQ =>
+        hQ x hx (by simpa [or_left_comm, or_assoc, or_comm] using hxQ))
+    have honly' : ∀ e ∈ (linkGraph G H.u).edgeFinset,
+        (∀ x ∈ e, x ∉ ({z, d1, d0} : Finset V)) →
+          e = s(p, q) ∨ e = s(s, d1) := fun e he hQ => Or.inl (honly1 e he hQ)
+    exact isWKE_of_witness _
+      (wke_private_attach G H.u z p q s r d1 d0 Ds' (hCN r hrC)
+        D.zr.symm (fun h => hrne (by simp [← h])) (fun h => hrne (by simp [h]))
+        hrs D.rd1 D.rd0 hpqAdj hs1 (hz_adj r hrC) hN6s honly')
+  · -- No private edge, no attachments at r or s
+    have hind := indep_rest_core_priv G H hpC hqC hrC hsC hAeq hunique hrne hsne
+      hpriv ⟨hr0, hr1⟩ ⟨hs0, hs1⟩
+    refine puleo_large_indep (linkGraph G H.u) (by omega) hconn
+      ({r, s, d0, d1} : Finset V) ?_ hind
+    have hcard : ({r, s, d0, d1} : Finset V).card = 4 := by
+      simp [card_insert_of_notMem, hrs, hs_ne_d0, hs_ne_d1, D.rd0, D.rd1, D.d01]
+    simp [hV, hcard]
+
+
 end Prop31
+
+/-- **Proposition 3.1.** If a hub link satisfies (A1) connectivity/non-WKE and the core has
+at most one edge, contradiction. Edgeless cores use `puleo_large_indep`; one-edge cores use
+`Prop31.one_edge_is_wke` (private-edge / attach / Puleo trichotomy). -/
+theorem prop31 (H : HubConfig G) (hA1 : H.A1) (hle : H.numCoreEdges ≤ 1) : False := by
+  have hNcard : (G.neighborFinset H.u).card = 7 := by
+    simpa [← SimpleGraph.card_neighborFinset_eq_degree] using H.hdu
+  obtain h0 | h1 : H.numCoreEdges = 0 ∨ H.numCoreEdges = 1 := by omega
+  · -- Edgeless core ⇒ C is an independent 4-set in the link
+    have hind : ∀ a ∈ H.C, ∀ b ∈ H.C, a ≠ b → ¬ (linkGraph G H.u).Adj a b := by
+      intro a ha b hb hab hAdj
+      have : H.numCoreEdges = 0 := h0
+      have hedge : ({a, b} : Finset V) ∈
+          (H.C.powersetCard 2).filter (fun e => ∃ x ∈ e, ∃ y ∈ e, x ≠ y ∧ G.Adj x y) := by
+        refine mem_filter.2 ⟨?_, ⟨a, by simp, b, by simp, hab, hAdj.2.2⟩⟩
+        exact mem_powersetCard.2 ⟨by
+          intro z hz; simp only [mem_insert, mem_singleton] at hz
+          rcases hz with rfl | rfl <;> assumption,
+          by simp [card_insert_of_notMem, hab]⟩
+      have hpos : 0 < H.numCoreEdges := by
+        unfold HubConfig.numCoreEdges
+        exact Finset.card_pos.2 ⟨_, hedge⟩
+      omega
+    have hV : Fintype.card V = 7 := by
+      -- Link connectivity + deg(u)=7 ⇒ V = N(u) (no isolated vertices outside N(u))
+      have hNu_univ : G.neighborFinset H.u = univ := by
+        ext w; simp only [mem_univ, iff_true]
+        by_contra hw
+        have hdeg0 : (linkGraph G H.u).degree w = 0 := by
+          simp only [← card_neighborFinset_eq_degree]
+          refine card_eq_zero.2 (eq_empty_iff_forall_notMem.2 ?_)
+          intro x hx
+          have hAdj : (linkGraph G H.u).Adj w x := (mem_neighborFinset _ _ _).1 hx
+          exact hw hAdj.1
+        obtain ⟨x, hx⟩ : (G.neighborFinset H.u).Nonempty := by
+          rw [← card_pos, hNcard]; omega
+        have hxne : w ≠ x := fun h => hw (h ▸ hx)
+        have hreach : (linkGraph G H.u).Reachable w x := hA1.1.preconnected w x
+        exact (not_reachable_of_left_degree_zero hxne hdeg0) hreach
+      calc Fintype.card V = (univ : Finset V).card := by simp [card_univ]
+        _ = (G.neighborFinset H.u).card := by rw [hNu_univ]
+        _ = 7 := hNcard
+    have hWKE : IsWKE (linkGraph G H.u) :=
+      puleo_large_indep (linkGraph G H.u) (by omega) hA1.1 H.C
+        (by simp [hV, H.hCcard]) hind
+    exact hA1.2.1 hWKE
+  · have : IsWKE (linkGraph G H.u) := Prop31.one_edge_is_wke G H hA1.1 h1
+    exact hA1.2.1 this
+
 
 /-! ## Matching core `2K₂` (Proposition 4.2) -/
 
@@ -769,15 +1067,56 @@ theorem prop42_certificate (H : HubConfig G)
     external := fun t ht e he hZ => external42 H.u H.v c0 c1 c2 c3 a0 a1 b0 b1 hinj ht he hZ
   }, rfl, rfl, hcardS, hcardX⟩
 
+/-- Lemma 4.1(3): under 2K₂ + connected non-WKE link, some core edge is matched to both
+privates by distinct attachment edges (crossed matching). -/
 theorem lemma41_cross (H : HubConfig G)
-    (_hA1u : (linkGraph G H.u).Connected ∧ ¬ IsWKE (linkGraph G H.u))
+    (_hconn : (linkGraph G H.u).Connected) (_hnot : ¬ IsWKE (linkGraph G H.u))
     (p0 p1 q0 q1 : V) (_hC : H.C = {p0, p1, q0, q1})
     (_hcore : G.Adj p0 p1 ∧ G.Adj q0 q1) :
     ∃ d0 d1, H.A = {d0, d1} ∧
       ((G.Adj p0 d0 ∧ G.Adj p1 d1) ∨ (G.Adj p0 d1 ∧ G.Adj p1 d0) ∨
        (G.Adj q0 d0 ∧ G.Adj q1 d1) ∨ (G.Adj q0 d1 ∧ G.Adj q1 d0)) := by
+  -- Paper Lemma 4.1: exclude private edge, force attachments on each core edge,
+  -- then exclude one-sided attachment patterns via WKE witnesses. Deferred.
   sorry
 
 end MatchingCore
+
+/-! ## Star core `K_{1,3}` (Lemma 4.3) -/
+
+namespace StarCore
+
+/-- Lemma 4.3: if the core is a star with center `p` and leaves `q,r,s`, and the link is not
+WKE, then at least two leaves have private neighbors. (Connectedness not required.) -/
+theorem star_two_leaf_attachments (H : HubConfig G)
+    (p q r s : V) (hC : H.C = {p, q, r, s})
+    (hstar : G.Adj p q ∧ G.Adj p r ∧ G.Adj p s)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(p, r) ∨ s(x, y) = s(p, s))
+    (hnot : ¬ IsWKE (linkGraph G H.u)) :
+    2 ≤ (H.attachSupport H.A ∩ {q, r, s}).card := by
+  -- Paper: if ≤1 leaf has attachments, construct an explicit WKE witness (three cases
+  -- on private edge / leaf attachment / neither). Skeleton for now.
+  sorry
+
+end StarCore
+
+/-! ## Path-of-length-two core (Lemma 4.4) -/
+
+namespace PathCore
+
+/-- Lemma 4.4(1): core edges `pq, pr` with `s` isolated; connected non-WKE link ⇒
+at least one of `q,r` has a private neighbor. -/
+theorem path_leaf_attachment (H : HubConfig G)
+    (hconn : (linkGraph G H.u).Connected) (hnot : ¬ IsWKE (linkGraph G H.u))
+    (p q r s : V) (hC : H.C = {p, q, r, s})
+    (hedges : G.Adj p q ∧ G.Adj p r)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(p, r)) :
+    (G.neighborFinset q ∩ H.A).Nonempty ∨ (G.neighborFinset r ∩ H.A).Nonempty := by
+  sorry
+
+end PathCore
+
 
 end Tuza.CodegreeFour
