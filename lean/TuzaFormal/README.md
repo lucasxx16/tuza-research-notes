@@ -40,16 +40,17 @@ This is proved for general k (no enumeration over k). The general statements are
 - `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound`.
   **Axiom:** `puleo_large_indep`.
   **Proved:** full `prop31`; Prop 4.2 certificate + Fin-10 locals;
-  Lemma 4.1(1)–(2) full; `labels10_of_hub`; `HubConfig.swap` / `A1.swap`;
-  `matching_core_of_labels`; **full** Lemmas 4.3 and 4.4(1);
-  **Lemma 4.1(3) one-sided** and **p-edge same-singleton WKE** (Q={z,d,r},
-  M={p0p1,dbar–s/r,z–r/s}); q-edge same-singleton extraction proved.
-  **Partial / sorry:** q-edge same-singleton WKE construction;
-  `matching_core_reducible` (cross/labels/swap wired; orientation open);
-  `structural_codegree_four` (excludes ≤1-edge cores; nine certificates open).
+  Lemma 4.1(1)–(3) full (`lemma41_cross`, including q-edge same-singleton WKE dual);
+  `labels10_of_hub`; `HubConfig.swap` / `A1.swap`;
+  `matching_core_of_labels`; **full** `matching_core_reducible` (Prop 4.2);
+  **full** Lemmas 4.3 and 4.4(1).
+  **Partial / sorry:** `structural_codegree_four` wires matching 2K₂ via
+  `matching_core_reducible` when labels exist; remaining eight core types
+  (P₃+K₁, star, path, denser) still open (star/path attachment lemmas proved;
+  Props 4.6–4.7 certificates not yet wired).
 
-  Paper note: Lemma 4.1(3) one-sided and same-singleton (p-edge) match the paper.
-  No gap found. Bottleneck: q-edge dual WKE + label orientation into Prop 4.2.
+  Paper note: Lemma 4.1 and Prop 4.2 match the formalization; no gap found.
+  Bottleneck: remaining core certificates toward Theorem 1.3.
 
 ## Build
 

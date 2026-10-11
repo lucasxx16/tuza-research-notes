@@ -2165,8 +2165,494 @@ theorem lemma41_cross (H : HubConfig G)
         subst heq01
         exact ⟨e0, he0, he1⟩
       obtain ⟨d, hd0eq, hd1eq⟩ := same_sing
-      -- WKE dual to p-edge case (Q={z,d,r} on the p-side); deferred.
-      sorry
+      have hdA : d ∈ H.A := by
+        have : d ∈ G.neighborFinset q0 ∩ H.A := by rw [hd0eq]; simp
+        exact (mem_inter.1 this).2
+      have hd_eq : d = d0 ∨ d = d1 := by rw [hAeq] at hdA; simpa using hdA
+      obtain ⟨dbar, hdbar_ne, hdbarA⟩ : ∃ db, db ≠ d ∧ db ∈ H.A := by
+        rcases hd_eq with heq | heq
+        · exact ⟨d1, fun h => hd01 (heq.symm.trans h.symm), hd1A⟩
+        · exact ⟨d0, fun h => hd01 (h.trans heq), hd0A⟩
+      have hA_pair : ({d, dbar} : Finset V) = {d0, d1} := by
+        have hb : dbar = d0 ∨ dbar = d1 := by rw [hAeq] at hdbarA; simpa using hdbarA
+        rcases hd_eq with hd0e | hd1e <;> rcases hb with hb0 | hb1
+        · exact False.elim (hdbar_ne (hb0.trans hd0e.symm))
+        · rw [hd0e, hb1]  -- {d0,d1}={d0,d1}
+        · rw [hd1e, hb0]; ext x; simp [or_comm]
+        · exact False.elim (hdbar_ne (hb1.trans hd1e.symm))
+      have not_adj_q (p : V) (hp : p = q0 ∨ p = q1) : ¬ G.Adj p dbar := by
+        intro hadj
+        have hineq : G.neighborFinset p ∩ H.A = {d} := by
+          rcases hp with heq | heq <;> (rw [heq]; assumption)
+        have : dbar ∈ G.neighborFinset p ∩ H.A :=
+          mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj, hdbarA⟩
+        have : dbar = d := by
+          have hmem : dbar ∈ ({d} : Finset V) := by rwa [hineq] at this
+          simpa using hmem
+        exact hdbar_ne this
+      have hdbar_p : (G.neighborFinset dbar ∩ ({p0, p1} : Finset V)).Nonempty := by
+        have hcoreN : (G.neighborFinset dbar ∩ H.C).Nonempty := by
+          have : dbar = d0 ∨ dbar = d1 := by rw [hAeq] at hdbarA; simpa using hdbarA
+          rcases this with heq | heq
+          · rw [heq]; exact hprivcore.1
+          · rw [heq]; exact hprivcore.2
+        obtain ⟨c, hc⟩ := hcoreN
+        have hcC : c ∈ H.C := (mem_inter.1 hc).2
+        have hAdj : G.Adj dbar c := (G.mem_neighborFinset _ _).1 (mem_inter.1 hc).1
+        have hcmem : c ∈ ({q0, q1, p0, p1} : Finset V) := by
+          have : c ∈ ({p0, p1, q0, q1} : Finset V) := by rw [← hC]; exact hcC
+          simpa [or_comm, or_left_comm] using this
+        simp only [mem_insert, mem_singleton] at hcmem
+        refine ⟨c, mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hAdj, ?_⟩⟩
+        rcases hcmem with heq | heq | heq | heq
+        · exact False.elim (not_adj_q q0 (Or.inl rfl) (heq ▸ hAdj.symm))
+        · exact False.elim (not_adj_q q1 (Or.inr rfl) (heq ▸ hAdj.symm))
+        · simp [heq]
+        · simp [heq]
+      have d_not_both_p : ¬(G.Adj d p0 ∧ G.Adj d p1) := by
+        intro ⟨hp0, hp1⟩
+        obtain ⟨x, hx⟩ := hdbar_p
+        have hx' : x = p0 ∨ x = p1 := by simpa using (mem_inter.1 hx).2
+        have hAdjx : G.Adj dbar x := (G.mem_neighborFinset _ _).1 (mem_inter.1 hx).1
+        have hb : dbar = d0 ∨ dbar = d1 := by rw [hAeq] at hdbarA; simpa using hdbarA
+        rcases hx' with hx0 | hx1
+        · -- x = p0
+          rcases hd_eq with hd0e | hd1e <;> rcases hb with hb0 | hb1
+          · exact False.elim (hdbar_ne (hb0.trans hd0e.symm))
+          · -- d=d0 dbar=d1
+            have h1 : G.Adj p0 d1 := (hx0 ▸ hb1 ▸ hAdjx).symm
+            have h2 : G.Adj p1 d0 := hd0e ▸ hp1.symm
+            exact hnop.2 h1 h2
+          · have h1 : G.Adj p0 d0 := (hx0 ▸ hb0 ▸ hAdjx).symm
+            have h2 : G.Adj p1 d1 := hd1e ▸ hp1.symm
+            exact hnop.1 h1 h2
+          · exact False.elim (hdbar_ne (hb1.trans hd1e.symm))
+        · rcases hd_eq with hd0e | hd1e <;> rcases hb with hb0 | hb1
+          · exact False.elim (hdbar_ne (hb0.trans hd0e.symm))
+          · have h1 : G.Adj p0 d0 := hd0e ▸ hp0.symm
+            have h2 : G.Adj p1 d1 := (hx1 ▸ hb1 ▸ hAdjx).symm
+            exact hnop.1 h1 h2
+          · have h1 : G.Adj p0 d1 := hd1e ▸ hp0.symm
+            have h2 : G.Adj p1 d0 := (hx1 ▸ hb0 ▸ hAdjx).symm
+            exact hnop.2 h1 h2
+          · exact False.elim (hdbar_ne (hb1.trans hd1e.symm))
+      obtain ⟨r, s, hrs_eq, hr_ne_s, hr_owns⟩ :
+          ∃ r s, ({r, s} : Finset V) = {p0, p1} ∧ r ≠ s ∧
+            G.neighborFinset d ∩ ({p0, p1} : Finset V) ⊆ {r} := by
+        by_cases hp0d : G.Adj d p0
+        · refine ⟨p0, p1, by ext x; simp [or_comm], hdist.1, ?_⟩
+          intro x hx
+          have hxN : x ∈ G.neighborFinset d := (mem_inter.1 hx).1
+          have hxq : x = p0 ∨ x = p1 := by simpa using (mem_inter.1 hx).2
+          rcases hxq with heq | heq
+          · simpa [heq] using (mem_singleton_self p0)
+          · subst heq
+            exact False.elim (d_not_both_p ⟨hp0d, (G.mem_neighborFinset _ _).1 hxN⟩)
+        · refine ⟨p1, p0, by ext x; simp [or_comm], hdist.1.symm, ?_⟩
+          intro x hx
+          have hxN : x ∈ G.neighborFinset d := (mem_inter.1 hx).1
+          have hxq : x = p0 ∨ x = p1 := by simpa using (mem_inter.1 hx).2
+          rcases hxq with heq | heq
+          · subst heq; exact False.elim (hp0d ((G.mem_neighborFinset _ _).1 hxN))
+          · simpa [heq] using (mem_singleton_self p1)
+      have hrC : r ∈ H.C := by
+        have : r ∈ ({p0, p1} : Finset V) := by
+          have : r ∈ ({r, s} : Finset V) := by simp
+          rwa [hrs_eq] at this
+        simp only [mem_insert, mem_singleton] at this
+        rcases this with heq | heq <;> (rw [heq]; assumption)
+      have hsC : s ∈ H.C := by
+        have : s ∈ ({p0, p1} : Finset V) := by
+          have : s ∈ ({r, s} : Finset V) := by simp
+          rwa [hrs_eq] at this
+        simp only [mem_insert, mem_singleton] at this
+        rcases this with heq | heq <;> (rw [heq]; assumption)
+      have hzN := opposite_hub_mem G H
+      have hq0N := core_mem_Nu G H hq0C
+      have hq1N := core_mem_Nu G H hq1C
+      have hrN := core_mem_Nu G H hrC
+      have hsN := core_mem_Nu G H hsC
+      have hdbarN : dbar ∈ G.neighborFinset H.u := by
+        rw [H.hNu]; exact mem_insert_of_mem (mem_union_right _ hdbarA)
+      have hz_ne_d := ne_z_of_priv G H hdA
+      have hz_ne_r := ne_z_of_core G H hrC
+      have hz_ne_s := ne_z_of_core G H hsC
+      have hd_ne_r := ne_core_priv G H hrC hdA
+      have hdbar_ne_r := ne_core_priv G H hrC hdbarA
+      have hdbar_ne_s := ne_core_priv G H hsC hdbarA
+      have hq0s : q0 ≠ s := by
+        have hs_in : s ∈ ({p0, p1} : Finset V) := by
+          have : s ∈ ({r, s} : Finset V) := by simp
+          rwa [hrs_eq] at this
+        simp only [mem_insert, mem_singleton] at hs_in
+        rcases hs_in with heq | heq
+        · exact (heq ▸ hdist.2.1).symm
+        · exact (heq ▸ hdist.2.2.2.1).symm
+      have hq1s : q1 ≠ s := by
+        have hs_in : s ∈ ({p0, p1} : Finset V) := by
+          have : s ∈ ({r, s} : Finset V) := by simp
+          rwa [hrs_eq] at this
+        simp only [mem_insert, mem_singleton] at hs_in
+        rcases hs_in with heq | heq
+        · exact (heq ▸ hdist.2.2.1).symm
+        · exact (heq ▸ hdist.2.2.2.2.1).symm
+      have hq0r : q0 ≠ r := by
+        have hr_in : r ∈ ({p0, p1} : Finset V) := by
+          have : r ∈ ({r, s} : Finset V) := by simp
+          rwa [hrs_eq] at this
+        simp only [mem_insert, mem_singleton] at hr_in
+        rcases hr_in with heq | heq
+        · exact (heq ▸ hdist.2.1).symm
+        · exact (heq ▸ hdist.2.2.2.1).symm
+      have hq1r : q1 ≠ r := by
+        have hr_in : r ∈ ({p0, p1} : Finset V) := by
+          have : r ∈ ({r, s} : Finset V) := by simp
+          rwa [hrs_eq] at this
+        simp only [mem_insert, mem_singleton] at hr_in
+        rcases hr_in with heq | heq
+        · exact (heq ▸ hdist.2.2.1).symm
+        · exact (heq ▸ hdist.2.2.2.2.1).symm
+      -- Outside edges ⊆ {q0q1, dbar–s}
+      have only_out {e : Sym2 V} (he : e ∈ (linkGraph G H.u).edgeFinset)
+          (hOut : ∀ x ∈ e, x ∉ ({H.v, d, r} : Finset V)) :
+          e = s(q0, q1) ∨ e = s(dbar, s) := by
+        revert he hOut
+        refine Sym2.inductionOn e fun a b he hOut => ?_
+        have hab : (linkGraph G H.u).Adj a b := (mem_edgeFinset (G := linkGraph G H.u)).1 he
+        have hG : G.Adj a b := hab.2.2
+        have haQ : a ∉ ({H.v, d, r} : Finset V) := hOut a (by simp)
+        have hbQ : b ∉ ({H.v, d, r} : Finset V) := hOut b (by simp)
+        have classif (x : V) (hxN : x ∈ G.neighborFinset H.u)
+            (hxQ : x ∉ ({H.v, d, r} : Finset V)) :
+            x = q0 ∨ x = q1 ∨ x = s ∨ x = dbar := by
+          rw [H.hNu] at hxN
+          simp only [mem_insert, mem_union, mem_singleton, not_or] at hxN hxQ
+          rcases hxN with rfl | hCmem | hAmem
+          · exact absurd rfl hxQ.1
+          · obtain ⟨hne_d, hne_r⟩ := hxQ.2
+            have hxC4 : x ∈ ({q0, q1, p0, p1} : Finset V) := by
+              have : x ∈ ({p0, p1, q0, q1} : Finset V) := by rw [← hC]; exact hCmem
+              simpa [or_comm, or_left_comm] using this
+            simp only [mem_insert, mem_singleton] at hxC4
+            rcases hxC4 with heq | heq | heq | heq
+            · exact Or.inl heq
+            · exact Or.inr (Or.inl heq)
+            · -- x = p0
+              have hmem : p0 ∈ ({p0, p1} : Finset V) := by simp
+              have : p0 ∈ ({r, s} : Finset V) := by rwa [← hrs_eq] at hmem
+              simp only [mem_insert, mem_singleton] at this
+              rcases this with hr0 | hs0
+              · exact absurd (heq.trans hr0) hne_r
+              · exact Or.inr (Or.inr (Or.inl (heq.trans hs0)))
+            · have hmem : p1 ∈ ({p0, p1} : Finset V) := by simp
+              have : p1 ∈ ({r, s} : Finset V) := by rwa [← hrs_eq] at hmem
+              simp only [mem_insert, mem_singleton] at this
+              rcases this with hr1 | hs1
+              · exact absurd (heq.trans hr1) hne_r
+              · exact Or.inr (Or.inr (Or.inl (heq.trans hs1)))
+          · have hx_ne_d : x ≠ d := hxQ.2.1
+            have : x ∈ ({d, dbar} : Finset V) := by
+              have hx01 : x ∈ ({d0, d1} : Finset V) := by rw [hAeq] at hAmem; simpa using hAmem
+              rwa [hA_pair]
+            simp only [mem_insert, mem_singleton] at this
+            rcases this with heq | heq
+            · exact absurd heq hx_ne_d
+            · exact Or.inr (Or.inr (Or.inr heq))
+        have haCl := classif a hab.1 haQ
+        have hbCl := classif b hab.2.1 hbQ
+        -- Flatten outside-edge cases
+        rcases haCl with ha | ha | ha | ha
+        · rcases hbCl with hb | hb | hb | hb
+          · exact False.elim (hG.ne (ha.trans hb.symm))
+          · exact Or.inl (by rw [ha, hb])
+          · exact False.elim (by
+              have hG' : G.Adj q0 s := by rwa [ha, hb] at hG
+              rcases honly q0 hq0C s hsC hG' with hpedge | hqedge
+              · have : q0 ∈ ({p0, p1} : Finset V) := by
+                  have : q0 ∈ s(p0, p1).toFinset := by
+                    simpa [← hpedge, Sym2.toFinset_mk_eq] using Sym2.mem_mk_left p0 p1
+                  simpa [Sym2.toFinset_mk_eq] using this
+                simp only [mem_insert, mem_singleton] at this
+                rcases this with heq | heq
+                · exact hdist.2.1 heq.symm
+                · exact hdist.2.2.2.1 heq.symm
+              · have : s ∈ ({q0, q1} : Finset V) := by
+                  have : s ∈ s(q0, q1).toFinset := by
+                    simpa [← hqedge, Sym2.toFinset_mk_eq] using Sym2.mem_mk_right q0 q1
+                  simpa [Sym2.toFinset_mk_eq] using this
+                simp only [mem_insert, mem_singleton] at this
+                rcases this with heq | heq
+                · exact hq0s heq.symm
+                · exact hq1s heq.symm)
+          · exact False.elim (not_adj_q q0 (Or.inl rfl) (by rwa [ha, hb] at hG))
+        · rcases hbCl with hb | hb | hb | hb
+          · exact Or.inl (by rw [ha, hb]; exact Sym2.eq_swap)
+          · exact False.elim (hG.ne (ha.trans hb.symm))
+          · exact False.elim (by
+              have hG' : G.Adj q1 s := by rwa [ha, hb] at hG
+              rcases honly q1 hq1C s hsC hG' with hpedge | hqedge
+              · have : q1 ∈ ({p0, p1} : Finset V) := by
+                  have : q1 ∈ s(p0, p1).toFinset := by
+                    simpa [← hpedge, Sym2.toFinset_mk_eq] using Sym2.mem_mk_left p0 p1
+                  simpa [Sym2.toFinset_mk_eq] using this
+                simp only [mem_insert, mem_singleton] at this
+                rcases this with heq | heq
+                · exact hdist.2.2.1 heq.symm
+                · exact hdist.2.2.2.2.1 heq.symm
+              · have : s ∈ ({q0, q1} : Finset V) := by
+                  have : s ∈ s(q0, q1).toFinset := by
+                    simpa [← hqedge, Sym2.toFinset_mk_eq] using Sym2.mem_mk_right q0 q1
+                  simpa [Sym2.toFinset_mk_eq] using this
+                simp only [mem_insert, mem_singleton] at this
+                rcases this with heq | heq
+                · exact hq0s heq.symm
+                · exact hq1s heq.symm)
+          · exact False.elim (not_adj_q q1 (Or.inr rfl) (by rwa [ha, hb] at hG))
+        · rcases hbCl with hb | hb | hb | hb
+          · exact False.elim (by
+              have hG' : G.Adj s q0 := by rwa [ha, hb] at hG
+              rcases honly s hsC q0 hq0C hG' with hpedge | hqedge
+              · have : q0 ∈ ({p0, p1} : Finset V) := by
+                  have : q0 ∈ s(p0, p1).toFinset := by
+                    simpa [← hpedge, Sym2.toFinset_mk_eq] using Sym2.mem_mk_right p0 p1
+                  simpa [Sym2.toFinset_mk_eq] using this
+                simp only [mem_insert, mem_singleton] at this
+                rcases this with heq | heq
+                · exact hdist.2.1 heq.symm
+                · exact hdist.2.2.2.1 heq.symm
+              · have : s ∈ ({q0, q1} : Finset V) := by
+                  have : s ∈ s(q0, q1).toFinset := by
+                    simpa [← hqedge, Sym2.toFinset_mk_eq] using Sym2.mem_mk_left q0 q1
+                  simpa [Sym2.toFinset_mk_eq] using this
+                simp only [mem_insert, mem_singleton] at this
+                rcases this with heq | heq
+                · exact hq0s heq.symm
+                · exact hq1s heq.symm)
+          · exact False.elim (by
+              have hG' : G.Adj s q1 := by rwa [ha, hb] at hG
+              rcases honly s hsC q1 hq1C hG' with hpedge | hqedge
+              · have : q1 ∈ ({p0, p1} : Finset V) := by
+                  have : q1 ∈ s(p0, p1).toFinset := by
+                    simpa [← hpedge, Sym2.toFinset_mk_eq] using Sym2.mem_mk_right p0 p1
+                  simpa [Sym2.toFinset_mk_eq] using this
+                simp only [mem_insert, mem_singleton] at this
+                rcases this with heq | heq
+                · exact hdist.2.2.1 heq.symm
+                · exact hdist.2.2.2.2.1 heq.symm
+              · have : s ∈ ({q0, q1} : Finset V) := by
+                  have : s ∈ s(q0, q1).toFinset := by
+                    simpa [← hqedge, Sym2.toFinset_mk_eq] using Sym2.mem_mk_left q0 q1
+                  simpa [Sym2.toFinset_mk_eq] using this
+                simp only [mem_insert, mem_singleton] at this
+                rcases this with heq | heq
+                · exact hq0s heq.symm
+                · exact hq1s heq.symm)
+          · exact False.elim (hG.ne (ha.trans hb.symm))
+          · exact Or.inr (by rw [ha, hb]; exact Sym2.eq_swap)
+        · rcases hbCl with hb | hb | hb | hb
+          · exact False.elim (not_adj_q q0 (Or.inl rfl) (by have hGs := hG.symm; rwa [hb, ha] at hGs))
+          · exact False.elim (not_adj_q q1 (Or.inr rfl) (by have hGs := hG.symm; rwa [hb, ha] at hGs))
+          · exact Or.inr (by rw [ha, hb])
+          · exact False.elim (hG.ne (ha.trans hb.symm))
+      by_cases hds : G.Adj dbar s
+      · let Q : Finset V := {H.v, d, r}
+        let M : Finset (Sym2 V) := {s(q0, q1), s(dbar, s), s(H.v, r)}
+        have hzr := z_adj_core G H hrC
+        have hQcard : Q.card = 3 := by
+          change ({H.v, d, r} : Finset V).card = 3
+          have h1 : H.v ∉ ({d, r} : Finset V) := by
+            simp only [mem_insert, mem_singleton, not_or]; exact ⟨hz_ne_d, hz_ne_r⟩
+          have h2 : d ∉ ({r} : Finset V) := by
+            simp only [mem_singleton]; exact hd_ne_r.symm
+          rw [card_insert_of_notMem h1, card_insert_of_notMem h2, card_singleton]
+        have hne01 : s(q0, q1) ≠ s(dbar, s) := by
+          intro heq
+          have : q0 = dbar ∨ q0 = s := by
+            simpa [Sym2.mem_iff] using
+              (show q0 ∈ s(dbar, s) by simpa [← heq] using Sym2.mem_mk_left q0 q1)
+          rcases this with heq' | heq'
+          · exact (ne_core_priv G H hq0C hdbarA) heq'
+          · exact hq0s heq'
+        have hne02 : s(q0, q1) ≠ s(H.v, r) := by
+          intro heq
+          have : q0 = H.v ∨ q0 = r := by
+            simpa [Sym2.mem_iff] using
+              (show q0 ∈ s(H.v, r) by simpa [← heq] using Sym2.mem_mk_left q0 q1)
+          rcases this with heq' | heq'
+          · exact (ne_z_of_core G H hq0C) heq'.symm
+          · exact hq0r heq'
+        have hne12 : s(dbar, s) ≠ s(H.v, r) := by
+          intro heq
+          have : dbar = H.v ∨ dbar = r := by
+            simpa [Sym2.mem_iff] using
+              (show dbar ∈ s(H.v, r) by simpa [← heq] using Sym2.mem_mk_left dbar s)
+          rcases this with heq' | heq'
+          · exact (ne_z_of_priv G H hdbarA) heq'.symm
+          · exact hdbar_ne_r heq'.symm
+        have hMcard : M.card = 3 := by
+          change ({s(q0, q1), s(dbar, s), s(H.v, r)} : Finset (Sym2 V)).card = 3
+          have h1 : s(q0, q1) ∉ ({s(dbar, s), s(H.v, r)} : Finset (Sym2 V)) := by
+            simp [hne01, hne02]
+          have h2 : s(dbar, s) ∉ ({s(H.v, r)} : Finset (Sym2 V)) := by simp [hne12]
+          rw [card_insert_of_notMem h1, card_insert_of_notMem h2, card_singleton]
+        have hdisj01 : Disjoint s(q0, q1).toFinset s(dbar, s).toFinset := by
+          rw [Sym2.toFinset_mk_eq, Sym2.toFinset_mk_eq]
+          refine Finset.disjoint_iff_ne.2 ?_
+          intro a ha b hb; simp only [mem_insert, mem_singleton] at ha hb
+          rcases ha with ha | ha <;> rcases hb with hb | hb
+          · exact ha ▸ hb ▸ (ne_core_priv G H hq0C hdbarA)
+          · exact ha ▸ hb ▸ hq0s
+          · exact ha ▸ hb ▸ (ne_core_priv G H hq1C hdbarA)
+          · exact ha ▸ hb ▸ hq1s
+        have hdisj02 : Disjoint s(q0, q1).toFinset s(H.v, r).toFinset := by
+          rw [Sym2.toFinset_mk_eq, Sym2.toFinset_mk_eq]
+          refine Finset.disjoint_iff_ne.2 ?_
+          intro a ha b hb; simp only [mem_insert, mem_singleton] at ha hb
+          rcases ha with ha | ha <;> rcases hb with hb | hb
+          · exact ha ▸ hb ▸ (ne_z_of_core G H hq0C).symm
+          · exact ha ▸ hb ▸ hq0r
+          · exact ha ▸ hb ▸ (ne_z_of_core G H hq1C).symm
+          · exact ha ▸ hb ▸ hq1r
+        have hdisj12 : Disjoint s(dbar, s).toFinset s(H.v, r).toFinset := by
+          rw [Sym2.toFinset_mk_eq, Sym2.toFinset_mk_eq]
+          refine Finset.disjoint_iff_ne.2 ?_
+          intro a ha b hb; simp only [mem_insert, mem_singleton] at ha hb
+          rcases ha with ha | ha <;> rcases hb with hb | hb
+          · exact ha ▸ hb ▸ (ne_z_of_priv G H hdbarA).symm
+          · exact ha ▸ hb ▸ hdbar_ne_r.symm
+          · exact ha ▸ hb ▸ hz_ne_s.symm
+          · exact ha ▸ hb ▸ hr_ne_s.symm
+        have hM : IsEdgeMatching (linkGraph G H.u) M := by
+          refine ⟨?_, ?_⟩
+          · intro e he; simp only [M, mem_insert, mem_singleton] at he
+            rcases he with h | h | h
+            · subst h; exact Prop31.link_edge G H.u q0 q1 hq0N hq1N hcore.2
+            · subst h; exact Prop31.link_edge G H.u dbar s hdbarN hsN hds
+            · subst h; exact Prop31.link_edge G H.u H.v r hzN hrN hzr
+          · intro e he f hf hne'
+            simp only [M, mem_insert, mem_singleton] at he hf
+            rcases he with he | he | he <;> rcases hf with hf | hf | hf
+            · subst he; subst hf; exact absurd rfl hne'
+            · subst he; subst hf; exact hdisj01
+            · subst he; subst hf; exact hdisj02
+            · subst he; subst hf; exact hdisj01.symm
+            · subst he; subst hf; exact absurd rfl hne'
+            · subst he; subst hf; exact hdisj12
+            · subst he; subst hf; exact hdisj02.symm
+            · subst he; subst hf; exact hdisj12.symm
+            · subst he; subst hf; exact absurd rfl hne'
+        have : IsWKE (linkGraph G H.u) :=
+          isWKE_of_witness _ ⟨hM, Nat.le_of_eq (hQcard.trans hMcard.symm), fun e he hOut => by
+            have hout := only_out he (by intro x hx; simpa [Q] using hOut x hx)
+            rcases hout with heq | heq <;> simp only [M, mem_insert, mem_singleton, heq, true_or, or_true]⟩
+        exact hnot this
+      · -- ¬dbar–s ⇒ dbar–r; M = {q0q1, dbar r, z s}
+        have hdr : G.Adj dbar r := by
+          obtain ⟨x, hx⟩ := hdbar_p
+          have hx' : x = p0 ∨ x = p1 := by simpa using (mem_inter.1 hx).2
+          have hAdj : G.Adj dbar x := (G.mem_neighborFinset _ _).1 (mem_inter.1 hx).1
+          have hmem : x ∈ ({p0, p1} : Finset V) := by simpa using hx'
+          have : x ∈ ({r, s} : Finset V) := by rwa [← hrs_eq] at hmem
+          simp only [mem_insert, mem_singleton] at this
+          rcases this with heq | heq
+          · exact heq ▸ hAdj
+          · exact False.elim (hds (heq ▸ hAdj))
+        let Q : Finset V := {H.v, d, r}
+        let M : Finset (Sym2 V) := {s(q0, q1), s(dbar, r), s(H.v, s)}
+        have hzs := z_adj_core G H hsC
+        have hQcard : Q.card = 3 := by
+          change ({H.v, d, r} : Finset V).card = 3
+          have h1 : H.v ∉ ({d, r} : Finset V) := by
+            simp only [mem_insert, mem_singleton, not_or]; exact ⟨hz_ne_d, hz_ne_r⟩
+          have h2 : d ∉ ({r} : Finset V) := by
+            simp only [mem_singleton]; exact hd_ne_r.symm
+          rw [card_insert_of_notMem h1, card_insert_of_notMem h2, card_singleton]
+        have hne01 : s(q0, q1) ≠ s(dbar, r) := by
+          intro heq
+          have : q0 = dbar ∨ q0 = r := by
+            simpa [Sym2.mem_iff] using
+              (show q0 ∈ s(dbar, r) by simpa [← heq] using Sym2.mem_mk_left q0 q1)
+          rcases this with heq' | heq'
+          · exact (ne_core_priv G H hq0C hdbarA) heq'
+          · exact hq0r heq'
+        have hne02 : s(q0, q1) ≠ s(H.v, s) := by
+          intro heq
+          have : q0 = H.v ∨ q0 = s := by
+            simpa [Sym2.mem_iff] using
+              (show q0 ∈ s(H.v, s) by simpa [← heq] using Sym2.mem_mk_left q0 q1)
+          rcases this with heq' | heq'
+          · exact (ne_z_of_core G H hq0C) heq'.symm
+          · exact hq0s heq'
+        have hne12 : s(dbar, r) ≠ s(H.v, s) := by
+          intro heq
+          have : dbar = H.v ∨ dbar = s := by
+            simpa [Sym2.mem_iff] using
+              (show dbar ∈ s(H.v, s) by simpa [← heq] using Sym2.mem_mk_left dbar r)
+          rcases this with heq' | heq'
+          · exact (ne_z_of_priv G H hdbarA) heq'.symm
+          · exact hdbar_ne_s heq'.symm
+        have hMcard : M.card = 3 := by
+          change ({s(q0, q1), s(dbar, r), s(H.v, s)} : Finset (Sym2 V)).card = 3
+          have h1 : s(q0, q1) ∉ ({s(dbar, r), s(H.v, s)} : Finset (Sym2 V)) := by
+            simp [hne01, hne02]
+          have h2 : s(dbar, r) ∉ ({s(H.v, s)} : Finset (Sym2 V)) := by simp [hne12]
+          rw [card_insert_of_notMem h1, card_insert_of_notMem h2, card_singleton]
+        have hdisj01 : Disjoint s(q0, q1).toFinset s(dbar, r).toFinset := by
+          rw [Sym2.toFinset_mk_eq, Sym2.toFinset_mk_eq]
+          refine Finset.disjoint_iff_ne.2 ?_
+          intro a ha b hb; simp only [mem_insert, mem_singleton] at ha hb
+          rcases ha with ha | ha <;> rcases hb with hb | hb
+          · exact ha ▸ hb ▸ (ne_core_priv G H hq0C hdbarA)
+          · exact ha ▸ hb ▸ hq0r
+          · exact ha ▸ hb ▸ (ne_core_priv G H hq1C hdbarA)
+          · exact ha ▸ hb ▸ hq1r
+        have hdisj02 : Disjoint s(q0, q1).toFinset s(H.v, s).toFinset := by
+          rw [Sym2.toFinset_mk_eq, Sym2.toFinset_mk_eq]
+          refine Finset.disjoint_iff_ne.2 ?_
+          intro a ha b hb; simp only [mem_insert, mem_singleton] at ha hb
+          rcases ha with ha | ha <;> rcases hb with hb | hb
+          · exact ha ▸ hb ▸ (ne_z_of_core G H hq0C).symm
+          · exact ha ▸ hb ▸ hq0s
+          · exact ha ▸ hb ▸ (ne_z_of_core G H hq1C).symm
+          · exact ha ▸ hb ▸ hq1s
+        have hdisj12 : Disjoint s(dbar, r).toFinset s(H.v, s).toFinset := by
+          rw [Sym2.toFinset_mk_eq, Sym2.toFinset_mk_eq]
+          refine Finset.disjoint_iff_ne.2 ?_
+          intro a ha b hb; simp only [mem_insert, mem_singleton] at ha hb
+          rcases ha with ha | ha <;> rcases hb with hb | hb
+          · exact ha ▸ hb ▸ (ne_z_of_priv G H hdbarA).symm
+          · exact ha ▸ hb ▸ hdbar_ne_s.symm
+          · exact ha ▸ hb ▸ hz_ne_r.symm
+          · exact ha ▸ hb ▸ hr_ne_s
+        have hM : IsEdgeMatching (linkGraph G H.u) M := by
+          refine ⟨?_, ?_⟩
+          · intro e he; simp only [M, mem_insert, mem_singleton] at he
+            rcases he with h | h | h
+            · subst h; exact Prop31.link_edge G H.u q0 q1 hq0N hq1N hcore.2
+            · subst h; exact Prop31.link_edge G H.u dbar r hdbarN hrN hdr
+            · subst h; exact Prop31.link_edge G H.u H.v s hzN hsN hzs
+          · intro e he f hf hne'
+            simp only [M, mem_insert, mem_singleton] at he hf
+            rcases he with he | he | he <;> rcases hf with hf | hf | hf
+            · subst he; subst hf; exact absurd rfl hne'
+            · subst he; subst hf; exact hdisj01
+            · subst he; subst hf; exact hdisj02
+            · subst he; subst hf; exact hdisj01.symm
+            · subst he; subst hf; exact absurd rfl hne'
+            · subst he; subst hf; exact hdisj12
+            · subst he; subst hf; exact hdisj02.symm
+            · subst he; subst hf; exact hdisj12.symm
+            · subst he; subst hf; exact absurd rfl hne'
+        have : IsWKE (linkGraph G H.u) :=
+          isWKE_of_witness _ ⟨hM, Nat.le_of_eq (hQcard.trans hMcard.symm), fun e he hOut => by
+            have hout := only_out he (by intro x hx; simpa [Q] using hOut x hx)
+            rcases hout with heq | heq
+            · simp only [M, mem_insert, mem_singleton, heq, true_or]
+            · have hab : (linkGraph G H.u).Adj dbar s := by
+                have : s(dbar, s) ∈ (linkGraph G H.u).edgeFinset := by simpa [← heq] using he
+                exact (mem_edgeFinset (G := linkGraph G H.u)).1 this
+              exact False.elim (hds hab.2.2)⟩
+        exact hnot this
   · -- Both p-endpoints attach; same-singleton on p-edge
     push Not at hone_p
     have hp0A : (G.neighborFinset p0 ∩ H.A).Nonempty := hone_p.1
@@ -2822,16 +3308,164 @@ theorem matching_core_reducible (H : HubConfig G) (hA1 : H.A1)
   classical
   obtain ⟨a0, a1, hAeq, hcross⟩ :=
     lemma41_cross G H hA1.1 hA1.2.1 p0 p1 q0 q1 hC hcore honly
-  obtain ⟨b0, b1, hb01, hBeq⟩ := (card_eq_two (s := H.B)).1 H.hB
+  obtain ⟨b0₀, b1₀, hb01₀, hBeq₀⟩ := (card_eq_two (s := H.B)).1 H.hB
   have ha01 : a0 ≠ a1 := by
     intro heq; have hA2 := H.hA; rw [hAeq, heq] at hA2; simp at hA2
-  have h10 : ({H.u, H.v, p0, p1, q0, q1, a0, a1, b0, b1} : Finset V).card = 10 := by
-    exact labels10_of_hub G H hC hAeq hBeq (by rw [← hC]; exact H.hCcard) ha01 hb01
   let Hs := H.swap
   have hA1s : Hs.A1 := hA1.swap
-  -- Orient hcross + B-hit (via Hs + lemma41_edge_hit) into matching_core_of_labels.
-  -- One-sided and p-edge same-singleton of lemma41_cross are done; q-edge dual WKE open.
-  sorry
+  have hAs : Hs.A = H.B := rfl
+  have hCs : Hs.C = H.C := rfl
+  have sym_of_pair {x y x' y' : V} (heq : ({x, y} : Finset V) = {x', y'})
+      (hne : x ≠ y) : s(x, y) = s(x', y') := by
+    have hx : x = x' ∨ x = y' := by
+      have : x ∈ ({x', y'} : Finset V) := by rw [← heq]; simp
+      simpa using this
+    have hy : y = x' ∨ y = y' := by
+      have : y ∈ ({x', y'} : Finset V) := by rw [← heq]; simp
+      simpa using this
+    rcases hx with hx | hx <;> rcases hy with hy | hy
+    · exact absurd (hx.trans hy.symm) hne
+    · rw [hx, hy]
+    · rw [hx, hy]; exact Sym2.eq_swap
+    · exact absurd (hx.trans hy.symm) hne
+  have adj_of_pair {x y x' y' : V} (heq : ({x, y} : Finset V) = {x', y'})
+      (hne : x ≠ y) (hAdj : G.Adj x' y') : G.Adj x y := by
+    have hx : x = x' ∨ x = y' := by
+      have : x ∈ ({x', y'} : Finset V) := by rw [← heq]; simp
+      simpa using this
+    have hy : y = x' ∨ y = y' := by
+      have : y ∈ ({x', y'} : Finset V) := by rw [← heq]; simp
+      simpa using this
+    rcases hx with hx | hx <;> rcases hy with hy | hy
+    · exact absurd (hx.trans hy.symm) hne
+    · exact hx ▸ hy ▸ hAdj
+    · exact hx ▸ hy ▸ hAdj.symm
+    · exact absurd (hx.trans hy.symm) hne
+  have pair_ne {x y x' y' : V} (heq : ({x, y} : Finset V) = {x', y'})
+      (hne' : x' ≠ y') : x ≠ y := by
+    intro heqxy
+    have : ({x', y'} : Finset V).card = 1 := by
+      rw [← heq, heqxy]; simp
+    have : ({x', y'} : Finset V).card = 2 := by
+      rw [card_insert_of_notMem (by simp [hne']), card_singleton]
+    omega
+  have reorient_B (b1 : V) (hb1 : b1 ∈ H.B) :
+      ∃ b0, H.B = {b0, b1} ∧ b0 ≠ b1 := by
+    have hb1m : b1 = b0₀ ∨ b1 = b1₀ := by rw [hBeq₀] at hb1; simpa using hb1
+    rcases hb1m with heq | heq
+    · refine ⟨b1₀, ?_, heq ▸ hb01₀.symm⟩
+      rw [hBeq₀, heq]; ext x; simp [or_comm]
+    · refine ⟨b0₀, ?_, heq ▸ hb01₀⟩
+      rw [hBeq₀, heq]
+  -- Orient crossed A-matching on one core edge; B-hit on the other via Hs.
+  rcases hcross with hcross_p | hcross_q
+  · obtain ⟨c1, c2, hc12, hattA⟩ :
+        ∃ c1 c2, ({c1, c2} : Finset V) = {p0, p1} ∧ G.Adj c1 a1 ∧ G.Adj c2 a0 := by
+      rcases hcross_p with h | h
+      · exact ⟨p1, p0, by ext x; simp [or_comm], h.2, h.1⟩
+      · exact ⟨p0, p1, by ext x; simp, h.1, h.2⟩
+    have hC' : Hs.C = {q0, q1, p0, p1} := by
+      change H.C = _; rw [hC]; ext x; simp [or_comm, or_left_comm]
+    have honly' : ∀ x ∈ Hs.C, ∀ y ∈ Hs.C, G.Adj x y →
+        s(x, y) = s(q0, q1) ∨ s(x, y) = s(p0, p1) := by
+      intro x hx y hy hAdj
+      have hxC : x ∈ H.C := by change x ∈ H.C at hx; exact hx
+      have hyC : y ∈ H.C := by change y ∈ H.C at hy; exact hy
+      rcases honly x hxC y hyC hAdj with h | h <;> simp [h, or_comm]
+    have hBeq_s : Hs.A = {b0₀, b1₀} := by change H.B = _; exact hBeq₀
+    have hhitB := lemma41_edge_hit G Hs hA1s.1 hA1s.2.1 q0 q1 p0 p1 hC'
+      ⟨hcore.2, hcore.1⟩ honly' b0₀ b1₀ hBeq_s hb01₀
+    have hhitB' : (G.neighborFinset q0 ∩ H.B).Nonempty ∨
+        (G.neighborFinset q1 ∩ H.B).Nonempty := by
+      change _ ∨ _ at hhitB; exact hhitB
+    obtain ⟨c0, c3, b1, hc03, hb1B, hattB⟩ :
+        ∃ c0 c3 b1, ({c0, c3} : Finset V) = {q0, q1} ∧
+          b1 ∈ H.B ∧ G.Adj c0 b1 := by
+      rcases hhitB' with hq0 | hq1
+      · obtain ⟨b1, hb1⟩ := hq0
+        exact ⟨q0, q1, b1, by ext x; simp, (mem_inter.1 hb1).2,
+          (G.mem_neighborFinset _ _).1 (mem_inter.1 hb1).1⟩
+      · obtain ⟨b1, hb1⟩ := hq1
+        exact ⟨q1, q0, b1, by ext x; simp [or_comm], (mem_inter.1 hb1).2,
+          (G.mem_neighborFinset _ _).1 (mem_inter.1 hb1).1⟩
+    obtain ⟨b0, hBeq, hb01⟩ := reorient_B b1 hb1B
+    have hdist := core4_distinct G H hC
+    have hne12 := pair_ne hc12 hdist.1
+    have hne03 := pair_ne hc03 hdist.2.2.2.2.2
+    have hCeq : H.C = {c0, c1, c2, c3} := by
+      have hpair : ({p0, p1, q0, q1} : Finset V) = {c0, c1, c2, c3} := by
+        have hu : ({p0, p1, q0, q1} : Finset V) = {p0, p1} ∪ {q0, q1} := by
+          ext x; simp [or_comm, or_left_comm, or_assoc]
+        have hv : ({c0, c1, c2, c3} : Finset V) = {c1, c2} ∪ {c0, c3} := by
+          ext x; simp [or_comm, or_left_comm, or_assoc]
+        rw [hu, hv, ← hc12, ← hc03]
+      rw [hC, hpair]
+    have hcore' : G.Adj c0 c3 ∧ G.Adj c1 c2 :=
+      ⟨adj_of_pair hc03 hne03 hcore.2, adj_of_pair hc12 hne12 hcore.1⟩
+    have honly'' : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+        s(x, y) = s(c0, c3) ∨ s(x, y) = s(c1, c2) := by
+      intro x hx y hy hAdj
+      rcases honly x hx y hy hAdj with hp | hq
+      · exact Or.inr (hp.trans (sym_of_pair hc12 hne12).symm)
+      · exact Or.inl (hq.trans (sym_of_pair hc03 hne03).symm)
+    have h10 : ({H.u, H.v, c0, c1, c2, c3, a0, a1, b0, b1} : Finset V).card = 10 := by
+      have hC4 : ({c0, c1, c2, c3} : Finset V).card = 4 := by rw [← hCeq]; exact H.hCcard
+      exact labels10_of_hub G H hCeq hAeq hBeq hC4 ha01 hb01
+    exact matching_core_of_labels G H hA1 c0 c1 c2 c3 a0 a1 b0 b1
+      hCeq hAeq hBeq hcore' honly'' ⟨hattA.1, hattA.2, hattB⟩ h10
+  · obtain ⟨c1, c2, hc12, hattA⟩ :
+        ∃ c1 c2, ({c1, c2} : Finset V) = {q0, q1} ∧ G.Adj c1 a1 ∧ G.Adj c2 a0 := by
+      rcases hcross_q with h | h
+      · exact ⟨q1, q0, by ext x; simp [or_comm], h.2, h.1⟩
+      · exact ⟨q0, q1, by ext x; simp, h.1, h.2⟩
+    have hC' : Hs.C = {p0, p1, q0, q1} := by change H.C = _; exact hC
+    have honly' : ∀ x ∈ Hs.C, ∀ y ∈ Hs.C, G.Adj x y →
+        s(x, y) = s(p0, p1) ∨ s(x, y) = s(q0, q1) := by
+      intro x hx y hy hAdj
+      have hxC : x ∈ H.C := by change x ∈ H.C at hx; exact hx
+      have hyC : y ∈ H.C := by change y ∈ H.C at hy; exact hy
+      exact honly x hxC y hyC hAdj
+    have hBeq_s : Hs.A = {b0₀, b1₀} := by change H.B = _; exact hBeq₀
+    have hhitB := lemma41_edge_hit G Hs hA1s.1 hA1s.2.1 p0 p1 q0 q1 hC'
+      hcore honly' b0₀ b1₀ hBeq_s hb01₀
+    have hhitB' : (G.neighborFinset p0 ∩ H.B).Nonempty ∨
+        (G.neighborFinset p1 ∩ H.B).Nonempty := by
+      change _ ∨ _ at hhitB; exact hhitB
+    obtain ⟨c0, c3, b1, hc03, hb1B, hattB⟩ :
+        ∃ c0 c3 b1, ({c0, c3} : Finset V) = {p0, p1} ∧
+          b1 ∈ H.B ∧ G.Adj c0 b1 := by
+      rcases hhitB' with hp0 | hp1
+      · obtain ⟨b1, hb1⟩ := hp0
+        exact ⟨p0, p1, b1, by ext x; simp, (mem_inter.1 hb1).2,
+          (G.mem_neighborFinset _ _).1 (mem_inter.1 hb1).1⟩
+      · obtain ⟨b1, hb1⟩ := hp1
+        exact ⟨p1, p0, b1, by ext x; simp [or_comm], (mem_inter.1 hb1).2,
+          (G.mem_neighborFinset _ _).1 (mem_inter.1 hb1).1⟩
+    obtain ⟨b0, hBeq, hb01⟩ := reorient_B b1 hb1B
+    have hdist := core4_distinct G H hC
+    have hne12 := pair_ne hc12 hdist.2.2.2.2.2
+    have hne03 := pair_ne hc03 hdist.1
+    have hCeq : H.C = {c0, c1, c2, c3} := by
+      have hpair : ({p0, p1, q0, q1} : Finset V) = {c0, c1, c2, c3} := by
+        have hu : ({p0, p1, q0, q1} : Finset V) = {p0, p1} ∪ {q0, q1} := by
+          ext x; simp [or_comm, or_left_comm, or_assoc]
+        have hv : ({c0, c1, c2, c3} : Finset V) = {c0, c3} ∪ {c1, c2} := by
+          ext x; simp [or_comm, or_left_comm, or_assoc]
+        rw [hu, hv, ← hc03, ← hc12]
+      rw [hC, hpair]
+    have hcore' : G.Adj c0 c3 ∧ G.Adj c1 c2 :=
+      ⟨adj_of_pair hc03 hne03 hcore.1, adj_of_pair hc12 hne12 hcore.2⟩
+    have honly'' : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+        s(x, y) = s(c0, c3) ∨ s(x, y) = s(c1, c2) := by
+      intro x hx y hy hAdj
+      rcases honly x hx y hy hAdj with hp | hq
+      · exact Or.inl (hp.trans (sym_of_pair hc03 hne03).symm)
+      · exact Or.inr (hq.trans (sym_of_pair hc12 hne12).symm)
+    have h10 : ({H.u, H.v, c0, c1, c2, c3, a0, a1, b0, b1} : Finset V).card = 10 := by
+      have hC4 : ({c0, c1, c2, c3} : Finset V).card = 4 := by rw [← hCeq]; exact H.hCcard
+      exact labels10_of_hub G H hCeq hAeq hBeq hC4 ha01 hb01
+    exact matching_core_of_labels G H hA1 c0 c1 c2 c3 a0 a1 b0 b1
+      hCeq hAeq hBeq hcore' honly'' ⟨hattA.1, hattA.2, hattB⟩ h10
 
 
 end MatchingCore
@@ -3868,14 +4502,19 @@ end PathCore
 /-- **Theorem 1.3 (Structural codegree-four reduction).** -/
 theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (_hA2 : H.A2) :
     IsReducible G ({H.u, H.v} : Finset V) := by
-  -- Under (A1), cores with ≤1 edge are excluded (Prop 3.1).
+  classical
   have hge : 2 ≤ H.numCoreEdges := by
     by_contra hlt
     have : H.numCoreEdges ≤ 1 := by omega
     exact prop31 G H hA1 this
-  -- Nine remaining cores (Lemma 2.2). Matching 2K₂ → `matching_core_reducible`
-  -- (lemma41_cross one-sided done; same-singleton WKE open). Star/path attachment lemmas are proved;
-  -- their certificates (Props 4.6–4.7) and denser cores remain.
+  -- Matching 2K₂ core (when labelled) → Prop 4.2 via `matching_core_reducible`.
+  by_cases h2K2 : ∃ p0 p1 q0 q1 : V,
+      H.C = {p0, p1, q0, q1} ∧ G.Adj p0 p1 ∧ G.Adj q0 q1 ∧
+      (∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+        s(x, y) = s(p0, p1) ∨ s(x, y) = s(q0, q1))
+  · obtain ⟨p0, p1, q0, q1, hC, hp, hq, honly⟩ := h2K2
+    exact MatchingCore.matching_core_reducible G H hA1 p0 p1 q0 q1 hC ⟨hp, hq⟩ honly
+  -- Remaining cores (P₃+K₁, star, path, denser): certificates open.
   sorry
 
 
