@@ -109,4 +109,79 @@ theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2) :
     IsReducible G ({H.u, H.v} : Finset V) := by
   sorry
 
+
+/-! ## Constructive WKE witnesses for Proposition 3.1 (one-edge core)
+
+These record the paper's explicit matchings. Proofs verify `IsWKEWitness` for the
+link graph; currently `sorry` pending careful membership arguments in `linkGraph`.
+-/
+
+namespace Prop31
+
+/-- `hub` owns the link; `z` is the opposite hub (a neighbour of `hub`). -/
+theorem wke_private_edge (hub z p q r d0 d1 : V)
+    (hpq : G.Adj p q) (hd01 : G.Adj d0 d1) (hzr : G.Adj z r)
+    (hN : ({z, p, q, r, d0, d1} : Finset V) ⊆ G.neighborFinset hub)
+    (honly : ∀ e ∈ (linkGraph G hub).edgeFinset,
+      (∀ x ∈ e, x ∉ ({z, d0, d1} : Finset V)) → e = s(p, q)) :
+    IsWKEWitness (linkGraph G hub)
+      ({s(p, q), s(d0, d1), s(z, r)} : Finset (Sym2 V))
+      ({z, d0, d1} : Finset V) := by
+  sorry
+
+/-- Case: no private edge; attachment `r–di` from a non-edge core vertex.
+`M = {pq, r di, zs}`, `Q = {z, d₀, d₁}`. -/
+theorem wke_private_attach (hub z p q r s d0 d1 : V)
+    (hpq : G.Adj p q) (hrd0 : G.Adj r d0) (hzs : G.Adj z s)
+    (hN : ({z, p, q, r, s, d0, d1} : Finset V) ⊆ G.neighborFinset hub)
+    (honly : ∀ e ∈ (linkGraph G hub).edgeFinset,
+      (∀ x ∈ e, x ∉ ({z, d0, d1} : Finset V)) → e = s(p, q) ∨ e = s(r, d0)) :
+    IsWKEWitness (linkGraph G hub)
+      ({s(p, q), s(r, d0), s(z, s)} : Finset (Sym2 V))
+      ({z, d0, d1} : Finset V) := by
+  sorry
+
+end Prop31
+
+/-! ## Matching core `2K₂` (Proposition 4.2) -/
+
+namespace MatchingCore
+
+def packing42 (u v c0 c1 c2 c3 a0 a1 b1 : V) : Finset (Finset V) :=
+  {{u, c0, c3}, {u, c1, a1}, {u, c2, a0}, {v, c0, b1}, {v, c1, c2}}
+
+def cover42 (u v c0 c1 c2 c3 a0 a1 b0 b1 : V) : Finset (Sym2 V) :=
+  {s(u, v), s(u, a0), s(u, a1), s(v, b0), s(v, b1),
+   s(c0, c3), s(c1, c2), s(c1, a1), s(c2, a0), s(c0, b1)}
+
+theorem cover42_card (u v c0 c1 c2 c3 a0 a1 b0 b1 : V)
+    (hne : ({s(u, v), s(u, a0), s(u, a1), s(v, b0), s(v, b1),
+      s(c0, c3), s(c1, c2), s(c1, a1), s(c2, a0), s(c0, b1)} : Finset (Sym2 V)).card = 10) :
+    (cover42 u v c0 c1 c2 c3 a0 a1 b0 b1).card = 10 := by
+  simpa [cover42] using hne
+
+/-- **Proposition 4.2** (certificate under the paper's attachment labelling). -/
+theorem prop42_certificate (H : HubConfig G)
+    (c0 c1 c2 c3 a0 a1 b0 b1 : V)
+    (hC : H.C = {c0, c1, c2, c3})
+    (hA : H.A = {a0, a1})
+    (hB : H.B = {b0, b1})
+    (hcore : G.Adj c0 c3 ∧ G.Adj c1 c2)
+    (hatt : G.Adj c1 a1 ∧ G.Adj c2 a0 ∧ G.Adj c0 b1) :
+    ∃ cert : ReductionCertificate G ({H.u, H.v} : Finset V),
+      cert.packing.card = 5 ∧ cert.cover.card = 10 := by
+  sorry
+
+/-- Lemma 4.1 (3): a cross-matched core edge exists under (A1) for a `2K₂` core. -/
+theorem lemma41_cross (H : HubConfig G)
+    (hA1u : (linkGraph G H.u).Connected ∧ ¬ IsWKE (linkGraph G H.u))
+    (p0 p1 q0 q1 : V) (hC : H.C = {p0, p1, q0, q1})
+    (hcore : G.Adj p0 p1 ∧ G.Adj q0 q1) :
+    ∃ d0 d1, H.A = {d0, d1} ∧
+      ((G.Adj p0 d0 ∧ G.Adj p1 d1) ∨ (G.Adj p0 d1 ∧ G.Adj p1 d0) ∨
+       (G.Adj q0 d0 ∧ G.Adj q1 d1) ∨ (G.Adj q0 d1 ∧ G.Adj q1 d0)) := by
+  sorry
+
+end MatchingCore
+
 end Tuza.CodegreeFour

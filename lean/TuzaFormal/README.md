@@ -36,13 +36,13 @@ This is proved for general k (no enumeration over k). The general statements are
 
 ## Theorem 1.3 (in progress)
 
-- `TuzaFormal/Reducibility.lean`: Defs 1.1–1.2 (`IsWKE`, `IsEdgeMatching`, `ReductionCertificate`,
-  `IsReducible`, `residual`). **Lemma 2.1** (`reduction_bridge`) is stated; proof is `sorry`
-  (paper sketch recorded in the docstring).
-- `TuzaFormal/CodegreeFour.lean`: `HubConfig` (neighbourhood partition for codegree-four hubs),
-  (A1)/(A2), link graph, core edge count. **Proved:** `core_edge_bound` (≤ 6 edges on a 4-vertex
-  core). **Axiom:** `puleo_large_indep` (Puleo Cor. 4.12). **Sorry:** `prop31` (exclude ≤1-edge
-  cores), `structural_codegree_four` (Thm 1.3; needs the nine packing-and-deletion constructions).
+- `TuzaFormal/Reducibility.lean`: Defs 1.1–1.2; ambient residual packing/cover.
+  **Proved:** `reduction_bridge` (Lemma 2.1) — fully, no `sorry`. Also `combine_packing`,
+  `combine_cover`, `residual_packing_disj`. Certificate now requires `cover_edges`.
+- `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound` (proved).
+  **Axiom:** `puleo_large_indep`. **Sorry:** `prop31`; Prop 3.1 constructive witnesses
+  `wke_private_edge`, `wke_private_attach` (statements fixed: link owned by `hub`);
+  `MatchingCore.prop42_certificate`, `lemma41_cross`; `structural_codegree_four`.
 
 
 ## Build
