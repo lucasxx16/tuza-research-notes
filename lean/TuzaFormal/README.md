@@ -70,3 +70,9 @@ A clean build takes about 8 minutes.
 
 - `diamond_certificate_D1` fully proved (packing, cover edges, size, external, coversZ via rim deletion).
 - Remaining sorries: `diamond_core_reducible` (force D1–D5), `c4_core_reducible`, `paw_core_reducible`, `k3k1_core_reducible`, residual in `structural_codegree_four`.
+
+## Progress (diamond D3 + D5)
+
+- `diamond_certificate_D3` fully proved (unused privates).
+- `diamond_certificate_D5` fully proved (private edges + double center).
+- Still open: D2, D4 certificates; `diamond_core_reducible` forcing; C₄/paw/K₃+K₁; residual structural sorry.
