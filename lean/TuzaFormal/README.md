@@ -125,3 +125,21 @@ Still `sorry` (5): the diamond Cases 1–3 classification, `c4_core_reducible`,
 `lake env lean`. The cause was `rcases … rfl` / `obtain ⟨_, _, rfl⟩` removing named variables
 in the `packing53G_*`, `cover53G_card`, `packing*_disjoint`, and diamond-forcing proofs. It is
 fixed by substituting in the other direction (`subst αz βy`, `subst w`, `_` placeholders).
+
+## Status update (Oct 12, 2026): Theorem 1.3 has no `sorry` left
+
+`structural_codegree_four` builds with a full `lake build` and **zero `sorry` warnings**.
+`#print axioms` lists only `propext`, `Classical.choice`, `Quot.sound`, the stated axiom
+`puleo_large_indep` (Puleo Cor. 4.12), and the `native_decide` auxiliary axioms from the
+older Fin-10 card checks.
+
+- Lemma 2.2 (`Classify.lean`): a generated 64-case split that classifies every graph on 4 vertices.
+- Prop 6.2 (diamond): Cases 1–3 forced with a hand-written proof (`DiamondCtx`).
+- `GenericCert.lean`: a certificate (or WKE witness) is written on `Fin 10` labels. Its finite
+  conditions are checked with `decide +kernel` (not `native_decide`), and
+  `reducible_of_spec` / `wke_of_spec` carry them over to `G`.
+- Props 6.3 (C₄), 6.4 (paw) and 6.7 (K₃+K₁) in `CodegreeFourMain.lean`: a Python generator
+  (`gen/*.py`, not committed) found the case trees over the private-attachment bits. Every leaf
+  is closed by a certificate, support, the budget (2), link connectivity, or an explicit non-WKE
+  witness. Lean checks every leaf. The generator found no uncovered configuration, so the
+  paper's case analysis holds at this finite level.
