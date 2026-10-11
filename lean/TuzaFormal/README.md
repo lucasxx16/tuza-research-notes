@@ -46,13 +46,14 @@ This is proved for general k (no enumeration over k). The general statements are
   **Lemma 4.4(2)** (`path_center_both_privates`) full;
   **Prop 4.7** (`path_core_reducible`) full (crossed + same-singleton+(A2));
   **Lemma 4.8** (`lemma48_certificate`) full Fin-10 packing/cover;
-  **Lemma 3.2** / **Prop 4.9** full; **Lemma 5.1** (`lemma51`) full (K₄ link ⇒
-  every core vertex has a private neighbour, via `wke3`);
-  **`structural_codegree_four`:** wires matching, star, P₃∪K₁, P₄; remaining
-  sorry for K₄ certificate (Lemma 5.2 / Prop 5.3), diamond, C₄, paw, K₃+K₁.
+  **Lemma 3.2** / **Prop 4.9** full; **Lemma 5.1** (`lemma51`) full;
+  Prop 5.3(G) Fin-10 packing/cover (`packing53G`, `k4_certificate_G`) with
+  packing/disjoint/size proved (`coversZ`/`external` still sorry);
+  **`structural_codegree_four`:** wires matching–P₄; remaining sorry for
+  K₄ coversZ/external + Lemma 5.2/case E, diamond, C₄, paw, K₃+K₁.
 
-  Paper note: Lemma 5.1 matches; no gap found.
-  Next: Lemma 5.2 + Prop 5.3 (G)/(E) certificates, then §6–7.
+  Paper note: Lemma 5.1 matches; Prop 5.3(G) packing matches paper S/X.
+  Next: finish k4_certificate_G coversZ/external, Lemma 5.2, case E, §6–7.
 
 ## Build
 
