@@ -10955,70 +10955,9 @@ theorem diamond_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
       ¬ ((G.Adj x w ∧ ¬ G.Adj y w) ∨ (G.Adj y w ∧ ¬ G.Adj x w)) := by
     intro w hw hm hleaf
     exact hfail3 (Or.inr ⟨w, hw, hleaf, hm⟩)
-  -- Unique centre attachments.
-  have hpA : p ∈ ({p, q} : Finset V) := by simp
-  have hqA : q ∈ ({p, q} : Finset V) := by simp
-  let αp := Classical.choose (ExistsUnique.exists (uniqA p hpA))
-  let αq := Classical.choose (ExistsUnique.exists (uniqA q hqA))
-  let βp := Classical.choose (ExistsUnique.exists (uniqB p hpA))
-  let βq := Classical.choose (ExistsUnique.exists (uniqB q hqA))
-  have hαp : αp ∈ H.A ∧ G.Adj p αp := by
-    simpa [αp] using Classical.choose_spec (ExistsUnique.exists (uniqA p hpA))
-  have hαq : αq ∈ H.A ∧ G.Adj q αq := by
-    simpa [αq] using Classical.choose_spec (ExistsUnique.exists (uniqA q hqA))
-  have hβp : βp ∈ H.B ∧ G.Adj p βp := by
-    simpa [βp] using Classical.choose_spec (ExistsUnique.exists (uniqB p hpA))
-  have hβq : βq ∈ H.B ∧ G.Adj q βq := by
-    simpa [βq] using Classical.choose_spec (ExistsUnique.exists (uniqB q hqA))
-  have hαpA := hαp.1; have hpαp := hαp.2
-  have hαqA := hαq.1; have hqαq := hαq.2
-  have hβpB := hβp.1; have hpβp := hβp.2
-  have hβqB := hβq.1; have hqβq := hβq.2
-  have αp_eq : αp = a ∨ αp = b := by simpa [hAeq] using hαpA
-  have αq_eq : αq = a ∨ αq = b := by simpa [hAeq] using hαqA
-  have βp_eq : βp = c ∨ βp = d := by simpa [hBeq] using hβpB
-  have βq_eq : βq = c ∨ βq = d := by simpa [hBeq] using hβqB
-  -- Both leaves / neither, under (3), when missing a centre.
-  have both_or_neither_A (w : V) (hw : w ∈ H.A) (hm : ¬ G.Adj p w ∨ ¬ G.Adj q w) :
-      (G.Adj x w ∧ G.Adj y w) ∨ (¬ G.Adj x w ∧ ¬ G.Adj y w) := by
-    have hnot1 := h3A w hw hm
-    by_cases hxw : G.Adj x w
-    · by_cases hyw : G.Adj y w
-      · exact Or.inl ⟨hxw, hyw⟩
-      · exact False.elim (hnot1 (Or.inl ⟨hxw, hyw⟩))
-    · by_cases hyw : G.Adj y w
-      · exact False.elim (hnot1 (Or.inr ⟨hyw, hxw⟩))
-      · exact Or.inr ⟨hxw, hyw⟩
-  have both_or_neither_B (w : V) (hw : w ∈ H.B) (hm : ¬ G.Adj p w ∨ ¬ G.Adj q w) :
-      (G.Adj x w ∧ G.Adj y w) ∨ (¬ G.Adj x w ∧ ¬ G.Adj y w) := by
-    have hnot1 := h3B w hw hm
-    by_cases hxw : G.Adj x w
-    · by_cases hyw : G.Adj y w
-      · exact Or.inl ⟨hxw, hyw⟩
-      · exact False.elim (hnot1 (Or.inl ⟨hxw, hyw⟩))
-    · by_cases hyw : G.Adj y w
-      · exact False.elim (hnot1 (Or.inr ⟨hyw, hxw⟩))
-      · exact Or.inr ⟨hxw, hyw⟩
-  -- Side A split vs paired.
-  by_cases hAsplit : αp ≠ αq
-  · -- Split on A: label so αp=a, αq=b.
-    have hlab : (αp = a ∧ αq = b) ∨ (αp = b ∧ αq = a) := by
-      rcases αp_eq with ha | hb <;> rcases αq_eq with hc | hd
-      · exact False.elim (hAsplit (ha.trans hc.symm))
-      · exact Or.inl ⟨ha, hd⟩
-      · exact Or.inr ⟨hb, hc⟩
-      · exact False.elim (hAsplit (hb.trans hd.symm))
-    -- Sparse vs dense: whether exactly one of a,b sees both leaves.
-    -- Under split, both miss a centre, so (3) applies to both.
-    sorry
-  · -- A paired: αp = αq. Dominant = αp, weak = the other.
-    push_neg at hAsplit
-    by_cases hBsplit : βp ≠ βq
-    · -- Case 2: A paired (actually wait - Case 2 is A dense split). Reorganize.
-      sorry
-    · -- Both paired. Case 3.
-      push_neg at hBsplit
-      sorry
+  -- Cases 1–3 under (3): sparse/dense/paired (paper pp.13–14).
+  -- Ready: diamond_sparse_split_A, diamond_paired_D5; need relabel + D4 dense-split.
+  sorry
 
 /-- **Proposition 6.3**: C₄ core is reducible under (A1)–(A2). -/
 theorem c4_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
