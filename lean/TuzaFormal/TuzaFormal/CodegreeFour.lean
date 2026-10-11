@@ -10894,6 +10894,345 @@ lemma diamond_paired_D5 (H : HubConfig G)
   exact diamond_certificate_D5 G H x y p q a b c d hC hA hB
     ⟨hxp, hxq, hyp, hyq, hpq⟩ hnxy hab hcd hdp hdq h10
 
+/-! ### Diamond forcing (paper p.13–14, Cases 1–3) -/
+
+lemma ne_of_pair_card {s : Finset V} {a b : V} (hs : s = {a, b}) (h2 : s.card = 2) :
+    a ≠ b := by
+  rintro rfl; rw [hs] at h2; simp at h2
+
+lemma diamond_h10 (H : HubConfig G) {x y p q a b c d : V}
+    (hC : H.C = {x, y, p, q}) (hA : H.A = {a, b}) (hB : H.B = {c, d}) :
+    ({H.u, H.v, x, y, p, q, a, b, c, d} : Finset V).card = 10 :=
+  labels10_of_hub G H hC hA hB (by rw [← hC]; exact H.hCcard)
+    (ne_of_pair_card hA H.hA) (ne_of_pair_card hB H.hB)
+
+lemma reducible_of_swap (H : HubConfig G)
+    (h : IsReducible G ({H.swap.u, H.swap.v} : Finset V)) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  simpa [HubConfig.swap, Finset.pair_comm] using h
+
+/-- A unique neighbour in a 2-set `{a, b}`. -/
+lemma uniq_pair {S : Finset V} {a b t : V} (hS : S = {a, b}) (hab : a ≠ b)
+    (hu : ∃! α, α ∈ S ∧ G.Adj t α) :
+    (G.Adj t a ∧ ¬ G.Adj t b) ∨ (¬ G.Adj t a ∧ G.Adj t b) := by
+  obtain ⟨α, ⟨hαS, hα⟩, huniq⟩ := hu
+  have haS : a ∈ S := by rw [hS]; simp
+  have hbS : b ∈ S := by rw [hS]; simp
+  rw [hS] at hαS; simp only [mem_insert, mem_singleton] at hαS
+  rcases hαS with h | h
+  · rw [h] at hα
+    exact Or.inl ⟨hα, fun hb => hab ((huniq b ⟨hbS, hb⟩).trans h).symm⟩
+  · rw [h] at hα
+    exact Or.inr ⟨fun ha => hab ((huniq a ⟨haS, ha⟩).trans h), hα⟩
+
+/-- Support in a 2-set, minus one option, gives the other. -/
+lemma supp_other {S : Finset V} {a b t : V} (hS : S = {a, b})
+    (hs : ∃ α ∈ S, G.Adj t α) (hn : ¬ G.Adj t b) : G.Adj t a := by
+  obtain ⟨α, hα, h⟩ := hs
+  rw [hS] at hα; simp only [mem_insert, mem_singleton] at hα
+  rcases hα with e | e <;> rw [e] at h
+  · exact h
+  · exact absurd h hn
+
+/-- Budget (2) at a core vertex with two core neighbours: not adjacent to all four privates. -/
+lemma leaf_budget (H : HubConfig G) (hA2 : H.A2) {x p q : V} (hxC : x ∈ H.C)
+    (hpC : p ∈ H.C) (hqC : q ∈ H.C) (hxp : G.Adj x p) (hxq : G.Adj x q) (hpq : p ≠ q)
+    (a b c d : V) (hA : H.A = {a, b}) (hB : H.B = {c, d}) :
+    ¬ (G.Adj x a ∧ G.Adj x b ∧ G.Adj x c ∧ G.Adj x d) := by
+  rintro ⟨ha, hb, hc, hd⟩
+  have h := hA2 x hxC
+  have h1 : 2 ≤ H.coreDeg x := by
+    unfold HubConfig.coreDeg
+    have hsub : ({p, q} : Finset V) ⊆ (H.C.erase x).filter (G.Adj x) := by
+      intro t ht; simp only [mem_insert, mem_singleton] at ht
+      rcases ht with e | e <;> rw [e] <;> simp only [mem_filter, mem_erase]
+      · exact ⟨⟨fun e => by subst e; exact G.irrefl hxp, hpC⟩, hxp⟩
+      · exact ⟨⟨fun e => by subst e; exact G.irrefl hxq, hqC⟩, hxq⟩
+    calc 2 = ({p, q} : Finset V).card := (card_pair hpq).symm
+      _ ≤ _ := card_le_card hsub
+  have hpair : ∀ (S : Finset V) (s t : V), S = {s, t} → S.card = 2 → G.Adj x s →
+      G.Adj x t → 2 ≤ (G.neighborFinset x ∩ S).card := by
+    intro S s t hS h2 hs ht
+    have hst := ne_of_pair_card hS h2
+    have hsub : ({s, t} : Finset V) ⊆ G.neighborFinset x ∩ S := by
+      intro w hw
+      refine mem_inter.2 ⟨?_, by rw [hS]; exact hw⟩
+      simp only [mem_insert, mem_singleton] at hw
+      rcases hw with e | e <;> rw [e] <;> simpa
+    calc 2 = ({s, t} : Finset V).card := (card_pair hst).symm
+      _ ≤ _ := card_le_card hsub
+  have h2 := hpair H.A a b hA H.hA ha hb
+  have h3 := hpair H.B c d hB H.hB hc hd
+  omega
+
+/-- A private vertex with no core neighbour is adjacent to its partner (link connectivity). -/
+lemma priv_isolated_edge (H : HubConfig G) (hA1 : H.A1) {a b : V} (hA : H.A = {a, b})
+    (hiso : ∀ t ∈ H.C, ¬ G.Adj b t) : G.Adj a b := by
+  have hbA : b ∈ H.A := by rw [hA]; simp
+  have hbN : b ∈ G.neighborFinset H.u := by
+    rw [H.hNu]; exact mem_insert_of_mem (mem_union_right _ hbA)
+  obtain ⟨n, hn⟩ := link_nbr G H.u hA1.1 (d := b) (w := H.v) (ne_z_of_priv G H hbA).symm
+    hbN (opposite_hub_mem G H)
+  have hG : G.Adj b n := hn.2.2
+  have hnN := hn.2.1
+  rw [H.hNu] at hnN
+  simp only [mem_insert, mem_union] at hnN
+  rcases hnN with e | hnC | hnA
+  · rw [e] at hG; exact absurd hG.symm (not_adj_hub_priv G H hbA)
+  · exact absurd hG (hiso n hnC)
+  · rw [hA] at hnA; simp only [mem_insert, mem_singleton] at hnA
+    rcases hnA with e | e <;> rw [e] at hG
+    · exact hG.symm
+    · exact absurd hG (G.irrefl)
+
+/-- Everything the diamond forcing argument uses, closed under side exchange and `p ↔ q`. -/
+structure DiamondCtx (H : HubConfig G) (x y p q : V) : Prop where
+  hC : H.C = {x, y, p, q}
+  xp : G.Adj x p
+  xq : G.Adj x q
+  yp : G.Adj y p
+  yq : G.Adj y q
+  pq : G.Adj p q
+  nxy : ¬ G.Adj x y
+  uA : ∀ t ∈ ({p, q} : Finset V), ∃! α, α ∈ H.A ∧ G.Adj t α
+  uB : ∀ t ∈ ({p, q} : Finset V), ∃! α, α ∈ H.B ∧ G.Adj t α
+  sA : ∀ t ∈ H.C, ∃ α ∈ H.A, G.Adj t α
+  sB : ∀ t ∈ H.C, ∃ α ∈ H.B, G.Adj t α
+  h3A : ∀ w ∈ H.A, (¬ G.Adj p w ∨ ¬ G.Adj q w) →
+    ¬ ((G.Adj x w ∧ ¬ G.Adj y w) ∨ (G.Adj y w ∧ ¬ G.Adj x w))
+  h3B : ∀ w ∈ H.B, (¬ G.Adj p w ∨ ¬ G.Adj q w) →
+    ¬ ((G.Adj x w ∧ ¬ G.Adj y w) ∨ (G.Adj y w ∧ ¬ G.Adj x w))
+  bx : ∀ a b c d, H.A = {a, b} → H.B = {c, d} →
+    ¬ (G.Adj x a ∧ G.Adj x b ∧ G.Adj x c ∧ G.Adj x d)
+  bY : ∀ a b c d, H.A = {a, b} → H.B = {c, d} →
+    ¬ (G.Adj y a ∧ G.Adj y b ∧ G.Adj y c ∧ G.Adj y d)
+  iA : ∀ a b, H.A = {a, b} → (∀ t ∈ H.C, ¬ G.Adj b t) → G.Adj a b
+  iB : ∀ c d, H.B = {c, d} → (∀ t ∈ H.C, ¬ G.Adj d t) → G.Adj c d
+
+variable {G} in
+lemma DiamondCtx.swap {H : HubConfig G} {x y p q : V} (K : DiamondCtx G H x y p q) :
+    DiamondCtx G H.swap x y p q where
+  hC := K.hC
+  xp := K.xp
+  xq := K.xq
+  yp := K.yp
+  yq := K.yq
+  pq := K.pq
+  nxy := K.nxy
+  uA := K.uB
+  uB := K.uA
+  sA := K.sB
+  sB := K.sA
+  h3A := K.h3B
+  h3B := K.h3A
+  bx := fun a b c d hA hB h => K.bx c d a b hB hA ⟨h.2.2.1, h.2.2.2, h.1, h.2.1⟩
+  bY := fun a b c d hA hB h => K.bY c d a b hB hA ⟨h.2.2.1, h.2.2.2, h.1, h.2.1⟩
+  iA := K.iB
+  iB := K.iA
+
+variable {G} in
+lemma DiamondCtx.swapPQ {H : HubConfig G} {x y p q : V} (K : DiamondCtx G H x y p q) :
+    DiamondCtx G H x y q p where
+  hC := core4_perm_centers K.hC
+  xp := K.xq
+  xq := K.xp
+  yp := K.yq
+  yq := K.yp
+  pq := K.pq.symm
+  nxy := K.nxy
+  uA := fun t ht => K.uA t (by simp only [mem_insert, mem_singleton] at ht ⊢; tauto)
+  uB := fun t ht => K.uB t (by simp only [mem_insert, mem_singleton] at ht ⊢; tauto)
+  sA := K.sA
+  sB := K.sB
+  h3A := fun w hw hm => K.h3A w hw hm.symm
+  h3B := fun w hw hm => K.h3B w hw hm.symm
+  bx := K.bx
+  bY := K.bY
+  iA := K.iA
+  iB := K.iB
+
+/-- Sparse split side `A`: `pa, qb, xa, ya` present; `qa, pb, xb, yb` absent. -/
+def SparseA (H : HubConfig G) (x y p q : V) : Prop :=
+  ∃ a b, H.A = {a, b} ∧ G.Adj p a ∧ G.Adj q b ∧ G.Adj x a ∧ G.Adj y a ∧
+    ¬ G.Adj q a ∧ ¬ G.Adj p b ∧ ¬ G.Adj x b ∧ ¬ G.Adj y b
+
+/-- Dense split side `A`. -/
+def DenseA (H : HubConfig G) (x y p q : V) : Prop :=
+  ∃ a b, H.A = {a, b} ∧ G.Adj p a ∧ G.Adj q b ∧ ¬ G.Adj q a ∧ ¬ G.Adj p b ∧
+    G.Adj x a ∧ G.Adj y a ∧ G.Adj x b ∧ G.Adj y b
+
+/-- Paired side `A`: dominant `a` sees both centres, weak `b` misses both and sees
+both leaves or neither. -/
+def PairedA (H : HubConfig G) (x y p q : V) : Prop :=
+  ∃ a b, H.A = {a, b} ∧ G.Adj p a ∧ G.Adj q a ∧ ¬ G.Adj p b ∧ ¬ G.Adj q b ∧
+    ((G.Adj x b ∧ G.Adj y b) ∨ (¬ G.Adj x b ∧ ¬ G.Adj y b))
+
+lemma diamond_side_class {H : HubConfig G} {x y p q : V} (K : DiamondCtx G H x y p q) :
+    SparseA G H x y p q ∨ SparseA G H x y q p ∨ DenseA G H x y p q ∨
+      PairedA G H x y p q := by
+  obtain ⟨a, b, hab, hA⟩ := card_eq_two.1 H.hA
+  have hAba : H.A = {b, a} := by rw [hA, pair_comm]
+  have hp := uniq_pair G hA hab (K.uA p (by simp))
+  have hq := uniq_pair G hA hab (K.uA q (by simp))
+  have h3a := K.h3A a (by rw [hA]; simp)
+  have h3b := K.h3A b (by rw [hA]; simp)
+  have hxs : G.Adj x a ∨ G.Adj x b := by
+    by_cases h : G.Adj x b
+    · exact Or.inr h
+    · exact Or.inl (supp_other G hA (K.sA x (by rw [K.hC]; simp)) h)
+  have hys : G.Adj y a ∨ G.Adj y b := by
+    by_cases h : G.Adj y b
+    · exact Or.inr h
+    · exact Or.inl (supp_other G hA (K.sA y (by rw [K.hC]; simp)) h)
+  rcases hp with ⟨hpa, hnpb⟩ | ⟨hnpa, hpb⟩ <;> rcases hq with ⟨hqa, hnqb⟩ | ⟨hnqa, hqb⟩
+  · have := h3b (Or.inl hnpb)
+    exact Or.inr (Or.inr (Or.inr ⟨a, b, hA, hpa, hqa, hnpb, hnqb, by tauto⟩))
+  · have ha' := h3a (Or.inr hnqa)
+    have hb' := h3b (Or.inl hnpb)
+    by_cases hxa : G.Adj x a
+    · have hya : G.Adj y a := by tauto
+      by_cases hxb : G.Adj x b
+      · have hyb : G.Adj y b := by tauto
+        exact Or.inr (Or.inr (Or.inl ⟨a, b, hA, hpa, hqb, hnqa, hnpb, hxa, hya, hxb, hyb⟩))
+      · have hnyb : ¬ G.Adj y b := by tauto
+        exact Or.inl ⟨a, b, hA, hpa, hqb, hxa, hya, hnqa, hnpb, hxb, hnyb⟩
+    · have hnya : ¬ G.Adj y a := by tauto
+      have hxb : G.Adj x b := by tauto
+      have hyb : G.Adj y b := by tauto
+      exact Or.inr (Or.inl ⟨b, a, hAba, hqb, hpa, hxb, hyb, hnpb, hnqa, hxa, hnya⟩)
+  · have ha' := h3a (Or.inl hnpa)
+    have hb' := h3b (Or.inr hnqb)
+    by_cases hxb : G.Adj x b
+    · have hyb : G.Adj y b := by tauto
+      by_cases hxa : G.Adj x a
+      · have hya : G.Adj y a := by tauto
+        exact Or.inr (Or.inr (Or.inl ⟨b, a, hAba, hpb, hqa, hnqb, hnpa, hxb, hyb, hxa, hya⟩))
+      · have hnya : ¬ G.Adj y a := by tauto
+        exact Or.inl ⟨b, a, hAba, hpb, hqa, hxb, hyb, hnqb, hnpa, hxa, hnya⟩
+    · have hnyb : ¬ G.Adj y b := by tauto
+      have hxa : G.Adj x a := by tauto
+      have hya : G.Adj y a := by tauto
+      exact Or.inr (Or.inl ⟨a, b, hA, hqa, hpb, hxa, hya, hnpa, hnqb, hxb, hnyb⟩)
+  · have := h3a (Or.inl hnpa)
+    exact Or.inr (Or.inr (Or.inr ⟨b, a, hAba, hpb, hqb, hnpa, hnqa, by tauto⟩))
+
+lemma core_iso {H : HubConfig G} {x y p q w : V} (hC : H.C = {x, y, p, q})
+    (hx : ¬ G.Adj x w) (hy : ¬ G.Adj y w) (hp : ¬ G.Adj p w) (hq : ¬ G.Adj q w) :
+    ∀ t ∈ H.C, ¬ G.Adj w t := by
+  intro t ht e
+  rw [hC] at ht; simp only [mem_insert, mem_singleton] at ht
+  rcases ht with h | h | h | h <;> rw [h] at e
+  · exact hx e.symm
+  · exact hy e.symm
+  · exact hp e.symm
+  · exact hq e.symm
+
+set_option maxHeartbeats 4000000 in
+/-- **Case 1** (sparse split side `A`). -/
+lemma diamond_case1 {H : HubConfig G} {x y p q : V} (K : DiamondCtx G H x y p q)
+    (hS : SparseA G H x y p q) : IsReducible G ({H.u, H.v} : Finset V) := by
+  obtain ⟨a, b, hA, hpa, hqb, hxa, hya, hnqa, hnpb, hnxb, hnyb⟩ := hS
+  obtain ⟨c0, d0, hcd0, hB0⟩ := card_eq_two.1 H.hB
+  have key : ∀ c d, H.B = {c, d} → G.Adj p c → ¬ G.Adj p d →
+      IsReducible G ({H.u, H.v} : Finset V) := by
+    intro c d hB hpc hnpd
+    have h3d := K.h3B d (by rw [hB]; simp) (Or.inl hnpd)
+    by_cases hyd : G.Adj y d
+    · have hC' := core4_perm_centers K.hC
+      exact diamond_certificate_D2 G H x y q p a b d c hC' hA (B_perm hB)
+        ⟨K.xq, K.xp, K.yq, K.yp, K.pq.symm⟩ K.nxy hxa hqb hyd hpc hnqa hnxb hnpd
+        (diamond_h10 G H hC' hA (B_perm hB))
+    · have hnxd : ¬ G.Adj x d := by tauto
+      have hxc : G.Adj x c := supp_other G hB (K.sB x (by rw [K.hC]; simp)) hnxd
+      exact diamond_certificate_D3 G H x y p q a b c d K.hC hA hB
+        ⟨K.xp, K.xq, K.yp, K.yq, K.pq⟩ K.nxy hya hxc
+        (fun w hw => by
+          simp only [mem_insert, mem_singleton] at hw
+          rcases hw with e | e | e <;> rw [e] <;> intro h
+          · exact hnxb h.symm
+          · exact hnyb h.symm
+          · exact hnpb h.symm)
+        (fun w hw => by
+          simp only [mem_insert, mem_singleton] at hw
+          rcases hw with e | e | e <;> rw [e] <;> intro h
+          · exact hnxd h.symm
+          · exact hyd h.symm
+          · exact hnpd h.symm)
+        (diamond_h10 G H K.hC hA hB)
+  rcases uniq_pair G hB0 hcd0 (K.uB p (by simp)) with ⟨hpc, hnpd⟩ | ⟨hnpc, hpd⟩
+  · exact key c0 d0 hB0 hpc hnpd
+  · exact key d0 c0 (B_perm hB0) hpd hnpc
+
+set_option maxHeartbeats 4000000 in
+/-- **Case 2** (dense split side `A`, side `B` not sparse split). -/
+lemma diamond_case2 {H : HubConfig G} {x y p q : V} (K : DiamondCtx G H x y p q)
+    (hD : DenseA G H x y p q)
+    (hnS : ¬ (SparseA G H.swap x y p q ∨ SparseA G H.swap x y q p)) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  obtain ⟨a, b, hA, hpa, hqb, hnqa, hnpb, hxa, hya, hxb, hyb⟩ := hD
+  rcases diamond_side_class G K.swap with hS | hS | hD' | hP
+  · exact absurd (Or.inl hS) hnS
+  · exact absurd (Or.inr hS) hnS
+  · exfalso
+    obtain ⟨c, d, hB, -, -, -, -, hxc, -, hxd, -⟩ := hD'
+    exact K.bx a b c d hA hB ⟨hxa, hxb, hxc, hxd⟩
+  · obtain ⟨c, d, hB, hpc, hqc, hnpd, hnqd, hd⟩ := hP
+    have hB' : H.B = {c, d} := hB
+    apply reducible_of_swap G H
+    rcases hd with ⟨hxd, hyd⟩ | ⟨hnxd, hnyd⟩
+    · have hnxc : ¬ G.Adj x c := fun h => K.bx a b c d hA hB' ⟨hxa, hxb, h, hxd⟩
+      exact diamond_certificate_D2 G H.swap x y p q d c a b K.hC (B_perm hB') hA
+        ⟨K.xp, K.xq, K.yp, K.yq, K.pq⟩ K.nxy hxd hpc hya hqb hnpd hnxc hnqa
+        (diamond_h10 G H.swap K.hC (B_perm hB') hA)
+    · have hcd : G.Adj c d := K.iB c d hB' (core_iso G K.hC hnxd hnyd hnpd hnqd)
+      have hxc : G.Adj x c := supp_other G hB' (K.sB x (by rw [K.hC]; simp)) hnxd
+      exact diamond_certificate_D4 G H.swap x y p q c d a b K.hC hB' hA
+        ⟨K.xp, K.xq, K.yp, K.yq, K.pq⟩ K.nxy hxc hpc hcd hya hqb hnxd hnpd hnqa
+        (diamond_h10 G H.swap K.hC hB' hA)
+
+set_option maxHeartbeats 4000000 in
+/-- Case 3, oriented sub-case: weak `b` sees no leaf, weak `d` sees both. -/
+lemma diamond_case3_mixed {H : HubConfig G} {x y p q : V} (K : DiamondCtx G H x y p q)
+    {a b c d : V} (hA : H.A = {a, b}) (hB : H.B = {c, d})
+    (hpa : G.Adj p a) (hnpb : ¬ G.Adj p b) (hnqb : ¬ G.Adj q b)
+    (hnxb : ¬ G.Adj x b) (hnyb : ¬ G.Adj y b)
+    (hqc : G.Adj q c) (hnqd : ¬ G.Adj q d) (hyd : G.Adj y d) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  have hab : G.Adj a b := K.iA a b hA (core_iso G K.hC hnxb hnyb hnpb hnqb)
+  have hxa : G.Adj x a := supp_other G hA (K.sA x (by rw [K.hC]; simp)) hnxb
+  exact diamond_certificate_D4 G H x y p q a b d c K.hC hA (B_perm hB)
+    ⟨K.xp, K.xq, K.yp, K.yq, K.pq⟩ K.nxy hxa hpa hab hyd hqc hnxb hnpb hnqd
+    (diamond_h10 G H K.hC hA (B_perm hB))
+
+set_option maxHeartbeats 4000000 in
+/-- **Case 3** (both sides paired). -/
+lemma diamond_case3 {H : HubConfig G} {x y p q : V} (K : DiamondCtx G H x y p q)
+    (hPA : PairedA G H x y p q) (hPB : PairedA G H.swap x y p q) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  obtain ⟨a, b, hA, hpa, hqa, hnpb, hnqb, hb⟩ := hPA
+  obtain ⟨c, d, hB, hpc, hqc, hnpd, hnqd, hd⟩ := hPB
+  have hB' : H.B = {c, d} := hB
+  rcases hb with ⟨hxb, hyb⟩ | ⟨hnxb, hnyb⟩ <;> rcases hd with ⟨hxd, hyd⟩ | ⟨hnxd, hnyd⟩
+  · -- both weak see both leaves; budget at x
+    by_cases hxa : G.Adj x a
+    · have hnxc : ¬ G.Adj x c := fun h => K.bx a b c d hA hB' ⟨hxa, hxb, h, hxd⟩
+      apply reducible_of_swap G H
+      exact diamond_certificate_D2 G H.swap x y p q d c b a K.hC (B_perm hB') (A_perm hA)
+        ⟨K.xp, K.xq, K.yp, K.yq, K.pq⟩ K.nxy hxd hpc hyb hqa hnpd hnxc hnqb
+        (diamond_h10 G H.swap K.hC (B_perm hB') (A_perm hA))
+    · exact diamond_certificate_D2 G H x y p q b a d c K.hC (A_perm hA) (B_perm hB')
+        ⟨K.xp, K.xq, K.yp, K.yq, K.pq⟩ K.nxy hxb hpa hyd hqc hnpb hxa hnqd
+        (diamond_h10 G H K.hC (A_perm hA) (B_perm hB'))
+  · -- b sees both leaves, d none: mixed on the swapped side
+    apply reducible_of_swap G H
+    exact diamond_case3_mixed G K.swap hB' hA hpc hnpd hnqd hnxd hnyd hqa hnqb hyb
+  · exact diamond_case3_mixed G K hA hB' hpa hnpb hnqb hnxb hnyb hqc hnqd hyd
+  · have hab : G.Adj a b := K.iA a b hA (core_iso G K.hC hnxb hnyb hnpb hnqb)
+    have hcd : G.Adj c d := K.iB c d hB' (core_iso G K.hC hnxd hnyd hnpd hnqd)
+    exact diamond_certificate_D5 G H x y p q a b d c K.hC hA (B_perm hB')
+      ⟨K.xp, K.xq, K.yp, K.yq, K.pq⟩ K.nxy hab hcd.symm hpc.symm hqc.symm
+      (diamond_h10 G H K.hC hA (B_perm hB'))
+
 /-- **Proposition 6.2**: diamond core `{xp,xq,yp,yq,pq}` is reducible under (A1)–(A2).
 Certificates D1–D5 are fully proved; the remaining work is the paper's attachment
 classification that forces one of those five hypothesis packages. -/
@@ -10937,8 +11276,36 @@ theorem diamond_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
     intro w hw hm hleaf
     exact hfail3 (Or.inr ⟨w, hw, hleaf, hm⟩)
   -- Cases 1–3 under (3): sparse/dense/paired (paper pp.13–14).
-  -- Ready: diamond_sparse_split_A, diamond_paired_D5; need relabel + D4 dense-split.
-  sorry
+  have hxC : x ∈ H.C := by rw [hC]; simp
+  have hyC : y ∈ H.C := by rw [hC]; simp
+  have hpC : p ∈ H.C := by rw [hC]; simp
+  have hqC : q ∈ H.C := by rw [hC]; simp
+  have K : DiamondCtx G H x y p q :=
+    { hC := hC, xp := hxp, xq := hxq, yp := hyp, yq := hyq, pq := hpq, nxy := hnxy
+      uA := uniqA, uB := uniqB, sA := hsuppA, sB := hsuppB, h3A := h3A, h3B := h3B
+      bx := leaf_budget G H hA2 hxC hpC hqC hxp hxq (G.ne_of_adj hpq)
+      bY := leaf_budget G H hA2 hyC hpC hqC hyp hyq (G.ne_of_adj hpq)
+      iA := fun a b hA hiso => priv_isolated_edge G H hA1 hA hiso
+      iB := fun c d hB hiso => priv_isolated_edge G H.swap hA1.swap hB hiso }
+  by_cases SA : SparseA G H x y p q ∨ SparseA G H x y q p
+  · rcases SA with h | h
+    · exact diamond_case1 G K h
+    · exact diamond_case1 G K.swapPQ h
+  by_cases SB : SparseA G H.swap x y p q ∨ SparseA G H.swap x y q p
+  · apply reducible_of_swap G H
+    rcases SB with h | h
+    · exact diamond_case1 G K.swap h
+    · exact diamond_case1 G K.swap.swapPQ h
+  rcases diamond_side_class G K with h | h | hDA | hPA
+  · exact absurd (Or.inl h) SA
+  · exact absurd (Or.inr h) SA
+  · exact diamond_case2 G K hDA SB
+  rcases diamond_side_class G K.swap with h | h | hDB | hPB
+  · exact absurd (Or.inl h) SB
+  · exact absurd (Or.inr h) SB
+  · apply reducible_of_swap G H
+    exact diamond_case2 G K.swap hDB SA
+  · exact diamond_case3 G K hPA hPB
 
 /-- **Proposition 6.3**: C₄ core is reducible under (A1)–(A2). -/
 theorem c4_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
