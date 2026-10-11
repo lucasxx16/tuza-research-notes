@@ -28,6 +28,12 @@ def N10 (h : Fin 10) : Finset (Fin 10) :=
 def spokes10 : Finset (Sym2 (Fin 10)) :=
   (N10 0).image (fun i => s(0, i)) ∪ (N10 1).image (fun i => s(1, i))
 
+/-- `i, j` are a hub and a vertex outside that hub's rim (e.g. `v` and a vertex of `A`). -/
+def NonNbr (i j : Fin 10) : Prop :=
+  (i ∈ ({0, 1} : Finset (Fin 10)) ∧ j ∉ N10 i) ∨ (j ∈ ({0, 1} : Finset (Fin 10)) ∧ i ∉ N10 j)
+
+instance (i j : Fin 10) : Decidable (NonNbr i j) := by unfold NonNbr; infer_instance
+
 structure CertSpec where
   P : Finset (Finset (Fin 10))
   X : Finset (Sym2 (Fin 10))
@@ -42,7 +48,7 @@ def CertSpec.Ok (s : CertSpec) : Prop :=
   s.X.card ≤ 2 * s.P.card ∧
   (∀ t ∈ s.P, ∀ e ∈ triEdges (t \ {0, 1}), e ∈ s.X) ∧
   (∀ h ∈ ({0, 1} : Finset (Fin 10)), ∀ i ∈ N10 h, ∀ j ∈ N10 h, i ≠ j →
-    s(i, j) ∉ s.abs → (s(h, i) ∈ s.X ∨ s(h, j) ∈ s.X ∨ s(i, j) ∈ s.X))
+    s(i, j) ∉ s.abs → ¬ NonNbr i j → (s(h, i) ∈ s.X ∨ s(h, j) ∈ s.X ∨ s(i, j) ∈ s.X))
 
 instance (s : CertSpec) : Decidable s.Ok := by
   unfold CertSpec.Ok
@@ -99,6 +105,26 @@ lemma Labelling.spoke {H : HubConfig G} {f : Fin 10 → V} (L : Labelling G H f)
   · have : f i ∈ G.neighborFinset H.v := by rw [L.nv]; exact mem_image_of_mem _ hi
     rw [Sym2.map_mk, mem_edgeFinset, mem_edgeSet, L.f1]
     exact (G.mem_neighborFinset _ _).1 this
+
+lemma Labelling.not_adj_hub {H : HubConfig G} {f : Fin 10 → V} (L : Labelling G H f)
+    {h j : Fin 10} (hh : h ∈ ({0, 1} : Finset (Fin 10))) (hj : j ∉ N10 h) :
+    ¬ G.Adj (f h) (f j) := by
+  intro hadj
+  have hmem : f j ∈ G.neighborFinset (f h) := (G.mem_neighborFinset _ _).2 hadj
+  simp only [mem_insert, mem_singleton] at hh
+  rcases hh with rfl | rfl
+  · rw [L.f0, L.nu] at hmem
+    obtain ⟨k, hk, hkj⟩ := mem_image.1 hmem
+    exact hj (L.inj hkj ▸ hk)
+  · rw [L.f1, L.nv] at hmem
+    obtain ⟨k, hk, hkj⟩ := mem_image.1 hmem
+    exact hj (L.inj hkj ▸ hk)
+
+lemma Labelling.nonNbr {H : HubConfig G} {f : Fin 10 → V} (L : Labelling G H f)
+    {i j : Fin 10} (hn : NonNbr i j) : ¬ G.Adj (f i) (f j) := by
+  rcases hn with ⟨hi, hj⟩ | ⟨hj, hi⟩
+  · exact L.not_adj_hub G hi hj
+  · exact fun h => L.not_adj_hub G hj hi h.symm
 
 /-- **Generic certificate transfer.** -/
 theorem reducible_of_spec (H : HubConfig G) (f : Fin 10 → V) (L : Labelling G H f)
@@ -203,7 +229,7 @@ theorem reducible_of_spec (H : HubConfig G) (f : Fin 10 → V) (L : Labelling G 
     have hfh : f hidx ∈ t := hhubf ▸ hhubt
     have hhi : hidx ≠ i := fun h => (mem_erase.1 ha).1 (by rw [← hhubf, h])
     have hhj : hidx ≠ j := fun h => (mem_erase.1 hb).1 (by rw [← hhubf, h])
-    rcases hcov hidx hhidx i hi j hj hij hnabs with h | h | h
+    rcases hcov hidx hhidx i hi j hj hij hnabs (fun hn => L.nonNbr G hn hfij) with h | h | h
     · exact hmem _ _ hhi hfh hti h
     · exact hmem _ _ hhj hfh htj h
     · exact hmem _ _ hij hti htj h
@@ -262,6 +288,82 @@ lemma labelling_of_hub (H : HubConfig G) {c0 c1 c2 c3 a0 a1 b0 b1 : V}
   ⟨labels10_injective _ _ _ _ _ _ _ _ _ _ h10, rfl, rfl,
     labelling_nu G H hC hA, labelling_nv G H hC hB⟩
 
+/-! ### Generic WKE witnesses in the `u`-link -/
+
+structure WkeSpec where
+  Q : Finset (Fin 10)
+  M : Finset (Sym2 (Fin 10))
+  pres : Finset (Sym2 (Fin 10))
+  abs : Finset (Sym2 (Fin 10))
+
+def WkeSpec.Ok (w : WkeSpec) : Prop :=
+  (∀ e ∈ w.M, e ∈ triEdges (N10 0) ∧ e ∈ w.pres ∪ spokes10) ∧
+  (∀ e ∈ w.M, ∀ e' ∈ w.M, e ≠ e' → ∀ i : Fin 10, ¬ (i ∈ e ∧ i ∈ e')) ∧
+  w.Q.card ≤ w.M.card ∧
+  (∀ i ∈ N10 0, ∀ j ∈ N10 0, i ≠ j → i ∉ w.Q → j ∉ w.Q →
+    s(i, j) ∈ w.M ∨ s(i, j) ∈ w.abs ∨ NonNbr i j)
+
+instance (w : WkeSpec) : Decidable w.Ok := by
+  unfold WkeSpec.Ok
+  refine @instDecidableAnd _ _ ?_ (@instDecidableAnd _ _ ?_ (@instDecidableAnd _ _ ?_ ?_))
+  all_goals infer_instance
+
+theorem wke_of_spec (H : HubConfig G) (f : Fin 10 → V) (L : Labelling G H f)
+    (w : WkeSpec) (hok : w.Ok)
+    (hpres : ∀ e ∈ w.pres, Sym2.map f e ∈ G.edgeFinset)
+    (habs : ∀ e ∈ w.abs, Sym2.map f e ∉ G.edgeFinset) :
+    IsWKE (linkGraph G H.u) := by
+  classical
+  obtain ⟨hM, hdisj, hcard, hcov⟩ := hok
+  have hinjE : Function.Injective (Sym2.map f) := Sym2.map.injective L.inj
+  have hN : ∀ i ∈ N10 0, f i ∈ G.neighborFinset H.u := fun i hi => by
+    rw [L.nu]; exact mem_image_of_mem _ hi
+  refine isWKE_of_witness _ (M := w.M.image (Sym2.map f)) (Q := w.Q.image f)
+    ⟨⟨?_, ?_⟩, ?_, ?_⟩
+  · intro g hg
+    obtain ⟨e, he, rfl⟩ := mem_image.1 hg
+    obtain ⟨htri, hknown⟩ := hM e he
+    induction e using Sym2.ind with
+    | _ i j =>
+      obtain ⟨hi, hj, -⟩ := mem_triEdges_pair.1 htri
+      have hG : Sym2.map f s(i, j) ∈ G.edgeFinset := by
+        rcases mem_union.1 hknown with h | h
+        · exact hpres _ h
+        · exact L.spoke G h
+      rw [Sym2.map_mk, mem_edgeFinset, mem_edgeSet] at hG ⊢
+      exact ⟨hN i hi, hN j hj, hG⟩
+  · intro g hg g' hg' hne
+    obtain ⟨e, he, rfl⟩ := mem_image.1 hg
+    obtain ⟨e', he', rfl⟩ := mem_image.1 hg'
+    have hee : e ≠ e' := fun h => hne (h ▸ rfl)
+    rw [Finset.disjoint_left]
+    intro m hm hm'
+    rw [Sym2.mem_toFinset, Sym2.mem_map] at hm hm'
+    obtain ⟨i, hi, rfl⟩ := hm
+    obtain ⟨j, hj, hji⟩ := hm'
+    have := L.inj hji
+    subst this
+    exact hdisj e he e' he' hee j ⟨hi, hj⟩
+  · rw [card_image_of_injective _ hinjE]
+    exact (card_image_le).trans hcard
+  · intro g hg hO
+    induction g using Sym2.ind with
+    | _ m n =>
+      have hadj : (linkGraph G H.u).Adj m n := (mem_edgeFinset (G := linkGraph G H.u)).1 hg
+      have hmN := hadj.1
+      have hnN := hadj.2.1
+      rw [L.nu] at hmN hnN
+      obtain ⟨i, hi, rfl⟩ := mem_image.1 hmN
+      obtain ⟨j, hj, rfl⟩ := mem_image.1 hnN
+      have hij : i ≠ j := fun h => G.irrefl (h ▸ hadj.2.2)
+      have hiQ : i ∉ w.Q := fun h => hO (f i) (Sym2.mem_mk_left _ _) (mem_image_of_mem _ h)
+      have hjQ : j ∉ w.Q := fun h => hO (f j) (Sym2.mem_mk_right _ _) (mem_image_of_mem _ h)
+      rcases hcov i hi j hj hij hiQ hjQ with h | h | h
+      · exact mem_image.2 ⟨_, h, rfl⟩
+      · exact absurd (by rw [Sym2.map_mk, mem_edgeFinset, mem_edgeSet]; exact hadj.2.2)
+          (habs _ h)
+      · exact absurd hadj.2.2 (L.nonNbr G h)
+
 /-- Test: certificate D1 re-derived through the generic checker. -/
 def specD1 : CertSpec where
   P := {{0, 1, 5}, {0, 3, 4}, {0, 2, 6}, {1, 3, 8}, {1, 4, 2}}
@@ -270,5 +372,31 @@ def specD1 : CertSpec where
   abs := {s(2, 3), s(3, 6), s(4, 6)}
 
 lemma specD1_ok : specD1.Ok := by decide +kernel
+
+/-- Discharge `pres`/`abs` obligations of a spec from adjacency hypotheses in context. -/
+macro "spec_present" : tactic => `(tactic| (
+  simp only [Finset.mem_insert, Finset.mem_singleton, forall_eq_or_imp, forall_eq,
+    Sym2.map_mk, lab0, lab1, lab2, lab3, lab4, lab5, lab6, lab7, lab8, lab9,
+    mem_edgeFinset, mem_edgeSet]
+  and_intros
+  all_goals (first | assumption | exact SimpleGraph.adj_symm _ (by assumption))))
+
+macro "spec_absent" : tactic => `(tactic| (
+  simp only [Finset.mem_insert, Finset.mem_singleton, forall_eq_or_imp, forall_eq,
+    Sym2.map_mk, lab0, lab1, lab2, lab3, lab4, lab5, lab6, lab7, lab8, lab9,
+    mem_edgeFinset, mem_edgeSet]
+  and_intros
+  all_goals (first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))))
+
+/-- Smoke test: D1 through the generic route. -/
+example (H : HubConfig G) (x y p q a b c d : V)
+    (hC : H.C = {x, y, p, q}) (hA : H.A = {a, b}) (hB : H.B = {c, d})
+    (hxp : G.Adj x p) (hyp : G.Adj y p) (hnxy : ¬ G.Adj x y)
+    (hxa : G.Adj x a) (hyc : G.Adj y c) (hnya : ¬ G.Adj y a) (hnpa : ¬ G.Adj p a) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  refine reducible_of_spec G H _ (labelling_of_hub G H hC hA hB (diamond_h10 G H hC hA hB))
+    specD1 specD1_ok ?_ ?_
+  · simp only [specD1]; spec_present
+  · simp only [specD1]; spec_absent
 
 end Tuza.CodegreeFour
