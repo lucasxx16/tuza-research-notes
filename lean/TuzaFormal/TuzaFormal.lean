@@ -1,4 +1,5 @@
 import TuzaFormal.Basic
+import TuzaFormal.Classify
 import TuzaFormal.Transfer
 import TuzaFormal.Local
 import TuzaFormal.K4K5

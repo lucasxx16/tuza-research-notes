@@ -1,4 +1,5 @@
 import TuzaFormal.Reducibility
+import TuzaFormal.Classify
 import Mathlib.Data.Fintype.Perm
 
 /-!
@@ -10966,6 +10967,29 @@ theorem k3k1_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
     IsReducible G ({H.u, H.v} : Finset V) := by
   sorry
 
+/-- If every core edge is `e0e1`, there is at most one core edge. -/
+lemma numCoreEdges_le_one (H : HubConfig G) (e0 e1 : V)
+    (h : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y → s(x, y) = s(e0, e1)) :
+    H.numCoreEdges ≤ 1 := by
+  classical
+  unfold HubConfig.numCoreEdges
+  calc _ ≤ ({({e0, e1} : Finset V)} : Finset (Finset V)).card := by
+        apply card_le_card
+        intro e he
+        rw [mem_filter, mem_powersetCard] at he
+        obtain ⟨⟨hsub, hcard⟩, x, hx, y, hy, hxy, hadj⟩ := he
+        have hs := h x (hsub hx) y (hsub hy) hadj
+        have hexy : ({x, y} : Finset V) = e :=
+          eq_of_subset_of_card_le
+            (by intro t ht; simp only [mem_insert, mem_singleton] at ht
+                rcases ht with rfl | rfl <;> assumption)
+            (by rw [hcard, card_pair hxy])
+        rw [mem_singleton, ← hexy]
+        rcases Sym2.eq_iff.1 hs with ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩
+        · rfl
+        · exact pair_comm _ _
+    _ = 1 := card_singleton _
+
 theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2) :
     IsReducible G ({H.u, H.v} : Finset V) := by
   classical
@@ -11029,9 +11053,25 @@ theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2) :
         s(a, b) = s(p, q) ∨ s(a, b) = s(p, r) ∨ s(a, b) = s(q, r))
   · obtain ⟨p, q, r, s, hC, hpq, hpr, hqr, honly⟩ := hK3
     exact k3k1_core_reducible G H hA1 hA2 hC hpq hpr hqr honly
-  -- All eleven 4-vertex core types (Lemma 2.2) are covered by the cases above
-  -- together with Prop 3.1 (≤1 edge). Unreachable if the paper's classification is complete.
-  sorry
+  -- Lemma 2.2: every graph on the 4-set `C` is one of the cases above or has ≤ 1 edge.
+  exfalso
+  obtain ⟨a, b, c, d, -, -, -, -, -, -, hC⟩ := card_eq_four.1 H.hCcard
+  rcases core4_classify G a b c d with
+    ⟨e0, e1, h⟩ | ⟨p0, p1, q0, q1, he, h1, h2, h⟩ | ⟨p, q, r, s, he, h1, h2, h3, h⟩ |
+    ⟨p, q, r, s, he, h1, h2, h⟩ | ⟨p, q, r, s, he, h1, h2, h3, h⟩ |
+    ⟨x, y, z, w, he, h1, h2, h3, h4, h5, h6⟩ |
+    ⟨x, y, p, q, he, h1, h2, h3, h4, h5, h6, h⟩ | ⟨x, y, p, q, he, h1, h2, h3, h4, h⟩ |
+    ⟨p, q, r, s, he, h1, h2, h3, h4, h⟩ | ⟨p, q, r, s, he, h1, h2, h3, h⟩
+  · have := numCoreEdges_le_one G H e0 e1 (by rw [hC]; exact h); omega
+  · exact h2K2 ⟨p0, p1, q0, q1, hC.trans he, h1, h2, by rw [hC]; exact h⟩
+  · exact hstar ⟨p, q, r, s, hC.trans he, h1, h2, h3, by rw [hC]; exact h⟩
+  · exact hpath ⟨p, q, r, s, hC.trans he, h1, h2, by rw [hC]; exact h⟩
+  · exact hP4 ⟨p, q, r, s, hC.trans he, h1, h2, h3, by rw [hC]; exact h⟩
+  · exact hK4c ⟨x, y, z, w, hC.trans he, h1, h2, h3, h4, h5, h6⟩
+  · exact hDiam ⟨x, y, p, q, hC.trans he, h1, h2, h3, h4, h5, h6, by rw [hC]; exact h⟩
+  · exact hC4 ⟨x, y, p, q, hC.trans he, h1, h2, h3, h4, by rw [hC]; exact h⟩
+  · exact hPaw ⟨p, q, r, s, hC.trans he, h1, h2, h3, h4, by rw [hC]; exact h⟩
+  · exact hK3 ⟨p, q, r, s, hC.trans he, h1, h2, h3, by rw [hC]; exact h⟩
 
 
 end Tuza.CodegreeFour
