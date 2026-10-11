@@ -54,7 +54,9 @@ This is proved for general k (no enumeration over k). The general statements are
 
   Paper note: G packing now matches paper Prop 5.3(G) with general α(z),β(y).
   **Lemma 6.1 fully proved** (including same-singleton via lemma32).
-  Diamond/C₄/paw/K₃+K₁ still sorry. Next: Prop 6.2 D1–D5 certificates.
+  Diamond: Fin-10 D1 packing/cover infra + `diamond_full_support` proved;
+  `diamond_certificate_D1` / D2–D5 / exhaustion still sorry.
+  C₄/paw/K₃+K₁ still sorry. Next: discharge D1 coversZ, then D2–D5.
 
 ## Build
 

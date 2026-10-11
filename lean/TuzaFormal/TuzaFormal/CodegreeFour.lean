@@ -8664,6 +8664,119 @@ theorem lemma61 (H : HubConfig G)
       · rintro (h | h | h | h) <;> simp [h]
     exact lemma61_wke G H hconn hC' hxp hyq.symm hnone hnot
 
+/-! ### Proposition 6.2 certificate D1 (asymmetric leaf attachment) -/
+
+def packing10_D1 : Finset (Finset (Fin 10)) :=
+  {{0, 1, 5}, {0, 3, 4}, {0, 2, 6}, {1, 3, 8}, {1, 2, 4}}
+
+def cover10_D1 : Finset (Sym2 (Fin 10)) :=
+  {s(3, 4), s(2, 6), s(3, 8), s(2, 4),
+   s(0, 1), s(0, 5), s(0, 7), s(1, 5), s(1, 8), s(1, 9)}
+
+lemma packing10_D1_card : packing10_D1.card = 5 := by native_decide
+lemma cover10_D1_card : cover10_D1.card = 10 := by native_decide
+lemma packing10_D1_pairwise :
+    ∀ σ ∈ packing10_D1, ∀ τ ∈ packing10_D1, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
+  native_decide
+
+/-- D1 packing: `{uvq, uyp, uxa, vyc, vpx}`. -/
+def packingD1 (u v x y p q a c : V) : Finset (Finset V) :=
+  {{u, v, q}, {u, y, p}, {u, x, a}, {v, y, c}, {v, x, p}}
+
+/-- D1 cover: R ∪ {uv, uq, ub, vq, vc, vd}. -/
+def coverD1 (u v x y p q a b c d : V) : Finset (Sym2 V) :=
+  {s(y, p), s(x, a), s(y, c), s(x, p),
+   s(u, v), s(u, q), s(u, b), s(v, q), s(v, c), s(v, d)}
+
+private lemma packingD1_image_eq (u v x y p q a b c d : V) :
+    packing10_D1.image (mapTri (labels10 u v x y p q a b c d)) =
+      packingD1 u v x y p q a c := by
+  obtain ⟨f0, f1, f2, f3, f4, f5, f6, _, f8, _⟩ :=
+    map_lab u v x y p q a b c d
+  set f := labels10 u v x y p q a b c d
+  have e1 : mapTri f {0, 1, 5} = ({u, v, q} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f1, f5]
+  have e2 : mapTri f {0, 3, 4} = ({u, y, p} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f3, f4]
+  have e3 : mapTri f {0, 2, 6} = ({u, x, a} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f2, f6]
+  have e4 : mapTri f {1, 3, 8} = ({v, y, c} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f1, f3, f8]
+  have e5 : mapTri f {1, 2, 4} = ({v, x, p} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f1, f2, f4]
+  simp only [packing10_D1, packingD1, image_insert, image_singleton,
+    e1, e2, e3, e4, e5]
+
+private lemma coverD1_image_eq (u v x y p q a b c d : V) :
+    cover10_D1.image (Sym2.map (labels10 u v x y p q a b c d)) =
+      coverD1 u v x y p q a b c d := by
+  obtain ⟨f0, f1, f2, f3, f4, f5, f6, f7, f8, f9⟩ :=
+    map_lab u v x y p q a b c d
+  set f := labels10 u v x y p q a b c d
+  have mk (i j : Fin 10) {p q : V} (hi : f i = p) (hj : f j = q) :
+      Sym2.map f s(i, j) = s(p, q) := by rw [Sym2.map_mk, hi, hj]
+  simp only [cover10_D1, coverD1, image_insert, image_singleton,
+    mk 3 4 f3 f4, mk 2 6 f2 f6, mk 3 8 f3 f8, mk 2 4 f2 f4,
+    mk 0 1 f0 f1, mk 0 5 f0 f5, mk 0 7 f0 f7, mk 1 5 f1 f5, mk 1 8 f1 f8, mk 1 9 f1 f9]
+
+lemma packingD1_card (u v x y p q a b c d : V)
+    (hinj : Function.Injective (labels10 u v x y p q a b c d)) :
+    (packingD1 u v x y p q a c).card = 5 := by
+  let f := labels10 u v x y p q a b c d
+  have hinjT : Function.Injective (mapTri f) := Finset.image_injective hinj
+  rw [← packingD1_image_eq u v x y p q a b c d,
+    card_image_of_injective _ hinjT, packing10_D1_card]
+
+lemma coverD1_card (u v x y p q a b c d : V)
+    (hinj : Function.Injective (labels10 u v x y p q a b c d)) :
+    (coverD1 u v x y p q a b c d).card = 10 := by
+  let f := labels10 u v x y p q a b c d
+  have hinjE : Function.Injective (Sym2.map f) := Sym2.map.injective hinj
+  rw [← coverD1_image_eq u v x y p q a b c d,
+    card_image_of_injective _ hinjE, cover10_D1_card]
+
+lemma packingD1_disjoint (u v x y p q a b c d : V)
+    (hinj : Function.Injective (labels10 u v x y p q a b c d)) :
+    ∀ σ ∈ packingD1 u v x y p q a c,
+      ∀ τ ∈ packingD1 u v x y p q a c,
+        σ ≠ τ → Disjoint (triEdges σ) (triEdges τ) := by
+  intro σ hs τ ht hst
+  rw [← packingD1_image_eq u v x y p q a b c d] at hs ht
+  obtain ⟨s0, hs0, rfl⟩ := mem_image.1 hs
+  obtain ⟨t0, ht0, rfl⟩ := mem_image.1 ht
+  exact packing53G_disjoint_of_pairwise u v x y p q a b c d hinj
+    packing10_D1 packing10_D1_pairwise σ τ s0 t0 hs0 ht0
+    (fun h => by subst h; exact hst rfl) rfl rfl
+
+/-- **Prop 6.2 certificate D1**: asymmetric leaf attachment `xa, yc` with `ya, pa` absent. -/
+theorem diamond_certificate_D1 (H : HubConfig G)
+    (x y p q a b c d : V)
+    (hC : H.C = {x, y, p, q})
+    (hA : H.A = {a, b}) (hB : H.B = {c, d})
+    (hK : G.Adj x p ∧ G.Adj x q ∧ G.Adj y p ∧ G.Adj y q ∧ G.Adj p q)
+    (hnxy : ¬ G.Adj x y)
+    (hxa : G.Adj x a) (hyc : G.Adj y c)
+    (hnya : ¬ G.Adj y a) (hnpa : ¬ G.Adj p a)
+    (h10 : ({H.u, H.v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  classical
+  -- Packing/cover Fin-10 model ready (`packingD1`/`coverD1`); coversZ via rim deletion.
+  sorry
+
+/-- Full A/B support on a diamond from Lemma 6.1 on both links. -/
+theorem diamond_full_support (H : HubConfig G) (hA1 : H.A1)
+    {x y p q : V} (hC : H.C = {x, y, p, q})
+    (hxp : G.Adj x p) (hyq : G.Adj y q) :
+    (∀ c ∈ H.C, ∃ a ∈ H.A, G.Adj c a) ∧ (∀ c ∈ H.C, ∃ b ∈ H.B, G.Adj c b) := by
+  refine ⟨?_, ?_⟩
+  · exact lemma61 G H hA1.1 hA1.2.1 hC hxp hyq
+  · have hsw : H.swap.A1 := hA1.swap
+    have hC' : H.swap.C = {x, y, p, q} := hC
+    have h := lemma61 G H.swap hsw.1 hsw.2.1 hC' hxp hyq
+    intro c hc
+    obtain ⟨b, hb, hadj⟩ := h c hc
+    exact ⟨b, hb, hadj⟩
+
 /-- **Proposition 6.2**: diamond core `{xp,xq,yp,yq,pq}` is reducible under (A1)–(A2). -/
 theorem diamond_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
     {x y p q : V} (hC : H.C = {x, y, p, q})
@@ -8673,7 +8786,8 @@ theorem diamond_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
       s(a, b) = s(x, p) ∨ s(a, b) = s(x, q) ∨ s(a, b) = s(y, p) ∨
       s(a, b) = s(y, q) ∨ s(a, b) = s(p, q)) :
     IsReducible G ({H.u, H.v} : Finset V) := by
-  -- Lemma 6.1 ⇒ full A/B support; then force one of certificates D1–D5.
+  obtain ⟨hsuppA, hsuppB⟩ := diamond_full_support G H hA1 hC hxp hyq
+  -- Force D1–D5 by attachment classification (paper pp.13–14); D1 infra ready.
   sorry
 
 /-- **Proposition 6.3**: C₄ core is reducible under (A1)–(A2). -/
