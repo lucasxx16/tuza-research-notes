@@ -3468,6 +3468,382 @@ theorem matching_core_reducible (H : HubConfig G) (hA1 : H.A1)
       hCeq hAeq hBeq hcore' honly'' ⟨hattA.1, hattA.2, hattB⟩ h10
 
 
+/-! ### Lemma 4.5 certificate (shared by Props 4.6–4.7) -/
+
+/-- Fin-10 packing for Lemma 4.5: triangles `{u,v,s}`, `{u,p,r}`, `{u,q,a1}`, `{v,p,q}`, `{v,r,b1}`.
+Labels: `0=u,1=v,2=p,3=q,4=r,5=s,6=a0,7=a1,8=b0,9=b1`. -/
+def packing10_45 : Finset (Finset (Fin 10)) :=
+  {{0, 1, 5}, {0, 2, 4}, {0, 3, 7}, {1, 2, 3}, {1, 4, 9}}
+
+/-- Base cover (nine edges); optional `ps = s(2,5)` added when present. -/
+def cover10_45 : Finset (Sym2 (Fin 10)) :=
+  {s(0, 1), s(0, 6), s(0, 7), s(1, 8), s(1, 9),
+   s(2, 3), s(2, 4), s(3, 7), s(4, 9)}
+
+lemma packing10_45_card : packing10_45.card = 5 := by native_decide
+
+lemma cover10_45_card : cover10_45.card = 9 := by native_decide
+
+lemma packing10_45_pairwise_inter_le_one :
+    ∀ s ∈ packing10_45, ∀ t ∈ packing10_45, s ≠ t → (s ∩ t).card ≤ 1 := by
+  native_decide
+
+def packing45 (u v p q r s a b : V) : Finset (Finset V) :=
+  {{u, v, s}, {u, p, r}, {u, q, a}, {v, p, q}, {v, r, b}}
+
+def cover45 (u v p q r a0 a1 b0 b1 a b : V) : Finset (Sym2 V) :=
+  {s(u, v), s(u, a0), s(u, a1), s(v, b0), s(v, b1),
+   s(p, q), s(p, r), s(q, a), s(r, b)}
+
+private lemma packing45_image_eq (u v p q r s a0 a1 b0 b1 : V) :
+    packing10_45.image (mapTri (labels10 u v p q r s a0 a1 b0 b1)) =
+      packing45 u v p q r s a1 b1 := by
+  obtain ⟨f0, f1, f2, f3, f4, f5, _, f7, _, f9⟩ := map_lab u v p q r s a0 a1 b0 b1
+  set f := labels10 u v p q r s a0 a1 b0 b1 with hf
+  have e1 : mapTri f {0, 1, 5} = ({u, v, s} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f1, f5]
+  have e2 : mapTri f {0, 2, 4} = ({u, p, r} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f2, f4]
+  have e3 : mapTri f {0, 3, 7} = ({u, q, a1} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f3, f7]
+  have e4 : mapTri f {1, 2, 3} = ({v, p, q} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f1, f2, f3]
+  have e5 : mapTri f {1, 4, 9} = ({v, r, b1} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f1, f4, f9]
+  simp only [packing10_45, packing45, image_insert, image_singleton, e1, e2, e3, e4, e5]
+
+private lemma cover45_image_eq (u v p q r s a0 a1 b0 b1 : V) :
+    cover10_45.image (Sym2.map (labels10 u v p q r s a0 a1 b0 b1)) =
+      cover45 u v p q r a0 a1 b0 b1 a1 b1 := by
+  obtain ⟨f0, f1, f2, f3, f4, _, f6, f7, f8, f9⟩ := map_lab u v p q r s a0 a1 b0 b1
+  set f := labels10 u v p q r s a0 a1 b0 b1
+  have mk (i j : Fin 10) {x y : V} (hi : f i = x) (hj : f j = y) :
+      Sym2.map f s(i, j) = s(x, y) := by rw [Sym2.map_mk, hi, hj]
+  simp only [cover10_45, cover45, image_insert, image_singleton,
+    mk 0 1 f0 f1, mk 0 6 f0 f6, mk 0 7 f0 f7, mk 1 8 f1 f8, mk 1 9 f1 f9,
+    mk 2 3 f2 f3, mk 2 4 f2 f4, mk 3 7 f3 f7, mk 4 9 f4 f9]
+
+lemma packing45_card (u v p q r s a0 a1 b0 b1 : V)
+    (hinj : Function.Injective (labels10 u v p q r s a0 a1 b0 b1)) :
+    (packing45 u v p q r s a1 b1).card = 5 := by
+  let f := labels10 u v p q r s a0 a1 b0 b1
+  have hinjT : Function.Injective (mapTri f) := Finset.image_injective hinj
+  rw [← packing45_image_eq u v p q r s a0 a1 b0 b1,
+    card_image_of_injective _ hinjT, packing10_45_card]
+
+lemma packing45_disjoint (u v p q r s a0 a1 b0 b1 : V)
+    (hinj : Function.Injective (labels10 u v p q r s a0 a1 b0 b1)) :
+    ∀ σ ∈ packing45 u v p q r s a1 b1,
+      ∀ τ ∈ packing45 u v p q r s a1 b1,
+        σ ≠ τ → Disjoint (triEdges σ) (triEdges τ) := by
+  let f := labels10 u v p q r s a0 a1 b0 b1
+  intro σ hs τ ht hst
+  rw [← packing45_image_eq u v p q r s a0 a1 b0 b1] at hs ht
+  obtain ⟨s0, hs0, rfl⟩ := mem_image.1 hs
+  obtain ⟨t0, ht0, rfl⟩ := mem_image.1 ht
+  have hs0t0 : s0 ≠ t0 := fun h => by subst h; exact hst rfl
+  have hinter := packing10_45_pairwise_inter_le_one s0 hs0 t0 ht0 hs0t0
+  have hinter' : (mapTri f s0 ∩ mapTri f t0).card ≤ 1 := by
+    have : mapTri f s0 ∩ mapTri f t0 = (s0 ∩ t0).image f := by
+      simp only [mapTri]; exact (Finset.image_inter s0 t0 hinj).symm
+    rw [this]
+    exact le_trans card_image_le hinter
+  rw [Finset.disjoint_left]
+  intro e heA heB
+  have hA := mem_filter.1 heA
+  have hB := mem_filter.1 heB
+  revert hA hB
+  refine Sym2.inductionOn e fun x y hA hB => ?_
+  have hxA : x ∈ mapTri f s0 := Finset.mem_sym2_iff.1 hA.1 x (Sym2.mem_mk_left x y)
+  have hyA : y ∈ mapTri f s0 := Finset.mem_sym2_iff.1 hA.1 y (Sym2.mem_mk_right x y)
+  have hxB : x ∈ mapTri f t0 := Finset.mem_sym2_iff.1 hB.1 x (Sym2.mem_mk_left x y)
+  have hyB : y ∈ mapTri f t0 := Finset.mem_sym2_iff.1 hB.1 y (Sym2.mem_mk_right x y)
+  have hxy : x ≠ y := fun eq => hA.2 (by simpa [Sym2.mk_isDiag_iff] using eq)
+  have hsub : ({x, y} : Finset V) ⊆ mapTri f s0 ∩ mapTri f t0 := by
+    intro z hz; simp only [mem_insert, mem_singleton] at hz
+    rcases hz with rfl | rfl <;> simp [hxA, hyA, hxB, hyB]
+  have : 2 ≤ (mapTri f s0 ∩ mapTri f t0).card :=
+    (card_le_card hsub).trans' (by simp [card_insert_of_notMem, hxy])
+  omega
+
+lemma cover45_card (u v p q r s a0 a1 b0 b1 : V)
+    (hinj : Function.Injective (labels10 u v p q r s a0 a1 b0 b1)) :
+    (cover45 u v p q r a0 a1 b0 b1 a1 b1).card = 9 := by
+  let f := labels10 u v p q r s a0 a1 b0 b1
+  have hinjE : Function.Injective (Sym2.map f) := Sym2.map.injective hinj
+  rw [← cover45_image_eq u v p q r s a0 a1 b0 b1,
+    card_image_of_injective _ hinjE, cover10_45_card]
+
+lemma external45 (u v p q r s a0 a1 b0 b1 : V)
+    (hinj : Function.Injective (labels10 u v p q r s a0 a1 b0 b1))
+    {t : Finset V} (ht : t ∈ packing45 u v p q r s a1 b1)
+    {e : Sym2 V} (he : e ∈ triEdges t)
+    (hZ : ∀ z ∈ ({u, v} : Finset V), z ∉ e) :
+    e ∈ cover45 u v p q r a0 a1 b0 b1 a1 b1 := by
+  have hu : u ∉ e := hZ u (by simp)
+  have hv : v ∉ e := hZ v (by simp)
+  have t1 : ({u, v, s} : Finset V).card = 3 :=
+    card3_of_inj hinj (i := 0) (j := 1) (k := 5)
+      (by decide) (by decide) (by decide) rfl rfl rfl
+  have t2 : ({u, p, r} : Finset V).card = 3 :=
+    card3_of_inj hinj (i := 0) (j := 2) (k := 4)
+      (by decide) (by decide) (by decide) rfl rfl rfl
+  have t3 : ({u, q, a1} : Finset V).card = 3 :=
+    card3_of_inj hinj (i := 0) (j := 3) (k := 7)
+      (by decide) (by decide) (by decide) rfl rfl rfl
+  have t4 : ({v, p, q} : Finset V).card = 3 :=
+    card3_of_inj hinj (i := 1) (j := 2) (k := 3)
+      (by decide) (by decide) (by decide) rfl rfl rfl
+  have t5 : ({v, r, b1} : Finset V).card = 3 :=
+    card3_of_inj hinj (i := 1) (j := 4) (k := 9)
+      (by decide) (by decide) (by decide) rfl rfl rfl
+  simp only [packing45, mem_insert, mem_singleton] at ht
+  rcases ht with rfl | rfl | rfl | rfl | rfl
+  · -- external of uvs avoiding {u,v} is s(v,s) or s(u,s) — wait, omit u gives vs; omit both?
+    -- Z={u,v}, so both u and v avoided. Only possible external edge is none from {u,v,s}
+    -- Actually triEdges of {u,v,s} are uv, us, vs. Avoiding u and v means e has neither → impossible?
+    -- Paper: "None uses a spoke to s, so uvs shares no edge with them" for packing disjointness.
+    -- For external: edges of packing triangles that avoid Z={u,v}.
+    -- For uvs: edges are uv, us, vs. uv meets Z; us meets u∈Z; vs meets v∈Z. So NO external edges!
+    -- Contradiction: he says e ∈ triEdges and avoids Z — impossible for this triangle.
+    -- So we need False.elim.
+    have : False := by
+      -- e ∈ {uv, us, vs} and u∉e and v∉e
+      have hcard := t1
+      have heq := triEdges_eq_of_card3 hcard
+      rw [heq] at he
+      simp only [mem_insert, mem_singleton] at he
+      rcases he with rfl | rfl | rfl
+      · exact hu (by simp)
+      · exact hu (by simp)
+      · exact hv (by simp)
+    exact this.elim
+  · have h := triEdges_omit_vertex t2 he hu; rw [h]; simp [cover45]
+  · have h := triEdges_omit_vertex t3 he hu; rw [h]; simp [cover45]
+  · have h := triEdges_omit_vertex t4 he hv; rw [h]; simp [cover45]
+  · have h := triEdges_omit_vertex t5 he hv; rw [h]; simp [cover45]
+
+/-- Lemma 4.5: path/star fragment with crossed A/B leaf attachments ⇒ reducible. -/
+theorem lemma45_certificate (H : HubConfig G)
+    (p q r s a0 a1 b0 b1 : V)
+    (hC : H.C = {p, q, r, s})
+    (hA : H.A = {a0, a1})
+    (hB : H.B = {b0, b1})
+    (hpq : G.Adj p q) (hpr : G.Adj p r)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(p, r) ∨ s(x, y) = s(p, s))
+    (hatt : G.Adj q a1 ∧ G.Adj r b1)
+    (h10 : ({H.u, H.v, p, q, r, s, a0, a1, b0, b1} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  classical
+  refine ⟨Finset.insert_nonempty _ _, ?_⟩
+  let hinj := labels10_injective H.u H.v p q r s a0 a1 b0 b1 h10
+  let S := packing45 H.u H.v p q r s a1 b1
+  -- Cover: base nine edges, plus ps if present
+  let X0 := cover45 H.u H.v p q r a0 a1 b0 b1 a1 b1
+  let X : Finset (Sym2 V) := if G.Adj p s then insert s(p, s) X0 else X0
+  have uvs : G.Adj H.u H.v := H.huv
+  have us : G.Adj H.u s := hub_adj_CA G H (mem_union_left _ (by rw [hC]; simp))
+  have vs : G.Adj H.v s := hub_adj_CB G H (mem_union_left _ (by rw [hC]; simp))
+  have up : G.Adj H.u p := hub_adj_CA G H (mem_union_left _ (by rw [hC]; simp))
+  have uq : G.Adj H.u q := hub_adj_CA G H (mem_union_left _ (by rw [hC]; simp))
+  have ur : G.Adj H.u r := hub_adj_CA G H (mem_union_left _ (by rw [hC]; simp))
+  have ua0 : G.Adj H.u a0 := hub_adj_CA G H (mem_union_right _ (by rw [hA]; simp))
+  have ua1 : G.Adj H.u a1 := hub_adj_CA G H (mem_union_right _ (by rw [hA]; simp))
+  have vp : G.Adj H.v p := hub_adj_CB G H (mem_union_left _ (by rw [hC]; simp))
+  have vq : G.Adj H.v q := hub_adj_CB G H (mem_union_left _ (by rw [hC]; simp))
+  have vr : G.Adj H.v r := hub_adj_CB G H (mem_union_left _ (by rw [hC]; simp))
+  have vb0 : G.Adj H.v b0 := hub_adj_CB G H (mem_union_right _ (by rw [hB]; simp))
+  have vb1 : G.Adj H.v b1 := hub_adj_CB G H (mem_union_right _ (by rw [hB]; simp))
+  have t1 := card3_of_inj hinj (i := 0) (j := 1) (k := 5)
+    (by decide) (by decide) (by decide) rfl rfl rfl
+  have t2 := card3_of_inj hinj (i := 0) (j := 2) (k := 4)
+    (by decide) (by decide) (by decide) rfl rfl rfl
+  have t3 := card3_of_inj hinj (i := 0) (j := 3) (k := 7)
+    (by decide) (by decide) (by decide) rfl rfl rfl
+  have t4 := card3_of_inj hinj (i := 1) (j := 2) (k := 3)
+    (by decide) (by decide) (by decide) rfl rfl rfl
+  have t5 := card3_of_inj hinj (i := 1) (j := 4) (k := 9)
+    (by decide) (by decide) (by decide) rfl rfl rfl
+  have hpack : IsTrianglePacking G S := by
+    refine ⟨?_, packing45_disjoint H.u H.v p q r s a0 a1 b0 b1 hinj⟩
+    intro t ht
+    simp only [S, packing45, mem_insert, mem_singleton] at ht
+    rcases ht with rfl | rfl | rfl | rfl | rfl
+    · exact is3clique_of_adj G uvs us vs t1
+    · exact is3clique_of_adj G up ur hpr t2
+    · exact is3clique_of_adj G uq ua1 hatt.1 t3
+    · exact is3clique_of_adj G vp vq hpq t4
+    · exact is3clique_of_adj G vr vb1 hatt.2 t5
+  have hX0edges : X0 ⊆ G.edgeFinset := by
+    intro e he
+    simp only [X0, cover45, mem_insert, mem_singleton] at he
+    rcases he with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+    · exact (mem_edgeFinset).2 uvs
+    · exact (mem_edgeFinset).2 ua0
+    · exact (mem_edgeFinset).2 ua1
+    · exact (mem_edgeFinset).2 vb0
+    · exact (mem_edgeFinset).2 vb1
+    · exact (mem_edgeFinset).2 hpq
+    · exact (mem_edgeFinset).2 hpr
+    · exact (mem_edgeFinset).2 hatt.1
+    · exact (mem_edgeFinset).2 hatt.2
+  have hXedges : X ⊆ G.edgeFinset := by
+    intro e he
+    by_cases hps : G.Adj p s
+    · have he' : e ∈ insert s(p, s) X0 := by simpa [X, hps] using he
+      rcases mem_insert.1 he' with rfl | he0
+      · exact (mem_edgeFinset).2 hps
+      · exact hX0edges he0
+    · have he0 : e ∈ X0 := by simpa [X, hps] using he
+      exact hX0edges he0
+  have hcardS := packing45_card H.u H.v p q r s a0 a1 b0 b1 hinj
+  have hcardX0 := cover45_card H.u H.v p q r s a0 a1 b0 b1 hinj
+  have hsize : X.card ≤ 2 * S.card := by
+    have hS : S.card = 5 := hcardS
+    by_cases hps : G.Adj p s
+    · have : X = insert s(p, s) X0 := by simp [X, hps]
+      have hle : X.card ≤ X0.card + 1 := by
+        rw [this]; exact card_insert_le _ _
+      have : X0.card = 9 := hcardX0
+      omega
+    · have : X = X0 := by simp [X, hps]
+      rw [this, hcardX0, hS]; omega
+  -- coversZ: every triangle through u or v meets X
+  have hcoversZ : ∀ t ∈ G.cliqueFinset 3, (∃ z ∈ ({H.u, H.v} : Finset V), z ∈ t) →
+      ¬ Disjoint X (triEdges t) := by
+    intro t ht hZmeet
+    -- Reuse coversZ42-style case split; X contains all A/B spokes and core edges pq,pr,(ps)
+    classical
+    obtain ⟨hub, hhub, hhubt⟩ := hZmeet
+    simp only [mem_insert, mem_singleton] at hhub
+    have hN : G.IsNClique 3 t := (mem_cliqueFinset_iff).1 ht
+    have hcard : t.card = 3 := hN.card_eq
+    have hadj : ∀ a ∈ t, ∀ b ∈ t, a ≠ b → G.Adj a b :=
+      fun a ha b hb hab => hN.isClique ha hb hab
+    have herase : (t.erase hub).card = 2 := by rw [card_erase_of_mem hhubt, hcard]
+    rcases (card_eq_two (s := t.erase hub)).1 herase with ⟨px, py, hxy, ht_erase⟩
+    have hpx_erase : px ∈ t.erase hub := by rw [ht_erase]; exact mem_insert_self _ _
+    have hpy_erase : py ∈ t.erase hub := by rw [ht_erase]; simp
+    have ht_eq : t = {hub, px, py} := by
+      ext w; constructor
+      · intro hw
+        by_cases hwz : w = hub
+        · simp [hwz]
+        · have hw' : w ∈ t.erase hub := mem_erase.2 ⟨hwz, hw⟩
+          rw [ht_erase] at hw'
+          exact mem_insert_of_mem hw'
+      · intro hw
+        simp only [mem_insert, mem_singleton] at hw
+        rcases hw with rfl | rfl | rfl
+        · exact hhubt
+        · exact (mem_erase.1 hpx_erase).2
+        · exact (mem_erase.1 hpy_erase).2
+    have hx_ne : px ≠ hub := (mem_erase.1 hpx_erase).1
+    have hy_ne : py ≠ hub := (mem_erase.1 hpy_erase).1
+    have hxyt : px ∈ t := (mem_erase.1 hpx_erase).2
+    have hyyt : py ∈ t := (mem_erase.1 hpy_erase).2
+    have hcard3 : ({hub, px, py} : Finset V).card = 3 := by
+      simp [card_insert_of_notMem, hx_ne.symm, hy_ne.symm, hxy]
+    have him_rim : s(px, py) ∈ triEdges t := by
+      rw [ht_eq, triEdges_eq_of_card3 hcard3]; simp
+    have him_zx : s(hub, px) ∈ triEdges t := by
+      rw [ht_eq, triEdges_eq_of_card3 hcard3]; simp [Sym2.eq_swap]
+    have him_zy : s(hub, py) ∈ triEdges t := by
+      rw [ht_eq, triEdges_eq_of_card3 hcard3]; simp [Sym2.eq_swap]
+    have meet (e : Sym2 V) (heX : e ∈ X) (heT : e ∈ triEdges t) :
+        ¬ Disjoint X (triEdges t) := fun h => Finset.disjoint_left.1 h heX heT
+    have memX0 {e : Sym2 V} (he : e ∈ X0) : e ∈ X := by
+      by_cases hps : G.Adj p s <;> simp [X, hps, he]
+    have memXps (hps : G.Adj p s) : s(p, s) ∈ X := by simp [X, hps]
+    have hzx : G.Adj hub px := hadj hub hhubt px hxyt hx_ne.symm
+    have hzy : G.Adj hub py := hadj hub hhubt py hyyt hy_ne.symm
+    have hxyAdj : G.Adj px py := hadj px hxyt py hyyt hxy
+    rcases hhub with rfl | rfl
+    · -- hub = u
+      have hxN : px ∈ G.neighborFinset H.u := (G.mem_neighborFinset _ _).2 hzx
+      have hyN : py ∈ G.neighborFinset H.u := (G.mem_neighborFinset _ _).2 hzy
+      rw [H.hNu] at hxN hyN
+      by_cases hxv : px = H.v
+      · subst hxv; exact meet s(H.u, H.v) (memX0 (by simp [X0, cover45])) him_zx
+      by_cases hyv : py = H.v
+      · subst hyv; exact meet s(H.u, H.v) (memX0 (by simp [X0, cover45])) him_zy
+      have hxCA : px ∈ H.C ∪ H.A := by simpa [hxv] using hxN
+      have hyCA : py ∈ H.C ∪ H.A := by simpa [hyv] using hyN
+      by_cases hxAmem : px ∈ H.A
+      · have hpa : px = a0 ∨ px = a1 := by simpa [hA] using hxAmem
+        rcases hpa with hpa | hpa
+        · exact meet s(H.u, a0) (memX0 (by simp [X0, cover45])) (hpa ▸ him_zx)
+        · exact meet s(H.u, a1) (memX0 (by simp [X0, cover45])) (hpa ▸ him_zx)
+      by_cases hyAmem : py ∈ H.A
+      · have hpa : py = a0 ∨ py = a1 := by simpa [hA] using hyAmem
+        rcases hpa with hpa | hpa
+        · exact meet s(H.u, a0) (memX0 (by simp [X0, cover45])) (hpa ▸ him_zy)
+        · exact meet s(H.u, a1) (memX0 (by simp [X0, cover45])) (hpa ▸ him_zy)
+      have hxC : px ∈ H.C := by simpa [mem_union, hxAmem] using hxCA
+      have hyC : py ∈ H.C := by simpa [mem_union, hyAmem] using hyCA
+      rcases honly px hxC py hyC hxyAdj with hr | hr | hr
+      · rw [hr] at him_rim; exact meet s(p, q) (memX0 (by simp [X0, cover45])) him_rim
+      · rw [hr] at him_rim; exact meet s(p, r) (memX0 (by simp [X0, cover45])) him_rim
+      · rw [hr] at him_rim
+        have hps : G.Adj p s := by
+          have heq : s(px, py) = s(p, s) := hr
+          have hem : s(px, py) ∈ G.edgeFinset := (mem_edgeFinset).2 hxyAdj
+          exact (mem_edgeFinset).1 (heq ▸ hem)
+        exact meet s(p, s) (memXps hps) him_rim
+    · -- hub = v
+      have hxN : px ∈ G.neighborFinset H.v := (G.mem_neighborFinset _ _).2 hzx
+      have hyN : py ∈ G.neighborFinset H.v := (G.mem_neighborFinset _ _).2 hzy
+      rw [H.hNv] at hxN hyN
+      by_cases hxu : px = H.u
+      · subst hxu
+        have heT : s(H.u, H.v) ∈ triEdges t := by simpa [Sym2.eq_swap] using him_zx
+        exact meet s(H.u, H.v) (memX0 (by simp [X0, cover45])) heT
+      by_cases hyu : py = H.u
+      · subst hyu
+        have heT : s(H.u, H.v) ∈ triEdges t := by simpa [Sym2.eq_swap] using him_zy
+        exact meet s(H.u, H.v) (memX0 (by simp [X0, cover45])) heT
+      have hxCB : px ∈ H.C ∪ H.B := by simpa [hxu] using hxN
+      have hyCB : py ∈ H.C ∪ H.B := by simpa [hyu] using hyN
+      by_cases hxBmem : px ∈ H.B
+      · have hpb : px = b0 ∨ px = b1 := by simpa [hB] using hxBmem
+        rcases hpb with hpb | hpb
+        · exact meet s(H.v, b0) (memX0 (by simp [X0, cover45])) (hpb ▸ him_zx)
+        · exact meet s(H.v, b1) (memX0 (by simp [X0, cover45])) (hpb ▸ him_zx)
+      by_cases hyBmem : py ∈ H.B
+      · have hpb : py = b0 ∨ py = b1 := by simpa [hB] using hyBmem
+        rcases hpb with hpb | hpb
+        · exact meet s(H.v, b0) (memX0 (by simp [X0, cover45])) (hpb ▸ him_zy)
+        · exact meet s(H.v, b1) (memX0 (by simp [X0, cover45])) (hpb ▸ him_zy)
+      have hxC : px ∈ H.C := by simpa [mem_union, hxBmem] using hxCB
+      have hyC : py ∈ H.C := by simpa [mem_union, hyBmem] using hyCB
+      rcases honly px hxC py hyC hxyAdj with hr | hr | hr
+      · rw [hr] at him_rim; exact meet s(p, q) (memX0 (by simp [X0, cover45])) him_rim
+      · rw [hr] at him_rim; exact meet s(p, r) (memX0 (by simp [X0, cover45])) him_rim
+      · rw [hr] at him_rim
+        have hps : G.Adj p s := by
+          have heq : s(px, py) = s(p, s) := hr
+          have hem : s(px, py) ∈ G.edgeFinset := (mem_edgeFinset).2 hxyAdj
+          exact (mem_edgeFinset).1 (heq ▸ hem)
+        exact meet s(p, s) (memXps hps) him_rim
+  have hexternal : ∀ t ∈ S, ∀ e ∈ triEdges t, (∀ z ∈ ({H.u, H.v} : Finset V), z ∉ e) →
+      e ∈ X := by
+    intro t ht e he hZ
+    have he0 := external45 H.u H.v p q r s a0 a1 b0 b1 hinj ht he hZ
+    by_cases hps : G.Adj p s
+    · simpa [X, hps] using (mem_insert_of_mem he0 : e ∈ insert s(p, s) X0)
+    · simpa [X, hps] using he0
+  exact ⟨{
+    packing := S
+    cover := X
+    isPacking := hpack
+    cover_edges := hXedges
+    size := hsize
+    coversZ := hcoversZ
+    external := hexternal
+  }⟩
+
+
 end MatchingCore
 
 /-! ## Star core `K_{1,3}` (Lemma 4.3) -/
@@ -4499,6 +4875,199 @@ theorem path_leaf_attachment (H : HubConfig G)
 end PathCore
 
 
+open MatchingCore
+open StarCore
+open PathCore
+
+/-- Labelled star/path fragment with crossed attachments → Lemma 4.5. -/
+theorem lemma45_reducible (H : HubConfig G)
+    (p q r s a0 a1 b0 b1 : V)
+    (hC : H.C = {p, q, r, s})
+    (hA : H.A = {a0, a1}) (hB : H.B = {b0, b1})
+    (hpq : G.Adj p q) (hpr : G.Adj p r)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(p, r) ∨ s(x, y) = s(p, s))
+    (hatt : G.Adj q a1 ∧ G.Adj r b1)
+    (h10 : ({H.u, H.v, p, q, r, s, a0, a1, b0, b1} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) :=
+  lemma45_certificate G H p q r s a0 a1 b0 b1 hC hA hB hpq hpr honly hatt h10
+
+/-- **Proposition 4.6** (labelled): star with leaf `q` A-attached and leaf `r` B-attached. -/
+theorem star_core_of_labels (H : HubConfig G)
+    (p q r s a0 a1 b0 b1 : V)
+    (hC : H.C = {p, q, r, s})
+    (hA : H.A = {a0, a1}) (hB : H.B = {b0, b1})
+    (hstar : G.Adj p q ∧ G.Adj p r ∧ G.Adj p s)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(p, r) ∨ s(x, y) = s(p, s))
+    (hatt : G.Adj q a1 ∧ G.Adj r b1)
+    (h10 : ({H.u, H.v, p, q, r, s, a0, a1, b0, b1} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) :=
+  lemma45_reducible G H p q r s a0 a1 b0 b1 hC hA hB hstar.1 hstar.2.1 honly hatt h10
+
+/-- Helper: third leaf of a 3-set. -/
+lemma third_of_three {q r s q' r' : V}
+    (hcard : ({q, r, s} : Finset V).card = 3)
+    (hq' : q' ∈ ({q, r, s} : Finset V)) (hr' : r' ∈ ({q, r, s} : Finset V))
+    (hne : q' ≠ r') :
+    ∃ s', ({q', r', s'} : Finset V) = {q, r, s} := by
+  have hsub2 : ({q', r'} : Finset V) ⊆ {q, r, s} := by
+    intro x hx; simp only [mem_insert, mem_singleton] at hx
+    rcases hx with rfl | rfl <;> assumption
+  have h2 : ({q', r'} : Finset V).card = 2 := by
+    rw [card_insert_of_notMem (by simp [hne]), card_singleton]
+  have hrest : (({q, r, s} : Finset V) \ {q', r'}).card = 1 := by
+    rw [card_sdiff]
+    have hinter : ({q', r'} ∩ ({q, r, s} : Finset V)) = {q', r'} :=
+      inter_eq_left.2 hsub2
+    rw [hinter, h2, hcard]
+  obtain ⟨s', hs'eq⟩ := card_eq_one.1 hrest
+  refine ⟨s', ?_⟩
+  have hu := union_sdiff_of_subset hsub2
+  rw [hs'eq] at hu
+  have hunion : ({q', r'} : Finset V) ∪ {s'} = {q', r', s'} := by
+    ext x; simp [or_comm, or_left_comm, or_assoc]
+  rw [← hunion, hu]
+
+/-- Orient a neighbor in a 2-set as the second label. -/
+lemma orient_second {D : Finset V} (hD : D.card = 2) {c d : V}
+    (hd : d ∈ D) (hAdj : G.Adj c d) :
+    ∃ d0 d1, D = {d0, d1} ∧ d0 ≠ d1 ∧ G.Adj c d1 := by
+  obtain ⟨e0, e1, he01, hDeq⟩ := (card_eq_two (s := D)).1 hD
+  have hd' : d = e0 ∨ d = e1 := by rw [hDeq] at hd; simpa using hd
+  rcases hd' with heq | heq
+  · refine ⟨e1, e0, ?_, he01.symm, heq ▸ hAdj⟩
+    rw [hDeq]; subst heq; ext x; simp [or_comm]
+  · exact ⟨e0, e1, hDeq, he01, heq ▸ hAdj⟩
+
+/-- **Proposition 4.6**: star core with both links non-WKE ⇒ reducible. -/
+theorem star_core_reducible (H : HubConfig G)
+    (hnotu : ¬ IsWKE (linkGraph G H.u)) (hnotv : ¬ IsWKE (linkGraph G H.v))
+    (p q r s : V) (hC : H.C = {p, q, r, s})
+    (hstar : G.Adj p q ∧ G.Adj p r ∧ G.Adj p s)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(p, r) ∨ s(x, y) = s(p, s)) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  classical
+  have hA2 := star_two_leaf_attachments G H p q r s hC hstar honly hnotu
+  let Hs := H.swap
+  have honlys : ∀ x ∈ Hs.C, ∀ y ∈ Hs.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(p, r) ∨ s(x, y) = s(p, s) := by
+    intro x hx y hy hAdj
+    exact honly x (by change x ∈ H.C at hx; exact hx)
+      y (by change y ∈ H.C at hy; exact hy) hAdj
+  have hB2raw := star_two_leaf_attachments G Hs p q r s (by change H.C = _; exact hC)
+    hstar honlys hnotv
+  have hB2 : 2 ≤ (H.attachSupport H.B ∩ ({q, r, s} : Finset V)).card := by
+    have heq : Hs.attachSupport Hs.A ∩ ({q, r, s} : Finset V) =
+        H.attachSupport H.B ∩ {q, r, s} := by
+      have hCs : Hs.C = H.C := rfl
+      have hAs : Hs.A = H.B := rfl
+      simp only [HubConfig.attachSupport, hCs, hAs]
+    rwa [← heq]
+  have hApos : (H.attachSupport H.A ∩ {q, r, s}).Nonempty :=
+    card_pos.1 (lt_of_lt_of_le (by decide : (0 : ℕ) < 2) hA2)
+  obtain ⟨qA, hqA⟩ := hApos
+  have hqA_leaf : qA ∈ ({q, r, s} : Finset V) := (mem_inter.1 hqA).2
+  have hqA_att : (G.neighborFinset qA ∩ H.A).Nonempty :=
+    (mem_filter.1 (mem_inter.1 hqA).1).2
+  have exists_rB : ∃ rB ∈ ({q, r, s} : Finset V),
+      rB ≠ qA ∧ (G.neighborFinset rB ∩ H.B).Nonempty := by
+    by_contra h; push Not at h
+    have hsub : H.attachSupport H.B ∩ {q, r, s} ⊆ ({qA} : Finset V) := by
+      intro x hx
+      have hxL : x ∈ ({q, r, s} : Finset V) := (mem_inter.1 hx).2
+      have hxA : (G.neighborFinset x ∩ H.B).Nonempty :=
+        (mem_filter.1 (mem_inter.1 hx).1).2
+      have hxeq : x = qA := by
+        by_contra hne
+        have hempty : G.neighborFinset x ∩ H.B = ∅ := h x hxL hne
+        exact Finset.nonempty_iff_ne_empty.1 hxA hempty
+      simpa [hxeq]
+    have : (H.attachSupport H.B ∩ {q, r, s}).card ≤ 1 :=
+      (card_le_card hsub).trans (by simp)
+    omega
+  obtain ⟨rB, hrB_leaf, hrB_ne, hrB_att⟩ := exists_rB
+  have hcard3 : ({q, r, s} : Finset V).card = 3 := by
+    have d := core4_distinct G H hC
+    simp [card_insert_of_notMem, d.2.2.2.1, d.2.2.2.2.1, d.2.2.2.2.2]
+  obtain ⟨sB, hsBeq⟩ := third_of_three hcard3 hqA_leaf hrB_leaf hrB_ne.symm
+  -- Core equality after leaf relabelling
+  have hC' : H.C = {p, qA, rB, sB} := by
+    have d := core4_distinct G H hC
+    have hu : ({p, q, r, s} : Finset V) = insert p ({q, r, s} : Finset V) := by
+      ext x; simp [or_comm, or_left_comm, or_assoc]
+    have hv : ({p, qA, rB, sB} : Finset V) = insert p ({qA, rB, sB} : Finset V) := by
+      ext x; simp [or_comm, or_left_comm, or_assoc]
+    rw [hC, hu, ← hsBeq, ← hv]
+  have hp_on (x : V) (hx : x ∈ ({q, r, s} : Finset V)) : G.Adj p x := by
+    simp only [mem_insert, mem_singleton] at hx
+    rcases hx with rfl | rfl | rfl
+    · exact hstar.1
+    · exact hstar.2.1
+    · exact hstar.2.2
+  have hsB_leaf : sB ∈ ({q, r, s} : Finset V) := by
+    have : sB ∈ ({qA, rB, sB} : Finset V) := by simp
+    rwa [hsBeq] at this
+  have hstar' : G.Adj p qA ∧ G.Adj p rB ∧ G.Adj p sB :=
+    ⟨hp_on qA hqA_leaf, hp_on rB hrB_leaf, hp_on sB hsB_leaf⟩
+  -- honly for new labels: any core edge equals one of the three star edges from p
+  have honly' : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, qA) ∨ s(x, y) = s(p, rB) ∨ s(x, y) = s(p, sB) := by
+    intro x hx y hy hAdj
+    -- Original honly: edge is one of pq, pr, ps
+    rcases honly x hx y hy hAdj with h | h | h
+    · -- = s(p,q). The non-p endpoint is q, which equals qA, rB, or sB
+      have : q = qA ∨ q = rB ∨ q = sB := by
+        have hq : q ∈ ({qA, rB, sB} : Finset V) := by
+          have : q ∈ ({q, r, s} : Finset V) := by simp
+          rwa [← hsBeq] at this
+        simpa using hq
+      rcases this with rfl | rfl | rfl <;> simp [h, Sym2.eq_swap]
+    · have : r = qA ∨ r = rB ∨ r = sB := by
+        have hr : r ∈ ({qA, rB, sB} : Finset V) := by
+          have : r ∈ ({q, r, s} : Finset V) := by simp
+          rwa [← hsBeq] at this
+        simpa using hr
+      rcases this with rfl | rfl | rfl <;> simp [h, Sym2.eq_swap]
+    · have : s = qA ∨ s = rB ∨ s = sB := by
+        have hs : s ∈ ({qA, rB, sB} : Finset V) := by
+          have : s ∈ ({q, r, s} : Finset V) := by simp
+          rwa [← hsBeq] at this
+        simpa using hs
+      rcases this with rfl | rfl | rfl <;> simp [h, Sym2.eq_swap]
+  -- Orient A/B neighbors
+  obtain ⟨da, ha⟩ := hqA_att
+  have haA : da ∈ H.A := (mem_inter.1 ha).2
+  have hAdjA : G.Adj qA da := (G.mem_neighborFinset _ _).1 (mem_inter.1 ha).1
+  obtain ⟨a0, a1, hAeq, ha01, hqa⟩ := orient_second (G := G) (D := H.A) H.hA haA hAdjA
+  obtain ⟨db, hb⟩ := hrB_att
+  have hbB : db ∈ H.B := (mem_inter.1 hb).2
+  have hAdjB : G.Adj rB db := (G.mem_neighborFinset _ _).1 (mem_inter.1 hb).1
+  obtain ⟨b0, b1, hBeq, hb01, hrb⟩ := orient_second (G := G) (D := H.B) H.hB hbB hAdjB
+  have h10 : ({H.u, H.v, p, qA, rB, sB, a0, a1, b0, b1} : Finset V).card = 10 := by
+    have hC4 : ({p, qA, rB, sB} : Finset V).card = 4 := by rw [← hC']; exact H.hCcard
+    exact labels10_of_hub G H hC' hAeq hBeq hC4 ha01 hb01
+  exact star_core_of_labels G H p qA rB sB a0 a1 b0 b1 hC' hAeq hBeq hstar'
+    honly' ⟨hqa, hrb⟩ h10
+
+/-- **Proposition 4.7** (crossed case): path `P₃∪K₁` with distinct A/B leaf attachments. -/
+theorem path_core_reducible_of_cross (H : HubConfig G)
+    (p q r s : V) (hC : H.C = {p, q, r, s})
+    (hedges : G.Adj p q ∧ G.Adj p r)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(p, r))
+    (a0 a1 b0 b1 : V) (hA : H.A = {a0, a1}) (hB : H.B = {b0, b1})
+    (hatt : G.Adj q a1 ∧ G.Adj r b1)
+    (h10 : ({H.u, H.v, p, q, r, s, a0, a1, b0, b1} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  have honly' : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(p, r) ∨ s(x, y) = s(p, s) := by
+    intro x hx y hy hAdj
+    rcases honly x hx y hy hAdj with h | h <;> simp [h]
+  exact lemma45_reducible G H p q r s a0 a1 b0 b1 hC hA hB hedges.1 hedges.2
+    honly' hatt h10
+
 /-- **Theorem 1.3 (Structural codegree-four reduction).** -/
 theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (_hA2 : H.A2) :
     IsReducible G ({H.u, H.v} : Finset V) := by
@@ -4507,14 +5076,28 @@ theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (_hA2 : H.A2) :
     by_contra hlt
     have : H.numCoreEdges ≤ 1 := by omega
     exact prop31 G H hA1 this
-  -- Matching 2K₂ core (when labelled) → Prop 4.2 via `matching_core_reducible`.
   by_cases h2K2 : ∃ p0 p1 q0 q1 : V,
       H.C = {p0, p1, q0, q1} ∧ G.Adj p0 p1 ∧ G.Adj q0 q1 ∧
       (∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
         s(x, y) = s(p0, p1) ∨ s(x, y) = s(q0, q1))
   · obtain ⟨p0, p1, q0, q1, hC, hp, hq, honly⟩ := h2K2
     exact MatchingCore.matching_core_reducible G H hA1 p0 p1 q0 q1 hC ⟨hp, hq⟩ honly
-  -- Remaining cores (P₃+K₁, star, path, denser): certificates open.
+  by_cases hstar : ∃ p q r s : V,
+      H.C = {p, q, r, s} ∧ G.Adj p q ∧ G.Adj p r ∧ G.Adj p s ∧
+      (∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+        s(x, y) = s(p, q) ∨ s(x, y) = s(p, r) ∨ s(x, y) = s(p, s))
+  · obtain ⟨p, q, r, s, hC, hpq, hpr, hps, honly⟩ := hstar
+    exact star_core_reducible G H hA1.2.1 hA1.2.2.2 p q r s hC ⟨hpq, hpr, hps⟩ honly
+  by_cases hpath : ∃ p q r s a0 a1 b0 b1 : V,
+      H.C = {p, q, r, s} ∧ H.A = {a0, a1} ∧ H.B = {b0, b1} ∧
+      G.Adj p q ∧ G.Adj p r ∧ G.Adj q a1 ∧ G.Adj r b1 ∧
+      (∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+        s(x, y) = s(p, q) ∨ s(x, y) = s(p, r)) ∧
+      ({H.u, H.v, p, q, r, s, a0, a1, b0, b1} : Finset V).card = 10
+  · obtain ⟨p, q, r, s, a0, a1, b0, b1, hC, hA, hB, hpq, hpr, hqa, hrb, honly, h10⟩ := hpath
+    exact path_core_reducible_of_cross G H p q r s hC ⟨hpq, hpr⟩ honly
+      a0 a1 b0 b1 hA hB ⟨hqa, hrb⟩ h10
+  -- Remaining: P₃∪K₁ same-singleton + (A2), P₄, C₄, paw, denser cores.
   sorry
 
 

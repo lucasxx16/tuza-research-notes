@@ -39,18 +39,17 @@ This is proved for general k (no enumeration over k). The general statements are
 - `TuzaFormal/Reducibility.lean`: Defs 1.1–1.2; **proved** `reduction_bridge` (Lemma 2.1).
 - `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound`.
   **Axiom:** `puleo_large_indep`.
-  **Proved:** full `prop31`; Prop 4.2 certificate + Fin-10 locals;
-  Lemma 4.1(1)–(3) full (`lemma41_cross`, including q-edge same-singleton WKE dual);
-  `labels10_of_hub`; `HubConfig.swap` / `A1.swap`;
-  `matching_core_of_labels`; **full** `matching_core_reducible` (Prop 4.2);
-  **full** Lemmas 4.3 and 4.4(1).
-  **Partial / sorry:** `structural_codegree_four` wires matching 2K₂ via
-  `matching_core_reducible` when labels exist; remaining eight core types
-  (P₃+K₁, star, path, denser) still open (star/path attachment lemmas proved;
-  Props 4.6–4.7 certificates not yet wired).
+  **Proved:** full `prop31`; Prop 4.2 (`matching_core_reducible`);
+  Lemma 4.1(1)–(3) full; Lemmas 4.3 and 4.4(1);
+  **Lemma 4.5** (`lemma45_certificate`) Fin-10 packing/cover;
+  **Prop 4.6** (`star_core_reducible`) full;
+  Prop 4.7 crossed case (`path_core_reducible_of_cross`).
+  **`structural_codegree_four`:** wires matching 2K₂, star K₁,₃, and path
+  crossed attachments; remaining sorry for P₃∪K₁ same-singleton+(A2), P₄,
+  C₄, paw, denser cores.
 
-  Paper note: Lemma 4.1 and Prop 4.2 match the formalization; no gap found.
-  Bottleneck: remaining core certificates toward Theorem 1.3.
+  Paper note: Lemma 4.5 / Props 4.6–4.7 (crossed) match; no gap found.
+  Bottleneck: Prop 4.7 same-singleton (needs Lemma 4.4(2)), Prop 4.9 (P₄), denser.
 
 ## Build
 
