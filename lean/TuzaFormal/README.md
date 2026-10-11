@@ -36,25 +36,19 @@ This is proved for general k (no enumeration over k). The general statements are
 
 ## Theorem 1.3 (in progress)
 
-- `TuzaFormal/Reducibility.lean`: Defs 1.1–1.2; ambient residual packing/cover.
-  **Proved:** `reduction_bridge` (Lemma 2.1) — fully, no `sorry`.
-- `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound` (proved).
+- `TuzaFormal/Reducibility.lean`: Defs 1.1–1.2; **proved** `reduction_bridge` (Lemma 2.1).
+- `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound`.
   **Axiom:** `puleo_large_indep`.
-  **Proved (Prop 3.1):** full `prop31` (edgeless via Puleo; one-edge via WKE trichotomy);
-  `wke_private_edge`, `wke_private_attach`, `one_edge_is_wke`.
-  **Proved (Prop 4.2):** all five local lemmas + `prop42_certificate` (Fin-10 transfer).
-  **Proved (sparse-core helpers):** `core4_distinct`, hub/private label lemmas;
-  `StarCore.star_empty_outside_center`, `StarCore.star_wke_no_attach_no_priv`
-  (zero leaf attachments + no private edge ⇒ WKE);
-  `PathCore.path_empty_outside_center` and the corresponding no-attachment case of
-  `path_leaf_attachment`.
-  **Partial:** `star_two_leaf_attachments` / `path_leaf_attachment` still `sorry` on the
-  private-edge and single-attachment branches (paper cases 1–2).
-  **Sorry:** `lemma41_cross` (Lemma 4.1(3) crossed matching), `structural_codegree_four`.
+  **Proved:** full `prop31`; Prop 4.2 certificate + Fin-10 locals;
+  `lemma41_no_private` (Lemma 4.1(1));
+  **full** `StarCore.star_two_leaf_attachments` (Lemma 4.3, all cases);
+  **full** `PathCore.path_leaf_attachment` (Lemma 4.4(1), all cases).
+  **Partial:** `lemma41_cross` (parts 2–3 still `sorry` after part 1);
+  `structural_codegree_four` wires Prop 3.1 exclusion (`numCoreEdges ≥ 2`) then `sorry`
+  for the remaining nine core certificates.
 
   Paper note: Lemma 4.1(3) remains the bottleneck for wiring Prop 4.2 into the top-level
-  structural theorem; star/path zero-attachment WKE witnesses match the paper.
-
+  theorem. Star/path WKE witnesses match the paper; no gap found in Lemmas 4.3–4.4.
 
 ## Build
 
