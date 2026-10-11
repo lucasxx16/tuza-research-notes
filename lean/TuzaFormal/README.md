@@ -84,3 +84,11 @@ A clean build takes about 8 minutes.
 - `diamond_core_reducible` still sorry on the paper's attachment classification that forces one of D1–D5.
 - Still sorry: `c4_core_reducible`, `paw_core_reducible`, `k3k1_core_reducible`, residual in `structural_codegree_four`.
 - No paper gaps found in Prop 6.2 certificate statements; forcing argument not yet checked in Lean.
+
+## Progress (diamond forcing partial)
+
+- D1–D5 certificates: fully proved.
+- D1 force helpers + condition (3) failure → D1: proved in `diamond_core_reducible`.
+- Oriented lemmas: `diamond_sparse_split_A` (→ D2/D3), `diamond_paired_D5`.
+- Remaining in `diamond_core_reducible`: Cases 1–3 classification (sparse/dense/paired) still sorry after centre-unique setup.
+- Still sorry: C₄, paw, K₃+K₁, structural residual.

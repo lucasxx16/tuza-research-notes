@@ -10839,6 +10839,80 @@ lemma diamond_force_D1_Bpriv (H : HubConfig G) (hA1 : H.A1)
     hxp hxq hyp hyq hpq hnxy hsuppBsw w hwA' hleaf hmiss h10'
   simpa [HubConfig.swap, Finset.pair_comm] using h
 
+
+lemma labels10_swapCentersB (u v x y p q a b c d : V)
+    (h : ({u, v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    ({u, v, x, y, q, p, a, b, d, c} : Finset V).card = 10 :=
+  card10_of_same_elems
+    (fun z hz => by
+      simp only [mem_insert, mem_singleton] at hz
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h])
+    (fun z hz => by
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h]) h
+
+
+set_option maxHeartbeats 4000000 in
+/-- Sparse split on A (oriented): `pa,qb,xa,ya` / `¬qa,¬pb,¬xb,¬yb`; unique B-nbr of `p` is `c`. -/
+lemma diamond_sparse_split_A (H : HubConfig G)
+    (x y p q a b c d : V)
+    (hC : H.C = {x, y, p, q})
+    (hA : H.A = {a, b}) (hB : H.B = {c, d})
+    (hxp : G.Adj x p) (hxq : G.Adj x q) (hyp : G.Adj y p) (hyq : G.Adj y q)
+    (hpq : G.Adj p q) (hnxy : ¬ G.Adj x y)
+    (hpa : G.Adj p a) (hqb : G.Adj q b)
+    (hxa : G.Adj x a) (hya : G.Adj y a)
+    (hnqa : ¬ G.Adj q a) (hnpb : ¬ G.Adj p b)
+    (hnxb : ¬ G.Adj x b) (hnyb : ¬ G.Adj y b)
+    (hpc : G.Adj p c) (hnpd : ¬ G.Adj p d)
+    (hnxd : ¬ G.Adj x d)  -- follows from (3) when ¬yd; required for D3
+    (hxc : G.Adj x c)     -- forced by support when xd absent
+    (h10 : ({H.u, H.v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  classical
+  by_cases hyd : G.Adj y d
+  · exact diamond_certificate_D2 G H x y q p a b d c
+      (core4_perm_centers hC) hA (B_perm hB)
+      ⟨hxq, hxp, hyq, hyp, hpq.symm⟩ hnxy
+      hxa hqb hyd hpc hnqa hnxb hnpd
+      (labels10_swapCentersB _ _ _ _ _ _ _ _ _ _ h10)
+  · -- D3: ya, xc; b and d miss {x,y,p}
+    exact diamond_certificate_D3 G H x y p q a b c d hC hA hB
+      ⟨hxp, hxq, hyp, hyq, hpq⟩ hnxy hya hxc
+      (fun w hw => by
+        simp only [mem_insert, mem_singleton] at hw
+        rcases hw with rfl | rfl | rfl
+        · exact fun h => hnxb h.symm
+        · exact fun h => hnyb h.symm
+        · exact fun h => hnpb h.symm)
+      (fun w hw => by
+        simp only [mem_insert, mem_singleton] at hw
+        rcases hw with rfl | rfl | rfl
+        · exact fun h => hnxd h.symm
+        · exact fun h => hyd h.symm
+        · exact fun h => hnpd h.symm)
+      h10
+
+set_option maxHeartbeats 4000000 in
+/-- Both sides paired, neither weak sees a leaf → D5 after swapping B-labels so `d` is dominant. -/
+lemma diamond_paired_D5 (H : HubConfig G)
+    (x y p q a b c d : V)
+    (hC : H.C = {x, y, p, q})
+    (hA : H.A = {a, b}) (hB : H.B = {c, d})
+    (hxp : G.Adj x p) (hxq : G.Adj x q) (hyp : G.Adj y p) (hyq : G.Adj y q)
+    (hpq : G.Adj p q) (hnxy : ¬ G.Adj x y)
+    (hpa : G.Adj p a) (hqa : G.Adj q a)  -- a dominant
+    (hpc : G.Adj p c) (hqc : G.Adj q c)  -- c dominant (before swap)
+    (hab : G.Adj a b) (hcd : G.Adj c d)
+    -- after interchange c,d: d becomes the double-center attachment
+    (hdp : G.Adj d p) (hdq : G.Adj d q)
+    (h10 : ({H.u, H.v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  -- Paper: D5 after interchanging c,d so dominant is named d with dp,dq.
+  -- If c is dominant with cp,cq, swap B labels to make d the dominant with those edges.
+  -- Here we assume already oriented with dp,dq (caller swaps if needed).
+  exact diamond_certificate_D5 G H x y p q a b c d hC hA hB
+    ⟨hxp, hxq, hyp, hyq, hpq⟩ hnxy hab hcd hdp hdq h10
+
 /-- **Proposition 6.2**: diamond core `{xp,xq,yp,yq,pq}` is reducible under (A1)–(A2).
 Certificates D1–D5 are fully proved; the remaining work is the paper's attachment
 classification that forces one of those five hypothesis packages. -/
@@ -10881,8 +10955,70 @@ theorem diamond_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
       ¬ ((G.Adj x w ∧ ¬ G.Adj y w) ∨ (G.Adj y w ∧ ¬ G.Adj x w)) := by
     intro w hw hm hleaf
     exact hfail3 (Or.inr ⟨w, hw, hleaf, hm⟩)
-  -- Remaining Cases 1–3 (sparse/dense/paired) → D2–D5.
-  sorry
+  -- Unique centre attachments.
+  have hpA : p ∈ ({p, q} : Finset V) := by simp
+  have hqA : q ∈ ({p, q} : Finset V) := by simp
+  let αp := Classical.choose (ExistsUnique.exists (uniqA p hpA))
+  let αq := Classical.choose (ExistsUnique.exists (uniqA q hqA))
+  let βp := Classical.choose (ExistsUnique.exists (uniqB p hpA))
+  let βq := Classical.choose (ExistsUnique.exists (uniqB q hqA))
+  have hαp : αp ∈ H.A ∧ G.Adj p αp := by
+    simpa [αp] using Classical.choose_spec (ExistsUnique.exists (uniqA p hpA))
+  have hαq : αq ∈ H.A ∧ G.Adj q αq := by
+    simpa [αq] using Classical.choose_spec (ExistsUnique.exists (uniqA q hqA))
+  have hβp : βp ∈ H.B ∧ G.Adj p βp := by
+    simpa [βp] using Classical.choose_spec (ExistsUnique.exists (uniqB p hpA))
+  have hβq : βq ∈ H.B ∧ G.Adj q βq := by
+    simpa [βq] using Classical.choose_spec (ExistsUnique.exists (uniqB q hqA))
+  have hαpA := hαp.1; have hpαp := hαp.2
+  have hαqA := hαq.1; have hqαq := hαq.2
+  have hβpB := hβp.1; have hpβp := hβp.2
+  have hβqB := hβq.1; have hqβq := hβq.2
+  have αp_eq : αp = a ∨ αp = b := by simpa [hAeq] using hαpA
+  have αq_eq : αq = a ∨ αq = b := by simpa [hAeq] using hαqA
+  have βp_eq : βp = c ∨ βp = d := by simpa [hBeq] using hβpB
+  have βq_eq : βq = c ∨ βq = d := by simpa [hBeq] using hβqB
+  -- Both leaves / neither, under (3), when missing a centre.
+  have both_or_neither_A (w : V) (hw : w ∈ H.A) (hm : ¬ G.Adj p w ∨ ¬ G.Adj q w) :
+      (G.Adj x w ∧ G.Adj y w) ∨ (¬ G.Adj x w ∧ ¬ G.Adj y w) := by
+    have hnot1 := h3A w hw hm
+    by_cases hxw : G.Adj x w
+    · by_cases hyw : G.Adj y w
+      · exact Or.inl ⟨hxw, hyw⟩
+      · exact False.elim (hnot1 (Or.inl ⟨hxw, hyw⟩))
+    · by_cases hyw : G.Adj y w
+      · exact False.elim (hnot1 (Or.inr ⟨hyw, hxw⟩))
+      · exact Or.inr ⟨hxw, hyw⟩
+  have both_or_neither_B (w : V) (hw : w ∈ H.B) (hm : ¬ G.Adj p w ∨ ¬ G.Adj q w) :
+      (G.Adj x w ∧ G.Adj y w) ∨ (¬ G.Adj x w ∧ ¬ G.Adj y w) := by
+    have hnot1 := h3B w hw hm
+    by_cases hxw : G.Adj x w
+    · by_cases hyw : G.Adj y w
+      · exact Or.inl ⟨hxw, hyw⟩
+      · exact False.elim (hnot1 (Or.inl ⟨hxw, hyw⟩))
+    · by_cases hyw : G.Adj y w
+      · exact False.elim (hnot1 (Or.inr ⟨hyw, hxw⟩))
+      · exact Or.inr ⟨hxw, hyw⟩
+  -- Side A split vs paired.
+  by_cases hAsplit : αp ≠ αq
+  · -- Split on A: label so αp=a, αq=b.
+    have hlab : (αp = a ∧ αq = b) ∨ (αp = b ∧ αq = a) := by
+      rcases αp_eq with ha | hb <;> rcases αq_eq with hc | hd
+      · exact False.elim (hAsplit (ha.trans hc.symm))
+      · exact Or.inl ⟨ha, hd⟩
+      · exact Or.inr ⟨hb, hc⟩
+      · exact False.elim (hAsplit (hb.trans hd.symm))
+    -- Sparse vs dense: whether exactly one of a,b sees both leaves.
+    -- Under split, both miss a centre, so (3) applies to both.
+    sorry
+  · -- A paired: αp = αq. Dominant = αp, weak = the other.
+    push_neg at hAsplit
+    by_cases hBsplit : βp ≠ βq
+    · -- Case 2: A paired (actually wait - Case 2 is A dense split). Reorganize.
+      sorry
+    · -- Both paired. Case 3.
+      push_neg at hBsplit
+      sorry
 
 /-- **Proposition 6.3**: C₄ core is reducible under (A1)–(A2). -/
 theorem c4_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
