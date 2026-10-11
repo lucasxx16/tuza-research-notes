@@ -37,20 +37,23 @@ This is proved for general k (no enumeration over k). The general statements are
 ## Theorem 1.3 (in progress)
 
 - `TuzaFormal/Reducibility.lean`: Defs 1.1–1.2; ambient residual packing/cover.
-  **Proved:** `reduction_bridge` (Lemma 2.1) — fully, no `sorry`. Also `combine_packing`,
-  `combine_cover`, `residual_packing_disj`. Certificate now requires `cover_edges`.
+  **Proved:** `reduction_bridge` (Lemma 2.1) — fully, no `sorry`.
 - `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound` (proved).
   **Axiom:** `puleo_large_indep`.
-  **Proved:** `Prop31.wke_private_edge`, `Prop31.wke_private_attach`;
-  `labels10` / `labels10_image` / `labels10_injective`; hub adjacency lemmas;
-  `prop42_certificate` wires a full `ReductionCertificate` once the local lemmas below hold.
-  **Partial `prop31`:** edgeless case applies Puleo after proving C is link-independent
-  (`hind` proved); still `sorry` for `|V|=7` from Connected+degree, and the one-edge case
-  labelling that feeds the WKE witnesses.
-  **Partial Prop 4.2 local lemmas (still `sorry`):** `packing42_card'`, `packing42_disjoint`,
-  `cover42_card`, `external42`, `coversZ42`. The main `prop42_certificate` is otherwise complete
-  (triangles, cover edges, size from cards, coversZ/external delegated to those lemmas).
-  **Sorry:** `lemma41_cross`, `structural_codegree_four`.
+  **Proved (Prop 3.1):** full `prop31` (edgeless via Puleo; one-edge via WKE trichotomy);
+  `wke_private_edge`, `wke_private_attach`, `one_edge_is_wke`.
+  **Proved (Prop 4.2):** all five local lemmas + `prop42_certificate` (Fin-10 transfer).
+  **Proved (sparse-core helpers):** `core4_distinct`, hub/private label lemmas;
+  `StarCore.star_empty_outside_center`, `StarCore.star_wke_no_attach_no_priv`
+  (zero leaf attachments + no private edge ⇒ WKE);
+  `PathCore.path_empty_outside_center` and the corresponding no-attachment case of
+  `path_leaf_attachment`.
+  **Partial:** `star_two_leaf_attachments` / `path_leaf_attachment` still `sorry` on the
+  private-edge and single-attachment branches (paper cases 1–2).
+  **Sorry:** `lemma41_cross` (Lemma 4.1(3) crossed matching), `structural_codegree_four`.
+
+  Paper note: Lemma 4.1(3) remains the bottleneck for wiring Prop 4.2 into the top-level
+  structural theorem; star/path zero-attachment WKE witnesses match the paper.
 
 
 ## Build
