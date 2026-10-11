@@ -48,14 +48,16 @@ This is proved for general k (no enumeration over k). The general statements are
   **Lemma 4.8** (`lemma48_certificate`) full Fin-10 packing/cover;
   **Lemma 3.2** / **Prop 4.9** full; **Lemma 5.1** (`lemma51`) full;
   Prop 5.3(G) fully proved; Lemma 5.2 fully proved (`lemma52` transfer);
-  Prop 5.3(E): packing/disjoint/size/external proved; `coversZ` still sorry;
-  `k4_core_reducible`: (E) branch fully wired; (G) when α(z)=a_∧β(y)=b_ wired,
-  remaining G label cases sorry; denser cores still sorry.
+  **Prop 5.3(E) fully proved** (`k4_certificate_E`, including `coversZ`);
+  `k4_core_reducible`: (E) fully wired; (G) wired for α(z)=a_∧β(y)=b_ and for
+  safe y↔w / z↔w relabelings; remaining G cases (empty fibers or both fibers
+  concentrated at w) still sorry — need packing generalized to α(z)/β(y);
+  `structural_codegree_four` still sorry for diamond/C₄/paw/K₃+K₁.
 
-  Paper note: Lemma 5.2 Fin check + transfer match; E packing matches paper.
-  G certificate assumes α(z)=a_∧β(y)=b_ (paper packing uses α(z),β(y) generally —
-  remaining G cases need either relabeling or generalizing the G packing).
-  Next: E coversZ, finish G cases in k4_core, §6–7 denser cores.
+  Paper note: E coverage matches Prop 5.3(E). G formalization still assumes
+  α(z)=a_∧β(y)=b_ in the certificate; paper packing uses general α(z),β(y)
+  (formalization gap, not a paper gap). Next: generalize G packing, clear
+  k4_core G sorries, then §6–7 denser cores.
 
 ## Build
 
