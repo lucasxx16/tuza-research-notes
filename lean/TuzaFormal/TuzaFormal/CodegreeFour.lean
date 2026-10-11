@@ -8360,6 +8360,65 @@ theorem k4_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
       h10
 
 
+
+/-! ### §6 denser cores: diamond, C₄, paw, K₃+K₁ -/
+
+/-- **Lemma 6.1**: perfect-matching core + connected non-WKE link ⇒ every core
+vertex has a private neighbour (strengthening of Lemma 3.2). -/
+theorem lemma61 (H : HubConfig G)
+    (hconn : (linkGraph G H.u).Connected) (hnot : ¬ IsWKE (linkGraph G H.u))
+    {x y p q : V} (hC : H.C = {x, y, p, q})
+    (hxp : G.Adj x p) (hyq : G.Adj y q) :
+    ∀ c ∈ H.C, ∃ a ∈ H.A, G.Adj c a := by
+  intro c hc
+  by_contra hnone
+  push_neg at hnone
+  -- Exactly one missing private would contradict the WKE construction of Lemma 6.1;
+  -- two missing is Lemma 3.2. Classify c among {x,y,p,q} and build a 3-edge WKE.
+  have : c = x ∨ c = y ∨ c = p ∨ c = q := by simpa [hC] using hc
+  -- Use lemma32 on a complementary matching pair when two miss; here one misses.
+  -- Full WKE witness deferred: follow paper (Q = C \ {c}, M of size 3).
+  sorry
+
+/-- **Proposition 6.2**: diamond core `{xp,xq,yp,yq,pq}` is reducible under (A1)–(A2). -/
+theorem diamond_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
+    {x y p q : V} (hC : H.C = {x, y, p, q})
+    (hxp : G.Adj x p) (hxq : G.Adj x q) (hyp : G.Adj y p) (hyq : G.Adj y q)
+    (hpq : G.Adj p q) (hnxy : ¬ G.Adj x y)
+    (honly : ∀ a ∈ H.C, ∀ b ∈ H.C, G.Adj a b →
+      s(a, b) = s(x, p) ∨ s(a, b) = s(x, q) ∨ s(a, b) = s(y, p) ∨
+      s(a, b) = s(y, q) ∨ s(a, b) = s(p, q)) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  -- Lemma 6.1 ⇒ full A/B support; then force one of certificates D1–D5.
+  sorry
+
+/-- **Proposition 6.3**: C₄ core is reducible under (A1)–(A2). -/
+theorem c4_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
+    {x y p q : V} (hC : H.C = {x, y, p, q})
+    (hxp : G.Adj x p) (hpy : G.Adj p y) (hyq : G.Adj y q) (hqx : G.Adj q x)
+    (honly : ∀ a ∈ H.C, ∀ b ∈ H.C, G.Adj a b →
+      s(a, b) = s(x, p) ∨ s(a, b) = s(p, y) ∨ s(a, b) = s(y, q) ∨ s(a, b) = s(q, x)) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  sorry
+
+/-- **Proposition 6.4**: paw core is reducible under (A1)–(A2). -/
+theorem paw_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
+    {p q r s : V} (hC : H.C = {p, q, r, s})
+    (hpq : G.Adj p q) (hpr : G.Adj p r) (hqr : G.Adj q r) (hrs : G.Adj r s)
+    (honly : ∀ a ∈ H.C, ∀ b ∈ H.C, G.Adj a b →
+      s(a, b) = s(p, q) ∨ s(a, b) = s(p, r) ∨ s(a, b) = s(q, r) ∨ s(a, b) = s(r, s)) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  sorry
+
+/-- **Proposition 6.7**: K₃+K₁ core is reducible under (A1)–(A2). -/
+theorem k3k1_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
+    {p q r s : V} (hC : H.C = {p, q, r, s})
+    (hpq : G.Adj p q) (hpr : G.Adj p r) (hqr : G.Adj q r)
+    (honly : ∀ a ∈ H.C, ∀ b ∈ H.C, G.Adj a b →
+      s(a, b) = s(p, q) ∨ s(a, b) = s(p, r) ∨ s(a, b) = s(q, r)) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  sorry
+
 theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2) :
     IsReducible G ({H.u, H.v} : Finset V) := by
   classical
@@ -8397,7 +8456,34 @@ theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2) :
       G.Adj x y ∧ G.Adj x z ∧ G.Adj x w ∧ G.Adj y z ∧ G.Adj y w ∧ G.Adj z w
   · obtain ⟨x, y, z, w, hC, hK4⟩ := hK4c
     exact k4_core_reducible G H hA1 hA2 hC hK4
-  -- Remaining: C₄, paw, K₃+K₁, diamond (and denser ≥4-edge cores).
+  by_cases hDiam : ∃ x y p q : V,
+      H.C = {x, y, p, q} ∧ G.Adj x p ∧ G.Adj x q ∧ G.Adj y p ∧ G.Adj y q ∧ G.Adj p q ∧
+      ¬ G.Adj x y ∧
+      (∀ a ∈ H.C, ∀ b ∈ H.C, G.Adj a b →
+        s(a, b) = s(x, p) ∨ s(a, b) = s(x, q) ∨ s(a, b) = s(y, p) ∨
+        s(a, b) = s(y, q) ∨ s(a, b) = s(p, q))
+  · obtain ⟨x, y, p, q, hC, hxp, hxq, hyp, hyq, hpq, hnxy, honly⟩ := hDiam
+    exact diamond_core_reducible G H hA1 hA2 hC hxp hxq hyp hyq hpq hnxy honly
+  by_cases hC4 : ∃ x y p q : V,
+      H.C = {x, y, p, q} ∧ G.Adj x p ∧ G.Adj p y ∧ G.Adj y q ∧ G.Adj q x ∧
+      (∀ a ∈ H.C, ∀ b ∈ H.C, G.Adj a b →
+        s(a, b) = s(x, p) ∨ s(a, b) = s(p, y) ∨ s(a, b) = s(y, q) ∨ s(a, b) = s(q, x))
+  · obtain ⟨x, y, p, q, hC, hxp, hpy, hyq, hqx, honly⟩ := hC4
+    exact c4_core_reducible G H hA1 hA2 hC hxp hpy hyq hqx honly
+  by_cases hPaw : ∃ p q r s : V,
+      H.C = {p, q, r, s} ∧ G.Adj p q ∧ G.Adj p r ∧ G.Adj q r ∧ G.Adj r s ∧
+      (∀ a ∈ H.C, ∀ b ∈ H.C, G.Adj a b →
+        s(a, b) = s(p, q) ∨ s(a, b) = s(p, r) ∨ s(a, b) = s(q, r) ∨ s(a, b) = s(r, s))
+  · obtain ⟨p, q, r, s, hC, hpq, hpr, hqr, hrs, honly⟩ := hPaw
+    exact paw_core_reducible G H hA1 hA2 hC hpq hpr hqr hrs honly
+  by_cases hK3 : ∃ p q r s : V,
+      H.C = {p, q, r, s} ∧ G.Adj p q ∧ G.Adj p r ∧ G.Adj q r ∧
+      (∀ a ∈ H.C, ∀ b ∈ H.C, G.Adj a b →
+        s(a, b) = s(p, q) ∨ s(a, b) = s(p, r) ∨ s(a, b) = s(q, r))
+  · obtain ⟨p, q, r, s, hC, hpq, hpr, hqr, honly⟩ := hK3
+    exact k3k1_core_reducible G H hA1 hA2 hC hpq hpr hqr honly
+  -- All eleven 4-vertex core types (Lemma 2.2) are covered by the cases above
+  -- together with Prop 3.1 (≤1 edge). Unreachable if the paper's classification is complete.
   sorry
 
 

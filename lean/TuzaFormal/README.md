@@ -53,7 +53,11 @@ This is proved for general k (no enumeration over k). The general statements are
   `structural_codegree_four`; remaining sorry is only diamond/C₄/paw/K₃+K₁.
 
   Paper note: G packing now matches paper Prop 5.3(G) with general α(z),β(y).
-  Next: Lemma 6.1 + Prop 6.2 (diamond), then C₄/paw/K₃+K₁ (§6).
+  **§6 stubs:** `lemma61`, `diamond_core_reducible`, `c4_core_reducible`,
+  `paw_core_reducible`, `k3k1_core_reducible` (all sorry); wired into
+  `structural_codegree_four` by_cases. Final sorry is only the unreachable
+  residue if classification is incomplete.
+  Next: prove Lemma 6.1, then Prop 6.2 D1–D5 certificates.
 
 ## Build
 
