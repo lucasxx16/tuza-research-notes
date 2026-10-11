@@ -10621,6 +10621,224 @@ theorem diamond_center_unique (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
         mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj, hb'B⟩
       simpa [hb] using this
 
+
+
+
+
+/-- Membership helper: permute Finset10 without heavy `or_comm` simp. -/
+private lemma mem10_iff {u v x y p q a b c d z : V} :
+    z ∈ ({u, v, x, y, p, q, a, b, c, d} : Finset V) ↔
+      z = u ∨ z = v ∨ z = x ∨ z = y ∨ z = p ∨ z = q ∨ z = a ∨ z = b ∨ z = c ∨ z = d := by
+  simp only [mem_insert, mem_singleton]
+
+private lemma card10_of_same_elems {u v x y p q a b c d : V}
+    {s : Finset V}
+    (hin : ∀ z, z ∈ s → z = u ∨ z = v ∨ z = x ∨ z = y ∨ z = p ∨ z = q ∨
+      z = a ∨ z = b ∨ z = c ∨ z = d)
+    (hout : ∀ z, (z = u ∨ z = v ∨ z = x ∨ z = y ∨ z = p ∨ z = q ∨
+      z = a ∨ z = b ∨ z = c ∨ z = d) → z ∈ s)
+    (h : ({u, v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    s.card = 10 := by
+  have heq : s = {u, v, x, y, p, q, a, b, c, d} := by
+    ext z; constructor
+    · intro hz; simpa [mem10_iff] using hin z hz
+    · intro hz; exact hout z (by simpa [mem10_iff] using hz)
+  rwa [heq]
+
+set_option maxHeartbeats 4000000 in
+lemma labels10_swapA (u v x y p q a b c d : V)
+    (h : ({u, v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    ({u, v, x, y, p, q, b, a, c, d} : Finset V).card = 10 :=
+  card10_of_same_elems
+    (fun z hz => by
+      simp only [mem_insert, mem_singleton] at hz
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h])
+    (fun z hz => by
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h]) h
+
+lemma labels10_swapLeaves (u v x y p q a b c d : V)
+    (h : ({u, v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    ({u, v, y, x, p, q, a, b, c, d} : Finset V).card = 10 :=
+  card10_of_same_elems
+    (fun z hz => by
+      simp only [mem_insert, mem_singleton] at hz
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h])
+    (fun z hz => by
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h]) h
+
+lemma labels10_swapCenters (u v x y p q a b c d : V)
+    (h : ({u, v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    ({u, v, x, y, q, p, a, b, c, d} : Finset V).card = 10 :=
+  card10_of_same_elems
+    (fun z hz => by
+      simp only [mem_insert, mem_singleton] at hz
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h])
+    (fun z hz => by
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h]) h
+
+lemma labels10_swapLeavesCenters (u v x y p q a b c d : V)
+    (h : ({u, v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    ({u, v, y, x, q, p, a, b, c, d} : Finset V).card = 10 :=
+  card10_of_same_elems
+    (fun z hz => by
+      simp only [mem_insert, mem_singleton] at hz
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h])
+    (fun z hz => by
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h]) h
+
+lemma labels10_swapB (u v x y p q a b c d : V)
+    (h : ({u, v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    ({u, v, x, y, p, q, a, b, d, c} : Finset V).card = 10 :=
+  card10_of_same_elems
+    (fun z hz => by
+      simp only [mem_insert, mem_singleton] at hz
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h])
+    (fun z hz => by
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h]) h
+
+lemma labels10_swapHubsAB (u v x y p q a b c d : V)
+    (h : ({u, v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    ({v, u, x, y, p, q, c, d, a, b} : Finset V).card = 10 :=
+  card10_of_same_elems
+    (fun z hz => by
+      simp only [mem_insert, mem_singleton] at hz
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h])
+    (fun z hz => by
+      rcases hz with h | h | h | h | h | h | h | h | h | h <;> simp [h]) h
+
+private lemma core4_perm_leaves {x y p q : V} {C : Finset V}
+    (hC : C = {x, y, p, q}) : C = {y, x, p, q} := by
+  rw [hC]; ext z; simp only [mem_insert, mem_singleton]; constructor
+  · rintro (h | h | h | h) <;> simp [h]
+  · rintro (h | h | h | h) <;> simp [h]
+
+private lemma core4_perm_centers {x y p q : V} {C : Finset V}
+    (hC : C = {x, y, p, q}) : C = {x, y, q, p} := by
+  rw [hC]; ext z; simp only [mem_insert, mem_singleton]; constructor
+  · rintro (h | h | h | h) <;> simp [h]
+  · rintro (h | h | h | h) <;> simp [h]
+
+private lemma core4_perm_leaves_centers {x y p q : V} {C : Finset V}
+    (hC : C = {x, y, p, q}) : C = {y, x, q, p} := by
+  rw [hC]; ext z; simp only [mem_insert, mem_singleton]; constructor
+  · rintro (h | h | h | h) <;> simp [h]
+  · rintro (h | h | h | h) <;> simp [h]
+
+private lemma A_perm {a b : V} {A : Finset V} (hA : A = {a, b}) : A = {b, a} := by
+  rw [hA]; ext z; simp only [mem_insert, mem_singleton]; constructor
+  · rintro (h | h) <;> simp [h]
+  · rintro (h | h) <;> simp [h]
+
+private lemma B_perm {c d : V} {B : Finset V} (hB : B = {c, d}) : B = {d, c} := by
+  rw [hB]; ext z; simp only [mem_insert, mem_singleton]; constructor
+  · rintro (h | h) <;> simp [h]
+  · rintro (h | h) <;> simp [h]
+
+/-- Apply D1 after choosing opposite-side neighbour of the missed leaf. -/
+lemma diamond_D1_with_Bsupport (H : HubConfig G)
+    (x y p q a b c d : V)
+    (hC : H.C = {x, y, p, q})
+    (hA : H.A = {a, b}) (hB : H.B = {c, d})
+    (hK : G.Adj x p ∧ G.Adj x q ∧ G.Adj y p ∧ G.Adj y q ∧ G.Adj p q)
+    (hnxy : ¬ G.Adj x y)
+    (hxa : G.Adj x a) (hnya : ¬ G.Adj y a) (hnpa : ¬ G.Adj p a)
+    (hsuppBy : ∃ β ∈ H.B, G.Adj y β)
+    (h10 : ({H.u, H.v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  classical
+  obtain ⟨β, hβB, hyβ⟩ := hsuppBy
+  have hβ : β = c ∨ β = d := by simpa [hB] using hβB
+  rcases hβ with hβc | hβd
+  · rw [hβc] at hyβ
+    exact diamond_certificate_D1 G H x y p q a b c d hC hA hB hK hnxy
+      hxa hyβ hnya hnpa h10
+  · rw [hβd] at hyβ
+    exact diamond_certificate_D1 G H x y p q a b d c hC hA (B_perm hB) hK hnxy
+      hxa hyβ hnya hnpa (labels10_swapB _ _ _ _ _ _ _ _ _ _ h10)
+
+set_option maxHeartbeats 4000000 in
+/-- D1 after orienting an A-private that hits exactly one leaf and misses a centre. -/
+lemma diamond_force_D1_Apriv (H : HubConfig G)
+    (x y p q a b c d : V)
+    (hC : H.C = {x, y, p, q})
+    (hA : H.A = {a, b}) (hB : H.B = {c, d})
+    (hxp : G.Adj x p) (hxq : G.Adj x q) (hyp : G.Adj y p) (hyq : G.Adj y q)
+    (hpq : G.Adj p q) (hnxy : ¬ G.Adj x y)
+    (hsuppB : ∀ t ∈ H.C, ∃ β ∈ H.B, G.Adj t β)
+    (w : V) (hwA : w ∈ H.A)
+    (hleaf : (G.Adj x w ∧ ¬ G.Adj y w) ∨ (G.Adj y w ∧ ¬ G.Adj x w))
+    (hmiss : ¬ G.Adj p w ∨ ¬ G.Adj q w)
+    (h10 : ({H.u, H.v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  classical
+  have hw : w = a ∨ w = b := by simpa [hA] using hwA
+  rcases hw with rfl | rfl
+  · rcases hleaf with ⟨hxa, hnya⟩ | ⟨hya, hnxa⟩
+    · rcases hmiss with hnpa | hnqa
+      · exact diamond_D1_with_Bsupport G H x y p q a b c d hC hA hB
+          ⟨hxp, hxq, hyp, hyq, hpq⟩ hnxy hxa hnya hnpa
+          (hsuppB y (by simp [hC])) h10
+      · exact diamond_D1_with_Bsupport G H x y q p a b c d (core4_perm_centers hC) hA hB
+          ⟨hxq, hxp, hyq, hyp, hpq.symm⟩ hnxy hxa hnya hnqa
+          (hsuppB y (by simp [hC])) (labels10_swapCenters _ _ _ _ _ _ _ _ _ _ h10)
+    · rcases hmiss with hnpa | hnqa
+      · exact diamond_D1_with_Bsupport G H y x p q a b c d (core4_perm_leaves hC) hA hB
+          ⟨hyp, hyq, hxp, hxq, hpq⟩ (fun e => hnxy e.symm) hya hnxa hnpa
+          (hsuppB x (by simp [hC])) (labels10_swapLeaves _ _ _ _ _ _ _ _ _ _ h10)
+      · exact diamond_D1_with_Bsupport G H y x q p a b c d
+          (core4_perm_leaves_centers hC) hA hB
+          ⟨hyq, hyp, hxq, hxp, hpq.symm⟩ (fun e => hnxy e.symm) hya hnxa hnqa
+          (hsuppB x (by simp [hC]))
+          (labels10_swapLeavesCenters _ _ _ _ _ _ _ _ _ _ h10)
+  · have h10' := labels10_swapA H.u H.v x y p q a b c d h10
+    rcases hleaf with ⟨hxb, hnyb⟩ | ⟨hyb, hnxb⟩
+    · rcases hmiss with hnpb | hnqb
+      · exact diamond_D1_with_Bsupport G H x y p q b a c d hC (A_perm hA) hB
+          ⟨hxp, hxq, hyp, hyq, hpq⟩ hnxy hxb hnyb hnpb
+          (hsuppB y (by simp [hC])) h10'
+      · exact diamond_D1_with_Bsupport G H x y q p b a c d
+          (core4_perm_centers hC) (A_perm hA) hB
+          ⟨hxq, hxp, hyq, hyp, hpq.symm⟩ hnxy hxb hnyb hnqb
+          (hsuppB y (by simp [hC])) (labels10_swapCenters _ _ _ _ _ _ _ _ _ _ h10')
+    · rcases hmiss with hnpb | hnqb
+      · exact diamond_D1_with_Bsupport G H y x p q b a c d
+          (core4_perm_leaves hC) (A_perm hA) hB
+          ⟨hyp, hyq, hxp, hxq, hpq⟩ (fun e => hnxy e.symm) hyb hnxb hnpb
+          (hsuppB x (by simp [hC])) (labels10_swapLeaves _ _ _ _ _ _ _ _ _ _ h10')
+      · exact diamond_D1_with_Bsupport G H y x q p b a c d
+          (core4_perm_leaves_centers hC) (A_perm hA) hB
+          ⟨hyq, hyp, hxq, hxp, hpq.symm⟩ (fun e => hnxy e.symm) hyb hnxb hnqb
+          (hsuppB x (by simp [hC]))
+          (labels10_swapLeavesCenters _ _ _ _ _ _ _ _ _ _ h10')
+
+set_option maxHeartbeats 4000000 in
+/-- D1 when the exceptional private lies in `B`, via `H.swap`. -/
+lemma diamond_force_D1_Bpriv (H : HubConfig G) (hA1 : H.A1)
+    (x y p q a b c d : V)
+    (hC : H.C = {x, y, p, q})
+    (hA : H.A = {a, b}) (hB : H.B = {c, d})
+    (hxp : G.Adj x p) (hxq : G.Adj x q) (hyp : G.Adj y p) (hyq : G.Adj y q)
+    (hpq : G.Adj p q) (hnxy : ¬ G.Adj x y)
+    (hsuppA : ∀ t ∈ H.C, ∃ α ∈ H.A, G.Adj t α)
+    (w : V) (hwB : w ∈ H.B)
+    (hleaf : (G.Adj x w ∧ ¬ G.Adj y w) ∨ (G.Adj y w ∧ ¬ G.Adj x w))
+    (hmiss : ¬ G.Adj p w ∨ ¬ G.Adj q w)
+    (h10 : ({H.u, H.v, x, y, p, q, a, b, c, d} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  classical
+  have hC' : H.swap.C = {x, y, p, q} := hC
+  have hA' : H.swap.A = {c, d} := hB
+  have hB' : H.swap.B = {a, b} := hA
+  have h10' : ({H.swap.u, H.swap.v, x, y, p, q, c, d, a, b} : Finset V).card = 10 := by
+    simp only [HubConfig.swap]
+    exact labels10_swapHubsAB _ _ _ _ _ _ _ _ _ _ h10
+  have hsuppBsw : ∀ t ∈ H.swap.C, ∃ β ∈ H.swap.B, G.Adj t β := by
+    intro t ht; simpa [HubConfig.swap] using hsuppA t ht
+  have hwA' : w ∈ H.swap.A := by simpa [HubConfig.swap] using hwB
+  have h := diamond_force_D1_Apriv G H.swap x y p q c d a b hC' hA' hB'
+    hxp hxq hyp hyq hpq hnxy hsuppBsw w hwA' hleaf hmiss h10'
+  simpa [HubConfig.swap, Finset.pair_comm] using h
+
 /-- **Proposition 6.2**: diamond core `{xp,xq,yp,yq,pq}` is reducible under (A1)–(A2).
 Certificates D1–D5 are fully proved; the remaining work is the paper's attachment
 classification that forces one of those five hypothesis packages. -/
@@ -10641,7 +10859,29 @@ theorem diamond_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
   have h10 := labels10_of_hub G H hC hAeq hBeq hC4 hneA hneB
   have hK : G.Adj x p ∧ G.Adj x q ∧ G.Adj y p ∧ G.Adj y q ∧ G.Adj p q :=
     ⟨hxp, hxq, hyp, hyq, hpq⟩
-  -- Force D1–D5 (paper pp.13–14). Certificates are ready; classification remains.
+  -- Condition (3) failure → D1.
+  by_cases hfail3 :
+      (∃ w ∈ H.A, ((G.Adj x w ∧ ¬ G.Adj y w) ∨ (G.Adj y w ∧ ¬ G.Adj x w)) ∧
+        (¬ G.Adj p w ∨ ¬ G.Adj q w)) ∨
+      (∃ w ∈ H.B, ((G.Adj x w ∧ ¬ G.Adj y w) ∨ (G.Adj y w ∧ ¬ G.Adj x w)) ∧
+        (¬ G.Adj p w ∨ ¬ G.Adj q w))
+  · rcases hfail3 with hAfail | hBfail
+    · obtain ⟨w, hwA, hleaf, hmiss⟩ := hAfail
+      exact diamond_force_D1_Apriv G H x y p q a b c d hC hAeq hBeq
+        hxp hxq hyp hyq hpq hnxy hsuppB w hwA hleaf hmiss h10
+    · obtain ⟨w, hwB, hleaf, hmiss⟩ := hBfail
+      exact diamond_force_D1_Bpriv G H hA1 x y p q a b c d hC hAeq hBeq
+        hxp hxq hyp hyq hpq hnxy hsuppA w hwB hleaf hmiss h10
+  -- (3): private missing a centre does not see exactly one leaf.
+  have h3A : ∀ w ∈ H.A, (¬ G.Adj p w ∨ ¬ G.Adj q w) →
+      ¬ ((G.Adj x w ∧ ¬ G.Adj y w) ∨ (G.Adj y w ∧ ¬ G.Adj x w)) := by
+    intro w hw hm hleaf
+    exact hfail3 (Or.inl ⟨w, hw, hleaf, hm⟩)
+  have h3B : ∀ w ∈ H.B, (¬ G.Adj p w ∨ ¬ G.Adj q w) →
+      ¬ ((G.Adj x w ∧ ¬ G.Adj y w) ∨ (G.Adj y w ∧ ¬ G.Adj x w)) := by
+    intro w hw hm hleaf
+    exact hfail3 (Or.inr ⟨w, hw, hleaf, hm⟩)
+  -- Remaining Cases 1–3 (sparse/dense/paired) → D2–D5.
   sorry
 
 /-- **Proposition 6.3**: C₄ core is reducible under (A1)–(A2). -/
