@@ -1369,14 +1369,1250 @@ theorem c4_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
             ·
               exact absurd (priv_isolated_edge G H hA1 (show H.A = {b, a} from (hA.trans (pair_comm _ _))) (core_iso G hC (by assumption) (by assumption) (by assumption) (by assumption))) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))
 
-/-- **Proposition 6.4**: paw core is reducible under (A1)–(A2). -/
+/-! ### Paw core (Proposition 6.4) -/
+
+/-- D3 / P2: two unused private vertices. -/
+def specD3 : CertSpec where
+  P := {{0, 1, 5}, {0, 2, 4}, {0, 3, 6}, {1, 2, 8}, {1, 3, 4}}
+  X := {s(2, 4), s(3, 6), s(2, 8), s(3, 4), s(0, 1), s(0, 5), s(0, 6), s(1, 5), s(1, 8)}
+  pres := {s(2, 4), s(3, 6), s(2, 8), s(3, 4)}
+  abs := {s(2, 7), s(3, 7), s(4, 7), s(2, 9), s(3, 9), s(4, 9), s(2, 3)}
+
+lemma specD3_ok : specD3.Ok := by decide +kernel
+
+/-- D4 / P3: a private edge and an outside triangle. -/
+def specD4 : CertSpec where
+  P := {{0, 1, 2}, {0, 3, 5}, {0, 6, 7}, {1, 3, 8}, {1, 5, 9}, {2, 4, 6}}
+  X := {s(2, 4), s(2, 6), s(4, 6), s(3, 5), s(3, 8), s(5, 9), s(6, 7),
+    s(0, 3), s(0, 5), s(1, 2), s(1, 4), s(1, 9)}
+  pres := {s(2, 4), s(2, 6), s(4, 6), s(3, 5), s(3, 8), s(5, 9), s(6, 7)}
+  abs := {s(2, 7), s(4, 7), s(5, 8)}
+
+lemma specD4_ok : specD4.Ok := by decide +kernel
+
+/-- P4: dominant asymmetry against a matched edge (labels `t w p h`). -/
+def specP4 : CertSpec where
+  P := {{0, 1, 3}, {0, 4, 5}, {0, 2, 6}, {1, 5, 9}, {1, 4, 8}}
+  X := {s(4, 5), s(2, 6), s(5, 9), s(4, 8), s(0, 4), s(0, 5), s(0, 7), s(1, 2), s(1, 3), s(1, 8)}
+  pres := {s(4, 5), s(2, 6), s(5, 9), s(4, 8)}
+  abs := {s(3, 6), s(4, 9), s(2, 3)}
+
+lemma specP4_ok : specP4.Ok := by decide +kernel
+
+/-- Budget at a core vertex with three core neighbours. -/
+lemma bud3_card (H : HubConfig G) (hA2 : H.A2) {t n1 n2 n3 : V} (htC : t ∈ H.C)
+    (h1C : n1 ∈ H.C) (h2C : n2 ∈ H.C) (h3C : n3 ∈ H.C)
+    (h1 : G.Adj t n1) (h2 : G.Adj t n2) (h3 : G.Adj t n3)
+    (d12 : n1 ≠ n2) (d13 : n1 ≠ n3) (d23 : n2 ≠ n3) :
+    (G.neighborFinset t ∩ H.A).card + (G.neighborFinset t ∩ H.B).card ≤ 2 := by
+  have h := hA2 t htC
+  have hd : 3 ≤ H.coreDeg t := by
+    unfold HubConfig.coreDeg
+    have hsub : ({n1, n2, n3} : Finset V) ⊆ (H.C.erase t).filter (G.Adj t) := by
+      intro w hw; simp only [mem_insert, mem_singleton] at hw
+      rcases hw with e | e | e <;> rw [e] <;> simp only [mem_filter, mem_erase]
+      · exact ⟨⟨fun e => by subst e; exact G.irrefl h1, h1C⟩, h1⟩
+      · exact ⟨⟨fun e => by subst e; exact G.irrefl h2, h2C⟩, h2⟩
+      · exact ⟨⟨fun e => by subst e; exact G.irrefl h3, h3C⟩, h3⟩
+    have hc : ({n1, n2, n3} : Finset V).card = 3 := by
+      rw [card_insert_of_notMem (by simp [d12, d13]), card_pair d23]
+    calc 3 = _ := hc.symm
+      _ ≤ _ := card_le_card hsub
+  omega
+
+lemma card_nbr_pair (S : Finset V) {t a b : V} (hS : S = {a, b}) (h2 : S.card = 2)
+    (ha : G.Adj t a) (hb : G.Adj t b) : 2 ≤ (G.neighborFinset t ∩ S).card := by
+  have hab := ne_of_pair_card hS h2
+  have hsub : ({a, b} : Finset V) ⊆ G.neighborFinset t ∩ S := by
+    intro w hw
+    refine mem_inter.2 ⟨?_, by rw [hS]; exact hw⟩
+    simp only [mem_insert, mem_singleton] at hw
+    rcases hw with e | e <;> rw [e] <;> simpa
+  calc 2 = ({a, b} : Finset V).card := (card_pair hab).symm
+    _ ≤ _ := card_le_card hsub
+
+lemma card_nbr_one (S : Finset V) {t e : V} (he : e ∈ S) (h : G.Adj t e) :
+    1 ≤ (G.neighborFinset t ∩ S).card :=
+  card_pos.2 ⟨e, mem_inter.2 ⟨by simpa, he⟩⟩
+
+/-- Paw non-WKE obstruction: `N_C(a) = {p}`; `Q = {z, p, b}`, `M = {qr, pa, zs}`. -/
+lemma paw_wke (H : HubConfig G) {p q r s a b : V}
+    (hC : H.C = {p, q, r, s}) (hA : H.A = {a, b})
+    (hqr : G.Adj q r) (hqs : ¬ G.Adj q s) (hrs : ¬ G.Adj r s) (hpa : G.Adj p a)
+    (hqa : ¬ G.Adj q a) (hra : ¬ G.Adj r a) (hsa : ¬ G.Adj s a) :
+    IsWKE (linkGraph G H.u) := by
+  obtain ⟨d_pq, d_pr, d_ps, d_qr, d_qs, d_rs⟩ := core4_distinct G H hC
+  have hpC : p ∈ H.C := by rw [hC]; simp
+  have hqC : q ∈ H.C := by rw [hC]; simp
+  have hrC : r ∈ H.C := by rw [hC]; simp
+  have hsC : s ∈ H.C := by rw [hC]; simp
+  have haA : a ∈ H.A := by rw [hA]; simp
+  have d_qa := ne_core_priv G H hqC haA
+  have d_ra := ne_core_priv G H hrC haA
+  have d_pa := ne_core_priv G H hpC haA
+  have d_sa := ne_core_priv G H hsC haA
+  have d_vq : H.v ≠ q := fun e => H.hvA.2 (e ▸ hqC)
+  have d_vr : H.v ≠ r := fun e => H.hvA.2 (e ▸ hrC)
+  have d_vp : H.v ≠ p := fun e => H.hvA.2 (e ▸ hpC)
+  have d_vs : H.v ≠ s := fun e => H.hvA.2 (e ▸ hsC)
+  have d_va : H.v ≠ a := fun e => H.hvA.1 (e ▸ haA)
+  have NC {w : V} (hw : w ∈ H.C) : w ∈ G.neighborFinset H.u := core_mem_Nu G H hw
+  have NA {w : V} (hw : w ∈ H.A) : w ∈ G.neighborFinset H.u := by
+    rw [H.hNu]; exact mem_insert_of_mem (mem_union_right _ hw)
+  have hvs : G.Adj H.v s := hub_adj_CB G H (mem_union_left _ hsC)
+  refine wke3 (linkGraph G H.u) (a := q) (b := r) (c := p) (d := a) (e := H.v) (f := s)
+    (q1 := H.v) (q2 := p) (q3 := b)
+    ⟨NC hqC, NC hrC, hqr⟩ ⟨NC hpC, NA haA, hpa⟩ ⟨opposite_hub_mem G H, NC hsC, hvs⟩
+    (by simp [List.nodup_cons, d_qr, d_pq.symm, d_qa, d_vq.symm, d_qs, d_pr.symm, d_ra,
+      d_vr.symm, d_rs, d_pa, d_vp.symm, d_ps, d_va.symm, d_sa.symm, d_vs]) ?_
+  intro g hg hO
+  revert hg hO
+  refine Sym2.inductionOn g fun m n hg hO => ?_
+  have hmn : (linkGraph G H.u).Adj m n := (mem_edgeFinset (G := linkGraph G H.u)).1 hg
+  have hG : G.Adj m n := hmn.2.2
+  have cls (w : V) (hw : w ∈ G.neighborFinset H.u) (hwO : w ∉ ({H.v, p, b} : Finset V)) :
+      w = q ∨ w = r ∨ w = s ∨ w = a := by
+    rw [H.hNu] at hw
+    simp only [mem_insert, mem_union, mem_singleton, not_or] at hw hwO
+    rcases hw with h | h | h
+    · exact absurd h hwO.1
+    · rw [hC] at h; simp only [mem_insert, mem_singleton] at h
+      rcases h with h | h | h | h
+      · exact absurd h hwO.2.1
+      · exact Or.inl h
+      · exact Or.inr (Or.inl h)
+      · exact Or.inr (Or.inr (Or.inl h))
+    · rw [hA] at h; simp only [mem_insert, mem_singleton] at h
+      rcases h with h | h
+      · exact Or.inr (Or.inr (Or.inr h))
+      · exact absurd h hwO.2.2
+  rcases cls m hmn.1 (hO m (by simp)) with rfl | rfl | rfl | rfl <;>
+  rcases cls n hmn.2.1 (hO n (by simp)) with rfl | rfl | rfl | rfl <;>
+  first
+  | exact (G.irrefl hG).elim
+  | exact Or.inl rfl
+  | exact Or.inl Sym2.eq_swap
+  | exact (hqs hG).elim
+  | exact (hqs hG.symm).elim
+  | exact (hrs hG).elim
+  | exact (hrs hG.symm).elim
+  | exact (hqa hG).elim
+  | exact (hqa hG.symm).elim
+  | exact (hra hG).elim
+  | exact (hra hG.symm).elim
+  | exact (hsa hG).elim
+  | exact (hsa hG.symm).elim
+
+set_option maxHeartbeats 0 in
+/-- **Proposition 6.4**: paw core (triangle `pqr`, pendant `s` at `r`) is reducible under
+(A1)–(A2). Generated case tree over the private attachment bits (`gen/pawgen.py`); leaves are
+closed by certificates P1 = D1, P2 = D3, P3 = D4, P4, or by support, the budget (2) (including
+the degree-three budget at `r`), link connectivity, or the non-WKE witness `paw_wke`. -/
 theorem paw_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
     {p q r s : V} (hC : H.C = {p, q, r, s})
     (hpq : G.Adj p q) (hpr : G.Adj p r) (hqr : G.Adj q r) (hrs : G.Adj r s)
     (honly : ∀ a ∈ H.C, ∀ b ∈ H.C, G.Adj a b →
       s(a, b) = s(p, q) ∨ s(a, b) = s(p, r) ∨ s(a, b) = s(q, r) ∨ s(a, b) = s(r, s)) :
     IsReducible G ({H.u, H.v} : Finset V) := by
-  sorry
+  classical
+  obtain ⟨d_pq, d_pr, d_ps, d_qr, d_qs, d_rs⟩ := core4_distinct G H hC
+  have hpC : p ∈ H.C := by rw [hC]; simp
+  have hqC : q ∈ H.C := by rw [hC]; simp
+  have hrC : r ∈ H.C := by rw [hC]; simp
+  have hsC : s ∈ H.C := by rw [hC]; simp
+  have hnps : ¬ G.Adj p s := by
+    intro h
+    rcases honly p hpC s hsC h with e | e | e | e <;>
+      simp [Sym2.eq_iff, d_pq, d_pr, d_ps, d_qr, d_qs, d_rs, d_pq.symm, d_pr.symm,
+        d_ps.symm, d_qr.symm, d_qs.symm, d_rs.symm] at e
+  have hnqs : ¬ G.Adj q s := by
+    intro h
+    rcases honly q hqC s hsC h with e | e | e | e <;>
+      simp [Sym2.eq_iff, d_pq, d_pr, d_ps, d_qr, d_qs, d_rs, d_pq.symm, d_pr.symm,
+        d_ps.symm, d_qr.symm, d_qs.symm, d_rs.symm] at e
+  have hC' : H.C = {s, p, r, q} := hC.trans
+    (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))
+  obtain ⟨sA, sB⟩ := diamond_full_support G H hA1 hC' hrs.symm hpq
+  obtain ⟨a, b, hne_ab, hA⟩ := card_eq_two.1 H.hA
+  obtain ⟨c, d, hne_cd, hB⟩ := card_eq_two.1 H.hB
+  have bud_p := leaf_budget G H hA2 hpC hqC hrC hpq hpr d_qr a b c d hA hB
+  have bud_q := leaf_budget G H hA2 hqC hpC hrC hpq.symm hqr d_pr a b c d hA hB
+  have bud_r := leaf_budget G H hA2 hrC hpC hqC hpr.symm hqr.symm d_pq a b c d hA hB
+  have b3 := bud3_card G H hA2 hrC hpC hqC hsC hpr.symm hqr.symm hrs d_pq d_ps d_qs
+  have bud3A_r : ∀ e ∈ H.B, ¬ (G.Adj r a ∧ G.Adj r b ∧ G.Adj r e) := by
+    rintro e he ⟨h1, h2, h3⟩
+    have := card_nbr_pair G H.A hA H.hA h1 h2
+    have := card_nbr_one G H.B he h3
+    omega
+  have bud3B_r : ∀ e ∈ H.A, ¬ (G.Adj r c ∧ G.Adj r d ∧ G.Adj r e) := by
+    rintro e he ⟨h1, h2, h3⟩
+    have := card_nbr_pair G H.B hB H.hB h1 h2
+    have := card_nbr_one G H.A he h3
+    omega
+  by_cases h_ra : G.Adj r a
+  ·
+    by_cases h_rc : G.Adj r c
+    ·
+      by_cases h_rb : G.Adj r b
+      ·
+        exact (bud3A_r c (by rw [hB]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+      ·
+        by_cases h_sb : G.Adj s b
+        ·
+          by_cases h_pd : G.Adj p d
+          ·
+            by_cases h_pb : G.Adj p b
+            ·
+              by_cases h_qb : G.Adj q b
+              ·
+                by_cases h_sd : G.Adj s d
+                ·
+                  by_cases h_qd : G.Adj q d
+                  ·
+                    by_cases h_pc : G.Adj p c
+                    ·
+                      by_cases h_pa : G.Adj p a
+                      ·
+                        exact (bud_p ⟨by assumption, by assumption, by assumption, by assumption⟩).elim
+                      ·
+                        by_cases h_sc : G.Adj s c
+                        ·
+                          by_cases h_qc : G.Adj q c
+                          ·
+                            by_cases h_qa : G.Adj q a
+                            ·
+                              exact (bud_q ⟨by assumption, by assumption, by assumption, by assumption⟩).elim
+                            ·
+                              by_cases h_sa : G.Adj s a
+                              ·
+                                by_cases h_rd : G.Adj r d
+                                ·
+                                  exact (bud3B_r a (by rw [hA]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                                ·
+                                  have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                                  have hA' := (show H.A = {a, b} from hA)
+                                  have hB' := (show H.B = {c, d} from hB)
+                                  exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                              ·
+                                exact (hA1.2.1 (paw_wke G H (show H.C = {r, p, q, s} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp)))) (show H.A = {a, b} from hA) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)))).elim
+                          ·
+                            have hC' := (show H.swap.C = {s, q, p, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.swap.A = {c, d} from hB)
+                            have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                            exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                        ·
+                          have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.swap.A = {c, d} from hB)
+                          have hB' := (show H.swap.B = {a, b} from hA)
+                          exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                    ·
+                      by_cases h_qc : G.Adj q c
+                      ·
+                        by_cases h_qa : G.Adj q a
+                        ·
+                          exact (bud_q ⟨by assumption, by assumption, by assumption, by assumption⟩).elim
+                        ·
+                          by_cases h_sc : G.Adj s c
+                          ·
+                            have hC' := (show H.swap.C = {s, p, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.swap.A = {c, d} from hB)
+                            have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                            exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                          ·
+                            have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.swap.A = {c, d} from hB)
+                            have hB' := (show H.swap.B = {a, b} from hA)
+                            exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                      ·
+                        by_cases h_sc : G.Adj s c
+                        ·
+                          have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.swap.A = {c, d} from hB)
+                          have hB' := (show H.swap.B = {a, b} from hA)
+                          exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                        ·
+                          exact (hA1.2.2.2 (paw_wke G H.swap (show H.swap.C = {r, p, q, s} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp)))) (show H.swap.A = {c, d} from hB) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)))).elim
+                  ·
+                    have hC' := (show H.swap.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                    have hB' := (show H.swap.B = {a, b} from hA)
+                    exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                ·
+                  have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                  have hB' := (show H.swap.B = {a, b} from hA)
+                  exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+              ·
+                by_cases h_qd : G.Adj q d
+                ·
+                  have hC' := (show H.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                  have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                  exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                ·
+                  by_cases h_qc : G.Adj q c
+                  ·
+                    have hC' := (show H.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                    have hB' := (show H.B = {c, d} from hB)
+                    exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                  ·
+                    exact absurd (sB q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+            ·
+              have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+              have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+              have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+              exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+          ·
+            by_cases h_qd : G.Adj q d
+            ·
+              by_cases h_qb : G.Adj q b
+              ·
+                by_cases h_sd : G.Adj s d
+                ·
+                  have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                  have hB' := (show H.swap.B = {a, b} from hA)
+                  exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                ·
+                  by_cases h_pb : G.Adj p b
+                  ·
+                    have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                    have hB' := (show H.swap.B = {a, b} from hA)
+                    exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                  ·
+                    by_cases h_rd : G.Adj r d
+                    ·
+                      exact (bud3B_r a (by rw [hA]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                    ·
+                      have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                      have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                      have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                      exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+              ·
+                have hC' := (show H.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+            ·
+              by_cases h_sd : G.Adj s d
+              ·
+                by_cases h_pb : G.Adj p b
+                ·
+                  have hC' := (show H.swap.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                  have hB' := (show H.swap.B = {a, b} from hA)
+                  exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                ·
+                  by_cases h_pc : G.Adj p c
+                  ·
+                    have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                    have hB' := (show H.B = {c, d} from hB)
+                    exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                  ·
+                    exact absurd (sB p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+              ·
+                by_cases h_rd : G.Adj r d
+                ·
+                  exact (bud3B_r a (by rw [hA]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                ·
+                  by_cases h_pc : G.Adj p c
+                  ·
+                    by_cases h_qc : G.Adj q c
+                    ·
+                      by_cases h_cd : G.Adj c d
+                      ·
+                        have hC' := (show H.swap.C = {p, s, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                        have hA' := (show H.swap.A = {c, d} from hB)
+                        have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                        exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD4 specD4_ok (by simp only [specD4]; spec_present) (by simp only [specD4]; spec_absent))
+                      ·
+                        exact absurd (priv_isolated_edge G H.swap hA1.swap (show H.swap.A = {c, d} from hB) (core_iso G (show H.swap.C = {p, q, r, s} from hC) (by assumption) (by assumption) (by assumption) (by assumption))) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))
+                    ·
+                      exact absurd (sB q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                  ·
+                    exact absurd (sB p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+        ·
+          by_cases h_sd : G.Adj s d
+          ·
+            by_cases h_pb : G.Adj p b
+            ·
+              have hC' := (show H.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+              have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+              have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+              exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+            ·
+              by_cases h_qb : G.Adj q b
+              ·
+                have hC' := (show H.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+              ·
+                by_cases h_sa : G.Adj s a
+                ·
+                  by_cases h_ab : G.Adj a b
+                  ·
+                    by_cases h_pa : G.Adj p a
+                    ·
+                      by_cases h_qa : G.Adj q a
+                      ·
+                        by_cases h_rd : G.Adj r d
+                        ·
+                          exact (bud3B_r a (by rw [hA]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                        ·
+                          have hC' := (show H.C = {p, s, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.A = {a, b} from hA)
+                          have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                          exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD4 specD4_ok (by simp only [specD4]; spec_present) (by simp only [specD4]; spec_absent)
+                      ·
+                        exact absurd (sA q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                    ·
+                      exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                  ·
+                    exact absurd (priv_isolated_edge G H hA1 (show H.A = {a, b} from hA) (core_iso G (show H.C = {p, q, r, s} from hC) (by assumption) (by assumption) (by assumption) (by assumption))) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))
+                ·
+                  exact absurd (sA s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+          ·
+            by_cases h_sc : G.Adj s c
+            ·
+              by_cases h_rd : G.Adj r d
+              ·
+                exact (bud3B_r a (by rw [hA]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+              ·
+                by_cases h_pb : G.Adj p b
+                ·
+                  have hC' := (show H.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                  have hB' := (show H.B = {c, d} from hB)
+                  exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                ·
+                  by_cases h_qb : G.Adj q b
+                  ·
+                    have hC' := (show H.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                    have hB' := (show H.B = {c, d} from hB)
+                    exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                  ·
+                    by_cases h_sa : G.Adj s a
+                    ·
+                      by_cases h_pd : G.Adj p d
+                      ·
+                        have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                        have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                        have hB' := (show H.swap.B = {a, b} from hA)
+                        exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                      ·
+                        by_cases h_qd : G.Adj q d
+                        ·
+                          have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                          have hB' := (show H.swap.B = {a, b} from hA)
+                          exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                        ·
+                          by_cases h_pa : G.Adj p a
+                          ·
+                            have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.A = {a, b} from hA)
+                            have hB' := (show H.B = {c, d} from hB)
+                            exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD3 specD3_ok (by simp only [specD3]; spec_present) (by simp only [specD3]; spec_absent)
+                          ·
+                            exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                    ·
+                      exact absurd (sA s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+            ·
+              exact absurd (sB s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+    ·
+      by_cases h_rd : G.Adj r d
+      ·
+        by_cases h_sc : G.Adj s c
+        ·
+          by_cases h_pb : G.Adj p b
+          ·
+            by_cases h_pc : G.Adj p c
+            ·
+              by_cases h_qc : G.Adj q c
+              ·
+                by_cases h_sb : G.Adj s b
+                ·
+                  by_cases h_qb : G.Adj q b
+                  ·
+                    by_cases h_pa : G.Adj p a
+                    ·
+                      by_cases h_pd : G.Adj p d
+                      ·
+                        exact (bud_p ⟨by assumption, by assumption, by assumption, by assumption⟩).elim
+                      ·
+                        by_cases h_sa : G.Adj s a
+                        ·
+                          by_cases h_qa : G.Adj q a
+                          ·
+                            by_cases h_qd : G.Adj q d
+                            ·
+                              exact (bud_q ⟨by assumption, by assumption, by assumption, by assumption⟩).elim
+                            ·
+                              by_cases h_rb : G.Adj r b
+                              ·
+                                exact (bud3A_r d (by rw [hB]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                              ·
+                                by_cases h_sd : G.Adj s d
+                                ·
+                                  have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                                  have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                                  have hB' := (show H.swap.B = {a, b} from hA)
+                                  exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                                ·
+                                  exact (hA1.2.2.2 (paw_wke G H.swap (show H.swap.C = {r, p, q, s} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp)))) (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _))) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)))).elim
+                          ·
+                            have hC' := (show H.C = {s, q, p, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.A = {a, b} from hA)
+                            have hB' := (show H.B = {c, d} from hB)
+                            exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                        ·
+                          have hC' := (show H.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.A = {a, b} from hA)
+                          have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                          exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                    ·
+                      by_cases h_qa : G.Adj q a
+                      ·
+                        by_cases h_qd : G.Adj q d
+                        ·
+                          exact (bud_q ⟨by assumption, by assumption, by assumption, by assumption⟩).elim
+                        ·
+                          by_cases h_sa : G.Adj s a
+                          ·
+                            have hC' := (show H.C = {s, p, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.A = {a, b} from hA)
+                            have hB' := (show H.B = {c, d} from hB)
+                            exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                          ·
+                            have hC' := (show H.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.A = {a, b} from hA)
+                            have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                            exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                      ·
+                        by_cases h_sa : G.Adj s a
+                        ·
+                          have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.A = {a, b} from hA)
+                          have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                          exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                        ·
+                          exact (hA1.2.1 (paw_wke G H (show H.C = {r, p, q, s} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp)))) (show H.A = {a, b} from hA) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)))).elim
+                  ·
+                    have hC' := (show H.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                    have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                    exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                ·
+                  have hC' := (show H.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                  have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                  exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+              ·
+                by_cases h_qb : G.Adj q b
+                ·
+                  have hC' := (show H.swap.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.swap.A = {c, d} from hB)
+                  have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                  exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                ·
+                  by_cases h_qa : G.Adj q a
+                  ·
+                    have hC' := (show H.swap.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.swap.A = {c, d} from hB)
+                    have hB' := (show H.swap.B = {a, b} from hA)
+                    exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                  ·
+                    exact absurd (sA q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+            ·
+              have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+              have hA' := (show H.swap.A = {c, d} from hB)
+              have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+              exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+          ·
+            by_cases h_qb : G.Adj q b
+            ·
+              by_cases h_qc : G.Adj q c
+              ·
+                by_cases h_sb : G.Adj s b
+                ·
+                  have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                  have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                  exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                ·
+                  by_cases h_pc : G.Adj p c
+                  ·
+                    have hC' := (show H.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                    have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                    exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                  ·
+                    by_cases h_rb : G.Adj r b
+                    ·
+                      exact (bud3A_r d (by rw [hB]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                    ·
+                      have hC' := (show H.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                      have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                      have hB' := (show H.B = {c, d} from hB)
+                      exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+              ·
+                have hC' := (show H.swap.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                have hA' := (show H.swap.A = {c, d} from hB)
+                have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+            ·
+              by_cases h_sb : G.Adj s b
+              ·
+                by_cases h_pc : G.Adj p c
+                ·
+                  have hC' := (show H.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                  have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                  exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                ·
+                  by_cases h_pa : G.Adj p a
+                  ·
+                    have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.swap.A = {c, d} from hB)
+                    have hB' := (show H.swap.B = {a, b} from hA)
+                    exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                  ·
+                    exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+              ·
+                by_cases h_rb : G.Adj r b
+                ·
+                  exact (bud3A_r d (by rw [hB]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                ·
+                  by_cases h_pa : G.Adj p a
+                  ·
+                    by_cases h_qa : G.Adj q a
+                    ·
+                      by_cases h_ab : G.Adj a b
+                      ·
+                        have hC' := (show H.C = {p, s, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                        have hA' := (show H.A = {a, b} from hA)
+                        have hB' := (show H.B = {c, d} from hB)
+                        exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD4 specD4_ok (by simp only [specD4]; spec_present) (by simp only [specD4]; spec_absent)
+                      ·
+                        exact absurd (priv_isolated_edge G H hA1 (show H.A = {a, b} from hA) (core_iso G (show H.C = {p, q, r, s} from hC) (by assumption) (by assumption) (by assumption) (by assumption))) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))
+                    ·
+                      exact absurd (sA q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                  ·
+                    exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+        ·
+          by_cases h_sb : G.Adj s b
+          ·
+            by_cases h_pc : G.Adj p c
+            ·
+              have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+              have hA' := (show H.swap.A = {c, d} from hB)
+              have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+              exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+            ·
+              by_cases h_qc : G.Adj q c
+              ·
+                have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                have hA' := (show H.swap.A = {c, d} from hB)
+                have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+              ·
+                by_cases h_sd : G.Adj s d
+                ·
+                  by_cases h_rb : G.Adj r b
+                  ·
+                    exact (bud3A_r d (by rw [hB]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                  ·
+                    by_cases h_pd : G.Adj p d
+                    ·
+                      by_cases h_qd : G.Adj q d
+                      ·
+                        by_cases h_cd : G.Adj c d
+                        ·
+                          have hC' := (show H.swap.C = {p, s, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                          have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                          exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD4 specD4_ok (by simp only [specD4]; spec_present) (by simp only [specD4]; spec_absent))
+                        ·
+                          exact absurd (priv_isolated_edge G H.swap hA1.swap (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _))) (core_iso G (show H.swap.C = {p, q, r, s} from hC) (by assumption) (by assumption) (by assumption) (by assumption))) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))
+                      ·
+                        exact absurd (sB q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                    ·
+                      exact absurd (sB p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                ·
+                  exact absurd (sB s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+          ·
+            by_cases h_sa : G.Adj s a
+            ·
+              by_cases h_rb : G.Adj r b
+              ·
+                exact (bud3A_r d (by rw [hB]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+              ·
+                by_cases h_pc : G.Adj p c
+                ·
+                  have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.swap.A = {c, d} from hB)
+                  have hB' := (show H.swap.B = {a, b} from hA)
+                  exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                ·
+                  by_cases h_qc : G.Adj q c
+                  ·
+                    have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.swap.A = {c, d} from hB)
+                    have hB' := (show H.swap.B = {a, b} from hA)
+                    exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                  ·
+                    by_cases h_sd : G.Adj s d
+                    ·
+                      by_cases h_pb : G.Adj p b
+                      ·
+                        have hC' := (show H.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                        have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                        have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                        exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                      ·
+                        by_cases h_qb : G.Adj q b
+                        ·
+                          have hC' := (show H.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                          have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                          exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                        ·
+                          by_cases h_pa : G.Adj p a
+                          ·
+                            have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.A = {a, b} from hA)
+                            have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                            exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD3 specD3_ok (by simp only [specD3]; spec_present) (by simp only [specD3]; spec_absent)
+                          ·
+                            exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                    ·
+                      exact absurd (sB s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+            ·
+              exact absurd (sA s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+      ·
+        exact absurd (sB r (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+  ·
+    by_cases h_sa : G.Adj s a
+    ·
+      by_cases h_rb : G.Adj r b
+      ·
+        by_cases h_rc : G.Adj r c
+        ·
+          by_cases h_pd : G.Adj p d
+          ·
+            by_cases h_pa : G.Adj p a
+            ·
+              by_cases h_qa : G.Adj q a
+              ·
+                by_cases h_sd : G.Adj s d
+                ·
+                  by_cases h_qd : G.Adj q d
+                  ·
+                    by_cases h_pc : G.Adj p c
+                    ·
+                      by_cases h_pb : G.Adj p b
+                      ·
+                        exact (bud_p ⟨by assumption, by assumption, by assumption, by assumption⟩).elim
+                      ·
+                        by_cases h_sc : G.Adj s c
+                        ·
+                          by_cases h_qc : G.Adj q c
+                          ·
+                            by_cases h_qb : G.Adj q b
+                            ·
+                              exact (bud_q ⟨by assumption, by assumption, by assumption, by assumption⟩).elim
+                            ·
+                              by_cases h_sb : G.Adj s b
+                              ·
+                                by_cases h_rd : G.Adj r d
+                                ·
+                                  exact (bud3B_r b (by rw [hA]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                                ·
+                                  have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                                  have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                                  have hB' := (show H.B = {c, d} from hB)
+                                  exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                              ·
+                                exact (hA1.2.1 (paw_wke G H (show H.C = {r, p, q, s} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp)))) (show H.A = {b, a} from (hA.trans (pair_comm _ _))) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)))).elim
+                          ·
+                            have hC' := (show H.swap.C = {s, q, p, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.swap.A = {c, d} from hB)
+                            have hB' := (show H.swap.B = {a, b} from hA)
+                            exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                        ·
+                          have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.swap.A = {c, d} from hB)
+                          have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                          exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                    ·
+                      by_cases h_qc : G.Adj q c
+                      ·
+                        by_cases h_qb : G.Adj q b
+                        ·
+                          exact (bud_q ⟨by assumption, by assumption, by assumption, by assumption⟩).elim
+                        ·
+                          by_cases h_sc : G.Adj s c
+                          ·
+                            have hC' := (show H.swap.C = {s, p, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.swap.A = {c, d} from hB)
+                            have hB' := (show H.swap.B = {a, b} from hA)
+                            exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                          ·
+                            have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.swap.A = {c, d} from hB)
+                            have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                            exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                      ·
+                        by_cases h_sc : G.Adj s c
+                        ·
+                          have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.swap.A = {c, d} from hB)
+                          have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                          exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                        ·
+                          exact (hA1.2.2.2 (paw_wke G H.swap (show H.swap.C = {r, p, q, s} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp)))) (show H.swap.A = {c, d} from hB) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)))).elim
+                  ·
+                    have hC' := (show H.swap.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                    have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                    exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                ·
+                  have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                  have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                  exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+              ·
+                by_cases h_qd : G.Adj q d
+                ·
+                  have hC' := (show H.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.A = {a, b} from hA)
+                  have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                  exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                ·
+                  by_cases h_qc : G.Adj q c
+                  ·
+                    have hC' := (show H.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.A = {a, b} from hA)
+                    have hB' := (show H.B = {c, d} from hB)
+                    exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                  ·
+                    exact absurd (sB q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+            ·
+              have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+              have hA' := (show H.A = {a, b} from hA)
+              have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+              exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+          ·
+            by_cases h_qd : G.Adj q d
+            ·
+              by_cases h_qa : G.Adj q a
+              ·
+                by_cases h_sd : G.Adj s d
+                ·
+                  have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                  have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                  exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                ·
+                  by_cases h_pa : G.Adj p a
+                  ·
+                    have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                    have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                    exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                  ·
+                    by_cases h_rd : G.Adj r d
+                    ·
+                      exact (bud3B_r b (by rw [hA]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                    ·
+                      have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                      have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                      have hB' := (show H.swap.B = {a, b} from hA)
+                      exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+              ·
+                have hC' := (show H.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                have hA' := (show H.A = {a, b} from hA)
+                have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+            ·
+              by_cases h_sd : G.Adj s d
+              ·
+                by_cases h_pa : G.Adj p a
+                ·
+                  have hC' := (show H.swap.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                  have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                  exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                ·
+                  by_cases h_pc : G.Adj p c
+                  ·
+                    have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.A = {a, b} from hA)
+                    have hB' := (show H.B = {c, d} from hB)
+                    exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                  ·
+                    exact absurd (sB p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+              ·
+                by_cases h_rd : G.Adj r d
+                ·
+                  exact (bud3B_r b (by rw [hA]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                ·
+                  by_cases h_pc : G.Adj p c
+                  ·
+                    by_cases h_qc : G.Adj q c
+                    ·
+                      by_cases h_cd : G.Adj c d
+                      ·
+                        have hC' := (show H.swap.C = {p, s, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                        have hA' := (show H.swap.A = {c, d} from hB)
+                        have hB' := (show H.swap.B = {a, b} from hA)
+                        exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD4 specD4_ok (by simp only [specD4]; spec_present) (by simp only [specD4]; spec_absent))
+                      ·
+                        exact absurd (priv_isolated_edge G H.swap hA1.swap (show H.swap.A = {c, d} from hB) (core_iso G (show H.swap.C = {p, q, r, s} from hC) (by assumption) (by assumption) (by assumption) (by assumption))) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))
+                    ·
+                      exact absurd (sB q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                  ·
+                    exact absurd (sB p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+        ·
+          by_cases h_sc : G.Adj s c
+          ·
+            by_cases h_pa : G.Adj p a
+            ·
+              by_cases h_qc : G.Adj q c
+              ·
+                by_cases h_qa : G.Adj q a
+                ·
+                  by_cases h_sd : G.Adj s d
+                  ·
+                    by_cases h_pc : G.Adj p c
+                    ·
+                      by_cases h_rd : G.Adj r d
+                      ·
+                        by_cases h_sb : G.Adj s b
+                        ·
+                          by_cases h_pb : G.Adj p b
+                          ·
+                            by_cases h_pd : G.Adj p d
+                            ·
+                              exact (bud_p ⟨by assumption, by assumption, by assumption, by assumption⟩).elim
+                            ·
+                              have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                              have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                              have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                              exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                          ·
+                            have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                            have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                            exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                        ·
+                          by_cases h_pb : G.Adj p b
+                          ·
+                            have hC' := (show H.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                            have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                            exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                          ·
+                            by_cases h_qb : G.Adj q b
+                            ·
+                              have hC' := (show H.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                              have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                              have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                              exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                            ·
+                              exact (hA1.2.1 (paw_wke G H (show H.C = {r, p, q, s} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp)))) (show H.A = {b, a} from (hA.trans (pair_comm _ _))) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)))).elim
+                      ·
+                        exact absurd (sB r (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                    ·
+                      have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                      have hA' := (show H.swap.A = {c, d} from hB)
+                      have hB' := (show H.swap.B = {a, b} from hA)
+                      exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                  ·
+                    by_cases h_rd : G.Adj r d
+                    ·
+                      by_cases h_pc : G.Adj p c
+                      ·
+                        by_cases h_pd : G.Adj p d
+                        ·
+                          have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                          have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                          exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                        ·
+                          by_cases h_qd : G.Adj q d
+                          ·
+                            have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                            have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                            exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+                          ·
+                            exact (hA1.2.2.2 (paw_wke G H.swap (show H.swap.C = {r, p, q, s} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp)))) (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _))) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact SimpleGraph.adj_symm _ (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption)))).elim
+                      ·
+                        have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                        have hA' := (show H.swap.A = {c, d} from hB)
+                        have hB' := (show H.swap.B = {a, b} from hA)
+                        exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                    ·
+                      exact absurd (sB r (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                ·
+                  have hC' := (show H.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                  have hA' := (show H.A = {a, b} from hA)
+                  have hB' := (show H.B = {c, d} from hB)
+                  exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+              ·
+                have hC' := (show H.swap.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                have hA' := (show H.swap.A = {c, d} from hB)
+                have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent))
+            ·
+              by_cases h_rd : G.Adj r d
+              ·
+                by_cases h_qa : G.Adj q a
+                ·
+                  by_cases h_qc : G.Adj q c
+                  ·
+                    have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.A = {a, b} from hA)
+                    have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                    exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specP4 specP4_ok (by simp only [specP4]; spec_present) (by simp only [specP4]; spec_absent)
+                  ·
+                    have hC' := (show H.swap.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.swap.A = {c, d} from hB)
+                    have hB' := (show H.swap.B = {a, b} from hA)
+                    exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                ·
+                  by_cases h_pc : G.Adj p c
+                  ·
+                    have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                    have hA' := (show H.A = {a, b} from hA)
+                    have hB' := (show H.B = {c, d} from hB)
+                    exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                  ·
+                    by_cases h_qc : G.Adj q c
+                    ·
+                      have hC' := (show H.C = {s, q, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                      have hA' := (show H.A = {a, b} from hA)
+                      have hB' := (show H.B = {c, d} from hB)
+                      exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+                    ·
+                      by_cases h_pb : G.Adj p b
+                      ·
+                        have hC' := (show H.swap.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                        have hA' := (show H.swap.A = {c, d} from hB)
+                        have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                        exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                      ·
+                        exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+              ·
+                exact absurd (sB r (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+          ·
+            by_cases h_pc : G.Adj p c
+            ·
+              have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+              have hA' := (show H.swap.A = {c, d} from hB)
+              have hB' := (show H.swap.B = {a, b} from hA)
+              exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+            ·
+              by_cases h_qc : G.Adj q c
+              ·
+                have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                have hA' := (show H.swap.A = {c, d} from hB)
+                have hB' := (show H.swap.B = {a, b} from hA)
+                exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+              ·
+                by_cases h_sd : G.Adj s d
+                ·
+                  by_cases h_pd : G.Adj p d
+                  ·
+                    by_cases h_qd : G.Adj q d
+                    ·
+                      by_cases h_cd : G.Adj c d
+                      ·
+                        have hC' := (show H.swap.C = {p, s, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                        have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                        have hB' := (show H.swap.B = {a, b} from hA)
+                        exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD4 specD4_ok (by simp only [specD4]; spec_present) (by simp only [specD4]; spec_absent))
+                      ·
+                        exact absurd (priv_isolated_edge G H.swap hA1.swap (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _))) (core_iso G (show H.swap.C = {p, q, r, s} from hC) (by assumption) (by assumption) (by assumption) (by assumption))) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))
+                    ·
+                      exact absurd (sB q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                  ·
+                    exact absurd (sB p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                ·
+                  exact absurd (sB s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+      ·
+        exact absurd (sA r (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+    ·
+      by_cases h_rb : G.Adj r b
+      ·
+        by_cases h_sc : G.Adj s c
+        ·
+          by_cases h_pa : G.Adj p a
+          ·
+            have hC' := (show H.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+            have hA' := (show H.A = {a, b} from hA)
+            have hB' := (show H.B = {c, d} from hB)
+            exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+          ·
+            by_cases h_qa : G.Adj q a
+            ·
+              have hC' := (show H.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+              have hA' := (show H.A = {a, b} from hA)
+              have hB' := (show H.B = {c, d} from hB)
+              exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+            ·
+              by_cases h_rd : G.Adj r d
+              ·
+                by_cases h_sb : G.Adj s b
+                ·
+                  by_cases h_ab : G.Adj a b
+                  ·
+                    by_cases h_pb : G.Adj p b
+                    ·
+                      by_cases h_qb : G.Adj q b
+                      ·
+                        by_cases h_rc : G.Adj r c
+                        ·
+                          exact (bud3B_r b (by rw [hA]; simp) ⟨by assumption, by assumption, by assumption⟩).elim
+                        ·
+                          have hC' := (show H.C = {p, s, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                          have hB' := (show H.B = {c, d} from hB)
+                          exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD4 specD4_ok (by simp only [specD4]; spec_present) (by simp only [specD4]; spec_absent)
+                      ·
+                        exact absurd (sA q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                    ·
+                      exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                  ·
+                    exact absurd (priv_isolated_edge G H hA1 (show H.A = {b, a} from (hA.trans (pair_comm _ _))) (core_iso G (show H.C = {p, q, r, s} from hC) (by assumption) (by assumption) (by assumption) (by assumption))) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))
+                ·
+                  exact absurd (sA s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+              ·
+                by_cases h_sb : G.Adj s b
+                ·
+                  by_cases h_sd : G.Adj s d
+                  ·
+                    by_cases h_rc : G.Adj r c
+                    ·
+                      by_cases h_pb : G.Adj p b
+                      ·
+                        by_cases h_qb : G.Adj q b
+                        ·
+                          by_cases h_ab : G.Adj a b
+                          ·
+                            have hC' := (show H.C = {p, s, q, r} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                            have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                            have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                            exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD4 specD4_ok (by simp only [specD4]; spec_present) (by simp only [specD4]; spec_absent)
+                          ·
+                            exact absurd (priv_isolated_edge G H hA1 (show H.A = {b, a} from (hA.trans (pair_comm _ _))) (core_iso G (show H.C = {p, q, r, s} from hC) (by assumption) (by assumption) (by assumption) (by assumption))) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))
+                        ·
+                          exact absurd (sA q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                      ·
+                        exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                    ·
+                      exact absurd (sB r (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                  ·
+                    by_cases h_pd : G.Adj p d
+                    ·
+                      have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                      have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                      have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                      exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                    ·
+                      by_cases h_qd : G.Adj q d
+                      ·
+                        have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                        have hA' := (show H.swap.A = {d, c} from (hB.trans (pair_comm _ _)))
+                        have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                        exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                      ·
+                        by_cases h_pb : G.Adj p b
+                        ·
+                          have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                          have hB' := (show H.B = {c, d} from hB)
+                          exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD3 specD3_ok (by simp only [specD3]; spec_present) (by simp only [specD3]; spec_absent)
+                        ·
+                          exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                ·
+                  exact absurd (sA s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+        ·
+          by_cases h_sd : G.Adj s d
+          ·
+            by_cases h_pa : G.Adj p a
+            ·
+              have hC' := (show H.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+              have hA' := (show H.A = {a, b} from hA)
+              have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+              exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+            ·
+              by_cases h_qa : G.Adj q a
+              ·
+                have hC' := (show H.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                have hA' := (show H.A = {a, b} from hA)
+                have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent)
+              ·
+                by_cases h_rc : G.Adj r c
+                ·
+                  by_cases h_sb : G.Adj s b
+                  ·
+                    by_cases h_ab : G.Adj a b
+                    ·
+                      by_cases h_pb : G.Adj p b
+                      ·
+                        by_cases h_qb : G.Adj q b
+                        ·
+                          have hC' := (show H.C = {p, r, q, s} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                          have hB' := (show H.B = {c, d} from hB)
+                          exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD4 specD4_ok (by simp only [specD4]; spec_present) (by simp only [specD4]; spec_absent)
+                        ·
+                          exact absurd (sA q (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                      ·
+                        exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                    ·
+                      exact absurd (priv_isolated_edge G H hA1 (show H.A = {b, a} from (hA.trans (pair_comm _ _))) (core_iso G (show H.C = {p, q, r, s} from hC) (by assumption) (by assumption) (by assumption) (by assumption))) (by first | assumption | exact fun h => absurd (SimpleGraph.adj_symm _ h) (by assumption))
+                  ·
+                    exact absurd (sA s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                ·
+                  by_cases h_sb : G.Adj s b
+                  ·
+                    by_cases h_pc : G.Adj p c
+                    ·
+                      have hC' := (show H.swap.C = {p, s, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                      have hA' := (show H.swap.A = {c, d} from hB)
+                      have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                      exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                    ·
+                      by_cases h_qc : G.Adj q c
+                      ·
+                        have hC' := (show H.swap.C = {q, s, r, p} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                        have hA' := (show H.swap.A = {c, d} from hB)
+                        have hB' := (show H.swap.B = {b, a} from (hA.trans (pair_comm _ _)))
+                        exact reducible_of_swap G H (reducible_of_spec G H.swap _ (labelling_of_hub G H.swap hC' hA' hB' (diamond_h10 G H.swap hC' hA' hB')) specD1 specD1_ok (by simp only [specD1]; spec_present) (by simp only [specD1]; spec_absent))
+                      ·
+                        by_cases h_pb : G.Adj p b
+                        ·
+                          have hC' := (show H.C = {s, p, r, q} from (hC.trans (set4_eq_of (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp) (by simp))))
+                          have hA' := (show H.A = {b, a} from (hA.trans (pair_comm _ _)))
+                          have hB' := (show H.B = {d, c} from (hB.trans (pair_comm _ _)))
+                          exact reducible_of_spec G H _ (labelling_of_hub G H hC' hA' hB' (diamond_h10 G H hC' hA' hB')) specD3 specD3_ok (by simp only [specD3]; spec_present) (by simp only [specD3]; spec_absent)
+                        ·
+                          exact absurd (sA p (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+                  ·
+                    exact absurd (sA s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+          ·
+            exact absurd (sB s (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hB] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
+      ·
+        exact absurd (sA r (by rw [hC]; simp)) (by rintro ⟨w, hw, hadj⟩; rw [hA] at hw; simp only [mem_insert, mem_singleton] at hw; rcases hw with e | e <;> rw [e] at hadj <;> contradiction)
 
 /-- **Proposition 6.7**: K₃+K₁ core is reducible under (A1)–(A2). -/
 theorem k3k1_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
