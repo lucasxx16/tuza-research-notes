@@ -76,3 +76,11 @@ A clean build takes about 8 minutes.
 - `diamond_certificate_D3` fully proved (unused privates).
 - `diamond_certificate_D5` fully proved (private edges + double center).
 - Still open: D2, D4 certificates; `diamond_core_reducible` forcing; C₄/paw/K₃+K₁; residual structural sorry.
+
+## Progress (Prop 6.2 certificates complete)
+
+- Fully proved diamond certificates **D1, D2, D3, D4, D5** (packing, cover, external, coversZ).
+- `diamond_center_unique`: centres p,q have unique A/B neighbours (coreDeg 3 + A2 + full_support).
+- `diamond_core_reducible` still sorry on the paper's attachment classification that forces one of D1–D5.
+- Still sorry: `c4_core_reducible`, `paw_core_reducible`, `k3k1_core_reducible`, residual in `structural_codegree_four`.
+- No paper gaps found in Prop 6.2 certificate statements; forcing argument not yet checked in Lean.

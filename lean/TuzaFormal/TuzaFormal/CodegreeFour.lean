@@ -10532,7 +10532,98 @@ theorem diamond_full_support (H : HubConfig G) (hA1 : H.A1)
     obtain ⟨b, hb, hadj⟩ := h c hc
     exact ⟨b, hb, hadj⟩
 
-/-- **Proposition 6.2**: diamond core `{xp,xq,yp,yq,pq}` is reducible under (A1)–(A2). -/
+/-- Centres `p,q` of a diamond have unique A/B neighbours (coreDeg 3 + (A2) + support). -/
+theorem diamond_center_unique (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
+    {x y p q : V} (hC : H.C = {x, y, p, q})
+    (hxp : G.Adj x p) (hxq : G.Adj x q) (hyp : G.Adj y p) (hyq : G.Adj y q)
+    (hpq : G.Adj p q) :
+    (∀ c ∈ ({p, q} : Finset V), ∃! a, a ∈ H.A ∧ G.Adj c a) ∧
+    (∀ c ∈ ({p, q} : Finset V), ∃! b, b ∈ H.B ∧ G.Adj c b) := by
+  classical
+  obtain ⟨hsuppA, hsuppB⟩ := diamond_full_support G H hA1 hC hxp hyq
+  have coreDeg3 : ∀ c ∈ ({p, q} : Finset V), H.coreDeg c = 3 := by
+    intro c hc
+    unfold HubConfig.coreDeg
+    have hcC : c ∈ H.C := by
+      simp only [mem_insert, mem_singleton] at hc
+      rcases hc with rfl | rfl <;> simp [hC]
+    have hadj_all : ∀ t ∈ H.C.erase c, G.Adj c t := by
+      intro t ht
+      have htC : t ∈ H.C := (mem_erase.1 ht).2
+      have hne : t ≠ c := (mem_erase.1 ht).1
+      have ht' : t = x ∨ t = y ∨ t = p ∨ t = q := by simpa [hC] using htC
+      simp only [mem_insert, mem_singleton] at hc
+      rcases hc with rfl | rfl
+      · -- c = p; neighbours x,y,q
+        rcases ht' with rfl | rfl | rfl | rfl
+        · exact hxp.symm
+        · exact hyp.symm
+        · exact absurd rfl hne.symm
+        · exact hpq
+      · -- c = q; neighbours x,y,p
+        rcases ht' with rfl | rfl | rfl | rfl
+        · exact hxq.symm
+        · exact hyq.symm
+        · exact hpq.symm
+        · exact absurd rfl hne.symm
+    have hfilter : (H.C.erase c).filter (G.Adj c) = H.C.erase c := by
+      ext t; simp only [mem_filter]; constructor
+      · exact And.left
+      · intro ht; exact ⟨ht, hadj_all t ht⟩
+    rw [hfilter, card_erase_of_mem hcC, H.hCcard]
+  refine ⟨?_, ?_⟩
+  · intro c hc
+    have hcC : c ∈ H.C := by
+      simp only [mem_insert, mem_singleton] at hc
+      rcases hc with rfl | rfl <;> simp [hC]
+    have hneA : (G.neighborFinset c ∩ H.A).Nonempty := by
+      obtain ⟨a, ha, hadj⟩ := hsuppA c hcC
+      exact ⟨a, mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj, ha⟩⟩
+    have hneB : (G.neighborFinset c ∩ H.B).Nonempty := by
+      obtain ⟨b, hb, hadj⟩ := hsuppB c hcC
+      exact ⟨b, mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj, hb⟩⟩
+    have hAcard : (G.neighborFinset c ∩ H.A).card = 1 := by
+      have hA2c := hA2 c hcC
+      have hde := coreDeg3 c hc
+      have hApos : 1 ≤ (G.neighborFinset c ∩ H.A).card := Finset.card_pos.2 hneA
+      have hBpos : 1 ≤ (G.neighborFinset c ∩ H.B).card := Finset.card_pos.2 hneB
+      omega
+    obtain ⟨a, ha⟩ := (card_eq_one (s := G.neighborFinset c ∩ H.A)).1 hAcard
+    refine ⟨a, ?_, ?_⟩
+    · have : a ∈ G.neighborFinset c ∩ H.A := by simp [ha]
+      exact ⟨(mem_inter.1 this).2, (G.mem_neighborFinset _ _).1 (mem_inter.1 this).1⟩
+    · intro a' ⟨ha'A, hadj⟩
+      have : a' ∈ G.neighborFinset c ∩ H.A :=
+        mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj, ha'A⟩
+      simpa [ha] using this
+  · intro c hc
+    have hcC : c ∈ H.C := by
+      simp only [mem_insert, mem_singleton] at hc
+      rcases hc with rfl | rfl <;> simp [hC]
+    have hneA : (G.neighborFinset c ∩ H.A).Nonempty := by
+      obtain ⟨a, ha, hadj⟩ := hsuppA c hcC
+      exact ⟨a, mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj, ha⟩⟩
+    have hneB : (G.neighborFinset c ∩ H.B).Nonempty := by
+      obtain ⟨b, hb, hadj⟩ := hsuppB c hcC
+      exact ⟨b, mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj, hb⟩⟩
+    have hBcard : (G.neighborFinset c ∩ H.B).card = 1 := by
+      have hA2c := hA2 c hcC
+      have hde := coreDeg3 c hc
+      have hApos : 1 ≤ (G.neighborFinset c ∩ H.A).card := Finset.card_pos.2 hneA
+      have hBpos : 1 ≤ (G.neighborFinset c ∩ H.B).card := Finset.card_pos.2 hneB
+      omega
+    obtain ⟨b, hb⟩ := (card_eq_one (s := G.neighborFinset c ∩ H.B)).1 hBcard
+    refine ⟨b, ?_, ?_⟩
+    · have : b ∈ G.neighborFinset c ∩ H.B := by simp [hb]
+      exact ⟨(mem_inter.1 this).2, (G.mem_neighborFinset _ _).1 (mem_inter.1 this).1⟩
+    · intro b' ⟨hb'B, hadj⟩
+      have : b' ∈ G.neighborFinset c ∩ H.B :=
+        mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj, hb'B⟩
+      simpa [hb] using this
+
+/-- **Proposition 6.2**: diamond core `{xp,xq,yp,yq,pq}` is reducible under (A1)–(A2).
+Certificates D1–D5 are fully proved; the remaining work is the paper's attachment
+classification that forces one of those five hypothesis packages. -/
 theorem diamond_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
     {x y p q : V} (hC : H.C = {x, y, p, q})
     (hxp : G.Adj x p) (hxq : G.Adj x q) (hyp : G.Adj y p) (hyq : G.Adj y q)
@@ -10541,8 +10632,16 @@ theorem diamond_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
       s(a, b) = s(x, p) ∨ s(a, b) = s(x, q) ∨ s(a, b) = s(y, p) ∨
       s(a, b) = s(y, q) ∨ s(a, b) = s(p, q)) :
     IsReducible G ({H.u, H.v} : Finset V) := by
+  classical
   obtain ⟨hsuppA, hsuppB⟩ := diamond_full_support G H hA1 hC hxp hyq
-  -- Force D1–D5 by attachment classification (paper pp.13–14); D1 infra ready.
+  obtain ⟨uniqA, uniqB⟩ := diamond_center_unique G H hA1 hA2 hC hxp hxq hyp hyq hpq
+  obtain ⟨a, b, hneA, hAeq⟩ := (card_eq_two (s := H.A)).1 H.hA
+  obtain ⟨c, d, hneB, hBeq⟩ := (card_eq_two (s := H.B)).1 H.hB
+  have hC4 : ({x, y, p, q} : Finset V).card = 4 := by rw [← hC]; exact H.hCcard
+  have h10 := labels10_of_hub G H hC hAeq hBeq hC4 hneA hneB
+  have hK : G.Adj x p ∧ G.Adj x q ∧ G.Adj y p ∧ G.Adj y q ∧ G.Adj p q :=
+    ⟨hxp, hxq, hyp, hyq, hpq⟩
+  -- Force D1–D5 (paper pp.13–14). Certificates are ready; classification remains.
   sorry
 
 /-- **Proposition 6.3**: C₄ core is reducible under (A1)–(A2). -/
