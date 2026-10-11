@@ -6103,6 +6103,344 @@ theorem path_core_reducible (H : HubConfig G) (hA1 : H.A1)
       rw [hcoreDeg, hA2card, hB2card']
     omega
 
+/-! ## Lemma 3.2 and Proposition 4.9 -/
+
+lemma wke3 (F : SimpleGraph V) [DecidableRel F.Adj] {a b c d e f q1 q2 q3 : V}
+    (h1 : F.Adj a b) (h2 : F.Adj c d) (h3 : F.Adj e f)
+    (hnd : [a, b, c, d, e, f].Nodup)
+    (hout : ∀ g ∈ F.edgeFinset, (∀ x ∈ g, x ∉ ({q1, q2, q3} : Finset V)) →
+      g = s(a, b) ∨ g = s(c, d) ∨ g = s(e, f)) : IsWKE F := by
+  simp only [List.nodup_cons, List.mem_cons, List.not_mem_nil, or_false, not_or,
+    List.nodup_nil, and_true] at hnd
+  obtain ⟨⟨hab, hac, had, hae, haf⟩, ⟨hbc, hbd, hbe, hbf⟩, ⟨hcd, hce, hcf⟩, ⟨hde, hdf⟩, hef⟩ := hnd
+  refine isWKE_of_witness _ (M := {s(a, b), s(c, d), s(e, f)}) (Q := {q1, q2, q3})
+    ⟨⟨?_, ?_⟩, ?_, ?_⟩
+  · intro g hg
+    simp only [mem_insert, mem_singleton] at hg
+    rcases hg with rfl | rfl | rfl <;> simpa
+  · intro g hg g' hg' hne
+    simp only [mem_insert, mem_singleton] at hg hg'
+    rcases hg with rfl | rfl | rfl <;> rcases hg' with rfl | rfl | rfl <;>
+      first
+      | exact absurd rfl hne
+      | (rw [Sym2.toFinset_mk_eq, Sym2.toFinset_mk_eq]
+         simp only [Finset.disjoint_left, mem_insert, mem_singleton]
+         rintro x (rfl | rfl) (rfl | rfl) <;> simp_all)
+  · have hM : ({s(a, b), s(c, d), s(e, f)} : Finset (Sym2 V)).card = 3 := by
+      rw [card_insert_of_notMem, card_insert_of_notMem, card_singleton]
+      · simp [Sym2.eq_iff, hce, hcf, hde, hdf]
+      · simp [Sym2.eq_iff, hac, had, hae, haf]
+    rw [hM]; exact card_le_three
+  · intro g hg hx
+    rcases hout g hg hx with h | h | h <;> simp [h]
+
+/-- In a connected link, every non-hub vertex `d ≠ w` has a link neighbour. -/
+lemma link_nbr (hub : V) (hconn : (linkGraph G hub).Connected) {d w : V} (hdw : d ≠ w) :
+    ∃ x, (linkGraph G hub).Adj d x := by
+  by_contra h
+  push Not at h
+  have hdeg0 : (linkGraph G hub).degree d = 0 := by
+    simp only [← card_neighborFinset_eq_degree]
+    refine card_eq_zero.2 (eq_empty_iff_forall_notMem.2 ?_)
+    intro x hx
+    exact h x ((mem_neighborFinset _ _ _).1 hx)
+  exact (not_reachable_of_left_degree_zero hdw hdeg0) (hconn.preconnected d w)
+
+
+/-- Outside `{z,x,y}` only `cd` and the private edge can occur (Lemma 3.2 setup). -/
+lemma lemma32_outside (H : HubConfig G) {x y c d d0 d1 : V}
+    (hC' : H.C = {x, y, c, d}) (hAeq : H.A = {d0, d1})
+    (hnc : ∀ t ∈ H.A, ¬ G.Adj c t) (hnd : ∀ t ∈ H.A, ¬ G.Adj d t)
+    {g : Sym2 V} (hg : g ∈ (linkGraph G H.u).edgeFinset)
+    (hO : ∀ w ∈ g, w ∉ ({H.v, x, y} : Finset V)) :
+    g = s(c, d) ∨ g = s(d0, d1) := by
+  revert hg hO
+  refine Sym2.inductionOn g fun a b hg hO => ?_
+  have hab : (linkGraph G H.u).Adj a b := (mem_edgeFinset (G := linkGraph G H.u)).1 hg
+  have hG : G.Adj a b := hab.2.2
+  have cls (w : V) (hw : w ∈ G.neighborFinset H.u) (hwO : w ∉ ({H.v, x, y} : Finset V)) :
+      w = c ∨ w = d ∨ w = d0 ∨ w = d1 := by
+    rw [H.hNu] at hw
+    simp only [mem_insert, mem_union, mem_singleton, not_or] at hw hwO
+    rcases hw with h | h | h
+    · exact absurd h hwO.1
+    · rw [hC'] at h; simp only [mem_insert, mem_singleton] at h
+      rcases h with h | h | h | h
+      · exact absurd h hwO.2.1
+      · exact absurd h hwO.2.2
+      · exact Or.inl h
+      · exact Or.inr (Or.inl h)
+    · rw [hAeq] at h; simp only [mem_insert, mem_singleton] at h
+      rcases h with h | h
+      · exact Or.inr (Or.inr (Or.inl h))
+      · exact Or.inr (Or.inr (Or.inr h))
+  have h0A : d0 ∈ H.A := by rw [hAeq]; simp
+  have h1A : d1 ∈ H.A := by rw [hAeq]; simp
+  rcases cls a hab.1 (hO a (by simp)) with rfl | rfl | rfl | rfl <;>
+  rcases cls b hab.2.1 (hO b (by simp)) with rfl | rfl | rfl | rfl <;>
+  first
+  | exact (G.irrefl hG).elim
+  | exact Or.inl rfl
+  | exact Or.inl Sym2.eq_swap
+  | exact Or.inr rfl
+  | exact Or.inr Sym2.eq_swap
+  | exact (hnc _ h0A hG).elim
+  | exact (hnc _ h1A hG).elim
+  | exact (hnd _ h0A hG).elim
+  | exact (hnd _ h1A hG).elim
+  | exact (hnc _ h0A hG.symm).elim
+  | exact (hnc _ h1A hG.symm).elim
+  | exact (hnd _ h0A hG.symm).elim
+  | exact (hnd _ h1A hG.symm).elim
+
+/-- **Lemma 3.2**: if the core has a perfect matching `{m0m1, m2m3}` and the link is
+connected and not WKE, then no two core vertices `c, d` both lack private neighbours. -/
+theorem lemma32 (H : HubConfig G)
+    (hconn : (linkGraph G H.u).Connected) (hnot : ¬ IsWKE (linkGraph G H.u))
+    {m0 m1 m2 m3 : V} (hC : H.C = {m0, m1, m2, m3})
+    (hm01 : G.Adj m0 m1) (hm23 : G.Adj m2 m3)
+    {x y c d : V} (hC' : H.C = {x, y, c, d})
+    (hnc : ∀ t ∈ H.A, ¬ G.Adj c t) (hnd : ∀ t ∈ H.A, ¬ G.Adj d t) : False := by
+  classical
+  obtain ⟨d0, d1, hAeq, h01, hd0N, hd1N⟩ := privates_of G H
+  have h0A : d0 ∈ H.A := by rw [hAeq]; simp
+  have h1A : d1 ∈ H.A := by rw [hAeq]; simp
+  have memC (w : V) (hw : w ∈ ({x, y, c, d} : Finset V)) : w ∈ H.C := hC' ▸ hw
+  have memC' (w : V) (hw : w ∈ ({m0, m1, m2, m3} : Finset V)) : w ∈ H.C := hC ▸ hw
+  have hxC := memC x (by simp)
+  have hyC := memC y (by simp)
+  have hcC := memC c (by simp)
+  have hdC := memC d (by simp)
+  have hm0C := memC' m0 (by simp)
+  have hm1C := memC' m1 (by simp)
+  have hm2C := memC' m2 (by simp)
+  have hm3C := memC' m3 (by simp)
+  obtain ⟨hxy, hxc, hxd, hyc, hyd, hcd'⟩ := core4_distinct G H hC'
+  obtain ⟨m01, m02, m03, m12, m13, m23⟩ := core4_distinct G H hC
+  have zx := ne_z_of_core G H hxC
+  have zy := ne_z_of_core G H hyC
+  have zc := ne_z_of_core G H hcC
+  have zd := ne_z_of_core G H hdC
+  have zm0 := ne_z_of_core G H hm0C
+  have zm1 := ne_z_of_core G H hm1C
+  have zm2 := ne_z_of_core G H hm2C
+  have zm3 := ne_z_of_core G H hm3C
+  have z0 := ne_z_of_priv G H h0A
+  have z1 := ne_z_of_priv G H h1A
+  have x0 := ne_core_priv G H hxC h0A
+  have x1 := ne_core_priv G H hxC h1A
+  have y0 := ne_core_priv G H hyC h0A
+  have y1 := ne_core_priv G H hyC h1A
+  have c0 := ne_core_priv G H hcC h0A
+  have c1 := ne_core_priv G H hcC h1A
+  have e0 := ne_core_priv G H hdC h0A
+  have e1 := ne_core_priv G H hdC h1A
+  have m00 := ne_core_priv G H hm0C h0A
+  have m01' := ne_core_priv G H hm0C h1A
+  have m10 := ne_core_priv G H hm1C h0A
+  have m11 := ne_core_priv G H hm1C h1A
+  have m20 := ne_core_priv G H hm2C h0A
+  have m21 := ne_core_priv G H hm2C h1A
+  have m30 := ne_core_priv G H hm3C h0A
+  have m31 := ne_core_priv G H hm3C h1A
+  have hzN := opposite_hub_mem G H
+  have L {a b : V} (ha : a ∈ G.neighborFinset H.u) (hb : b ∈ G.neighborFinset H.u)
+      (h : G.Adj a b) : (linkGraph G H.u).Adj a b := ⟨ha, hb, h⟩
+  have NC (w : V) (hw : w ∈ H.C) : w ∈ G.neighborFinset H.u := core_mem_Nu G H hw
+  have zA (w : V) (hw : w ∈ H.C) : G.Adj H.v w := z_adj_core G H hw
+  have hout := fun {g : Sym2 V} hg hO =>
+    lemma32_outside G H hC' hAeq hnc hnd (g := g) hg hO
+  have edgeG {a b : V} (hg : s(a, b) ∈ (linkGraph G H.u).edgeFinset) : G.Adj a b :=
+    ((mem_edgeFinset (G := linkGraph G H.u)).1 hg).2.2
+  -- a private neighbour of d0 inside the core
+  obtain ⟨w, hw⟩ := link_nbr G H.u hconn (w := H.v) z0.symm
+  have hwG : G.Adj d0 w := hw.2.2
+  by_cases hdd : G.Adj d0 d1
+  · by_cases hcd : G.Adj c d
+    · exact hnot (wke3 _ (q1 := H.v) (q2 := x) (q3 := y)
+        (L (NC c hcC) (NC d hdC) hcd) (L hd0N hd1N hdd) (L hzN (NC x hxC) (zA x hxC))
+        (by simp [List.nodup_cons, hxy, hxc, hxd, hyc, hyd, hcd', zx, zy, zc, zd, z0, z1, x0, x1, y0, y1, c0, c1, e0, e1, h01, m01, m02, m03, m12, m13, m23, zm0, zm1, zm2, zm3, m00, m01', m10, m11, m20, m21, m30, m31, hxy.symm, hxc.symm, hxd.symm, hyc.symm, hyd.symm, hcd'.symm, zx.symm, zy.symm, zc.symm, zd.symm, z0.symm, z1.symm, x0.symm, x1.symm, y0.symm, y1.symm, c0.symm, c1.symm, e0.symm, e1.symm, h01.symm, m01.symm, m02.symm, m03.symm, m12.symm, m13.symm, m23.symm, zm0.symm, zm1.symm, zm2.symm, zm3.symm, m00.symm, m01'.symm, m10.symm, m11.symm, m20.symm, m21.symm, m30.symm, m31.symm])
+        (fun g hg hO => by
+          rcases hout hg hO with h | h
+          · exact Or.inl h
+          · exact Or.inr (Or.inl h)))
+    · exact hnot (wke3 _ (q1 := H.v) (q2 := x) (q3 := y)
+        (L (NC m0 hm0C) (NC m1 hm1C) hm01) (L (NC m2 hm2C) (NC m3 hm3C) hm23)
+        (L hd0N hd1N hdd)
+        (by simp [List.nodup_cons, hxy, hxc, hxd, hyc, hyd, hcd', zx, zy, zc, zd, z0, z1, x0, x1, y0, y1, c0, c1, e0, e1, h01, m01, m02, m03, m12, m13, m23, zm0, zm1, zm2, zm3, m00, m01', m10, m11, m20, m21, m30, m31, hxy.symm, hxc.symm, hxd.symm, hyc.symm, hyd.symm, hcd'.symm, zx.symm, zy.symm, zc.symm, zd.symm, z0.symm, z1.symm, x0.symm, x1.symm, y0.symm, y1.symm, c0.symm, c1.symm, e0.symm, e1.symm, h01.symm, m01.symm, m02.symm, m03.symm, m12.symm, m13.symm, m23.symm, zm0.symm, zm1.symm, zm2.symm, zm3.symm, m00.symm, m01'.symm, m10.symm, m11.symm, m20.symm, m21.symm, m30.symm, m31.symm])
+        (fun g hg hO => by
+          rcases hout hg hO with h | h
+          · subst h; exact (hcd (edgeG hg)).elim
+          · exact Or.inr (Or.inr h)))
+  · -- d0's neighbour lies in the core, at x or y
+    have hwN : w ∈ G.neighborFinset H.u := hw.2.1
+    rw [H.hNu] at hwN
+    simp only [mem_insert, mem_union] at hwN
+    rcases hwN with hwz | hwC | hwA
+    · exact (not_adj_hub_priv G H h0A (hwz ▸ hwG).symm).elim
+    · have hwC' := hwC
+      rw [hC'] at hwC'
+      simp only [mem_insert, mem_singleton] at hwC'
+      by_cases hcd : G.Adj c d
+      · rcases hwC' with h | h | h | h
+        · rw [h] at hwG
+          exact hnot (wke3 _ (q1 := H.v) (q2 := x) (q3 := y)
+            (L (NC c hcC) (NC d hdC) hcd) (L hd0N (NC x hxC) hwG)
+            (L hzN (NC y hyC) (zA y hyC))
+            (by simp [List.nodup_cons, hxy, hxc, hxd, hyc, hyd, hcd', zx, zy, zc, zd, z0, z1, x0, x1, y0, y1, c0, c1, e0, e1, h01, m01, m02, m03, m12, m13, m23, zm0, zm1, zm2, zm3, m00, m01', m10, m11, m20, m21, m30, m31, hxy.symm, hxc.symm, hxd.symm, hyc.symm, hyd.symm, hcd'.symm, zx.symm, zy.symm, zc.symm, zd.symm, z0.symm, z1.symm, x0.symm, x1.symm, y0.symm, y1.symm, c0.symm, c1.symm, e0.symm, e1.symm, h01.symm, m01.symm, m02.symm, m03.symm, m12.symm, m13.symm, m23.symm, zm0.symm, zm1.symm, zm2.symm, zm3.symm, m00.symm, m01'.symm, m10.symm, m11.symm, m20.symm, m21.symm, m30.symm, m31.symm])
+            (fun g hg hO => by
+              rcases hout hg hO with h | h
+              · exact Or.inl h
+              · subst h; exact (hdd (edgeG hg)).elim))
+        · rw [h] at hwG
+          exact hnot (wke3 _ (q1 := H.v) (q2 := x) (q3 := y)
+            (L (NC c hcC) (NC d hdC) hcd) (L hd0N (NC y hyC) hwG)
+            (L hzN (NC x hxC) (zA x hxC))
+            (by simp [List.nodup_cons, hxy, hxc, hxd, hyc, hyd, hcd', zx, zy, zc, zd, z0, z1, x0, x1, y0, y1, c0, c1, e0, e1, h01, m01, m02, m03, m12, m13, m23, zm0, zm1, zm2, zm3, m00, m01', m10, m11, m20, m21, m30, m31, hxy.symm, hxc.symm, hxd.symm, hyc.symm, hyd.symm, hcd'.symm, zx.symm, zy.symm, zc.symm, zd.symm, z0.symm, z1.symm, x0.symm, x1.symm, y0.symm, y1.symm, c0.symm, c1.symm, e0.symm, e1.symm, h01.symm, m01.symm, m02.symm, m03.symm, m12.symm, m13.symm, m23.symm, zm0.symm, zm1.symm, zm2.symm, zm3.symm, m00.symm, m01'.symm, m10.symm, m11.symm, m20.symm, m21.symm, m30.symm, m31.symm])
+            (fun g hg hO => by
+              rcases hout hg hO with h | h
+              · exact Or.inl h
+              · subst h; exact (hdd (edgeG hg)).elim))
+        · exact (hnc d0 h0A (h ▸ hwG.symm)).elim
+        · exact (hnd d0 h0A (h ▸ hwG.symm)).elim
+      · -- neither cd nor d0d1: M = {d0 w, f, z t}
+        have hwm : w = m0 ∨ w = m1 ∨ w = m2 ∨ w = m3 := by
+          rw [hC] at hwC; simpa using hwC
+        have fin : ∀ g ∈ (linkGraph G H.u).edgeFinset,
+            (∀ v ∈ g, v ∉ ({H.v, x, y} : Finset V)) → False := fun g hg hO => by
+          rcases hout hg hO with h | h
+          · subst h; exact hcd (edgeG hg)
+          · subst h; exact hdd (edgeG hg)
+        rcases hwm with rfl | rfl | rfl | rfl
+        · exact hnot (wke3 _ (q1 := H.v) (q2 := x) (q3 := y)
+            (L hd0N (NC w hwC) hwG) (L (NC m2 hm2C) (NC m3 hm3C) hm23)
+            (L hzN (NC m1 hm1C) (zA m1 hm1C))
+            (by simp [List.nodup_cons, hxy, hxc, hxd, hyc, hyd, hcd', zx, zy, zc, zd, z0, z1, x0, x1, y0, y1, c0, c1, e0, e1, h01, m01, m02, m03, m12, m13, m23, zm0, zm1, zm2, zm3, m00, m01', m10, m11, m20, m21, m30, m31, hxy.symm, hxc.symm, hxd.symm, hyc.symm, hyd.symm, hcd'.symm, zx.symm, zy.symm, zc.symm, zd.symm, z0.symm, z1.symm, x0.symm, x1.symm, y0.symm, y1.symm, c0.symm, c1.symm, e0.symm, e1.symm, h01.symm, m01.symm, m02.symm, m03.symm, m12.symm, m13.symm, m23.symm, zm0.symm, zm1.symm, zm2.symm, zm3.symm, m00.symm, m01'.symm, m10.symm, m11.symm, m20.symm, m21.symm, m30.symm, m31.symm])
+            (fun g hg hO => (fin g hg hO).elim))
+        · exact hnot (wke3 _ (q1 := H.v) (q2 := x) (q3 := y)
+            (L hd0N (NC w hwC) hwG) (L (NC m2 hm2C) (NC m3 hm3C) hm23)
+            (L hzN (NC m0 hm0C) (zA m0 hm0C))
+            (by simp [List.nodup_cons, hxy, hxc, hxd, hyc, hyd, hcd', zx, zy, zc, zd, z0, z1, x0, x1, y0, y1, c0, c1, e0, e1, h01, m01, m02, m03, m12, m13, m23, zm0, zm1, zm2, zm3, m00, m01', m10, m11, m20, m21, m30, m31, hxy.symm, hxc.symm, hxd.symm, hyc.symm, hyd.symm, hcd'.symm, zx.symm, zy.symm, zc.symm, zd.symm, z0.symm, z1.symm, x0.symm, x1.symm, y0.symm, y1.symm, c0.symm, c1.symm, e0.symm, e1.symm, h01.symm, m01.symm, m02.symm, m03.symm, m12.symm, m13.symm, m23.symm, zm0.symm, zm1.symm, zm2.symm, zm3.symm, m00.symm, m01'.symm, m10.symm, m11.symm, m20.symm, m21.symm, m30.symm, m31.symm])
+            (fun g hg hO => (fin g hg hO).elim))
+        · exact hnot (wke3 _ (q1 := H.v) (q2 := x) (q3 := y)
+            (L hd0N (NC w hwC) hwG) (L (NC m0 hm0C) (NC m1 hm1C) hm01)
+            (L hzN (NC m3 hm3C) (zA m3 hm3C))
+            (by simp [List.nodup_cons, hxy, hxc, hxd, hyc, hyd, hcd', zx, zy, zc, zd, z0, z1, x0, x1, y0, y1, c0, c1, e0, e1, h01, m01, m02, m03, m12, m13, m23, zm0, zm1, zm2, zm3, m00, m01', m10, m11, m20, m21, m30, m31, hxy.symm, hxc.symm, hxd.symm, hyc.symm, hyd.symm, hcd'.symm, zx.symm, zy.symm, zc.symm, zd.symm, z0.symm, z1.symm, x0.symm, x1.symm, y0.symm, y1.symm, c0.symm, c1.symm, e0.symm, e1.symm, h01.symm, m01.symm, m02.symm, m03.symm, m12.symm, m13.symm, m23.symm, zm0.symm, zm1.symm, zm2.symm, zm3.symm, m00.symm, m01'.symm, m10.symm, m11.symm, m20.symm, m21.symm, m30.symm, m31.symm])
+            (fun g hg hO => (fin g hg hO).elim))
+        · exact hnot (wke3 _ (q1 := H.v) (q2 := x) (q3 := y)
+            (L hd0N (NC w hwC) hwG) (L (NC m0 hm0C) (NC m1 hm1C) hm01)
+            (L hzN (NC m2 hm2C) (zA m2 hm2C))
+            (by simp [List.nodup_cons, hxy, hxc, hxd, hyc, hyd, hcd', zx, zy, zc, zd, z0, z1, x0, x1, y0, y1, c0, c1, e0, e1, h01, m01, m02, m03, m12, m13, m23, zm0, zm1, zm2, zm3, m00, m01', m10, m11, m20, m21, m30, m31, hxy.symm, hxc.symm, hxd.symm, hyc.symm, hyd.symm, hcd'.symm, zx.symm, zy.symm, zc.symm, zd.symm, z0.symm, z1.symm, x0.symm, x1.symm, y0.symm, y1.symm, c0.symm, c1.symm, e0.symm, e1.symm, h01.symm, m01.symm, m02.symm, m03.symm, m12.symm, m13.symm, m23.symm, zm0.symm, zm1.symm, zm2.symm, zm3.symm, m00.symm, m01'.symm, m10.symm, m11.symm, m20.symm, m21.symm, m30.symm, m31.symm])
+            (fun g hg hO => (fin g hg hO).elim))
+    · have : w = d0 ∨ w = d1 := by rw [hAeq] at hwA; simpa using hwA
+      rcases this with rfl | rfl
+      · exact G.irrefl hwG
+      · exact hdd hwG
+
+/-- Lemma 4.8 after orienting the private pairs. -/
+theorem p4_of_attach (H : HubConfig G) {p q r s : V} (hC : H.C = {p, q, r, s})
+    (hpq : G.Adj p q) (hqr : G.Adj q r) (hrs : G.Adj r s)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(q, r) ∨ s(x, y) = s(r, s))
+    (ha : ∃ t ∈ H.A, G.Adj p t) (hb : ∃ t ∈ H.B, G.Adj r t) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  obtain ⟨da, haA, hpa⟩ := ha
+  obtain ⟨db, hbB, hrb⟩ := hb
+  obtain ⟨a0, a1, hAeq, ha01, hpa1⟩ := orient_second (G := G) (D := H.A) H.hA haA hpa
+  obtain ⟨b0, b1, hBeq, hb01, hrb1⟩ := orient_second (G := G) (D := H.B) H.hB hbB hrb
+  have hC4 : ({p, q, r, s} : Finset V).card = 4 := by rw [← hC]; exact H.hCcard
+  exact path4_core_reducible G H p q r s a0 a1 b0 b1 hC hAeq hBeq ⟨hpq, hqr, hrs⟩ honly
+    ⟨hpa1, hrb1⟩ (labels10_of_hub G H hC hAeq hBeq hC4 ha01 hb01)
+
+
+/-- Lemma 3.2 for the path `p-q-r-s` (matching `{pq, rs}`): at most one core vertex
+misses the private side. -/
+theorem p4_side (H : HubConfig G)
+    (hconn : (linkGraph G H.u).Connected) (hnot : ¬ IsWKE (linkGraph G H.u))
+    {p q r s : V} (hC : H.C = {p, q, r, s}) (hpq : G.Adj p q) (hrs : G.Adj r s) :
+    let tA : V → Prop := fun c => ∃ t ∈ H.A, G.Adj c t
+    ¬(¬ tA p ∧ ¬ tA q) ∧ ¬(¬ tA p ∧ ¬ tA r) ∧ ¬(¬ tA p ∧ ¬ tA s) ∧
+    ¬(¬ tA q ∧ ¬ tA r) ∧ ¬(¬ tA q ∧ ¬ tA s) ∧ ¬(¬ tA r ∧ ¬ tA s) := by
+  intro tA
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+  · rintro ⟨ha, hb⟩
+    exact lemma32 G H hconn hnot (x := r) (y := s) hC hpq hrs
+      (by rw [hC]; ext t; simp only [mem_insert, mem_singleton]; constructor <;> rintro (h|h|h|h) <;> simp [h])
+      (fun t ht h => ha ⟨t, ht, h⟩) (fun t ht h => hb ⟨t, ht, h⟩)
+  · rintro ⟨ha, hb⟩
+    exact lemma32 G H hconn hnot (x := q) (y := s) hC hpq hrs
+      (by rw [hC]; ext t; simp only [mem_insert, mem_singleton]; constructor <;> rintro (h|h|h|h) <;> simp [h])
+      (fun t ht h => ha ⟨t, ht, h⟩) (fun t ht h => hb ⟨t, ht, h⟩)
+  · rintro ⟨ha, hb⟩
+    exact lemma32 G H hconn hnot (x := q) (y := r) hC hpq hrs
+      (by rw [hC]; ext t; simp only [mem_insert, mem_singleton]; constructor <;> rintro (h|h|h|h) <;> simp [h])
+      (fun t ht h => ha ⟨t, ht, h⟩) (fun t ht h => hb ⟨t, ht, h⟩)
+  · rintro ⟨ha, hb⟩
+    exact lemma32 G H hconn hnot (x := p) (y := s) hC hpq hrs
+      (by rw [hC]; ext t; simp only [mem_insert, mem_singleton]; constructor <;> rintro (h|h|h|h) <;> simp [h])
+      (fun t ht h => ha ⟨t, ht, h⟩) (fun t ht h => hb ⟨t, ht, h⟩)
+  · rintro ⟨ha, hb⟩
+    exact lemma32 G H hconn hnot (x := p) (y := r) hC hpq hrs
+      (by rw [hC]; ext t; simp only [mem_insert, mem_singleton]; constructor <;> rintro (h|h|h|h) <;> simp [h])
+      (fun t ht h => ha ⟨t, ht, h⟩) (fun t ht h => hb ⟨t, ht, h⟩)
+  · rintro ⟨ha, hb⟩
+    exact lemma32 G H hconn hnot (x := p) (y := q) hC hpq hrs
+      (by rw [hC])
+      (fun t ht h => ha ⟨t, ht, h⟩) (fun t ht h => hb ⟨t, ht, h⟩)
+
+/-- **Proposition 4.9**: the four-vertex path core is reducible under (A1). -/
+theorem p4_core_reducible (H : HubConfig G) (hA1 : H.A1) {p q r s : V}
+    (hC : H.C = {p, q, r, s})
+    (hpq : G.Adj p q) (hqr : G.Adj q r) (hrs : G.Adj r s)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p, q) ∨ s(x, y) = s(q, r) ∨ s(x, y) = s(r, s)) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  classical
+  let Hs := H.swap
+  have hA1s : Hs.A1 := hA1.swap
+  let tA : V → Prop := fun c => ∃ t ∈ H.A, G.Adj c t
+  let tB : V → Prop := fun c => ∃ t ∈ H.B, G.Adj c t
+  obtain ⟨nA_pq, nA_pr, nA_ps, nA_qr, nA_qs, nA_rs⟩ := p4_side G H hA1.1 hA1.2.1 hC hpq hrs
+  obtain ⟨nB_pq, nB_pr, nB_ps, nB_qr, nB_qs, nB_rs⟩ :=
+    p4_side G Hs hA1s.1 hA1s.2.1 (p := p) (q := q) (r := r) (s := s) hC hpq hrs
+  have key : (tA p ∧ tB r) ∨ (tA r ∧ tB p) ∨ (tA q ∧ tB s) ∨ (tA s ∧ tB q) := by
+    have nn {P : Prop} (h : ¬¬P) : P := Classical.not_not.1 h
+    by_cases hp : tA p
+    · by_cases hrB : tB r
+      · exact Or.inl ⟨hp, hrB⟩
+      have hpB : tB p := nn fun h => nB_pr ⟨h, hrB⟩
+      have hsB : tB s := nn fun h => nB_rs ⟨hrB, h⟩
+      by_cases hrA : tA r
+      · exact Or.inr (Or.inl ⟨hrA, hpB⟩)
+      have hqA : tA q := nn fun h => nA_qr ⟨h, hrA⟩
+      exact Or.inr (Or.inr (Or.inl ⟨hqA, hsB⟩))
+    · have hqA : tA q := nn fun h => nA_pq ⟨hp, h⟩
+      have hsA : tA s := nn fun h => nA_ps ⟨hp, h⟩
+      by_cases hsB : tB s
+      · exact Or.inr (Or.inr (Or.inl ⟨hqA, hsB⟩))
+      have hqB : tB q := nn fun h => nB_qs ⟨h, hsB⟩
+      exact Or.inr (Or.inr (Or.inr ⟨hsA, hqB⟩))
+  have hCr : H.C = {s, r, q, p} := by
+    rw [hC]; ext t; simp only [mem_insert, mem_singleton]
+    constructor <;> rintro (h|h|h|h) <;> simp [h]
+  have honlyr : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(s, r) ∨ s(x, y) = s(r, q) ∨ s(x, y) = s(q, p) := by
+    intro x hx y hy h
+    rcases honly x hx y hy h with e | e | e
+    · exact Or.inr (Or.inr (e.trans Sym2.eq_swap))
+    · exact Or.inr (Or.inl (e.trans Sym2.eq_swap))
+    · exact Or.inl (e.trans Sym2.eq_swap)
+  have hswap : IsReducible G ({Hs.u, Hs.v} : Finset V) →
+      IsReducible G ({H.u, H.v} : Finset V) := fun h => by
+    have : ({Hs.u, Hs.v} : Finset V) = {H.u, H.v} := Finset.pair_comm _ _
+    rwa [this] at h
+  rcases key with ⟨ha, hb⟩ | ⟨ha, hb⟩ | ⟨ha, hb⟩ | ⟨ha, hb⟩
+  · exact p4_of_attach G H hC hpq hqr hrs honly ha hb
+  · exact hswap (p4_of_attach G Hs hC hpq hqr hrs honly hb ha)
+  · exact hswap (p4_of_attach G Hs hCr hrs.symm hqr.symm hpq.symm honlyr hb ha)
+  · exact p4_of_attach G H hCr hrs.symm hqr.symm hpq.symm honlyr ha hb
+
+
 /-- **Theorem 1.3 (Structural codegree-four reduction).** -/
 theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2) :
     IsReducible G ({H.u, H.v} : Finset V) := by
@@ -6130,17 +6468,13 @@ theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2) :
   · obtain ⟨p, q, r, s, hC, hpq, hpr, honly⟩ := hpath
     have hpC : p ∈ H.C := by rw [hC]; simp
     exact path_core_reducible G H hA1 p q r s hC ⟨hpq, hpr⟩ honly (hA2 p hpC)
-  by_cases hP4 : ∃ p q r s a0 a1 b0 b1 : V,
-      H.C = {p, q, r, s} ∧ H.A = {a0, a1} ∧ H.B = {b0, b1} ∧
-      G.Adj p q ∧ G.Adj q r ∧ G.Adj r s ∧
+  by_cases hP4 : ∃ p q r s : V,
+      H.C = {p, q, r, s} ∧ G.Adj p q ∧ G.Adj q r ∧ G.Adj r s ∧
       (∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
-        s(x, y) = s(p, q) ∨ s(x, y) = s(q, r) ∨ s(x, y) = s(r, s)) ∧
-      G.Adj p a1 ∧ G.Adj r b1 ∧
-      ({H.u, H.v, p, q, r, s, a0, a1, b0, b1} : Finset V).card = 10
-  · obtain ⟨p, q, r, s, a0, a1, b0, b1, hC, hA, hB, hpq, hqr, hrs, honly, hpa, hrb, h10⟩ := hP4
-    exact path4_core_reducible G H p q r s a0 a1 b0 b1 hC hA hB ⟨hpq, hqr, hrs⟩ honly
-      ⟨hpa, hrb⟩ h10
-  -- Remaining: Prop 4.9 orientation (P₄ without labelled attachments), C₄, paw, denser.
+        s(x, y) = s(p, q) ∨ s(x, y) = s(q, r) ∨ s(x, y) = s(r, s))
+  · obtain ⟨p, q, r, s, hC, hpq, hqr, hrs, honly⟩ := hP4
+    exact p4_core_reducible G H hA1 hC hpq hqr hrs honly
+  -- Remaining: C₄, paw, K₃+K₁, diamond, K₄ (and denser ≥4-edge cores).
   sorry
 
 

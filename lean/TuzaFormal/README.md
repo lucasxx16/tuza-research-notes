@@ -46,11 +46,13 @@ This is proved for general k (no enumeration over k). The general statements are
   **Lemma 4.4(2)** (`path_center_both_privates`) full;
   **Prop 4.7** (`path_core_reducible`) full (crossed + same-singleton+(A2));
   **Lemma 4.8** (`lemma48_certificate`) full Fin-10 packing/cover;
-  **`structural_codegree_four`:** wires matching, star, full P₃∪K₁, and labelled
-  P₄ with `pa`/`rb`; remaining sorry for Prop 4.9 orientation, C₄, paw, denser.
+  **Lemma 3.2** (`lemma32`, generic perfect-matching core) and **Prop 4.9**
+  (`p4_core_reducible`) full;
+  **`structural_codegree_four`:** wires matching, star, P₃∪K₁, P₄; remaining
+  sorry for C₄, paw, K₃+K₁, diamond, K₄ (§§5–7).
 
   Paper note: Lemmas 4.3–4.5 / 4.8 / Props 4.6–4.7 match; no gap found.
-  Next: Prop 4.9 (needs Lemma 3.2), then denser cores.
+  Next: §5 (K₄: Lemma 5.1/5.2, Prop 5.3), §6–7 (diamond, C₄, paw, K₃+K₁).
 
 ## Build
 
