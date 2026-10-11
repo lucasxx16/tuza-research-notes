@@ -40,14 +40,19 @@ This is proved for general k (no enumeration over k). The general statements are
 - `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound`.
   **Axiom:** `puleo_large_indep`.
   **Proved:** full `prop31`; Prop 4.2 certificate + Fin-10 locals;
-  `lemma41_no_private`, `not_adj_hub_priv`, `lemma41_priv_has_core` (Lemma 4.1(1) full);
+  Lemma 4.1(1) full (`lemma41_no_private`, `lemma41_priv_has_core`);
+  **Lemma 4.1(2)** `lemma41_edge_hit` (full WKE witness);
+  `labels10_of_hub`; `HubConfig.swap` / `A1.swap`; `matching_core_of_labels`
+  (wraps `prop42_certificate` once labels are oriented);
   **full** Lemmas 4.3 and 4.4(1) (star/path).
-  **Partial / sorry:** `lemma41_edge_hit` (setup done; WKE witness deferred),
-  `lemma41_cross` part 3, `labels10_of_hub`, `matching_core_reducible`,
+  **Partial / sorry:** `lemma41_cross` part 3 (one-sided / same-singleton WKE cases
+  scaffolded with `HasCrossedAttach`, p*/q* extraction); `matching_core_reducible`
+  (calls cross; orientation into `matching_core_of_labels` deferred);
   `structural_codegree_four` (excludes ≤1-edge cores; nine certificates open).
 
-  Paper note: Lemma 4.1(2)–(3) WKE witnesses match the paper outline; finishing them
-  unlocks Prop 4.2 wiring via `matching_core_reducible`. No gap found in 4.1(1) or 4.3–4.4.
+  Paper note: Lemma 4.1(2) WKE matches the paper (Q={z,q0,q1}, M={p0p1,di–qj,z–qk}).
+  Part 3 outline matches; remaining bottleneck is finishing those WKE witnesses.
+  No mathematical gap found so far.
 
 ## Build
 
