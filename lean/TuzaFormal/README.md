@@ -41,10 +41,16 @@ This is proved for general k (no enumeration over k). The general statements are
   `combine_cover`, `residual_packing_disj`. Certificate now requires `cover_edges`.
 - `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound` (proved).
   **Axiom:** `puleo_large_indep`.
-  **Proved:** `Prop31.wke_private_edge`, `Prop31.wke_private_attach` (full `IsWKEWitness` checks).
-  **Partial:** `MatchingCore.prop42_certificate` — packed sets are triangles and cover edges are
-  edges of `G`; still `sorry` for edge-disjointness, `|X|≤2|S|`, `coversZ`, `external`.
-  **Sorry:** `prop31`, `lemma41_cross`, `structural_codegree_four`.
+  **Proved:** `Prop31.wke_private_edge`, `Prop31.wke_private_attach`;
+  `labels10` / `labels10_image` / `labels10_injective`; hub adjacency lemmas;
+  `prop42_certificate` wires a full `ReductionCertificate` once the local lemmas below hold.
+  **Partial `prop31`:** edgeless case applies Puleo after proving C is link-independent
+  (`hind` proved); still `sorry` for `|V|=7` from Connected+degree, and the one-edge case
+  labelling that feeds the WKE witnesses.
+  **Partial Prop 4.2 local lemmas (still `sorry`):** `packing42_card'`, `packing42_disjoint`,
+  `cover42_card`, `external42`, `coversZ42`. The main `prop42_certificate` is otherwise complete
+  (triangles, cover edges, size from cards, coversZ/external delegated to those lemmas).
+  **Sorry:** `lemma41_cross`, `structural_codegree_four`.
 
 
 ## Build
