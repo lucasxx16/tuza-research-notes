@@ -8363,8 +8363,209 @@ theorem k4_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
 
 /-! ### §6 denser cores: diamond, C₄, paw, K₃+K₁ -/
 
+/-- Edges with both ends outside `Q = {q1,q2,q3}` in a matching-core link are
+`s(v,t)` or the private edge (Lemma 6.1 setup). -/
+lemma lemma61_outside (H : HubConfig G)
+    (t q1 q2 q3 d0 d1 : V) (hC : H.C = {t, q1, q2, q3}) (hAeq : H.A = {d0, d1})
+    (hnt : ∀ a ∈ H.A, ¬ G.Adj t a)
+    {e : Sym2 V} (he : e ∈ (linkGraph G H.u).edgeFinset)
+    (hOut : ∀ v ∈ e, v ∉ ({q1, q2, q3} : Finset V)) :
+    e = s(H.v, t) ∨ e = s(d0, d1) := by
+  classical
+  revert he hOut
+  refine Sym2.inductionOn e fun a b he hOut => ?_
+  have hab : (linkGraph G H.u).Adj a b := (mem_edgeFinset (G := linkGraph G H.u)).1 he
+  have hG : G.Adj a b := hab.2.2
+  have cls (w : V) (htN : w ∈ G.neighborFinset H.u)
+      (htO : w ∉ ({q1, q2, q3} : Finset V)) :
+      w = H.v ∨ w = t ∨ w = d0 ∨ w = d1 := by
+    rw [H.hNu] at htN
+    simp only [mem_insert, mem_union, mem_singleton, not_or] at htN htO
+    rcases htN with rfl | hCmem | hAmem
+    · exact Or.inl rfl
+    · have : w ∈ ({t, q1, q2, q3} : Finset V) := by rw [← hC]; exact hCmem
+      simp only [mem_insert, mem_singleton] at this
+      rcases this with rfl | rfl | rfl | rfl
+      · exact Or.inr (Or.inl rfl)
+      · exact absurd rfl htO.1
+      · exact absurd rfl htO.2.1
+      · exact absurd rfl htO.2.2
+    · have : w ∈ ({d0, d1} : Finset V) := by rw [← hAeq]; exact hAmem
+      simp only [mem_insert, mem_singleton] at this
+      rcases this with rfl | rfl
+      · exact Or.inr (Or.inr (Or.inl rfl))
+      · exact Or.inr (Or.inr (Or.inr rfl))
+  have ha := cls a hab.1 (hOut a (by simp))
+  have hb := cls b hab.2.1 (hOut b (by simp))
+  have hd0A : d0 ∈ H.A := by rw [hAeq]; simp
+  have hd1A : d1 ∈ H.A := by rw [hAeq]; simp
+  have not_v_priv {d : V} (hd : d ∈ H.A) : ¬ G.Adj H.v d := not_adj_hub_priv G H hd
+  have not_t_priv {d : V} (hd : d ∈ H.A) : ¬ G.Adj t d := hnt d hd
+  rcases ha with ha | ha | ha | ha <;> rcases hb with hb | hb | hb | hb
+  · exact False.elim (hG.ne (ha.trans hb.symm))
+  · exact Or.inl (by rw [ha, hb])
+  · exact False.elim (not_v_priv hd0A (by rwa [ha, hb] at hG))
+  · exact False.elim (not_v_priv hd1A (by rwa [ha, hb] at hG))
+  · exact Or.inl (by rw [ha, hb]; exact Sym2.eq_swap)
+  · exact False.elim (hG.ne (ha.trans hb.symm))
+  · exact False.elim (not_t_priv hd0A (by rwa [ha, hb] at hG))
+  · exact False.elim (not_t_priv hd1A (by rwa [ha, hb] at hG))
+  · exact False.elim (not_v_priv hd0A (by have h' := hG.symm; rwa [hb, ha] at h'))
+  · exact False.elim (not_t_priv hd0A (by have h' := hG.symm; rwa [hb, ha] at h'))
+  · exact False.elim (hG.ne (ha.trans hb.symm))
+  · exact Or.inr (by rw [ha, hb])
+  · exact False.elim (not_v_priv hd1A (by have h' := hG.symm; rwa [hb, ha] at h'))
+  · exact False.elim (not_t_priv hd1A (by have h' := hG.symm; rwa [hb, ha] at h'))
+  · exact Or.inr (by rw [ha, hb]; exact Sym2.eq_swap)
+  · exact False.elim (hG.ne (ha.trans hb.symm))
+
+/-- Core-neighbourhood of a private in `Q` is nonempty when `ab` is absent. -/
+lemma lemma61_priv_N_in_Q (H : HubConfig G)
+    (hconn : (linkGraph G H.u).Connected)
+    {t q1 q2 q3 d0 d1 : V} (hC : H.C = {t, q1, q2, q3}) (hAeq : H.A = {d0, d1})
+    (hnt : ∀ a ∈ H.A, ¬ G.Adj t a) (hpriv : ¬ G.Adj d0 d1)
+    {d : V} (hdA : d ∈ H.A) :
+    (G.neighborFinset d ∩ ({q1, q2, q3} : Finset V)).Nonempty := by
+  classical
+  have zd := ne_z_of_priv G H hdA
+  obtain ⟨n, hn⟩ := link_nbr G H.u hconn (d := d) (w := H.v) zd.symm
+  have hGn : G.Adj d n := hn.2.2
+  have hnN : n ∈ G.neighborFinset H.u := hn.2.1
+  rw [H.hNu] at hnN
+  simp only [mem_insert, mem_union] at hnN
+  have hnQ : n ∈ ({q1, q2, q3} : Finset V) := by
+    rcases hnN with rfl | hCm | hAm
+    · exact False.elim (not_adj_hub_priv G H hdA hGn.symm)
+    · have : n ∈ ({t, q1, q2, q3} : Finset V) := by rw [← hC]; exact hCm
+      simp only [mem_insert, mem_singleton] at this
+      rcases this with rfl | rfl | rfl | rfl
+      · exact False.elim (hnt d hdA hGn.symm)
+      · simp
+      · simp
+      · simp
+    · have : n = d0 ∨ n = d1 := by rw [hAeq] at hAm; simpa using hAm
+      have hd01' : d = d0 ∨ d = d1 := by simpa [hAeq] using hdA
+      rcases this with rfl | rfl <;> rcases hd01' with rfl | rfl
+      · exact False.elim (G.irrefl hGn)
+      · exact False.elim (hpriv hGn.symm)
+      · exact False.elim (hpriv hGn)
+      · exact False.elim (G.irrefl hGn)
+  exact ⟨n, mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hGn, hnQ⟩⟩
+
+/-- WKE witness when `t` misses `A`, given a matching edge in `Q` and the complementary
+matching edge `t—q3` (Lemma 6.1). -/
+theorem lemma61_wke (H : HubConfig G)
+    (hconn : (linkGraph G H.u).Connected)
+    {t q1 q2 q3 : V} (hC : H.C = {t, q1, q2, q3})
+    (heQ : G.Adj q1 q2) (hmatch : G.Adj t q3)
+    (hnt : ∀ a ∈ H.A, ¬ G.Adj t a)
+    (hnot : ¬ IsWKE (linkGraph G H.u)) : False := by
+  classical
+  obtain ⟨d0, d1, hAeq, hd01, hd0N, hd1N⟩ := privates_of G H
+  obtain ⟨htq1, htq2, htq3, hq12, hq13, hq23⟩ := core4_distinct G H hC
+  have htC : t ∈ H.C := by rw [hC]; simp
+  have hq1C : q1 ∈ H.C := by rw [hC]; simp
+  have hq2C : q2 ∈ H.C := by rw [hC]; simp
+  have hq3C : q3 ∈ H.C := by rw [hC]; simp
+  have hzN := opposite_hub_mem G H
+  have htN := core_mem_Nu G H htC
+  have hq1N := core_mem_Nu G H hq1C
+  have hq2N := core_mem_Nu G H hq2C
+  have hq3N := core_mem_Nu G H hq3C
+  have hzt := z_adj_core G H htC
+  have hd0A : d0 ∈ H.A := by rw [hAeq]; simp
+  have hd1A : d1 ∈ H.A := by rw [hAeq]; simp
+  have zt := ne_z_of_core G H htC
+  have z1 := ne_z_of_core G H hq1C
+  have z2 := ne_z_of_core G H hq2C
+  have z3 := ne_z_of_core G H hq3C
+  have z0 := ne_z_of_priv G H hd0A
+  have z1p := ne_z_of_priv G H hd1A
+  have t0 := ne_core_priv G H htC hd0A
+  have t1 := ne_core_priv G H htC hd1A
+  have q10 := ne_core_priv G H hq1C hd0A
+  have q11 := ne_core_priv G H hq1C hd1A
+  have q20 := ne_core_priv G H hq2C hd0A
+  have q21 := ne_core_priv G H hq2C hd1A
+  have q30 := ne_core_priv G H hq3C hd0A
+  have q31 := ne_core_priv G H hq3C hd1A
+  have L {a b : V} (ha : a ∈ G.neighborFinset H.u) (hb : b ∈ G.neighborFinset H.u)
+      (h : G.Adj a b) : (linkGraph G H.u).Adj a b := ⟨ha, hb, h⟩
+  have hout {e : Sym2 V} (he : e ∈ (linkGraph G H.u).edgeFinset)
+      (hO : ∀ v ∈ e, v ∉ ({q1, q2, q3} : Finset V)) :
+      e = s(H.v, t) ∨ e = s(d0, d1) :=
+    lemma61_outside G H t q1 q2 q3 d0 d1 hC hAeq hnt he hO
+  by_cases hpriv : G.Adj d0 d1
+  · exact hnot (wke3 (linkGraph G H.u) (q1 := q1) (q2 := q2) (q3 := q3)
+      (L hzN htN hzt) (L hd0N hd1N hpriv) (L hq1N hq2N heQ)
+      (by simp [List.nodup_cons, zt, z0, z1p, z1, z2, z3, t0, t1, htq1, htq2, htq3,
+          q10, q11, q20, q21, q30, q31, hq12, hq13, hq23, hd01,
+          zt.symm, z0.symm, z1p.symm, z1.symm, z2.symm, z3.symm,
+          t0.symm, t1.symm, htq1.symm, htq2.symm, htq3.symm,
+          q10.symm, q11.symm, q20.symm, q21.symm, q30.symm, q31.symm,
+          hq12.symm, hq13.symm, hq23.symm, hd01.symm])
+      (fun e he hO => by
+        rcases hout he hO with h | h
+        · exact Or.inl h
+        · exact Or.inr (Or.inl h)))
+  · let N0 := G.neighborFinset d0 ∩ ({q1, q2, q3} : Finset V)
+    let N1 := G.neighborFinset d1 ∩ ({q1, q2, q3} : Finset V)
+    have hN0 := lemma61_priv_N_in_Q G H hconn hC hAeq hnt hpriv hd0A
+    have hN1 := lemma61_priv_N_in_Q G H hconn hC hAeq hnt hpriv hd1A
+    -- Distinct representatives from N0, N1
+    have hdist : ∃ n0 ∈ N0, ∃ n1 ∈ N1, n0 ≠ n1 := by
+      obtain ⟨a0, ha0⟩ := hN0
+      obtain ⟨a1, ha1⟩ := hN1
+      by_cases hne : a0 ≠ a1
+      · exact ⟨a0, ha0, a1, ha1, hne⟩
+      · push_neg at hne; subst hne
+        by_cases hex0 : ∃ m ∈ N0, m ≠ a0
+        · obtain ⟨m, hm, hne⟩ := hex0
+          exact ⟨m, hm, a0, ha1, hne⟩
+        · by_cases hex1 : ∃ m ∈ N1, m ≠ a0
+          · obtain ⟨m, hm, hne⟩ := hex1
+            exact ⟨a0, ha0, m, hm, hne.symm⟩
+          · -- same singleton: support size 1, contradict Lemma 3.2 (via lemma32)
+            -- deferred: wire lemma32 labels for Q \ {a0}
+            sorry
+    obtain ⟨n0, hn0, n1, hn1, hne01⟩ := hdist
+    have hn0Q : n0 ∈ ({q1, q2, q3} : Finset V) := (mem_inter.1 hn0).2
+    have hn1Q : n1 ∈ ({q1, q2, q3} : Finset V) := (mem_inter.1 hn1).2
+    have hG0 : G.Adj d0 n0 := (G.mem_neighborFinset _ _).1 (mem_inter.1 hn0).1
+    have hG1 : G.Adj d1 n1 := (G.mem_neighborFinset _ _).1 (mem_inter.1 hn1).1
+    have memQN (n : V) (hn : n ∈ ({q1, q2, q3} : Finset V)) :
+        n ∈ G.neighborFinset H.u := by
+      rcases (by simpa using hn : n = q1 ∨ n = q2 ∨ n = q3) with rfl | rfl | rfl
+      · exact hq1N
+      · exact hq2N
+      · exact hq3N
+    have necs (n : V) (hn : n ∈ ({q1, q2, q3} : Finset V)) :
+        n ≠ H.v ∧ n ≠ t ∧ n ≠ d0 ∧ n ≠ d1 := by
+      rcases (by simpa using hn : n = q1 ∨ n = q2 ∨ n = q3) with rfl | rfl | rfl
+      · exact ⟨z1.symm, htq1.symm, q10, q11⟩
+      · exact ⟨z2.symm, htq2.symm, q20, q21⟩
+      · exact ⟨z3.symm, htq3.symm, q30, q31⟩
+    have n0c := necs n0 hn0Q
+    have n1c := necs n1 hn1Q
+    exact hnot (wke3 (linkGraph G H.u) (q1 := q1) (q2 := q2) (q3 := q3)
+      (L hzN htN hzt) (L hd0N (memQN n0 hn0Q) hG0) (L hd1N (memQN n1 hn1Q) hG1)
+      (by
+        simp [List.nodup_cons, zt, z0, z1p, t0, t1, hd01, hne01,
+          n0c.1, n0c.2.1, n0c.2.2.1, n0c.2.2.2,
+          n1c.1, n1c.2.1, n1c.2.2.1, n1c.2.2.2,
+          zt.symm, z0.symm, z1p.symm, t0.symm, t1.symm, hd01.symm,
+          n0c.1.symm, n0c.2.1.symm, n0c.2.2.1.symm, n0c.2.2.2.symm,
+          n1c.1.symm, n1c.2.1.symm, n1c.2.2.1.symm, n1c.2.2.2.symm,
+          hne01.symm])
+      (fun e he hO => by
+        rcases hout he hO with h | h
+        · exact Or.inl h
+        · subst h
+          exact False.elim (hpriv
+            ((mem_edgeFinset (G := linkGraph G H.u)).1 he).2.2)))
+
 /-- **Lemma 6.1**: perfect-matching core + connected non-WKE link ⇒ every core
-vertex has a private neighbour (strengthening of Lemma 3.2). -/
+vertex has a private neighbour. -/
 theorem lemma61 (H : HubConfig G)
     (hconn : (linkGraph G H.u).Connected) (hnot : ¬ IsWKE (linkGraph G H.u))
     {x y p q : V} (hC : H.C = {x, y, p, q})
@@ -8373,12 +8574,30 @@ theorem lemma61 (H : HubConfig G)
   intro c hc
   by_contra hnone
   push_neg at hnone
-  -- Exactly one missing private would contradict the WKE construction of Lemma 6.1;
-  -- two missing is Lemma 3.2. Classify c among {x,y,p,q} and build a 3-edge WKE.
   have : c = x ∨ c = y ∨ c = p ∨ c = q := by simpa [hC] using hc
-  -- Use lemma32 on a complementary matching pair when two miss; here one misses.
-  -- Full WKE witness deferred: follow paper (Q = C \ {c}, M of size 3).
-  sorry
+  -- Orient so the missed vertex is `t` and the in-Q matching edge is named.
+  rcases this with hcx | hcy | hcp | hcq
+  · -- miss x; Q={y,q,p}, heQ=yq, hmatch=xp
+    subst hcx
+    have hC' : H.C = {c, y, q, p} := by
+      rw [hC]; ext w; simp only [mem_insert, mem_singleton];
+        constructor <;> intro h <;> aesop
+    exact lemma61_wke G H hconn hC' hyq hxp hnone hnot
+  · subst hcy
+    have hC' : H.C = {c, x, p, q} := by
+      rw [hC]; ext w; simp only [mem_insert, mem_singleton];
+        constructor <;> intro h <;> aesop
+    exact lemma61_wke G H hconn hC' hxp hyq hnone hnot
+  · subst hcp
+    have hC' : H.C = {c, y, q, x} := by
+      rw [hC]; ext w; simp only [mem_insert, mem_singleton];
+        constructor <;> intro h <;> aesop
+    exact lemma61_wke G H hconn hC' hyq hxp.symm hnone hnot
+  · subst hcq
+    have hC' : H.C = {c, x, p, y} := by
+      rw [hC]; ext w; simp only [mem_insert, mem_singleton];
+        constructor <;> intro h <;> aesop
+    exact lemma61_wke G H hconn hC' hxp hyq.symm hnone hnot
 
 /-- **Proposition 6.2**: diamond core `{xp,xq,yp,yq,pq}` is reducible under (A1)–(A2). -/
 theorem diamond_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
