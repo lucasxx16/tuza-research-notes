@@ -53,10 +53,8 @@ This is proved for general k (no enumeration over k). The general statements are
   `structural_codegree_four`; remaining sorry is only diamond/C₄/paw/K₃+K₁.
 
   Paper note: G packing now matches paper Prop 5.3(G) with general α(z),β(y).
-  **Lemma 6.1 mostly proved** (`lemma61_outside`, `lemma61_priv_N_in_Q`,
-  `lemma61_wke`): ab-present and distinct-rep WKE cases done; same-singleton
-  (lemma32 wiring) still sorry. Diamond/C₄/paw/K₃+K₁ still sorry stubs.
-  Next: finish lemma61 same-singleton, Prop 6.2 D1–D5, then C₄/paw/K₃+K₁.
+  **Lemma 6.1 fully proved** (including same-singleton via lemma32).
+  Diamond/C₄/paw/K₃+K₁ still sorry. Next: Prop 6.2 D1–D5 certificates.
 
 ## Build
 

@@ -8525,9 +8525,66 @@ theorem lemma61_wke (H : HubConfig G)
         · by_cases hex1 : ∃ m ∈ N1, m ≠ a0
           · obtain ⟨m, hm, hne⟩ := hex1
             exact ⟨a0, ha0, m, hm, hne.symm⟩
-          · -- same singleton: support size 1, contradict Lemma 3.2 (via lemma32)
-            -- deferred: wire lemma32 labels for Q \ {a0}
-            sorry
+          · -- same singleton {a0}: the other two verts in Q miss A → lemma32
+            have N0eq : N0 = {a0} :=
+              eq_singleton_iff_unique_mem.2 ⟨ha0, fun m hm => by
+                by_contra hne; exact hex0 ⟨m, hm, hne⟩⟩
+            have N1eq : N1 = {a0} :=
+              eq_singleton_iff_unique_mem.2 ⟨ha1, fun m hm => by
+                by_contra hne; exact hex1 ⟨m, hm, hne⟩⟩
+            have ha0Q : a0 ∈ ({q1, q2, q3} : Finset V) := (mem_inter.1 ha0).2
+            have hQ3 : ({q1, q2, q3} : Finset V).card = 3 := by
+              rw [card_insert_of_notMem (by simp [hq12, hq13]),
+                card_insert_of_notMem (by simp [hq23]), card_singleton]
+            have hrest : (({q1, q2, q3} : Finset V).erase a0).card = 2 := by
+              rw [card_erase_of_mem ha0Q, hQ3]
+            obtain ⟨u1, u2, hu12, hU⟩ :=
+              (card_eq_two (s := ({q1, q2, q3} : Finset V).erase a0)).1 hrest
+            have hu1mem : u1 ∈ ({q1, q2, q3} : Finset V).erase a0 := by
+              rw [hU]; exact mem_insert_self _ _
+            have hu2mem : u2 ∈ ({q1, q2, q3} : Finset V).erase a0 := by
+              rw [hU]; simp
+            have hu1Q := (mem_erase.1 hu1mem).2
+            have hu2Q := (mem_erase.1 hu2mem).2
+            have hu1ne := (mem_erase.1 hu1mem).1
+            have hu2ne := (mem_erase.1 hu2mem).1
+            have miss (u : V) (huQ : u ∈ ({q1, q2, q3} : Finset V)) (hune : u ≠ a0) :
+                ∀ a ∈ H.A, ¬ G.Adj u a := by
+              intro a ha hadj
+              have ha01 : a = d0 ∨ a = d1 := by simpa [hAeq] using ha
+              have huIn : u ∈ G.neighborFinset a ∩ ({q1, q2, q3} : Finset V) :=
+                mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj.symm, huQ⟩
+              rcases ha01 with rfl | rfl
+              · exact hune (by simpa [N0eq] using (show u ∈ N0 from huIn))
+              · exact hune (by simpa [N1eq] using (show u ∈ N1 from huIn))
+            have hQeq : ({q1, q2, q3} : Finset V) = {a0, u1, u2} := by
+              ext w; constructor
+              · intro hw
+                by_cases hw0 : w = a0
+                · simp [hw0]
+                · have : w ∈ ({q1, q2, q3} : Finset V).erase a0 :=
+                    mem_erase.2 ⟨hw0, hw⟩
+                  rw [hU] at this
+                  exact mem_insert_of_mem this
+              · intro hw
+                simp only [mem_insert, mem_singleton] at hw
+                rcases hw with rfl | rfl | rfl
+                · exact ha0Q
+                · exact hu1Q
+                · exact hu2Q
+            have hC' : H.C = {t, a0, u1, u2} := by
+              rw [hC, hQeq]
+            have hCm : H.C = {q1, q2, t, q3} := by
+              rw [hC]
+              ext w
+              simp only [mem_insert, mem_singleton]
+              constructor
+              · rintro (h | h | h | h) <;> simp [h]
+              · rintro (h | h | h | h) <;> simp [h]
+            exact (lemma32 G H hconn hnot
+              (m0 := q1) (m1 := q2) (m2 := t) (m3 := q3) hCm heQ hmatch
+              (x := t) (y := a0) (c := u1) (d := u2) hC'
+              (miss u1 hu1Q hu1ne) (miss u2 hu2Q hu2ne)).elim
     obtain ⟨n0, hn0, n1, hn1, hne01⟩ := hdist
     have hn0Q : n0 ∈ ({q1, q2, q3} : Finset V) := (mem_inter.1 hn0).2
     have hn1Q : n1 ∈ ({q1, q2, q3} : Finset V) := (mem_inter.1 hn1).2
@@ -8580,23 +8637,31 @@ theorem lemma61 (H : HubConfig G)
   · -- miss x; Q={y,q,p}, heQ=yq, hmatch=xp
     subst hcx
     have hC' : H.C = {c, y, q, p} := by
-      rw [hC]; ext w; simp only [mem_insert, mem_singleton];
-        constructor <;> intro h <;> aesop
+      rw [hC]; ext w; simp only [mem_insert, mem_singleton]
+      constructor
+      · rintro (h | h | h | h) <;> simp [h]
+      · rintro (h | h | h | h) <;> simp [h]
     exact lemma61_wke G H hconn hC' hyq hxp hnone hnot
   · subst hcy
     have hC' : H.C = {c, x, p, q} := by
-      rw [hC]; ext w; simp only [mem_insert, mem_singleton];
-        constructor <;> intro h <;> aesop
+      rw [hC]; ext w; simp only [mem_insert, mem_singleton]
+      constructor
+      · rintro (h | h | h | h) <;> simp [h]
+      · rintro (h | h | h | h) <;> simp [h]
     exact lemma61_wke G H hconn hC' hxp hyq hnone hnot
   · subst hcp
     have hC' : H.C = {c, y, q, x} := by
-      rw [hC]; ext w; simp only [mem_insert, mem_singleton];
-        constructor <;> intro h <;> aesop
+      rw [hC]; ext w; simp only [mem_insert, mem_singleton]
+      constructor
+      · rintro (h | h | h | h) <;> simp [h]
+      · rintro (h | h | h | h) <;> simp [h]
     exact lemma61_wke G H hconn hC' hyq hxp.symm hnone hnot
   · subst hcq
     have hC' : H.C = {c, x, p, y} := by
-      rw [hC]; ext w; simp only [mem_insert, mem_singleton];
-        constructor <;> intro h <;> aesop
+      rw [hC]; ext w; simp only [mem_insert, mem_singleton]
+      constructor
+      · rintro (h | h | h | h) <;> simp [h]
+      · rintro (h | h | h | h) <;> simp [h]
     exact lemma61_wke G H hconn hC' hxp hyq.symm hnone hnot
 
 /-- **Proposition 6.2**: diamond core `{xp,xq,yp,yq,pq}` is reducible under (A1)–(A2). -/
