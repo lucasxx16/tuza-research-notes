@@ -1264,6 +1264,120 @@ theorem lemma41_no_private (H : HubConfig G)
       rcases honly_out e he hQ with h | h <;> simp [M, h]⟩
   exact hnot this
 
+/-- `v` is not adjacent to a private vertex in `A`. -/
+lemma not_adj_hub_priv (H : HubConfig G) {d : V} (hd : d ∈ H.A) : ¬ G.Adj H.v d := by
+  intro h
+  have : d ∈ G.neighborFinset H.v := (G.mem_neighborFinset _ _).2 h
+  rw [H.hNv] at this
+  simp only [mem_insert, mem_union] at this
+  rcases this with rfl | hC | hB
+  · have huA : H.u ∉ H.A := by
+      intro hu
+      have : H.u ∉ G.neighborFinset H.u :=
+        fun hn => G.irrefl ((G.mem_neighborFinset _ _).1 hn)
+      rw [H.hNu] at this
+      exact this (mem_insert_of_mem (mem_union_right _ hu))
+    exact huA hd
+  · exact Finset.disjoint_left.1 H.hAdisj hd hC
+  · exact Finset.disjoint_left.1 H.hABdisj hd hB
+
+/-- Lemma 4.1(1) continuation: each private has a core neighbor. -/
+theorem lemma41_priv_has_core (H : HubConfig G)
+    (hconn : (linkGraph G H.u).Connected) (hnot : ¬ IsWKE (linkGraph G H.u))
+    (p0 p1 q0 q1 : V) (hC : H.C = {p0, p1, q0, q1})
+    (hcore : G.Adj p0 p1 ∧ G.Adj q0 q1)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p0, p1) ∨ s(x, y) = s(q0, q1))
+    (d0 d1 : V) (hAeq : H.A = {d0, d1}) (hd01 : d0 ≠ d1) :
+    (G.neighborFinset d0 ∩ H.C).Nonempty ∧
+    (G.neighborFinset d1 ∩ H.C).Nonempty := by
+  classical
+  have hnopriv := lemma41_no_private G H hconn hnot p0 p1 q0 q1 hC hcore honly d0 d1 hAeq hd01
+  have hNcard : (G.neighborFinset H.u).card = 7 := by
+    simpa [← SimpleGraph.card_neighborFinset_eq_degree] using H.hdu
+  have aux (d : V) (hdA : d ∈ H.A) :
+      (G.neighborFinset d ∩ H.C).Nonempty := by
+    by_contra hempty
+    have hempty' : G.neighborFinset d ∩ H.C = ∅ := by
+      simpa [Finset.not_nonempty_iff_eq_empty] using hempty
+    have hdeg0 : (linkGraph G H.u).degree d = 0 := by
+      simp only [← card_neighborFinset_eq_degree]
+      refine card_eq_zero.2 (eq_empty_iff_forall_notMem.2 ?_)
+      intro x hx
+      have hAdj : (linkGraph G H.u).Adj d x := (mem_neighborFinset _ _ _).1 hx
+      have hG : G.Adj d x := hAdj.2.2
+      have hxN := hAdj.2.1
+      rw [H.hNu] at hxN
+      simp only [mem_insert, mem_union] at hxN
+      rcases hxN with rfl | hC' | hA'
+      · exact not_adj_hub_priv G H hdA hG.symm
+      · have : x ∈ G.neighborFinset d ∩ H.C :=
+          mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hG, hC'⟩
+        simpa [hempty'] using this
+      · have hxA : x ∈ H.A := hA'
+        have hxne : d ≠ x := fun eq => G.irrefl (eq ▸ hG)
+        have hd' : d = d0 ∨ d = d1 := by rw [hAeq] at hdA; simpa using hdA
+        have hx' : x = d0 ∨ x = d1 := by rw [hAeq] at hxA; simpa using hxA
+        have : G.Adj d0 d1 := by
+          rcases hd' with rfl | rfl <;> rcases hx' with rfl | rfl
+          · exact absurd rfl hxne
+          · exact hG
+          · exact hG.symm
+          · exact absurd rfl hxne
+        exact hnopriv this
+    obtain ⟨y, hy, hyne⟩ : ∃ y ∈ G.neighborFinset H.u, y ≠ d := by
+      by_contra h
+      push Not at h
+      have hsub : G.neighborFinset H.u ⊆ {d} := by
+        intro z hz
+        exact mem_singleton.2 (h z hz)
+      have : (G.neighborFinset H.u).card ≤ 1 :=
+        (card_le_card hsub).trans (by simp)
+      omega
+    exact (not_reachable_of_left_degree_zero hyne.symm hdeg0) (hconn.preconnected d y)
+  exact ⟨aux d0 (by rw [hAeq]; simp), aux d1 (by rw [hAeq]; simp)⟩
+
+/-- Lemma 4.1(2): the core edge `p0p1` meets a private neighbor. -/
+theorem lemma41_edge_hit (H : HubConfig G)
+    (hconn : (linkGraph G H.u).Connected) (hnot : ¬ IsWKE (linkGraph G H.u))
+    (p0 p1 q0 q1 : V) (hC : H.C = {p0, p1, q0, q1})
+    (hcore : G.Adj p0 p1 ∧ G.Adj q0 q1)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p0, p1) ∨ s(x, y) = s(q0, q1))
+    (d0 d1 : V) (hAeq : H.A = {d0, d1}) (hd01 : d0 ≠ d1) :
+    (G.neighborFinset p0 ∩ H.A).Nonempty ∨ (G.neighborFinset p1 ∩ H.A).Nonempty := by
+  classical
+  by_contra h
+  push Not at h
+  obtain ⟨hp0e, hp1e⟩ := h
+  have hp0e' : G.neighborFinset p0 ∩ H.A = ∅ := by
+    simpa [Finset.not_nonempty_iff_eq_empty] using hp0e
+  have hp1e' : G.neighborFinset p1 ∩ H.A = ∅ := by
+    simpa [Finset.not_nonempty_iff_eq_empty] using hp1e
+  have hnopriv := lemma41_no_private G H hconn hnot p0 p1 q0 q1 hC hcore honly d0 d1 hAeq hd01
+  have ⟨hd0core, _hd1core⟩ :=
+    lemma41_priv_has_core G H hconn hnot p0 p1 q0 q1 hC hcore honly d0 d1 hAeq hd01
+  have hdist := core4_distinct G H hC
+  obtain ⟨c, hc⟩ := hd0core
+  have hcC : c ∈ H.C := (mem_inter.1 hc).2
+  have hAdj : G.Adj d0 c := (G.mem_neighborFinset _ _).1 (mem_inter.1 hc).1
+  have hc_q : c = q0 ∨ c = q1 := by
+    have hcmem : c ∈ ({p0, p1, q0, q1} : Finset V) := by rw [← hC]; exact hcC
+    simp only [mem_insert, mem_singleton] at hcmem
+    rcases hcmem with hcp0 | hcp1 | hcq0 | hcq1
+    · have : d0 ∈ G.neighborFinset p0 ∩ H.A := by
+        rw [← hcp0]
+        exact mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hAdj.symm, by rw [hAeq]; simp⟩
+      exact (by simpa [hp0e'] using this : False).elim
+    · have : d0 ∈ G.neighborFinset p1 ∩ H.A := by
+        rw [← hcp1]
+        exact mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hAdj.symm, by rw [hAeq]; simp⟩
+      exact (by simpa [hp1e'] using this : False).elim
+    · exact Or.inl hcq0
+    · exact Or.inr hcq1
+  -- WKE witness: Q = {z,q0,q1}, M = {p0p1, d0–c, z–(other q)}. Deferred matching details.
+  sorry
+
 /-- Lemma 4.1(3): crossed private matching on some core edge. -/
 theorem lemma41_cross (H : HubConfig G)
     (hconn : (linkGraph G H.u).Connected) (hnot : ¬ IsWKE (linkGraph G H.u))
@@ -1275,10 +1389,35 @@ theorem lemma41_cross (H : HubConfig G)
       ((G.Adj p0 d0 ∧ G.Adj p1 d1) ∨ (G.Adj p0 d1 ∧ G.Adj p1 d0) ∨
        (G.Adj q0 d0 ∧ G.Adj q1 d1) ∨ (G.Adj q0 d1 ∧ G.Adj q1 d0)) := by
   obtain ⟨d0, d1, hAeq, hd01, _, _⟩ := privates_of G H
-  have hnopriv := lemma41_no_private G H hconn hnot p0 p1 q0 q1 hC hcore honly d0 d1 hAeq hd01
+  have _hnopriv := lemma41_no_private G H hconn hnot p0 p1 q0 q1 hC hcore honly d0 d1 hAeq hd01
+  have _hprivcore :=
+    lemma41_priv_has_core G H hconn hnot p0 p1 q0 q1 hC hcore honly d0 d1 hAeq hd01
+  have _hhit := lemma41_edge_hit G H hconn hnot p0 p1 q0 q1 hC hcore honly d0 d1 hAeq hd01
   refine ⟨d0, d1, hAeq, ?_⟩
-  -- Parts 2–3: each core edge is hit; then crossed matching. Deferred.
+  -- Part 3 case analysis deferred.
   sorry
+
+/-- Ten distinct labels from hub partitions (u,v,C,A,B). -/
+lemma labels10_of_hub (H : HubConfig G)
+    {c0 c1 c2 c3 a0 a1 b0 b1 : V}
+    (hC : H.C = {c0, c1, c2, c3})
+    (hA : H.A = {a0, a1}) (hB : H.B = {b0, b1})
+    (hC4 : ({c0, c1, c2, c3} : Finset V).card = 4)
+    (ha01 : a0 ≠ a1) (hb01 : b0 ≠ b1) :
+    ({H.u, H.v, c0, c1, c2, c3, a0, a1, b0, b1} : Finset V).card = 10 := by
+  -- Follows from HubConfig disjointness; mechanical Finset card chase.
+  sorry
+
+/-- Prop 4.2: matching core + (A1) ⇒ `{u,v}` reducible. -/
+theorem matching_core_reducible (H : HubConfig G) (hA1 : H.A1)
+    (p0 p1 q0 q1 : V) (hC : H.C = {p0, p1, q0, q1})
+    (hcore : G.Adj p0 p1 ∧ G.Adj q0 q1)
+    (honly : ∀ x ∈ H.C, ∀ y ∈ H.C, G.Adj x y →
+      s(x, y) = s(p0, p1) ∨ s(x, y) = s(q0, q1)) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  -- lemma41_cross at u + edge_hit at v → prop42_certificate labels.
+  sorry
+
 
 end MatchingCore
 
@@ -2319,9 +2458,9 @@ theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (_hA2 : H.A2) :
     by_contra hlt
     have : H.numCoreEdges ≤ 1 := by omega
     exact prop31 G H hA1 this
-  -- Remaining nine cores: matching / star / path / … certificates.
-  -- Wired pieces: Prop 4.2 certificate exists under labelled 2K₂ attachments;
-  -- Lemmas 4.3–4.4 restrict star/path links. Full case split deferred.
+  -- Nine remaining cores (Lemma 2.2). Matching 2K₂ → `matching_core_reducible`
+  -- (needs `lemma41_cross` parts 2–3). Star/path attachment lemmas are proved;
+  -- their certificates (Props 4.6–4.7) and denser cores remain.
   sorry
 
 

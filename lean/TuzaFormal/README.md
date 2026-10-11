@@ -40,15 +40,14 @@ This is proved for general k (no enumeration over k). The general statements are
 - `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound`.
   **Axiom:** `puleo_large_indep`.
   **Proved:** full `prop31`; Prop 4.2 certificate + Fin-10 locals;
-  `lemma41_no_private` (Lemma 4.1(1));
-  **full** `StarCore.star_two_leaf_attachments` (Lemma 4.3, all cases);
-  **full** `PathCore.path_leaf_attachment` (Lemma 4.4(1), all cases).
-  **Partial:** `lemma41_cross` (parts 2–3 still `sorry` after part 1);
-  `structural_codegree_four` wires Prop 3.1 exclusion (`numCoreEdges ≥ 2`) then `sorry`
-  for the remaining nine core certificates.
+  `lemma41_no_private`, `not_adj_hub_priv`, `lemma41_priv_has_core` (Lemma 4.1(1) full);
+  **full** Lemmas 4.3 and 4.4(1) (star/path).
+  **Partial / sorry:** `lemma41_edge_hit` (setup done; WKE witness deferred),
+  `lemma41_cross` part 3, `labels10_of_hub`, `matching_core_reducible`,
+  `structural_codegree_four` (excludes ≤1-edge cores; nine certificates open).
 
-  Paper note: Lemma 4.1(3) remains the bottleneck for wiring Prop 4.2 into the top-level
-  theorem. Star/path WKE witnesses match the paper; no gap found in Lemmas 4.3–4.4.
+  Paper note: Lemma 4.1(2)–(3) WKE witnesses match the paper outline; finishing them
+  unlocks Prop 4.2 wiring via `matching_core_reducible`. No gap found in 4.1(1) or 4.3–4.4.
 
 ## Build
 
