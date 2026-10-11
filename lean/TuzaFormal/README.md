@@ -47,12 +47,15 @@ This is proved for general k (no enumeration over k). The general statements are
   **Prop 4.7** (`path_core_reducible`) full (crossed + same-singleton+(A2));
   **Lemma 4.8** (`lemma48_certificate`) full Fin-10 packing/cover;
   **Lemma 3.2** / **Prop 4.9** full; **Lemma 5.1** (`lemma51`) full;
-  Prop 5.3(G) fully proved (`k4_certificate_G`, no sorry);
-  **`structural_codegree_four`:** wires matching–P₄; remaining sorry for
-  K₄ wiring (Lemma 5.2 + case E), diamond, C₄, paw, K₃+K₁.
+  Prop 5.3(G) fully proved (`k4_certificate_G`);
+  Lemma 5.2 Fin enumeration (`lemma52_fin` via native_decide) + `decode42_surj`;
+  `k4_unique_attach` proved (Lemma 5.1 + (A2) ⇒ unique A/B neighbors);
+  K₄ wired into `structural_codegree_four` via `k4_core_reducible` (still sorry);
+  remaining sorries: `lemma52` transfer, `k4_certificate_E`, `k4_core_reducible`,
+  denser cores (diamond/C₄/paw/K₃+K₁).
 
-  Paper note: Lemma 5.1 and Prop 5.3(G) match the paper S/X and coverage.
-  Next: Lemma 5.2, Prop 5.3(E), wire K₄, then §6–7 denser cores.
+  Paper note: Lemma 5.1/5.2 Fin check and Prop 5.3(G) match; no gap found.
+  Next: finish lemma52 transfer, Prop 5.3(E) certificate, clear k4_core, §6–7.
 
 ## Build
 

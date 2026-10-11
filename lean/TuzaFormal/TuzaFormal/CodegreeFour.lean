@@ -1,4 +1,5 @@
 import TuzaFormal.Reducibility
+import Mathlib.Data.Fintype.Perm
 
 /-!
 # Codegree-four structural reduction (Theorem 1.3)
@@ -7073,6 +7074,198 @@ theorem k4_certificate_G (H : HubConfig G)
   }⟩
 
 
+
+/-! ### Lemma 5.2 (Fin 4 → Fin 2 enumeration) -/
+
+/-- Encode `Fin 4 → Fin 2` as a 4-bit number. -/
+def decode42 (n : Fin 16) : Fin 4 → Fin 2 := fun i =>
+  ⟨(n.val >>> i.val) % 2, by omega⟩
+
+lemma decode42_surj (f : Fin 4 → Fin 2) : ∃ n : Fin 16, decode42 n = f := by
+  let n : ℕ := (f 0).val + 2 * (f 1).val + 4 * (f 2).val + 8 * (f 3).val
+  have hn : n < 16 := by
+    have h0 : (f 0).val ≤ 1 := Nat.le_of_lt_succ (f 0).isLt
+    have h1 : (f 1).val ≤ 1 := Nat.le_of_lt_succ (f 1).isLt
+    have h2 : (f 2).val ≤ 1 := Nat.le_of_lt_succ (f 2).isLt
+    have h3 : (f 3).val ≤ 1 := Nat.le_of_lt_succ (f 3).isLt
+    omega
+  refine ⟨⟨n, hn⟩, funext fun i => ?_⟩
+  -- Check the four bit extractions by cases on i and on each f-value.
+  have bit (k : ℕ) (hk : k < 4) :
+      ((n >>> k) % 2) = (f ⟨k, hk⟩).val := by
+    have h0 : (f 0).val ≤ 1 := Nat.le_of_lt_succ (f 0).isLt
+    have h1 : (f 1).val ≤ 1 := Nat.le_of_lt_succ (f 1).isLt
+    have h2 : (f 2).val ≤ 1 := Nat.le_of_lt_succ (f 2).isLt
+    have h3 : (f 3).val ≤ 1 := Nat.le_of_lt_succ (f 3).isLt
+    interval_cases k <;> simp [n] <;> omega
+  apply Fin.ext
+  simpa [decode42] using bit i.val i.isLt
+
+def fiber42 (f : Fin 4 → Fin 2) (a : Fin 2) : Finset (Fin 4) :=
+  Finset.univ.filter (fun i => f i = a)
+
+def isE42 (α β : Fin 4 → Fin 2) : Bool :=
+  decide ((fiber42 α 0).card = 2 ∧ (fiber42 β 0).card = 2 ∧
+    (fiber42 α 0 = fiber42 β 0 ∨ fiber42 α 0 = fiber42 β 1))
+
+def isG42 (α β : Fin 4 → Fin 2) : Bool :=
+  decide (∃ (p : Equiv.Perm (Fin 4)) (ia ib : Fin 2),
+    (∀ i : Fin 4, α (p i) ≠ ia ∨ i = 2 ∨ i = 3) ∧
+    (∀ i : Fin 4, β (p i) ≠ ib ∨ i = 1 ∨ i = 3))
+
+private lemma lemma52_fin : ∀ n m : Fin 16,
+    isG42 (decode42 n) (decode42 m) = true ∨
+    isE42 (decode42 n) (decode42 m) = true := by
+  native_decide
+
+/-- **Lemma 5.2**: maps `C → A`, `C → B` fall into alternative (G) or (E). -/
+theorem lemma52 {C A B : Finset V}
+    (hC4 : C.card = 4) (hA : A.card = 2) (hB : B.card = 2)
+    (α β : V → V)
+    (hα : ∀ c ∈ C, α c ∈ A) (hβ : ∀ c ∈ C, β c ∈ B) :
+    (∃ x y z w a_ b_,
+      C = {x, y, z, w} ∧ a_ ∈ A ∧ b_ ∈ B ∧
+        (∀ c ∈ C, α c = a_ → c = w ∨ c = z) ∧
+        (∀ c ∈ C, β c = b_ → c = w ∨ c = y))
+    ∨
+    (∃ x y z w a a' b b',
+      C = {x, y, z, w} ∧ A = {a, a'} ∧ B = {b, b'} ∧
+        a ≠ a' ∧ b ≠ b' ∧
+        α x = a ∧ α y = a ∧ α z = a' ∧ α w = a' ∧
+        β x = b ∧ β y = b ∧ β z = b' ∧ β w = b') := by
+  classical
+  -- Finite check on Fin 4 → Fin 2 plus label transfer (see paper proof).
+  sorry
+
+/-! ### Prop 5.3(E) -/
+
+def packing53E (u v x y z w a a' d b : V) : Finset (Finset V) :=
+  {{a, x, y}, {u, v, x}, {u, y, z}, {u, a', d}, {v, y, b}, {v, z, w}}
+
+def cover53E (u v x y z w a a' d b b' : V) : Finset (Sym2 V) :=
+  {s(a, x), s(a, y), s(x, y), s(y, z), s(a', d), s(y, b), s(z, w),
+   s(u, z), s(u, w), s(v, x), s(v, y), s(v, b')}
+
+/-- **Proposition 5.3 (E)**, labelled. -/
+theorem k4_certificate_E (H : HubConfig G)
+    (x y z w a a' b b' : V)
+    (hC : H.C = {x, y, z, w})
+    (hA : H.A = {a, a'}) (hB : H.B = {b, b'})
+    (hneA : a ≠ a') (hneB : b ≠ b')
+    (hK4 : G.Adj x y ∧ G.Adj x z ∧ G.Adj x w ∧ G.Adj y z ∧ G.Adj y w ∧ G.Adj z w)
+    (hax : G.Adj x a) (hay : G.Adj y a)
+    (haz : G.Adj z a') (haw : G.Adj w a')
+    (hbx : G.Adj x b) (hby : G.Adj y b)
+    (hbz : G.Adj z b') (hbw : G.Adj w b')
+    (h10 : ({H.u, H.v, x, y, z, w, a, a', b, b'} : Finset V).card = 10) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  classical
+  refine ⟨Finset.insert_nonempty _ _, ?_⟩
+  let d : V := if G.Adj a a' then a else w
+  have had : G.Adj a' d := by
+    by_cases h : G.Adj a a'
+    · simpa [d, h] using h.symm
+    · simpa [d, h] using haw.symm
+  let hinj := labels10_injective H.u H.v x y z w a a' b b' h10
+  let S := packing53E H.u H.v x y z w a a' d b
+  let X := cover53E H.u H.v x y z w a a' d b b'
+  -- Packing / cover / coverage: deferred to match Prop 5.3(G) style.
+  sorry
+
+/-- From Lemma 5.1 + (A2): each core vertex has unique A- and B-neighbors. -/
+theorem k4_unique_attach (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
+    {x y z w : V} (hC : H.C = {x, y, z, w})
+    (hK4 : G.Adj x y ∧ G.Adj x z ∧ G.Adj x w ∧ G.Adj y z ∧ G.Adj y w ∧ G.Adj z w) :
+    (∀ c ∈ H.C, ∃! a, a ∈ H.A ∧ G.Adj c a) ∧
+    (∀ c ∈ H.C, ∃! b, b ∈ H.B ∧ G.Adj c b) := by
+  classical
+  have hfwd := lemma51 G H hA1.1 hA1.2.1 x y z w hC hK4
+  have hbwd := lemma51 G (H.swap) hA1.2.2.1 hA1.2.2.2 x y z w
+    (by simpa [HubConfig.swap] using hC) hK4
+  have coreDeg3 : ∀ c ∈ H.C, H.coreDeg c = 3 := by
+    intro c hc
+    unfold HubConfig.coreDeg
+    have hc' : c ∈ ({x, y, z, w} : Finset V) := by rwa [← hC]
+    have hadj_all : ∀ t ∈ H.C.erase c, G.Adj c t := by
+      intro t ht
+      have htC : t ∈ H.C := (mem_erase.1 ht).2
+      have hne : t ≠ c := (mem_erase.1 ht).1
+      have ht' : t ∈ ({x, y, z, w} : Finset V) := by rwa [← hC]
+      simp only [mem_insert, mem_singleton] at hc' ht'
+      -- all six K4 edges
+      rcases hc' with rfl | rfl | rfl | rfl <;> rcases ht' with rfl | rfl | rfl | rfl
+      · exact absurd rfl hne.symm
+      · exact hK4.1
+      · exact hK4.2.1
+      · exact hK4.2.2.1
+      · exact hK4.1.symm
+      · exact absurd rfl hne.symm
+      · exact hK4.2.2.2.1
+      · exact hK4.2.2.2.2.1
+      · exact hK4.2.1.symm
+      · exact hK4.2.2.2.1.symm
+      · exact absurd rfl hne.symm
+      · exact hK4.2.2.2.2.2
+      · exact hK4.2.2.1.symm
+      · exact hK4.2.2.2.2.1.symm
+      · exact hK4.2.2.2.2.2.symm
+      · exact absurd rfl hne.symm
+    have hfilter : (H.C.erase c).filter (G.Adj c) = H.C.erase c := by
+      ext t; simp only [mem_filter]; constructor
+      · exact And.left
+      · intro ht; exact ⟨ht, hadj_all t ht⟩
+    rw [hfilter, card_erase_of_mem hc, H.hCcard]
+  have uniqA : ∀ c ∈ H.C, ∃! a, a ∈ H.A ∧ G.Adj c a := by
+    intro c hc
+    have hne : (G.neighborFinset c ∩ H.A).Nonempty := hfwd c hc
+    have hneB : (G.neighborFinset c ∩ H.B).Nonempty := by
+      -- swap.A = B
+      simpa [HubConfig.swap] using hbwd c hc
+    have hA2c := hA2 c hc
+    have hde := coreDeg3 c hc
+    have hAcard : (G.neighborFinset c ∩ H.A).card = 1 := by
+      have hApos : 1 ≤ (G.neighborFinset c ∩ H.A).card := Finset.card_pos.2 hne
+      have hBpos : 1 ≤ (G.neighborFinset c ∩ H.B).card := Finset.card_pos.2 hneB
+      omega
+    obtain ⟨a, ha⟩ := (card_eq_one (s := G.neighborFinset c ∩ H.A)).1 hAcard
+    refine ⟨a, ?_, ?_⟩
+    · have : a ∈ G.neighborFinset c ∩ H.A := by simp [ha]
+      exact ⟨(mem_inter.1 this).2, (G.mem_neighborFinset _ _).1 (mem_inter.1 this).1⟩
+    · intro a' ⟨ha'A, hadj⟩
+      have : a' ∈ G.neighborFinset c ∩ H.A :=
+        mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj, ha'A⟩
+      simpa [ha] using this
+  have uniqB : ∀ c ∈ H.C, ∃! b, b ∈ H.B ∧ G.Adj c b := by
+    intro c hc
+    have hne : (G.neighborFinset c ∩ H.B).Nonempty := by
+      simpa [HubConfig.swap] using hbwd c hc
+    have hneA : (G.neighborFinset c ∩ H.A).Nonempty := hfwd c hc
+    have hA2c := hA2 c hc
+    have hde := coreDeg3 c hc
+    have hBcard : (G.neighborFinset c ∩ H.B).card = 1 := by
+      have hApos : 1 ≤ (G.neighborFinset c ∩ H.A).card := Finset.card_pos.2 hneA
+      have hBpos : 1 ≤ (G.neighborFinset c ∩ H.B).card := Finset.card_pos.2 hne
+      omega
+    obtain ⟨b, hb⟩ := (card_eq_one (s := G.neighborFinset c ∩ H.B)).1 hBcard
+    refine ⟨b, ?_, ?_⟩
+    · have : b ∈ G.neighborFinset c ∩ H.B := by simp [hb]
+      exact ⟨(mem_inter.1 this).2, (G.mem_neighborFinset _ _).1 (mem_inter.1 this).1⟩
+    · intro b' ⟨hb'B, hadj⟩
+      have : b' ∈ G.neighborFinset c ∩ H.B :=
+        mem_inter.2 ⟨(G.mem_neighborFinset _ _).2 hadj, hb'B⟩
+      simpa [hb] using this
+  exact ⟨uniqA, uniqB⟩
+
+/-- K₄ core reducible under (A1)–(A2). -/
+theorem k4_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
+    {x y z w : V} (hC : H.C = {x, y, z, w})
+    (hK4 : G.Adj x y ∧ G.Adj x z ∧ G.Adj x w ∧ G.Adj y z ∧ G.Adj y w ∧ G.Adj z w) :
+    IsReducible G ({H.u, H.v} : Finset V) := by
+  -- Outline: k4_unique_attach → α/β → lemma52 → k4_certificate_G / k4_certificate_E.
+  -- Blocked on lemma52 transfer and k4_certificate_E coverage.
+  sorry
+
+
 theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2) :
     IsReducible G ({H.u, H.v} : Finset V) := by
   classical
@@ -7105,7 +7298,12 @@ theorem structural_codegree_four (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2) :
         s(x, y) = s(p, q) ∨ s(x, y) = s(q, r) ∨ s(x, y) = s(r, s))
   · obtain ⟨p, q, r, s, hC, hpq, hqr, hrs, honly⟩ := hP4
     exact p4_core_reducible G H hA1 hC hpq hqr hrs honly
-  -- Remaining: C₄, paw, K₃+K₁, diamond, K₄ (and denser ≥4-edge cores).
+  by_cases hK4c : ∃ x y z w : V,
+      H.C = {x, y, z, w} ∧
+      G.Adj x y ∧ G.Adj x z ∧ G.Adj x w ∧ G.Adj y z ∧ G.Adj y w ∧ G.Adj z w
+  · obtain ⟨x, y, z, w, hC, hK4⟩ := hK4c
+    exact k4_core_reducible G H hA1 hA2 hC hK4
+  -- Remaining: C₄, paw, K₃+K₁, diamond (and denser ≥4-edge cores).
   sorry
 
 
