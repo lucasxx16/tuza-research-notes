@@ -40,9 +40,11 @@ This is proved for general k (no enumeration over k). The general statements are
   **Proved:** `reduction_bridge` (Lemma 2.1) — fully, no `sorry`. Also `combine_packing`,
   `combine_cover`, `residual_packing_disj`. Certificate now requires `cover_edges`.
 - `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound` (proved).
-  **Axiom:** `puleo_large_indep`. **Sorry:** `prop31`; Prop 3.1 constructive witnesses
-  `wke_private_edge`, `wke_private_attach` (statements fixed: link owned by `hub`);
-  `MatchingCore.prop42_certificate`, `lemma41_cross`; `structural_codegree_four`.
+  **Axiom:** `puleo_large_indep`.
+  **Proved:** `Prop31.wke_private_edge`, `Prop31.wke_private_attach` (full `IsWKEWitness` checks).
+  **Partial:** `MatchingCore.prop42_certificate` — packed sets are triangles and cover edges are
+  edges of `G`; still `sorry` for edge-disjointness, `|X|≤2|S|`, `coversZ`, `external`.
+  **Sorry:** `prop31`, `lemma41_cross`, `structural_codegree_four`.
 
 
 ## Build
