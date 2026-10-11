@@ -92,3 +92,36 @@ A clean build takes about 8 minutes.
 - Oriented lemmas: `diamond_sparse_split_A` (→ D2/D3), `diamond_paired_D5`.
 - Remaining in `diamond_core_reducible`: Cases 1–3 classification (sparse/dense/paired) still sorry after centre-unique setup.
 - Still sorry: C₄, paw, K₃+K₁, structural residual.
+
+## Soundness fix: (A1) link connectivity (2026-10-11)
+
+**Bug.** Earlier commits defined (A1) with `(linkGraph G u).Connected` on all of `V`. In any
+hub config the hub `u` is isolated in its own link, so this was unsatisfiable (and the helper
+`card_of_link_connected` derived `|V| = 7`, contradicting the 8 vertices `u ∪ N(u)`). Every
+theorem with (A1) as a hypothesis was therefore vacuously true in those commits.
+
+**Fix.**
+- New `LinkConnected G z`: any two vertices of `N(z)` are joined in `linkGraph G z`
+  (connectivity of the link induced on `N(z)`, as in the paper). (A1) now uses it.
+- `card_of_link_connected` removed.
+- `puleo_large_indep` (still an axiom, Puleo Cor 4.12) restated on the link: `6 ≤ |N(z)|`,
+  `LinkConnected G z`, an independent `I ⊆ N(z)` with `|I| = |N(z)| − 3` ⇒ `IsWKE (linkGraph G z)`.
+  (Vertices outside `N(z)` are isolated in `linkGraph`, so this matches WKE of the induced link.)
+- `TuzaFormal/Sanity.lean`: a concrete `HubConfig` on `Fin 10` with both hub links
+  `LinkConnected` (so connectivity no longer forces `|V| = 7`). Not checked: a concrete
+  example that also satisfies the non-WKE part of (A1).
+
+**Status after the fix (full `lake build` passes, against the new definitions).**
+No proof used `exfalso` on the broken hypothesis. The only route to the contradiction was
+`card_of_link_connected`, and that lemma is now gone. These results are re-verified:
+Prop 3.1 (`prop31`, `one_edge_is_wke`), Lemma 4.1 / Prop 4.2 (matching), Lemmas 4.3/4.4 and
+Props 4.6/4.7 (star, path), Lemma 4.8 / Prop 4.9 (P₄), Lemma 3.2, Lemma 5.1/5.2 / Prop 5.3 /
+`k4_core_reducible`, Lemma 6.1, D1–D5 certificates, `diamond_center_unique`, and the
+condition (3) → D1 branch of the diamond case.
+Still `sorry` (5): the diamond Cases 1–3 classification, `c4_core_reducible`,
+`paw_core_reducible`, `k3k1_core_reducible`, and the residual in `structural_codegree_four`.
+
+**Also fixed:** the committed HEAD (`781d372`) did not compile when checked with
+`lake env lean`. The cause was `rcases … rfl` / `obtain ⟨_, _, rfl⟩` removing named variables
+in the `packing53G_*`, `cover53G_card`, `packing*_disjoint`, and diamond-forcing proofs. It is
+fixed by substituting in the other direction (`subst αz βy`, `subst w`, `_` placeholders).
