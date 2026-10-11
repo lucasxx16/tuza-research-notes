@@ -31,8 +31,19 @@ This is proved for general k (no enumeration over k). The general statements are
 ## Notes
 
 - No `sorry`. Some finite checks use `native_decide`, so they trust the Lean compiler in addition to the kernel.
-- Not formalized: Prop 8.1 for arbitrary factors (only the K4□J and K4□K5 cases are used), Thm 1.3 (codegree four).
+- Not formalized: Prop 8.1 for arbitrary factors (only the K4□J and K4□K5 cases are used).
 - In `Family.lean`, `native_decide` is used only for fixed facts about K4.
+
+## Theorem 1.3 (in progress)
+
+- `TuzaFormal/Reducibility.lean`: Defs 1.1–1.2 (`IsWKE`, `IsEdgeMatching`, `ReductionCertificate`,
+  `IsReducible`, `residual`). **Lemma 2.1** (`reduction_bridge`) is stated; proof is `sorry`
+  (paper sketch recorded in the docstring).
+- `TuzaFormal/CodegreeFour.lean`: `HubConfig` (neighbourhood partition for codegree-four hubs),
+  (A1)/(A2), link graph, core edge count. **Proved:** `core_edge_bound` (≤ 6 edges on a 4-vertex
+  core). **Axiom:** `puleo_large_indep` (Puleo Cor. 4.12). **Sorry:** `prop31` (exclude ≤1-edge
+  cores), `structural_codegree_four` (Thm 1.3; needs the nine packing-and-deletion constructions).
+
 
 ## Build
 
