@@ -47,17 +47,13 @@ This is proved for general k (no enumeration over k). The general statements are
   **Prop 4.7** (`path_core_reducible`) full (crossed + same-singleton+(A2));
   **Lemma 4.8** (`lemma48_certificate`) full Fin-10 packing/cover;
   **Lemma 3.2** / **Prop 4.9** full; **Lemma 5.1** (`lemma51`) full;
-  Prop 5.3(G) fully proved; Lemma 5.2 fully proved (`lemma52` transfer);
-  **Prop 5.3(E) fully proved** (`k4_certificate_E`, including `coversZ`);
-  `k4_core_reducible`: (E) fully wired; (G) wired for α(z)=a_∧β(y)=b_ and for
-  safe y↔w / z↔w relabelings; remaining G cases (empty fibers or both fibers
-  concentrated at w) still sorry — need packing generalized to α(z)/β(y);
-  `structural_codegree_four` still sorry for diamond/C₄/paw/K₃+K₁.
+  Prop 5.3(G)/(E) fully proved; Lemma 5.2 fully proved;
+  **G packing generalized** to α(z)/β(y) via 4 Fin-10 variants;
+  **`k4_core_reducible` fully proved** (no sorry); K₄ wired into
+  `structural_codegree_four`; remaining sorry is only diamond/C₄/paw/K₃+K₁.
 
-  Paper note: E coverage matches Prop 5.3(E). G formalization still assumes
-  α(z)=a_∧β(y)=b_ in the certificate; paper packing uses general α(z),β(y)
-  (formalization gap, not a paper gap). Next: generalize G packing, clear
-  k4_core G sorries, then §6–7 denser cores.
+  Paper note: G packing now matches paper Prop 5.3(G) with general α(z),β(y).
+  Next: Lemma 6.1 + Prop 6.2 (diamond), then C₄/paw/K₃+K₁ (§6).
 
 ## Build
 

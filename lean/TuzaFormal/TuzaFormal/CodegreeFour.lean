@@ -6673,11 +6673,46 @@ lemma packing10_53G_pairwise :
     ∀ σ ∈ packing10_53G, ∀ τ ∈ packing10_53G, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
   native_decide
 
-def packing53G (u v x y z w a_ b_ : V) : Finset (Finset V) :=
-  {{x, y, z}, {u, v, x}, {u, y, w}, {v, z, w}, {u, z, a_}, {v, y, b_}}
+/-- αz = aPlus (7), βy = b_ (8) -/
+def packing10_53G_az : Finset (Finset (Fin 10)) :=
+  {{2, 3, 4}, {0, 1, 2}, {0, 3, 5}, {1, 4, 5}, {0, 4, 7}, {1, 3, 8}}
+def cover10_53G_az : Finset (Sym2 (Fin 10)) :=
+  {s(2, 3), s(2, 4), s(3, 4), s(3, 5), s(4, 5), s(4, 7), s(3, 8),
+   s(0, 1), s(0, 5), s(1, 5), s(0, 7), s(1, 9)}
+/-- αz = a_ (6), βy = bPlus (9) -/
+def packing10_53G_by : Finset (Finset (Fin 10)) :=
+  {{2, 3, 4}, {0, 1, 2}, {0, 3, 5}, {1, 4, 5}, {0, 4, 6}, {1, 3, 9}}
+def cover10_53G_by : Finset (Sym2 (Fin 10)) :=
+  {s(2, 3), s(2, 4), s(3, 4), s(3, 5), s(4, 5), s(4, 6), s(3, 9),
+   s(0, 1), s(0, 5), s(1, 5), s(0, 7), s(1, 9)}
+/-- αz = aPlus, βy = bPlus -/
+def packing10_53G_azby : Finset (Finset (Fin 10)) :=
+  {{2, 3, 4}, {0, 1, 2}, {0, 3, 5}, {1, 4, 5}, {0, 4, 7}, {1, 3, 9}}
+def cover10_53G_azby : Finset (Sym2 (Fin 10)) :=
+  {s(2, 3), s(2, 4), s(3, 4), s(3, 5), s(4, 5), s(4, 7), s(3, 9),
+   s(0, 1), s(0, 5), s(1, 5), s(0, 7), s(1, 9)}
 
-def cover53G (u v x y z w a_ aPlus b_ bPlus : V) : Finset (Sym2 V) :=
-  {s(x, y), s(x, z), s(y, z), s(y, w), s(z, w), s(z, a_), s(y, b_),
+lemma packing10_53G_az_card : packing10_53G_az.card = 6 := by native_decide
+lemma packing10_53G_by_card : packing10_53G_by.card = 6 := by native_decide
+lemma packing10_53G_azby_card : packing10_53G_azby.card = 6 := by native_decide
+lemma cover10_53G_az_card : cover10_53G_az.card = 12 := by native_decide
+lemma cover10_53G_by_card : cover10_53G_by.card = 12 := by native_decide
+lemma cover10_53G_azby_card : cover10_53G_azby.card = 12 := by native_decide
+lemma packing10_53G_az_pairwise :
+    ∀ σ ∈ packing10_53G_az, ∀ τ ∈ packing10_53G_az, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
+  native_decide
+lemma packing10_53G_by_pairwise :
+    ∀ σ ∈ packing10_53G_by, ∀ τ ∈ packing10_53G_by, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
+  native_decide
+lemma packing10_53G_azby_pairwise :
+    ∀ σ ∈ packing10_53G_azby, ∀ τ ∈ packing10_53G_azby, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
+  native_decide
+
+def packing53G (u v x y z w αz βy : V) : Finset (Finset V) :=
+  {{x, y, z}, {u, v, x}, {u, y, w}, {v, z, w}, {u, z, αz}, {v, y, βy}}
+
+def cover53G (u v x y z w αz aPlus βy bPlus : V) : Finset (Sym2 V) :=
+  {s(x, y), s(x, z), s(y, z), s(y, w), s(z, w), s(z, αz), s(y, βy),
    s(u, v), s(u, w), s(v, w), s(u, aPlus), s(v, bPlus)}
 
 private lemma packing53G_image_eq (u v x y z w a_ aPlus b_ bPlus : V) :
@@ -6701,6 +6736,69 @@ private lemma packing53G_image_eq (u v x y z w a_ aPlus b_ bPlus : V) :
   simp only [packing10_53G, packing53G, image_insert, image_singleton,
     e1, e2, e3, e4, e5, e6]
 
+private lemma packing53G_image_eq_az (u v x y z w a_ aPlus b_ bPlus : V) :
+    packing10_53G_az.image (mapTri (labels10 u v x y z w a_ aPlus b_ bPlus)) =
+      packing53G u v x y z w aPlus b_ := by
+  obtain ⟨f0, f1, f2, f3, f4, f5, _, f7, f8, _⟩ :=
+    map_lab u v x y z w a_ aPlus b_ bPlus
+  set f := labels10 u v x y z w a_ aPlus b_ bPlus
+  have e1 : mapTri f {2, 3, 4} = ({x, y, z} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f2, f3, f4]
+  have e2 : mapTri f {0, 1, 2} = ({u, v, x} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f1, f2]
+  have e3 : mapTri f {0, 3, 5} = ({u, y, w} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f3, f5]
+  have e4 : mapTri f {1, 4, 5} = ({v, z, w} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f1, f4, f5]
+  have e5 : mapTri f {0, 4, 7} = ({u, z, aPlus} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f4, f7]
+  have e6 : mapTri f {1, 3, 8} = ({v, y, b_} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f1, f3, f8]
+  simp only [packing10_53G_az, packing53G, image_insert, image_singleton,
+    e1, e2, e3, e4, e5, e6]
+
+private lemma packing53G_image_eq_by (u v x y z w a_ aPlus b_ bPlus : V) :
+    packing10_53G_by.image (mapTri (labels10 u v x y z w a_ aPlus b_ bPlus)) =
+      packing53G u v x y z w a_ bPlus := by
+  obtain ⟨f0, f1, f2, f3, f4, f5, f6, _, _, f9⟩ :=
+    map_lab u v x y z w a_ aPlus b_ bPlus
+  set f := labels10 u v x y z w a_ aPlus b_ bPlus
+  have e1 : mapTri f {2, 3, 4} = ({x, y, z} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f2, f3, f4]
+  have e2 : mapTri f {0, 1, 2} = ({u, v, x} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f1, f2]
+  have e3 : mapTri f {0, 3, 5} = ({u, y, w} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f3, f5]
+  have e4 : mapTri f {1, 4, 5} = ({v, z, w} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f1, f4, f5]
+  have e5 : mapTri f {0, 4, 6} = ({u, z, a_} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f4, f6]
+  have e6 : mapTri f {1, 3, 9} = ({v, y, bPlus} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f1, f3, f9]
+  simp only [packing10_53G_by, packing53G, image_insert, image_singleton,
+    e1, e2, e3, e4, e5, e6]
+
+private lemma packing53G_image_eq_azby (u v x y z w a_ aPlus b_ bPlus : V) :
+    packing10_53G_azby.image (mapTri (labels10 u v x y z w a_ aPlus b_ bPlus)) =
+      packing53G u v x y z w aPlus bPlus := by
+  obtain ⟨f0, f1, f2, f3, f4, f5, _, f7, _, f9⟩ :=
+    map_lab u v x y z w a_ aPlus b_ bPlus
+  set f := labels10 u v x y z w a_ aPlus b_ bPlus
+  have e1 : mapTri f {2, 3, 4} = ({x, y, z} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f2, f3, f4]
+  have e2 : mapTri f {0, 1, 2} = ({u, v, x} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f1, f2]
+  have e3 : mapTri f {0, 3, 5} = ({u, y, w} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f3, f5]
+  have e4 : mapTri f {1, 4, 5} = ({v, z, w} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f1, f4, f5]
+  have e5 : mapTri f {0, 4, 7} = ({u, z, aPlus} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f0, f4, f7]
+  have e6 : mapTri f {1, 3, 9} = ({v, y, bPlus} : Finset V) := by
+    simp only [mapTri, image_insert, image_singleton]; rw [f1, f3, f9]
+  simp only [packing10_53G_azby, packing53G, image_insert, image_singleton,
+    e1, e2, e3, e4, e5, e6]
+
 private lemma cover53G_image_eq (u v x y z w a_ aPlus b_ bPlus : V) :
     cover10_53G.image (Sym2.map (labels10 u v x y z w a_ aPlus b_ bPlus)) =
       cover53G u v x y z w a_ aPlus b_ bPlus := by
@@ -6714,31 +6812,62 @@ private lemma cover53G_image_eq (u v x y z w a_ aPlus b_ bPlus : V) :
     mk 4 6 f4 f6, mk 3 8 f3 f8, mk 0 1 f0 f1, mk 0 5 f0 f5, mk 1 5 f1 f5,
     mk 0 7 f0 f7, mk 1 9 f1 f9]
 
-lemma packing53G_card (u v x y z w a_ aPlus b_ bPlus : V)
-    (hinj : Function.Injective (labels10 u v x y z w a_ aPlus b_ bPlus)) :
-    (packing53G u v x y z w a_ b_).card = 6 := by
-  let f := labels10 u v x y z w a_ aPlus b_ bPlus
-  have hinjT : Function.Injective (mapTri f) := Finset.image_injective hinj
-  rw [← packing53G_image_eq u v x y z w a_ aPlus b_ bPlus,
-    card_image_of_injective _ hinjT, packing10_53G_card]
+private lemma cover53G_image_eq_az (u v x y z w a_ aPlus b_ bPlus : V) :
+    cover10_53G_az.image (Sym2.map (labels10 u v x y z w a_ aPlus b_ bPlus)) =
+      cover53G u v x y z w aPlus aPlus b_ bPlus := by
+  obtain ⟨f0, f1, f2, f3, f4, f5, _, f7, f8, f9⟩ :=
+    map_lab u v x y z w a_ aPlus b_ bPlus
+  set f := labels10 u v x y z w a_ aPlus b_ bPlus
+  have mk (i j : Fin 10) {p q : V} (hi : f i = p) (hj : f j = q) :
+      Sym2.map f s(i, j) = s(p, q) := by rw [Sym2.map_mk, hi, hj]
+  simp only [cover10_53G_az, cover53G, image_insert, image_singleton,
+    mk 2 3 f2 f3, mk 2 4 f2 f4, mk 3 4 f3 f4, mk 3 5 f3 f5, mk 4 5 f4 f5,
+    mk 4 7 f4 f7, mk 3 8 f3 f8, mk 0 1 f0 f1, mk 0 5 f0 f5, mk 1 5 f1 f5,
+    mk 0 7 f0 f7, mk 1 9 f1 f9]
 
-lemma packing53G_disjoint (u v x y z w a_ aPlus b_ bPlus : V)
-    (hinj : Function.Injective (labels10 u v x y z w a_ aPlus b_ bPlus)) :
-    ∀ σ ∈ packing53G u v x y z w a_ b_,
-      ∀ τ ∈ packing53G u v x y z w a_ b_,
-        σ ≠ τ → Disjoint (triEdges σ) (triEdges τ) := by
+private lemma cover53G_image_eq_by (u v x y z w a_ aPlus b_ bPlus : V) :
+    cover10_53G_by.image (Sym2.map (labels10 u v x y z w a_ aPlus b_ bPlus)) =
+      cover53G u v x y z w a_ aPlus bPlus bPlus := by
+  obtain ⟨f0, f1, f2, f3, f4, f5, f6, f7, _, f9⟩ :=
+    map_lab u v x y z w a_ aPlus b_ bPlus
+  set f := labels10 u v x y z w a_ aPlus b_ bPlus
+  have mk (i j : Fin 10) {p q : V} (hi : f i = p) (hj : f j = q) :
+      Sym2.map f s(i, j) = s(p, q) := by rw [Sym2.map_mk, hi, hj]
+  simp only [cover10_53G_by, cover53G, image_insert, image_singleton,
+    mk 2 3 f2 f3, mk 2 4 f2 f4, mk 3 4 f3 f4, mk 3 5 f3 f5, mk 4 5 f4 f5,
+    mk 4 6 f4 f6, mk 3 9 f3 f9, mk 0 1 f0 f1, mk 0 5 f0 f5, mk 1 5 f1 f5,
+    mk 0 7 f0 f7, mk 1 9 f1 f9]
+
+private lemma cover53G_image_eq_azby (u v x y z w a_ aPlus b_ bPlus : V) :
+    cover10_53G_azby.image (Sym2.map (labels10 u v x y z w a_ aPlus b_ bPlus)) =
+      cover53G u v x y z w aPlus aPlus bPlus bPlus := by
+  obtain ⟨f0, f1, f2, f3, f4, f5, _, f7, _, f9⟩ :=
+    map_lab u v x y z w a_ aPlus b_ bPlus
+  set f := labels10 u v x y z w a_ aPlus b_ bPlus
+  have mk (i j : Fin 10) {p q : V} (hi : f i = p) (hj : f j = q) :
+      Sym2.map f s(i, j) = s(p, q) := by rw [Sym2.map_mk, hi, hj]
+  simp only [cover10_53G_azby, cover53G, image_insert, image_singleton,
+    mk 2 3 f2 f3, mk 2 4 f2 f4, mk 3 4 f3 f4, mk 3 5 f3 f5, mk 4 5 f4 f5,
+    mk 4 7 f4 f7, mk 3 9 f3 f9, mk 0 1 f0 f1, mk 0 5 f0 f5, mk 1 5 f1 f5,
+    mk 0 7 f0 f7, mk 1 9 f1 f9]
+
+private lemma packing53G_disjoint_of_pairwise
+    (u v x y z w a_ aPlus b_ bPlus : V)
+    (hinj : Function.Injective (labels10 u v x y z w a_ aPlus b_ bPlus))
+    (P : Finset (Finset (Fin 10)))
+    (hpair : ∀ σ ∈ P, ∀ τ ∈ P, σ ≠ τ → (σ ∩ τ).card ≤ 1)
+    (σ τ : Finset V) (s0 t0 : Finset (Fin 10))
+    (hs0 : s0 ∈ P) (ht0 : t0 ∈ P) (hne : s0 ≠ t0)
+    (hσ : mapTri (labels10 u v x y z w a_ aPlus b_ bPlus) s0 = σ)
+    (hτ : mapTri (labels10 u v x y z w a_ aPlus b_ bPlus) t0 = τ) :
+    Disjoint (triEdges σ) (triEdges τ) := by
   let f := labels10 u v x y z w a_ aPlus b_ bPlus
-  intro σ hs τ ht hst
-  rw [← packing53G_image_eq u v x y z w a_ aPlus b_ bPlus] at hs ht
-  obtain ⟨s0, hs0, rfl⟩ := mem_image.1 hs
-  obtain ⟨t0, ht0, rfl⟩ := mem_image.1 ht
-  have hs0t0 : s0 ≠ t0 := fun h => by subst h; exact hst rfl
-  have hinter := packing10_53G_pairwise s0 hs0 t0 ht0 hs0t0
+  have hinter := hpair s0 hs0 t0 ht0 hne
   have hinter' : (mapTri f s0 ∩ mapTri f t0).card ≤ 1 := by
     have : mapTri f s0 ∩ mapTri f t0 = (s0 ∩ t0).image f := by
       simp only [mapTri]; exact (Finset.image_inter s0 t0 hinj).symm
     rw [this]; exact le_trans card_image_le hinter
-  rw [Finset.disjoint_left]
+  rw [← hσ, ← hτ, Finset.disjoint_left]
   intro e heA heB
   have hA := mem_filter.1 heA
   have hB := mem_filter.1 heB
@@ -6756,21 +6885,86 @@ lemma packing53G_disjoint (u v x y z w a_ aPlus b_ bPlus : V)
     (card_le_card hsub).trans' (by simp [card_insert_of_notMem, hab])
   omega
 
-lemma cover53G_card (u v x y z w a_ aPlus b_ bPlus : V)
-    (hinj : Function.Injective (labels10 u v x y z w a_ aPlus b_ bPlus)) :
-    (cover53G u v x y z w a_ aPlus b_ bPlus).card = 12 := by
+lemma packing53G_card (u v x y z w a_ aPlus b_ bPlus αz βy : V)
+    (hinj : Function.Injective (labels10 u v x y z w a_ aPlus b_ bPlus))
+    (hαz : αz = a_ ∨ αz = aPlus) (hβy : βy = b_ ∨ βy = bPlus) :
+    (packing53G u v x y z w αz βy).card = 6 := by
+  let f := labels10 u v x y z w a_ aPlus b_ bPlus
+  have hinjT : Function.Injective (mapTri f) := Finset.image_injective hinj
+  rcases hαz with rfl | rfl <;> rcases hβy with rfl | rfl
+  · rw [← packing53G_image_eq u v x y z w a_ aPlus b_ bPlus,
+      card_image_of_injective _ hinjT, packing10_53G_card]
+  · rw [← packing53G_image_eq_by u v x y z w a_ aPlus b_ bPlus,
+      card_image_of_injective _ hinjT, packing10_53G_by_card]
+  · rw [← packing53G_image_eq_az u v x y z w a_ aPlus b_ bPlus,
+      card_image_of_injective _ hinjT, packing10_53G_az_card]
+  · rw [← packing53G_image_eq_azby u v x y z w a_ aPlus b_ bPlus,
+      card_image_of_injective _ hinjT, packing10_53G_azby_card]
+
+lemma packing53G_disjoint (u v x y z w a_ aPlus b_ bPlus αz βy : V)
+    (hinj : Function.Injective (labels10 u v x y z w a_ aPlus b_ bPlus))
+    (hαz : αz = a_ ∨ αz = aPlus) (hβy : βy = b_ ∨ βy = bPlus) :
+    ∀ σ ∈ packing53G u v x y z w αz βy,
+      ∀ τ ∈ packing53G u v x y z w αz βy,
+        σ ≠ τ → Disjoint (triEdges σ) (triEdges τ) := by
+  intro σ hs τ ht hst
+  rcases hαz with hαz | hαz <;> rcases hβy with hβy | hβy
+  · subst hαz; subst hβy
+    rw [← packing53G_image_eq u v x y z w a_ aPlus b_ bPlus] at hs ht
+    obtain ⟨s0, hs0, rfl⟩ := mem_image.1 hs
+    obtain ⟨t0, ht0, rfl⟩ := mem_image.1 ht
+    exact packing53G_disjoint_of_pairwise u v x y z w a_ aPlus b_ bPlus hinj
+      packing10_53G packing10_53G_pairwise σ τ s0 t0 hs0 ht0
+      (fun h => by subst h; exact hst rfl) rfl rfl
+  · subst hαz; subst hβy
+    rw [← packing53G_image_eq_by u v x y z w a_ aPlus b_ bPlus] at hs ht
+    obtain ⟨s0, hs0, rfl⟩ := mem_image.1 hs
+    obtain ⟨t0, ht0, rfl⟩ := mem_image.1 ht
+    exact packing53G_disjoint_of_pairwise u v x y z w a_ aPlus b_ bPlus hinj
+      packing10_53G_by packing10_53G_by_pairwise σ τ s0 t0 hs0 ht0
+      (fun h => by subst h; exact hst rfl) rfl rfl
+  · subst hαz; subst hβy
+    rw [← packing53G_image_eq_az u v x y z w a_ aPlus b_ bPlus] at hs ht
+    obtain ⟨s0, hs0, rfl⟩ := mem_image.1 hs
+    obtain ⟨t0, ht0, rfl⟩ := mem_image.1 ht
+    exact packing53G_disjoint_of_pairwise u v x y z w a_ aPlus b_ bPlus hinj
+      packing10_53G_az packing10_53G_az_pairwise σ τ s0 t0 hs0 ht0
+      (fun h => by subst h; exact hst rfl) rfl rfl
+  · subst hαz; subst hβy
+    rw [← packing53G_image_eq_azby u v x y z w a_ aPlus b_ bPlus] at hs ht
+    obtain ⟨s0, hs0, rfl⟩ := mem_image.1 hs
+    obtain ⟨t0, ht0, rfl⟩ := mem_image.1 ht
+    exact packing53G_disjoint_of_pairwise u v x y z w a_ aPlus b_ bPlus hinj
+      packing10_53G_azby packing10_53G_azby_pairwise σ τ s0 t0 hs0 ht0
+      (fun h => by subst h; exact hst rfl) rfl rfl
+
+lemma cover53G_card (u v x y z w a_ aPlus b_ bPlus αz βy : V)
+    (hinj : Function.Injective (labels10 u v x y z w a_ aPlus b_ bPlus))
+    (hαz : αz = a_ ∨ αz = aPlus) (hβy : βy = b_ ∨ βy = bPlus) :
+    (cover53G u v x y z w αz aPlus βy bPlus).card = 12 := by
   let f := labels10 u v x y z w a_ aPlus b_ bPlus
   have hinjE : Function.Injective (Sym2.map f) := Sym2.map.injective hinj
-  rw [← cover53G_image_eq u v x y z w a_ aPlus b_ bPlus,
-    card_image_of_injective _ hinjE, cover10_53G_card]
+  rcases hαz with rfl | rfl <;> rcases hβy with rfl | rfl
+  · rw [← cover53G_image_eq u v x y z w a_ aPlus b_ bPlus,
+      card_image_of_injective _ hinjE, cover10_53G_card]
+  · rw [← cover53G_image_eq_by u v x y z w a_ aPlus b_ bPlus,
+      card_image_of_injective _ hinjE, cover10_53G_by_card]
+  · rw [← cover53G_image_eq_az u v x y z w a_ aPlus b_ bPlus,
+      card_image_of_injective _ hinjE, cover10_53G_az_card]
+  · rw [← cover53G_image_eq_azby u v x y z w a_ aPlus b_ bPlus,
+      card_image_of_injective _ hinjE, cover10_53G_azby_card]
 
-/-- **Proposition 5.3 (G)**, labelled: K₄ with fiber inclusions of Lemma 5.2(G). -/
+
+/-- **Proposition 5.3 (G)**, labelled: K₄ with fiber inclusions of Lemma 5.2(G).
+Packing uses attachments αz = α(z) and βy = β(y), which may be a_/aPlus and b_/bPlus. -/
 theorem k4_certificate_G (H : HubConfig G)
-    (x y z w a_ aPlus b_ bPlus : V)
+    (x y z w a_ aPlus b_ bPlus αz βy : V)
     (hC : H.C = {x, y, z, w})
     (hA : H.A = {a_, aPlus}) (hB : H.B = {b_, bPlus})
     (hK4 : G.Adj x y ∧ G.Adj x z ∧ G.Adj x w ∧ G.Adj y z ∧ G.Adj y w ∧ G.Adj z w)
-    (hza : G.Adj z a_) (hyb : G.Adj y b_)
+    (hαz : αz = a_ ∨ αz = aPlus) (hβy : βy = b_ ∨ βy = bPlus)
+    (hzα : G.Adj z αz) (hyβ : G.Adj y βy)
+    (hαz_of : G.Adj z a_ → αz = a_) (hβy_of : G.Adj y b_ → βy = b_)
     (hα : ∀ c ∈ H.C, G.Adj c a_ → c = w ∨ c = z)
     (hβ : ∀ c ∈ H.C, G.Adj c b_ → c = w ∨ c = y)
     (h10 : ({H.u, H.v, x, y, z, w, a_, aPlus, b_, bPlus} : Finset V).card = 10) :
@@ -6778,8 +6972,8 @@ theorem k4_certificate_G (H : HubConfig G)
   classical
   refine ⟨Finset.insert_nonempty _ _, ?_⟩
   let hinj := labels10_injective H.u H.v x y z w a_ aPlus b_ bPlus h10
-  let S := packing53G H.u H.v x y z w a_ b_
-  let X := cover53G H.u H.v x y z w a_ aPlus b_ bPlus
+  let S := packing53G H.u H.v x y z w αz βy
+  let X := cover53G H.u H.v x y z w αz aPlus βy bPlus
   have uvs : G.Adj H.u H.v := H.huv
   have ux : G.Adj H.u x := hub_adj_CA G H (mem_union_left _ (by rw [hC]; simp))
   have uy : G.Adj H.u y := hub_adj_CA G H (mem_union_left _ (by rw [hC]; simp))
@@ -6793,6 +6987,8 @@ theorem k4_certificate_G (H : HubConfig G)
   have vw : G.Adj H.v w := hub_adj_CB G H (mem_union_left _ (by rw [hC]; simp))
   have vb_adj : G.Adj H.v b_ := hub_adj_CB G H (mem_union_right _ (by rw [hB]; simp))
   have vbP : G.Adj H.v bPlus := hub_adj_CB G H (mem_union_right _ (by rw [hB]; simp))
+  have uαz : G.Adj H.u αz := by rcases hαz with rfl | rfl; exact ua_adj; exact uaP
+  have vβy : G.Adj H.v βy := by rcases hβy with rfl | rfl; exact vb_adj; exact vbP
   have hdist := core4_distinct G H hC
   have ⟨hxy, hxz, hxw, hyz, hyw, hzw⟩ := hdist
   have not_u_C : H.u ∉ H.C := H.huB.2
@@ -6816,22 +7012,22 @@ theorem k4_certificate_G (H : HubConfig G)
   have c_vzw : ({H.v, z, w} : Finset V).card = 3 :=
     c3 (ne_z_of_core G H (by rw [hC]; simp))
       (ne_z_of_core G H (by rw [hC]; simp)) hzw
-  have c_uza : ({H.u, z, a_} : Finset V).card = 3 :=
+  have memA_αz : αz ∈ H.A := by rcases hαz with rfl | rfl <;> simp [hA]
+  have memB_βy : βy ∈ H.B := by rcases hβy with rfl | rfl <;> simp [hB]
+  have c_uza : ({H.u, z, αz} : Finset V).card = 3 :=
     c3 (fun eq => not_u_C (by rw [hC, eq]; simp))
-      (fun eq => not_u_A (by rw [hA, eq]; simp))
-      (ne_core_priv G H (by rw [hC]; simp) (by rw [hA]; simp))
-  have c_vyb : ({H.v, y, b_} : Finset V).card = 3 :=
+      (fun eq => not_u_A (by rwa [← eq] at memA_αz))
+      (ne_core_priv G H (by rw [hC]; simp) memA_αz)
+  have c_vyb : ({H.v, y, βy} : Finset V).card = 3 :=
     c3 (ne_z_of_core G H (by rw [hC]; simp))
       (fun eq => by
         have : H.v ∈ G.neighborFinset H.v := by
-          rw [H.hNv, hB, eq]; simp
+          rw [H.hNv]; exact mem_insert_of_mem (mem_union_right _ (eq ▸ memB_βy))
         exact G.irrefl ((G.mem_neighborFinset _ _).1 this))
-      (fun h => Finset.disjoint_left.1 H.hBdisj
-        (by simp [hB] : b_ ∈ H.B)
-        (by rw [← h]; simp [hC] : b_ ∈ H.C))
+      (fun h => Finset.disjoint_left.1 H.hBdisj memB_βy (by subst h; simp [hC]))
 
   have hpack : IsTrianglePacking G S := by
-    refine ⟨?_, packing53G_disjoint H.u H.v x y z w a_ aPlus b_ bPlus hinj⟩
+    refine ⟨?_, packing53G_disjoint H.u H.v x y z w a_ aPlus b_ bPlus αz βy hinj hαz hβy⟩
     intro t ht
     simp only [S, packing53G, mem_insert, mem_singleton] at ht
     rcases ht with rfl | rfl | rfl | rfl | rfl | rfl
@@ -6839,8 +7035,8 @@ theorem k4_certificate_G (H : HubConfig G)
     · exact is3clique_of_adj G uvs ux vx c_uvx
     · exact is3clique_of_adj G uy uw hK4.2.2.2.2.1 c_uyw
     · exact is3clique_of_adj G vz vw hK4.2.2.2.2.2 c_vzw
-    · exact is3clique_of_adj G uz ua_adj hza c_uza
-    · exact is3clique_of_adj G vy vb_adj hyb c_vyb
+    · exact is3clique_of_adj G uz uαz hzα c_uza
+    · exact is3clique_of_adj G vy vβy hyβ c_vyb
   have hXedges : ∀ e ∈ X, e ∈ G.edgeFinset := by
     intro e he
     simp only [X, cover53G, mem_insert, mem_singleton] at he
@@ -6850,15 +7046,15 @@ theorem k4_certificate_G (H : HubConfig G)
     · subst h; exact (mem_edgeFinset).2 hK4.2.2.2.1
     · subst h; exact (mem_edgeFinset).2 hK4.2.2.2.2.1
     · subst h; exact (mem_edgeFinset).2 hK4.2.2.2.2.2
-    · subst h; exact (mem_edgeFinset).2 hza
-    · subst h; exact (mem_edgeFinset).2 hyb
+    · subst h; exact (mem_edgeFinset).2 hzα
+    · subst h; exact (mem_edgeFinset).2 hyβ
     · subst h; exact (mem_edgeFinset).2 uvs
     · subst h; exact (mem_edgeFinset).2 uw
     · subst h; exact (mem_edgeFinset).2 vw
     · subst h; exact (mem_edgeFinset).2 uaP
     · subst h; exact (mem_edgeFinset).2 vbP
-  have hcardS := packing53G_card H.u H.v x y z w a_ aPlus b_ bPlus hinj
-  have hcardX := cover53G_card H.u H.v x y z w a_ aPlus b_ bPlus hinj
+  have hcardS := packing53G_card H.u H.v x y z w a_ aPlus b_ bPlus αz βy hinj hαz hβy
+  have hcardX := cover53G_card H.u H.v x y z w a_ aPlus b_ bPlus αz βy hinj hαz hβy
   have hsize : X.card ≤ 2 * S.card := by
     have hS : S.card = 6 := hcardS
     have hX : X.card = 12 := hcardX
@@ -6979,7 +7175,8 @@ theorem k4_certificate_G (H : HubConfig G)
             · exact meet s(H.u, w) (by simp [X, cover53G]) (hpy ▸ him_zy)
             · have hrim' : s(z, a_) ∈ triEdges t := by
                 simpa [hpxa, hpy, Sym2.eq_swap] using him_rim
-              exact meet s(z, a_) (by simp [X, cover53G]) hrim'
+              have hαeq : αz = a_ := hαz_of (by simpa [hpy] using hadj'.symm)
+              exact meet s(z, αz) (by simp [X, cover53G]) (by simpa [hαeq] using hrim')
         · exact meet s(H.u, aPlus) (by simp [X, cover53G]) (hpxa ▸ him_zx)
       by_cases hyA : py ∈ H.A
       · have hpa : py = a_ ∨ py = aPlus := by simpa [hA] using hyA
@@ -6990,7 +7187,8 @@ theorem k4_certificate_G (H : HubConfig G)
           rcases hxwz with hpx | hpx
           · exact meet s(H.u, w) (by simp [X, cover53G]) (hpx ▸ him_zx)
           · have hrim' : s(z, a_) ∈ triEdges t := by simpa [hpx, hpya] using him_rim
-            exact meet s(z, a_) (by simp [X, cover53G]) hrim'
+            have hαeq : αz = a_ := hαz_of (by simpa [hpx] using hadj')
+            exact meet s(z, αz) (by simp [X, cover53G]) (by simpa [hαeq] using hrim')
         · exact meet s(H.u, aPlus) (by simp [X, cover53G]) (hpya ▸ him_zy)
       · have hxC : px ∈ H.C := (mem_union.1 hxCA).resolve_right hxA
         have hyC : py ∈ H.C := (mem_union.1 hyCA).resolve_right hyA
@@ -7035,7 +7233,8 @@ theorem k4_certificate_G (H : HubConfig G)
             · exact meet s(H.v, w) (by simp [X, cover53G]) (hpy ▸ him_zy)
             · have hrim' : s(y, b_) ∈ triEdges t := by
                 simpa [hpxb, hpy, Sym2.eq_swap] using him_rim
-              exact meet s(y, b_) (by simp [X, cover53G]) hrim'
+              have hβeq : βy = b_ := hβy_of (by simpa [hpy] using hadj'.symm)
+              exact meet s(y, βy) (by simp [X, cover53G]) (by simpa [hβeq] using hrim')
         · exact meet s(H.v, bPlus) (by simp [X, cover53G]) (hpxb ▸ him_zx)
       by_cases hyB : py ∈ H.B
       · have hpb : py = b_ ∨ py = bPlus := by simpa [hB] using hyB
@@ -7046,7 +7245,8 @@ theorem k4_certificate_G (H : HubConfig G)
           rcases hxwy with hpx | hpx
           · exact meet s(H.v, w) (by simp [X, cover53G]) (hpx ▸ him_zx)
           · have hrim' : s(y, b_) ∈ triEdges t := by simpa [hpx, hpyb] using him_rim
-            exact meet s(y, b_) (by simp [X, cover53G]) hrim'
+            have hβeq : βy = b_ := hβy_of (by simpa [hpx] using hadj')
+            exact meet s(y, βy) (by simp [X, cover53G]) (by simpa [hβeq] using hrim')
         · exact meet s(H.v, bPlus) (by simp [X, cover53G]) (hpyb ▸ him_zy)
       · have hxC : px ∈ H.C := (mem_union.1 hxCB).resolve_right hxB
         have hyC : py ∈ H.C := (mem_union.1 hyCB).resolve_right hyB
@@ -8081,81 +8281,28 @@ theorem k4_core_reducible (H : HubConfig G) (hA1 : H.A1) (hA2 : H.A2)
     have hC4' : ({x', y', z', w'} : Finset V).card = 4 := by rw [← hC']; exact H.hCcard
     have h10 := labels10_of_hub G H hC' haP hbP hC4' hneA hneB
     have hK4' := k4_of hC'
-    by_cases hz : α z' = a_
-    · by_cases hy : β y' = b_
-      · have hza : G.Adj z' a_ := by
-          have := (hα z' (by rw [hC']; simp)).2; rwa [hz] at this
-        have hyb : G.Adj y' b_ := by
-          have := (hβ y' (by rw [hC']; simp)).2; rwa [hy] at this
-        exact k4_certificate_G G H x' y' z' w' a_ aPlus b_ bPlus hC' haP hbP hK4'
-          hza hyb
-          (fun c hc hadj => hαG c hc (α_eq c hc ha_ hadj))
-          (fun c hc hadj => hβG c hc (β_eq c hc hb_ hadj)) h10
-      · -- β y' ≠ b_: fiber of b_ is ⊆ {w', y'}, so either empty or β w' = b_
-        by_cases hβw : β w' = b_
-        · by_cases hαw : α w' = a_
-          · -- both fibers at w' while α(z')=a_ and β(y')≠b_: needs gen packing
-            sorry
-          · -- α w' ≠ a_: y↔w safe for α
-            have hC2 : H.C = {x', w', z', y'} := by
-              rw [hC']; ext; simp [or_comm, or_left_comm, or_assoc]
-            have hK42 := k4_of hC2
-            have hza : G.Adj z' a_ := by
-              have := (hα z' (by rw [hC']; simp)).2; rwa [hz] at this
-            have hyb : G.Adj w' b_ := by
-              have := (hβ w' (by rw [hC']; simp)).2; rwa [hβw] at this
-            have h10' := labels10_of_hub G H hC2 haP hbP (by rw [← hC2]; exact H.hCcard) hneA hneB
-            exact k4_certificate_G G H x' w' z' y' a_ aPlus b_ bPlus hC2 haP hbP hK42
-              hza hyb
-              (fun c hc hadj => by
-                have h := hαG c hc (α_eq c hc ha_ hadj)
-                rcases h with hc' | rfl
-                · have : α c = a_ := α_eq c hc ha_ hadj
-                  exact False.elim (hαw (hc' ▸ this))
-                · exact Or.inr rfl)
-              (fun c hc hadj => by
-                have h := hβG c hc (β_eq c hc hb_ hadj)
-                simpa [or_comm] using h) h10'
-        · -- β fiber empty; needs gen packing with βy = bPlus
-          sorry
-    · -- α z' ≠ a_
-      by_cases hαw : α w' = a_
-      · -- Swap z ↔ w
-        by_cases hy : β y' = b_
-        · by_cases hβw : β w' = b_
-          · -- both fibers meet at w' — hard case
-            sorry
-          · -- swap z↔w safe for β (β w' ≠ b_)
-            have hC2 : H.C = {x', y', w', z'} := by
-              rw [hC']; ext; simp [or_comm, or_left_comm, or_assoc]
-            have hK42 := k4_of hC2
-            have hza : G.Adj w' a_ := by
-              have := (hα w' (by rw [hC']; simp)).2; rwa [hαw] at this
-            have hyb : G.Adj y' b_ := by
-              have := (hβ y' (by rw [hC']; simp)).2; rwa [hy] at this
-            have h10' := labels10_of_hub G H hC2 haP hbP (by rw [← hC2]; exact H.hCcard) hneA hneB
-            exact k4_certificate_G G H x' y' w' z' a_ aPlus b_ bPlus hC2 haP hbP hK42
-              hza hyb
-              (fun c hc hadj => by
-                have h := hαG c hc (α_eq c hc ha_ hadj)
-                -- old ⊆ {w',z'}; new need ⊆ {z', w'} same
-                simpa [or_comm] using h)
-              (fun c hc hadj => by
-                have h := hβG c hc (β_eq c hc hb_ hadj)
-                rcases h with hc' | rfl
-                · have : β c = b_ := β_eq c hc hb_ hadj
-                  exact False.elim (hβw (hc' ▸ this))
-                · exact Or.inr rfl) h10'
-        · -- β y' ≠ b_
-          by_cases hβw : β w' = b_
-          · -- α at w', β at w': swap z↔w then need β(y)=b_ still false
-            -- After z↔w: α OK; then swap y↔w_new=z_old: ...
-            sorry
-          · -- both fibers empty on the preferred verts — β fiber empty, α at w' only
-            -- swap z↔w, then β fiber empty: still need Adj y b_
-            sorry
-      · -- α fiber empty (neither z' nor w')
-        sorry
+    have hzC : z' ∈ H.C := by rw [hC']; simp
+    have hyC : y' ∈ H.C := by rw [hC']; simp
+    have ha_A : a_ ∈ H.A := by simp [haP]
+    have hb_B : b_ ∈ H.B := by simp [hbP]
+    let αz := α z'
+    let βy := β y'
+    have hαz : αz = a_ ∨ αz = aPlus := by
+      have : αz ∈ H.A := hαA z' hzC
+      simpa [haP, αz] using this
+    have hβy : βy = b_ ∨ βy = bPlus := by
+      have : βy ∈ H.B := hβB y' hyC
+      simpa [hbP, βy] using this
+    have hzα : G.Adj z' αz := (hα z' hzC).2
+    have hyβ : G.Adj y' βy := (hβ y' hyC).2
+    have hαz_of : G.Adj z' a_ → αz = a_ := fun hadj =>
+      α_eq z' hzC ha_A hadj
+    have hβy_of : G.Adj y' b_ → βy = b_ := fun hadj =>
+      β_eq y' hyC hb_B hadj
+    exact k4_certificate_G G H x' y' z' w' a_ aPlus b_ bPlus αz βy
+      hC' haP hbP hK4' hαz hβy hzα hyβ hαz_of hβy_of
+      (fun c hc hadj => hαG c hc (α_eq c hc ha_A hadj))
+      (fun c hc hadj => hβG c hc (β_eq c hc hb_B hadj)) h10
   · obtain ⟨x', y', z', w', a, a', b, b', hC', hA', hB', hneA, hneB,
         hαx, hαy, hαz, hαw, hβx, hβy, hβz, hβw⟩ := hE
     have hC4E : ({x', y', z', w'} : Finset V).card = 4 := by rw [← hC']; exact H.hCcard
