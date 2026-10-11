@@ -43,13 +43,13 @@ This is proved for general k (no enumeration over k). The general statements are
   Lemma 4.1(1)–(3) full; Lemmas 4.3 and 4.4(1);
   **Lemma 4.5** (`lemma45_certificate`) Fin-10 packing/cover;
   **Prop 4.6** (`star_core_reducible`) full;
-  Prop 4.7 crossed case (`path_core_reducible_of_cross`).
-  **`structural_codegree_four`:** wires matching 2K₂, star K₁,₃, and path
-  crossed attachments; remaining sorry for P₃∪K₁ same-singleton+(A2), P₄,
-  C₄, paw, denser cores.
+  **Lemma 4.4(2)** (`path_center_both_privates`) full;
+  **Prop 4.7** (`path_core_reducible`) full (crossed + same-singleton+(A2));
+  **`structural_codegree_four`:** wires matching 2K₂, star K₁,₃, and full path
+  P₃∪K₁; remaining sorry for P₄, C₄, paw, denser cores.
 
-  Paper note: Lemma 4.5 / Props 4.6–4.7 (crossed) match; no gap found.
-  Bottleneck: Prop 4.7 same-singleton (needs Lemma 4.4(2)), Prop 4.9 (P₄), denser.
+  Paper note: Lemmas 4.3–4.5 / Props 4.6–4.7 match; no gap found.
+  Next: Lemma 4.8 / Prop 4.9 (P₄), then denser cores.
 
 ## Build
 
