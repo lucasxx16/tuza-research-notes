@@ -745,13 +745,13 @@ def cover10 : Finset (Sym2 (Fin 10)) :=
   {s(0, 1), s(0, 6), s(0, 7), s(1, 8), s(1, 9),
    s(2, 5), s(3, 4), s(3, 7), s(4, 6), s(2, 9)}
 
-lemma packing10_card : packing10.card = 5 := by native_decide
+lemma packing10_card : packing10.card = 5 := by decide +kernel
 
-lemma cover10_card : cover10.card = 10 := by native_decide
+lemma cover10_card : cover10.card = 10 := by decide +kernel
 
 lemma packing10_pairwise_inter_le_one :
     ∀ s ∈ packing10, ∀ t ∈ packing10, s ≠ t → (s ∩ t).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 private def mapTri (f : Fin 10 → V) (t : Finset (Fin 10)) : Finset V := t.image f
 
@@ -3461,13 +3461,13 @@ def cover10_45 : Finset (Sym2 (Fin 10)) :=
   {s(0, 1), s(0, 6), s(0, 7), s(1, 8), s(1, 9),
    s(2, 3), s(2, 4), s(3, 7), s(4, 9)}
 
-lemma packing10_45_card : packing10_45.card = 5 := by native_decide
+lemma packing10_45_card : packing10_45.card = 5 := by decide +kernel
 
-lemma cover10_45_card : cover10_45.card = 9 := by native_decide
+lemma cover10_45_card : cover10_45.card = 9 := by decide +kernel
 
 lemma packing10_45_pairwise_inter_le_one :
     ∀ s ∈ packing10_45, ∀ t ∈ packing10_45, s ≠ t → (s ∩ t).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 def packing45 (u v p q r s a b : V) : Finset (Finset V) :=
   {{u, v, s}, {u, p, r}, {u, q, a}, {v, p, q}, {v, r, b}}
@@ -3836,11 +3836,11 @@ def cover10_48 : Finset (Sym2 (Fin 10)) :=
   {s(0, 1), s(0, 6), s(0, 7), s(1, 8), s(1, 9),
    s(2, 3), s(3, 4), s(4, 5), s(2, 7), s(4, 9)}
 
-lemma packing10_48_card : packing10_48.card = 5 := by native_decide
-lemma cover10_48_card : cover10_48.card = 10 := by native_decide
+lemma packing10_48_card : packing10_48.card = 5 := by decide +kernel
+lemma cover10_48_card : cover10_48.card = 10 := by decide +kernel
 lemma packing10_48_pairwise_inter_le_one :
     ∀ σ ∈ packing10_48, ∀ τ ∈ packing10_48, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 def packing48 (u v p q r s a b : V) : Finset (Finset V) :=
   {{u, v, s}, {u, q, r}, {u, p, a}, {v, p, q}, {v, r, b}}
@@ -6648,11 +6648,11 @@ def cover10_53G : Finset (Sym2 (Fin 10)) :=
   {s(2, 3), s(2, 4), s(3, 4), s(3, 5), s(4, 5), s(4, 6), s(3, 8),
    s(0, 1), s(0, 5), s(1, 5), s(0, 7), s(1, 9)}
 
-lemma packing10_53G_card : packing10_53G.card = 6 := by native_decide
-lemma cover10_53G_card : cover10_53G.card = 12 := by native_decide
+lemma packing10_53G_card : packing10_53G.card = 6 := by decide +kernel
+lemma cover10_53G_card : cover10_53G.card = 12 := by decide +kernel
 lemma packing10_53G_pairwise :
     ∀ σ ∈ packing10_53G, ∀ τ ∈ packing10_53G, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 /-- αz = aPlus (7), βy = b_ (8) -/
 def packing10_53G_az : Finset (Finset (Fin 10)) :=
@@ -6673,21 +6673,21 @@ def cover10_53G_azby : Finset (Sym2 (Fin 10)) :=
   {s(2, 3), s(2, 4), s(3, 4), s(3, 5), s(4, 5), s(4, 7), s(3, 9),
    s(0, 1), s(0, 5), s(1, 5), s(0, 7), s(1, 9)}
 
-lemma packing10_53G_az_card : packing10_53G_az.card = 6 := by native_decide
-lemma packing10_53G_by_card : packing10_53G_by.card = 6 := by native_decide
-lemma packing10_53G_azby_card : packing10_53G_azby.card = 6 := by native_decide
-lemma cover10_53G_az_card : cover10_53G_az.card = 12 := by native_decide
-lemma cover10_53G_by_card : cover10_53G_by.card = 12 := by native_decide
-lemma cover10_53G_azby_card : cover10_53G_azby.card = 12 := by native_decide
+lemma packing10_53G_az_card : packing10_53G_az.card = 6 := by decide +kernel
+lemma packing10_53G_by_card : packing10_53G_by.card = 6 := by decide +kernel
+lemma packing10_53G_azby_card : packing10_53G_azby.card = 6 := by decide +kernel
+lemma cover10_53G_az_card : cover10_53G_az.card = 12 := by decide +kernel
+lemma cover10_53G_by_card : cover10_53G_by.card = 12 := by decide +kernel
+lemma cover10_53G_azby_card : cover10_53G_azby.card = 12 := by decide +kernel
 lemma packing10_53G_az_pairwise :
     ∀ σ ∈ packing10_53G_az, ∀ τ ∈ packing10_53G_az, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 lemma packing10_53G_by_pairwise :
     ∀ σ ∈ packing10_53G_by, ∀ τ ∈ packing10_53G_by, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 lemma packing10_53G_azby_pairwise :
     ∀ σ ∈ packing10_53G_azby, ∀ τ ∈ packing10_53G_azby, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 def packing53G (u v x y z w αz βy : V) : Finset (Finset V) :=
   {{x, y, z}, {u, v, x}, {u, y, w}, {v, z, w}, {u, z, αz}, {v, y, βy}}
@@ -7297,7 +7297,7 @@ def isG42 (α β : Fin 4 → Fin 2) : Bool :=
 private lemma lemma52_fin : ∀ n m : Fin 16,
     isG42 (decode42 n) (decode42 m) = true ∨
     isE42 (decode42 n) (decode42 m) = true := by
-  native_decide
+  decide +kernel
 
 /-- **Lemma 5.2**: maps `C → A`, `C → B` fall into alternative (G) or (E). -/
 theorem lemma52 {C A B : Finset V}
@@ -7508,16 +7508,16 @@ def cover10_53E_aw : Finset (Sym2 (Fin 10)) :=
   {s(6, 2), s(6, 3), s(2, 3), s(3, 4), s(7, 5), s(3, 8), s(4, 5),
    s(0, 4), s(0, 5), s(1, 2), s(1, 3), s(1, 9)}
 
-lemma packing10_53E_aa_card : packing10_53E_aa.card = 6 := by native_decide
-lemma packing10_53E_aw_card : packing10_53E_aw.card = 6 := by native_decide
-lemma cover10_53E_aa_card : cover10_53E_aa.card = 12 := by native_decide
-lemma cover10_53E_aw_card : cover10_53E_aw.card = 12 := by native_decide
+lemma packing10_53E_aa_card : packing10_53E_aa.card = 6 := by decide +kernel
+lemma packing10_53E_aw_card : packing10_53E_aw.card = 6 := by decide +kernel
+lemma cover10_53E_aa_card : cover10_53E_aa.card = 12 := by decide +kernel
+lemma cover10_53E_aw_card : cover10_53E_aw.card = 12 := by decide +kernel
 lemma packing10_53E_aa_pairwise :
     ∀ σ ∈ packing10_53E_aa, ∀ τ ∈ packing10_53E_aa, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 lemma packing10_53E_aw_pairwise :
     ∀ σ ∈ packing10_53E_aw, ∀ τ ∈ packing10_53E_aw, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 def packing53E (u v x y z w a a' d b : V) : Finset (Finset V) :=
   {{a, x, y}, {u, v, x}, {u, y, z}, {u, a', d}, {v, y, b}, {v, z, w}}
@@ -8654,11 +8654,11 @@ def cover10_D1 : Finset (Sym2 (Fin 10)) :=
   {s(3, 4), s(2, 6), s(3, 8), s(2, 4),
    s(0, 1), s(0, 5), s(0, 7), s(1, 5), s(1, 8), s(1, 9)}
 
-lemma packing10_D1_card : packing10_D1.card = 5 := by native_decide
-lemma cover10_D1_card : cover10_D1.card = 10 := by native_decide
+lemma packing10_D1_card : packing10_D1.card = 5 := by decide +kernel
+lemma cover10_D1_card : cover10_D1.card = 10 := by decide +kernel
 lemma packing10_D1_pairwise :
     ∀ σ ∈ packing10_D1, ∀ τ ∈ packing10_D1, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 /-- D1 packing: `{uvq, uyp, uxa, vyc, vpx}`. -/
 def packingD1 (u v x y p q a c : V) : Finset (Finset V) :=
@@ -8991,11 +8991,11 @@ def cover10_D3 : Finset (Sym2 (Fin 10)) :=
   {s(2, 4), s(3, 6), s(2, 8), s(3, 4),
    s(0, 1), s(0, 5), s(0, 6), s(1, 5), s(1, 8)}
 
-lemma packing10_D3_card : packing10_D3.card = 5 := by native_decide
-lemma cover10_D3_card : cover10_D3.card = 9 := by native_decide
+lemma packing10_D3_card : packing10_D3.card = 5 := by decide +kernel
+lemma cover10_D3_card : cover10_D3.card = 9 := by decide +kernel
 lemma packing10_D3_pairwise :
     ∀ σ ∈ packing10_D3, ∀ τ ∈ packing10_D3, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 /-- D3 packing: `{uvq, uxp, uya, vxc, vyp}`. -/
 def packingD3 (u v x y p q a c : V) : Finset (Finset V) :=
@@ -9340,11 +9340,11 @@ def cover10_D5 : Finset (Sym2 (Fin 10)) :=
    s(6, 7), s(8, 9), s(4, 9), s(5, 9),
    s(0, 1), s(0, 6), s(0, 7), s(1, 8), s(1, 9)}
 
-lemma packing10_D5_card : packing10_D5.card = 7 := by native_decide
-lemma cover10_D5_card : cover10_D5.card = 14 := by native_decide
+lemma packing10_D5_card : packing10_D5.card = 7 := by decide +kernel
+lemma cover10_D5_card : cover10_D5.card = 14 := by decide +kernel
 lemma packing10_D5_pairwise :
     ∀ σ ∈ packing10_D5, ∀ τ ∈ packing10_D5, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 /-- D5 packing: `{uxq, uyp, uab, vxp, vyq, vcd, dpq}`. -/
 def packingD5 (u v x y p q a b c d : V) : Finset (Finset V) :=
@@ -9680,11 +9680,11 @@ def cover10_D2 : Finset (Sym2 (Fin 10)) :=
   {s(2, 6), s(4, 7), s(3, 5), s(2, 4), s(3, 8), s(5, 9),
    s(0, 3), s(0, 5), s(1, 2), s(1, 4), s(1, 9)}
 
-lemma packing10_D2_card : packing10_D2.card = 6 := by native_decide
-lemma cover10_D2_card : cover10_D2.card = 11 := by native_decide
+lemma packing10_D2_card : packing10_D2.card = 6 := by decide +kernel
+lemma cover10_D2_card : cover10_D2.card = 11 := by decide +kernel
 lemma packing10_D2_pairwise :
     ∀ σ ∈ packing10_D2, ∀ τ ∈ packing10_D2, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 /-- D2 packing: `{uxa, upb, uyq, vxp, vyc, vqd}`. -/
 def packingD2 (u v x y p q a b c d : V) : Finset (Finset V) :=
@@ -10112,11 +10112,11 @@ def cover10_D4 : Finset (Sym2 (Fin 10)) :=
   {s(2, 4), s(2, 6), s(4, 6), s(3, 5), s(3, 8), s(5, 9), s(6, 7),
    s(0, 3), s(0, 5), s(1, 2), s(1, 4), s(1, 9)}
 
-lemma packing10_D4_card : packing10_D4.card = 6 := by native_decide
-lemma cover10_D4_card : cover10_D4.card = 12 := by native_decide
+lemma packing10_D4_card : packing10_D4.card = 6 := by decide +kernel
+lemma cover10_D4_card : cover10_D4.card = 12 := by decide +kernel
 lemma packing10_D4_pairwise :
     ∀ σ ∈ packing10_D4, ∀ τ ∈ packing10_D4, σ ≠ τ → (σ ∩ τ).card ≤ 1 := by
-  native_decide
+  decide +kernel
 
 /-- D4 packing: `{uvx, uyq, uab, vyc, vqd, xpa}`. -/
 def packingD4 (u v x y p q a b c d : V) : Finset (Finset V) :=

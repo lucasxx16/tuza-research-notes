@@ -23,20 +23,20 @@ theorem k5pack3 : ∀ a ∈ (univ : Finset (Fin 5)).powersetCard 3,
     ∀ b ∈ (univ : Finset (Fin 5)).powersetCard 3, ∀ c ∈ (univ : Finset (Fin 5)).powersetCard 3,
     a ≠ b → a ≠ c → b ≠ c → (triEdges a ∩ triEdges b).Nonempty ∨
       (triEdges a ∩ triEdges c).Nonempty ∨ (triEdges b ∩ triEdges c).Nonempty := by
-  native_decide
+  decide +kernel
 
 theorem k4pack2 : ∀ a ∈ (univ : Finset (Fin 4)).powersetCard 3,
     ∀ b ∈ (univ : Finset (Fin 4)).powersetCard 3, a ≠ b → (triEdges a ∩ triEdges b).Nonempty := by
-  native_decide
+  decide +kernel
 
 theorem k5cover3 : ∀ x ∈ triEdges (univ : Finset (Fin 5)), ∀ y ∈ triEdges (univ : Finset (Fin 5)),
     ∀ z ∈ triEdges (univ : Finset (Fin 5)), ∃ t ∈ (univ : Finset (Fin 5)).powersetCard 3,
       x ∉ triEdges t ∧ y ∉ triEdges t ∧ z ∉ triEdges t := by
-  native_decide
+  decide +kernel
 
 theorem k4cover1 : ∀ x ∈ triEdges (univ : Finset (Fin 4)),
     ∃ t ∈ (univ : Finset (Fin 4)).powersetCard 3, x ∉ triEdges t := by
-  native_decide
+  decide +kernel
 
 theorem k5pack : ∀ S ⊆ (univ : Finset (Fin 5)).powersetCard 3,
     (∀ s ∈ S, ∀ t ∈ S, s ≠ t → triEdges s ∩ triEdges t = ∅) → S.card ≤ 2 := by

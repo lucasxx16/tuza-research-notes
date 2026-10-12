@@ -23,9 +23,9 @@ instance : DecidableRel G.Adj := fun a b => by unfold G; infer_instance
 theorem card_V : Fintype.card V = 20 := by rfl
 
 theorem regular : G.IsRegularOfDegree 7 := by
-  intro v; rw [← SimpleGraph.card_neighborFinset_eq_degree]; revert v; native_decide
+  intro v; rw [← SimpleGraph.card_neighborFinset_eq_degree]; revert v; decide +kernel
 
-theorem card_edges : G.edgeFinset.card = 70 := by native_decide
+theorem card_edges : G.edgeFinset.card = 70 := by decide +kernel
 
 theorem connected : G.Connected := by
   have key : ∀ a b : V, G.Reachable a b := by
@@ -58,6 +58,9 @@ def tauBound : Fin 4 ⊕ Fin 5 → ℕ | .inl _ => 4 | .inr _ => 2
 def rowEmb (i : Fin 4) : Fin 5 ↪ V := ⟨fun j => (i, j), fun _ _ h => (Prod.ext_iff.1 h).2⟩
 def colEmb (j : Fin 5) : Fin 4 ↪ V := ⟨fun i => (i, j), fun _ _ h => (Prod.ext_iff.1 h).1⟩
 
+theorem rowEmb_apply (i : Fin 4) (j : Fin 5) : rowEmb i j = (i, j) := rfl
+theorem colEmb_apply (j : Fin 5) (i : Fin 4) : colEmb j i = (i, j) := rfl
+
 theorem fiberVerts_inl (i : Fin 4) : fiberVerts (.inl i) = univ.map (rowEmb i) := by
   ext ⟨a, b⟩
   simp only [fiberVerts, mem_filter, mem_univ, true_and]
@@ -89,7 +92,7 @@ theorem fiberTris_clique (k) {t : Finset V} (ht : t ∈ fiberTris k) : t ∈ G.c
     exact Or.inr ⟨hx'.trans hy'.symm, fun h => hxy (Prod.ext h (hx'.trans hy'.symm))⟩
 
 theorem adj3 : ∀ a b c : V, G.Adj a b → G.Adj a c → G.Adj b c →
-    (a.1 = b.1 ∧ a.1 = c.1) ∨ (a.2 = b.2 ∧ a.2 = c.2) := by native_decide
+    (a.1 = b.1 ∧ a.1 = c.1) ∨ (a.2 = b.2 ∧ a.2 = c.2) := by decide +kernel
 
 /-- Every triangle lies in a single fiber. -/
 theorem tri_in_fiber (t : Finset V) (ht : t ∈ G.cliqueFinset 3) : ∃ k, t ∈ fiberTris k := by
@@ -115,7 +118,7 @@ theorem tri_in_fiber (t : Finset V) (ht : t ∈ G.cliqueFinset 3) : ∃ k, t ∈
     · exact h2.symm
 
 theorem every_edge_in_fiber_triangle :
-    ∀ e ∈ G.edgeFinset, ∃ k, ∃ t ∈ fiberTris k, e ∈ triEdges t := by native_decide
+    ∀ e ∈ G.edgeFinset, ∃ k, ∃ t ∈ fiberTris k, e ∈ triEdges t := by decide +kernel
 
 theorem every_edge_in_triangle :
     ∀ e ∈ G.edgeFinset, ∃ t ∈ G.cliqueFinset 3, e ∈ triEdges t := by
@@ -123,7 +126,7 @@ theorem every_edge_in_triangle :
   obtain ⟨k, t, ht, het⟩ := every_edge_in_fiber_triangle e he
   exact ⟨t, fiberTris_clique k ht, het⟩
 
-theorem fiberTris_disj' : ∀ k l, k ≠ l → fiberTris k ∩ fiberTris l = ∅ := by native_decide
+theorem fiberTris_disj' : ∀ k l, k ≠ l → fiberTris k ∩ fiberTris l = ∅ := by decide +kernel
 
 theorem fiberTris_disj (k l) (h : k ≠ l) : Disjoint (fiberTris k) (fiberTris l) :=
   Finset.disjoint_iff_inter_eq_empty.2 (fiberTris_disj' k l h)
@@ -181,18 +184,92 @@ def X₀ : Finset (Sym2 V) :=
     ({s((i, 0), (i, 1)), s((i, 2), (i, 3)), s((i, 2), (i, 4)), s((i, 3), (i, 4))} :
       Finset (Sym2 V)))
 
-theorem P₀_fib : ∀ t ∈ P₀, ∃ k, t ∈ fiberTris k := by native_decide
-theorem P₀_disj : ∀ s ∈ P₀, ∀ t ∈ P₀, s ≠ t → triEdges s ∩ triEdges t = ∅ := by native_decide
-theorem P₀_card : P₀.card = 13 := by native_decide
+def T1 (j : Fin 5) : Finset V := {(0, j), (1, j), (2, j)}
+def T2 (i : Fin 4) : Finset V := {(i, 0), (i, 1), (i, 2)}
+def T3 (i : Fin 4) : Finset V := {(i, 0), (i, 3), (i, 4)}
+
+theorem mem_P₀ {t : Finset V} (ht : t ∈ P₀) :
+    (∃ j, t = T1 j) ∨ (∃ i, t = T2 i) ∨ (∃ i, t = T3 i) := by
+  simp only [P₀, mem_union, mem_image, mem_univ, true_and] at ht
+  rcases ht with (⟨j, rfl⟩ | ⟨i, rfl⟩) | ⟨i, rfl⟩
+  · exact Or.inl ⟨j, rfl⟩
+  · exact Or.inr (Or.inl ⟨i, rfl⟩)
+  · exact Or.inr (Or.inr ⟨i, rfl⟩)
+
+theorem T1_fib : ∀ j, T1 j ∈ fiberTris (.inr j) := by decide +kernel
+theorem T2_fib : ∀ i, T2 i ∈ fiberTris (.inl i) := by decide +kernel
+theorem T3_fib : ∀ i, T3 i ∈ fiberTris (.inl i) := by decide +kernel
+
+theorem P₀_fib : ∀ t ∈ P₀, ∃ k, t ∈ fiberTris k := by
+  intro t ht
+  rcases mem_P₀ ht with ⟨j, rfl⟩ | ⟨i, rfl⟩ | ⟨i, rfl⟩
+  · exact ⟨_, T1_fib j⟩
+  · exact ⟨_, T2_fib i⟩
+  · exact ⟨_, T3_fib i⟩
+
+theorem d11 : ∀ x y, T1 x ≠ T1 y → triEdges (T1 x) ∩ triEdges (T1 y) = ∅ := by decide +kernel
+theorem d12 : ∀ x y, T1 x ≠ T2 y → triEdges (T1 x) ∩ triEdges (T2 y) = ∅ := by decide +kernel
+theorem d13 : ∀ x y, T1 x ≠ T3 y → triEdges (T1 x) ∩ triEdges (T3 y) = ∅ := by decide +kernel
+theorem d22 : ∀ x y, T2 x ≠ T2 y → triEdges (T2 x) ∩ triEdges (T2 y) = ∅ := by decide +kernel
+theorem d23 : ∀ x y, T2 x ≠ T3 y → triEdges (T2 x) ∩ triEdges (T3 y) = ∅ := by decide +kernel
+theorem d33 : ∀ x y, T3 x ≠ T3 y → triEdges (T3 x) ∩ triEdges (T3 y) = ∅ := by decide +kernel
+
+theorem P₀_disj : ∀ s ∈ P₀, ∀ t ∈ P₀, s ≠ t → triEdges s ∩ triEdges t = ∅ := by
+  intro s hs t ht h
+  rcases mem_P₀ hs with ⟨x, rfl⟩ | ⟨x, rfl⟩ | ⟨x, rfl⟩ <;>
+  rcases mem_P₀ ht with ⟨y, rfl⟩ | ⟨y, rfl⟩ | ⟨y, rfl⟩
+  · exact d11 x y h
+  · exact d12 x y h
+  · exact d13 x y h
+  · rw [inter_comm]; exact d12 y x (Ne.symm h)
+  · exact d22 x y h
+  · exact d23 x y h
+  · rw [inter_comm]; exact d13 y x (Ne.symm h)
+  · rw [inter_comm]; exact d23 y x (Ne.symm h)
+  · exact d33 x y h
+theorem P₀_card : P₀.card = 13 := by decide +kernel
 
 theorem P₀_packing : IsTrianglePacking G P₀ := by
   refine ⟨fun t ht => ?_, fun s hs t ht h => ?_⟩
   · obtain ⟨k, hk⟩ := P₀_fib t ht; exact fiberTris_clique k hk
   · exact Finset.disjoint_iff_inter_eq_empty.2 (P₀_disj s hs t ht h)
 
-theorem X₀_edges : X₀ ⊆ G.edgeFinset := by native_decide
-theorem X₀_fib : ∀ k, ∀ t ∈ fiberTris k, (X₀ ∩ triEdges t).Nonempty := by native_decide
-theorem X₀_card : X₀.card = 26 := by native_decide
+theorem X₀_edges : X₀ ⊆ G.edgeFinset := by decide +kernel
+theorem hit_transfer {α β : Type*} [DecidableEq α] [DecidableEq β] (f : α ↪ β)
+    (U : Finset α) (Y : Finset (Sym2 α))
+    (h : ∀ t ∈ U.powersetCard 3, ∃ e ∈ Y, e ∈ triEdges t) :
+    ∀ t ∈ (U.map f).powersetCard 3, ∃ e ∈ Y, Sym2.map f e ∈ triEdges t := by
+  intro t ht
+  rw [powersetCard_map, mem_map] at ht
+  obtain ⟨t', ht', rfl⟩ := ht
+  obtain ⟨e, he, het⟩ := h t' ht'
+  refine ⟨e, he, ?_⟩
+  change Sym2.map f e ∈ triEdges (t'.map f)
+  rw [triEdges_map, mem_map]
+  exact ⟨e, het, rfl⟩
+
+def Y5 : Finset (Sym2 (Fin 5)) := {s(0, 1), s(2, 3), s(2, 4), s(3, 4)}
+def Y4 : Finset (Sym2 (Fin 4)) := {s(0, 1), s(2, 3)}
+theorem Y5_hit : ∀ t ∈ (univ : Finset (Fin 5)).powersetCard 3, ∃ e ∈ Y5, e ∈ triEdges t := by
+  decide +kernel
+theorem Y4_hit : ∀ t ∈ (univ : Finset (Fin 4)).powersetCard 3, ∃ e ∈ Y4, e ∈ triEdges t := by
+  decide +kernel
+
+theorem X₀_fib : ∀ k, ∀ t ∈ fiberTris k, (X₀ ∩ triEdges t).Nonempty := by
+  rintro (i | j) t ht
+  · rw [fiberTris, fiberVerts_inl] at ht
+    obtain ⟨e, he, het⟩ := hit_transfer (rowEmb i) univ Y5 Y5_hit t ht
+    refine ⟨_, mem_inter.2 ⟨?_, het⟩⟩
+    simp only [Y5, mem_insert, mem_singleton] at he
+    rcases he with rfl | rfl | rfl | rfl <;>
+      exact mem_union_right _ (mem_biUnion.2 ⟨i, mem_univ _, by simp [rowEmb_apply]⟩)
+  · rw [fiberTris, fiberVerts_inr] at ht
+    obtain ⟨e, he, het⟩ := hit_transfer (colEmb j) univ Y4 Y4_hit t ht
+    refine ⟨_, mem_inter.2 ⟨?_, het⟩⟩
+    simp only [Y4, mem_insert, mem_singleton] at he
+    rcases he with rfl | rfl <;>
+      exact mem_union_left _ (mem_biUnion.2 ⟨j, mem_univ _, by simp [colEmb_apply]⟩)
+theorem X₀_card : X₀.card = 26 := by decide +kernel
 
 theorem X₀_cover : IsTriangleCover G X₀ := by
   refine ⟨X₀_edges, fun t ht => ?_⟩

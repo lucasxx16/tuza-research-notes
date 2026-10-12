@@ -8,7 +8,7 @@ For a finite triangle-free `d`-regular graph `J` on `W`, the product `K₄ □ J
 `(d+3)`-regular, connected when `J` is, and has `ν = |W|`, `τ = 2|W|`.
 With `J = C_n(1,3)` (the circulant on `ZMod n`, `n = 2k`, `k ≥ 4`) this gives connected
 7-regular graphs on `8k` vertices and `28k` edges with `τ = 2ν = 4k`.
-All proofs are for general `J` / `k`; `native_decide` is used only for fixed facts about `K₄`.
+All proofs are for general `J` / `k`; `decide +kernel` is used only for fixed facts about `K₄`.
 -/
 
 open Finset
@@ -187,10 +187,10 @@ end
 def tri0 (w : W) : Finset (Fin 4 × W) := ({0, 1, 2} : Finset (Fin 4)).map (colEmb w)
 def cov4 : Finset (Sym2 (Fin 4)) := {s(0, 1), s(2, 3)}
 
-theorem cov4_sub : cov4 ⊆ triEdges (univ : Finset (Fin 4)) := by native_decide
+theorem cov4_sub : cov4 ⊆ triEdges (univ : Finset (Fin 4)) := by decide +kernel
 theorem cov4_hits : ∀ t ∈ (univ : Finset (Fin 4)).powersetCard 3, (cov4 ∩ triEdges t).Nonempty := by
-  native_decide
-theorem cov4_card : cov4.card = 2 := by native_decide
+  decide +kernel
+theorem cov4_card : cov4.card = 2 := by decide +kernel
 
 def P₀ : Finset (Finset (Fin 4 × W)) := univ.image tri0
 def X₀ : Finset (Sym2 (Fin 4 × W)) := univ.biUnion fun w => cov4.map (colEmb w).sym2Map
