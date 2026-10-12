@@ -1,5 +1,6 @@
 import TuzaFormal.Reducibility
 import TuzaFormal.Classify
+import TuzaFormal.Puleo
 import Mathlib.Data.Fintype.Perm
 
 /-!
@@ -116,17 +117,43 @@ theorem core_edge_bound : H.numCoreEdges ≤ 6 := by
 
 end HubConfig
 
-/-- Puleo's consequence used by the exclusions ([1, Cor 4.12]): a connected graph on
-`n ≥ 6` vertices with an independent set of size `n − 3` is WKE. Stated for the link
-graph on its vertex set `N(z)` (vertices outside `N(z)` are isolated in `linkGraph` and do
-not affect WKE). Taken as an axiom pending a formalization of Puleo's paper. -/
-axiom puleo_large_indep {W : Type*} [Fintype W] [DecidableEq W]
+/-- Puleo's consequence ([1, Cor 4.12]) in the case used here: a connected link on `7`
+vertices with an independent set of size `7 − 3 = 4` is WKE. Formerly an axiom (stated for
+`n ≥ 6`); now **proved** for `n = 7` in `TuzaFormal/Puleo.lean` (`Puleo.wke_of_ctx`). -/
+theorem puleo_large_indep {W : Type*} [Fintype W] [DecidableEq W]
     (F : SimpleGraph W) [DecidableRel F.Adj] (z : W)
-    (hn : 6 ≤ (F.neighborFinset z).card) (hconn : LinkConnected F z)
+    (hn : (F.neighborFinset z).card = 7) (hconn : LinkConnected F z)
     (I : Finset W) (hIN : I ⊆ F.neighborFinset z)
     (hI : I.card = (F.neighborFinset z).card - 3)
     (hind : ∀ a ∈ I, ∀ b ∈ I, a ≠ b → ¬ (linkGraph F z).Adj a b) :
-    IsWKE (linkGraph F z)
+    IsWKE (linkGraph F z) := by
+  have hR : (F.neighborFinset z \ I).card = 3 := by
+    rw [card_sdiff_of_subset hIN]; omega
+  obtain ⟨a, b, c, hab, hac, hbc, hRe⟩ := card_eq_three.1 hR
+  have memR : ∀ w, w ∈ F.neighborFinset z → w ∉ I → w = a ∨ w = b ∨ w = c := by
+    intro w hw hwI
+    have : w ∈ F.neighborFinset z \ I := mem_sdiff.2 ⟨hw, hwI⟩
+    rw [hRe] at this; simpa using this
+  have notI : ∀ w, w ∈ ({a, b, c} : Finset W) → w ∉ I := by
+    intro w hw; rw [← hRe] at hw; exact (mem_sdiff.1 hw).2
+  refine Puleo.wke_of_ctx (L := linkGraph F z) (I := I) (a := a) (b := b) (c := c)
+    ⟨notI a (by simp), notI b (by simp), notI c (by simp), hab, hac, hbc, by omega,
+      ?_, ?_, ?_⟩
+  · intro u v huv
+    by_cases hu : u ∈ I
+    · exact Or.inl hu
+    · exact Or.inr (memR u huv.1 hu)
+  · intro x hx y hy hxy
+    by_cases h : x = y
+    · subst h; exact (linkGraph F z).loopless.irrefl x hxy
+    · exact hind x hx y hy h hxy
+  · intro i hi
+    have hiN := hIN hi
+    obtain ⟨w, hw, hwi⟩ := exists_mem_ne (show 1 < (F.neighborFinset z).card by omega) i
+    obtain ⟨p⟩ := hconn i hiN w hw
+    cases p with
+    | nil => exact (hwi rfl).elim
+    | cons h _ => exact ⟨_, h⟩
 
 
 /-! ## Constructive WKE witnesses for Proposition 3.1 -/

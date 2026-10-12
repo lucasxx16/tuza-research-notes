@@ -30,15 +30,15 @@ This is proved for general k (no enumeration over k). The general statements are
 
 ## Notes
 
-- No `sorry`. Some finite checks use `native_decide`, so they trust the Lean compiler in addition to the kernel.
+- No `sorry`, no `native_decide`, no custom axioms: all finite checks use `decide +kernel` or structured proofs.
 - Not formalized: Prop 8.1 for arbitrary factors (only the K4□J and K4□K5 cases are used).
-- In `Family.lean`, `native_decide` is used only for fixed facts about K4.
+- In `Family.lean`, `decide +kernel` is used only for fixed facts about K4.
 
 ## Theorem 1.3 (in progress)
 
 - `TuzaFormal/Reducibility.lean`: Defs 1.1–1.2; **proved** `reduction_bridge` (Lemma 2.1).
 - `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound`.
-  **Axiom:** `puleo_large_indep`.
+  **Puleo Cor 4.12:** `puleo_large_indep` is now a theorem (7-vertex case, `Puleo.lean`).
   **Proved:** full `prop31`; Prop 4.2 (`matching_core_reducible`);
   Lemma 4.1(1)–(3) full; Lemmas 4.3 and 4.4(1);
   **Lemma 4.5** (`lemma45_certificate`) Fin-10 packing/cover;
@@ -104,7 +104,7 @@ theorem with (A1) as a hypothesis was therefore vacuously true in those commits.
 - New `LinkConnected G z`: any two vertices of `N(z)` are joined in `linkGraph G z`
   (connectivity of the link induced on `N(z)`, as in the paper). (A1) now uses it.
 - `card_of_link_connected` removed.
-- `puleo_large_indep` (still an axiom, Puleo Cor 4.12) restated on the link: `6 ≤ |N(z)|`,
+- `puleo_large_indep` (Puleo Cor 4.12), now **proved** for `|N(z)| = 7` (the only case used),
   `LinkConnected G z`, an independent `I ⊆ N(z)` with `|I| = |N(z)| − 3` ⇒ `IsWKE (linkGraph G z)`.
   (Vertices outside `N(z)` are isolated in `linkGraph`, so this matches WKE of the induced link.)
 - `TuzaFormal/Sanity.lean`: a concrete `HubConfig` on `Fin 10` with both hub links
@@ -152,5 +152,24 @@ B-side 28,38,39,49,58,89; u–v adjacent as `HubConfig` requires). Both links ar
 not WKE. Non-WKE goes through `wke_small` (a proved reduction to matchings of size ≤ 3 and
 `Q ⊆ N(z)`) and is then checked by `decide +kernel` (no `native_decide`). So the hypotheses of
 `structural_codegree_four` can be satisfied, and the theorem is not vacuous.
-Remaining trusted axioms: `puleo_large_indep` and the `native_decide` auxiliary axioms in the
+Superseded (Oct 12 evening): see the axiom audit below; no custom axioms remain in the
 older Fin-10 card checks.
+
+### Axiom audit (Oct 12, 2026, evening)
+
+`Axioms.lean` runs `#print axioms` on the three main results. Output:
+
+```
+'Tuza.K4K5.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Tuza.Family.infinite_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Tuza.CodegreeFour.structural_codegree_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+* Every `native_decide` was replaced by `decide +kernel`. Three `K4K5` checks ran out of
+  memory in the kernel, so they were rewritten as structured proofs: `P₀_fib`/`P₀_disj` split
+  by triangle family, and `X₀_fib` transferred from fixed `K₅`/`K₄` covers.
+* `puleo_large_indep` is no longer an axiom. `Puleo.lean` proves it for `|N| = 7` with
+  `|I| = 4`, by hand (Hall's theorem on `S_r = I ∩ N(r)`, plus the cases `S_z = ∅` and
+  `S_x, S_y ⊆ {i₀}`). It needs only that no vertex of `I` is isolated, which follows from
+  link connectivity. The hypothesis changed from `6 ≤ |N(z)|` to `|N(z)| = 7`; both call sites
+  already have `|N(u)| = 7`. The general `n ≥ 6` form of Puleo's corollary is not formalized.
