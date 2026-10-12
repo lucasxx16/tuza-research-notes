@@ -143,3 +143,14 @@ older Fin-10 card checks.
   is closed by a certificate, support, the budget (2), link connectivity, or an explicit non-WKE
   witness. Lean checks every leaf. The generator found no uncovered configuration, so the
   paper's case analysis holds at this finite level.
+
+### Loose ends: hypotheses non-vacuous (Oct 12, 2026)
+
+`Sanity.lean` now proves `H1_A1 : H1.A1` and `H1_A2 : H1.A2` for a concrete `HubConfig` on
+`Fin 10` (u=0, v=1, C={2,3,4,5}, A={6,7}, B={8,9}; core edges 23, 24; A-side 26,36,37,47,56,67;
+B-side 28,38,39,49,58,89; u–v adjacent as `HubConfig` requires). Both links are connected and
+not WKE. Non-WKE goes through `wke_small` (a proved reduction to matchings of size ≤ 3 and
+`Q ⊆ N(z)`) and is then checked by `decide +kernel` (no `native_decide`). So the hypotheses of
+`structural_codegree_four` can be satisfied, and the theorem is not vacuous.
+Remaining trusted axioms: `puleo_large_indep` and the `native_decide` auxiliary axioms in the
+older Fin-10 card checks.
