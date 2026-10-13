@@ -7,8 +7,8 @@ import TuzaFormal.Family
 
 * Lemma 8.2 (`ν(K₄)=1, τ(K₄)=2, ν(K₅)=2, τ(K₅)=4`) for Mathlib's complete graphs `⊤`.
 * `K4K5.G = K₄ □ K₅`, so Prop 8.1 + Lemma 8.2 re-derive `ν = 13`, `τ = 26`
-  (cross-checking `K4K5.main`, which was proved independently).
-* `Family.box J = K₄ □ J`, so Prop 8.1 re-derives `Family.box_nu`/`box_tau` for triangle-free `J`.
+  (this is how `K4K5.main` gets its `ν`/`τ` values; `main` is stated at the end of this file).
+* `Family.box J = K₄ □ J`, so Prop 8.1 gives `ν = |W|`, `τ = 2|W|` for triangle-free `J`; `Family.infinite_family` is stated at the end of this file.
 -/
 
 open Finset
@@ -64,7 +64,7 @@ theorem K4K5_eq : K4K5.G = (⊤ : SimpleGraph (Fin 4)) □ (⊤ : SimpleGraph (F
   simp only [K4K5.G, SimpleGraph.boxProd_adj, SimpleGraph.top_adj]
   tauto
 
-/-- Theorem 1.4 (first assertion) via Prop 8.1 + Lemma 8.2, agreeing with `K4K5.main`. -/
+/-- Theorem 1.4 (first assertion) via Prop 8.1 + Lemma 8.2, used by `K4K5.main`. -/
 theorem K4K5_via_prod :
     packingNumber (⊤ □ ⊤ : SimpleGraph (Fin 4 × Fin 5)) = 5 * 1 + 4 * 2 ∧
     coverNumber (⊤ □ ⊤ : SimpleGraph (Fin 4 × Fin 5)) = 5 * 2 + 4 * 4 ∧
@@ -91,7 +91,7 @@ theorem triangleFree_clique (htf : ∀ x y z, J.Adj x y → J.Adj y z → J.Adj 
     SimpleGraph.is3Clique_iff.1 (SimpleGraph.mem_cliqueFinset_iff.1 ht)
   exact htf a b c hab hbc hac
 
-/-- Prop 8.3's parameter formulas re-derived from Prop 8.1 (independently of `Family.box_nu`). -/
+/-- Prop 8.3's parameter formulas re-derived from Prop 8.1 . -/
 theorem box_via_prod (htf : ∀ x y z, J.Adj x y → J.Adj y z → J.Adj x z → False) :
     packingNumber (Family.box J) = Fintype.card W ∧
     coverNumber (Family.box J) = 2 * Fintype.card W := by
@@ -105,7 +105,7 @@ theorem box_via_prod (htf : ∀ x y z, J.Adj x y → J.Adj y z → J.Adj x z →
     nu_K4, tau_K4, hnu, htau]
   simp [mul_comm]
 
-/-- The explicit family `G_k`, `k = m + 4`, through Prop 8.1: agrees with `infinite_family`. -/
+/-- The explicit family `G_k`, `k = m + 4`, through Prop 8.1: used by `infinite_family`. -/
 theorem infinite_family_via_prod (m : ℕ) :
     packingNumber (Family.box (Family.circ (2 * (m + 4)))) = 2 * (m + 4) ∧
     coverNumber (Family.box (Family.circ (2 * (m + 4)))) = 4 * (m + 4) := by
@@ -116,3 +116,50 @@ theorem infinite_family_via_prod (m : ℕ) :
 end Fam
 
 end Tuza.Product
+
+/-! ## Main theorems (ν/τ derived from Prop 8.1) -/
+
+namespace Tuza.K4K5
+
+theorem packingNumber_eq_13 : packingNumber G = 13 := by
+  obtain ⟨h1, -, h3, -⟩ := Tuza.Product.K4K5_via_prod; rw [h3, h1]
+
+theorem coverNumber_eq_26 : coverNumber G = 26 := by
+  obtain ⟨-, h2, -, h4⟩ := Tuza.Product.K4K5_via_prod; rw [h4, h2]
+
+/-- **Theorem 1.4 (K₄ □ K₅).** -/
+theorem main : G.Connected ∧ G.IsRegularOfDegree 7 ∧ Fintype.card V = 20 ∧
+    G.edgeFinset.card = 70 ∧ (∀ e ∈ G.edgeFinset, ∃ t ∈ G.cliqueFinset 3, e ∈ triEdges t) ∧
+    packingNumber G = 13 ∧ coverNumber G = 26 ∧ coverNumber G = 2 * packingNumber G := by
+  refine ⟨connected, regular, card_V, card_edges, every_edge_in_triangle,
+    packingNumber_eq_13, coverNumber_eq_26, ?_⟩
+  rw [packingNumber_eq_13, coverNumber_eq_26]
+
+end Tuza.K4K5
+
+namespace Tuza.Family
+
+open Finset in
+/-- **Proposition 8.3** (explicit family). For `k = m + 4 ≥ 4`, `G_k = K₄ □ C_{2k}(1,3)` is a
+connected 7-regular graph on `8k` vertices with `28k` edges, `ν = 2k` and `τ = 4k = 2ν`. -/
+theorem infinite_family (m : ℕ) :
+    let k := m + 4
+    (box (circ (2 * k))).Connected ∧ (box (circ (2 * k))).IsRegularOfDegree 7 ∧
+    Fintype.card (Fin 4 × ZMod (2 * k)) = 8 * k ∧
+    (box (circ (2 * k))).edgeFinset.card = 28 * k ∧
+    packingNumber (box (circ (2 * k))) = 2 * k ∧
+    coverNumber (box (circ (2 * k))) = 4 * k ∧
+    coverNumber (box (circ (2 * k))) = 2 * packingNumber (box (circ (2 * k))) := by
+  intro k
+  have hn : 8 ≤ 2 * k := by omega
+  have hcard : Fintype.card (Fin 4 × ZMod (2 * k)) = 8 * k := by
+    rw [Fintype.card_prod, Fintype.card_fin, ZMod.card]; ring
+  have hreg : (box (circ (2 * k))).IsRegularOfDegree 7 := box_regular _ 4 (circ_regular hn)
+  obtain ⟨hnu, htau⟩ := Tuza.Product.infinite_family_via_prod m
+  refine ⟨box_connected _ (circ_connected hn), hreg, hcard, ?_, hnu, htau, ?_⟩
+  · have hs := (box (circ (2 * k))).sum_degrees_eq_twice_card_edges
+    simp only [hreg.degree_eq, sum_const, card_univ, hcard, smul_eq_mul] at hs
+    omega
+  · rw [hnu, htau]; ring
+
+end Tuza.Family

@@ -1,201 +1,86 @@
 # TuzaFormal
 
-Lean 4 + Mathlib formalization of the seven-regular equality example from
-*A structural proof for codegree four and seven-regular equality examples in Tuza's conjecture* (Yanzhong Xu), §8.
+Lean 4 + Mathlib formalization of
+*A structural proof for codegree four and seven-regular equality examples in Tuza's conjecture*
+(Yanzhong Xu).
 
-## Main result
+## Final status (Oct 13, 2026)
 
-`Tuza.K4K5.main`: the Cartesian product K4□K5 (vertices `Fin 4 × Fin 5`) is
-connected, 7-regular, has 20 vertices and 70 edges, every edge lies in a triangle, and
+Formalized, with no `sorry`, no `native_decide` and no custom axioms:
 
-- triangle packing number ν = 13,
-- triangle cover (transversal) number τ = 26 = 2ν,
+| Paper | Lean | File |
+|---|---|---|
+| Theorem 1.3 (codegree-four structural theorem) | `Tuza.CodegreeFour.structural_codegree_four` | `CodegreeFour.lean`, `GenericCert.lean`, `CodegreeFourMain.lean` |
+| Lemma 2.1, Defs 1.1–1.2 | `reduction_bridge` | `Reducibility.lean` |
+| Lemma 2.2 (graphs on 4 vertices) | 64-case classification | `Classify.lean` |
+| Puleo Cor. 4.12 (as used in the paper) | `puleo_large_indep` (theorem) | `Puleo.lean` |
+| Proposition 8.1 (ν, τ of `F □ J`, arbitrary finite `F`, `J`) | `Tuza.Product.prop_8_1` | `Product.lean` |
+| Lemma 8.2 (ν, τ of K₄, K₅) | `nu_K4`, `tau_K4`, `nu_K5`, `tau_K5` | `ProductExamples.lean` |
+| Theorem 1.4 (K₄□K₅: 7-regular, ν = 13, τ = 26 = 2ν) | `Tuza.K4K5.main` | `K4K5.lean` + `ProductExamples.lean` |
+| Proposition 8.3 (infinite family G_k = K₄□C_{2k}(1,3), k ≥ 4) | `Tuza.Family.infinite_family` | `Family.lean` + `ProductExamples.lean` |
 
-so it attains equality in Tuza's conjecture.
+The ν/τ parts of `K4K5.main` and `infinite_family` are derived from Prop 8.1 + Lemma 8.2
+(via `K4K5_via_prod` and `infinite_family_via_prod`); the earlier stand-alone packing/cover
+proofs were removed. The two theorems are therefore stated at the end of
+`ProductExamples.lean` (same names and statements as before), because `Product.lean`
+needs the graph definitions from `K4K5.lean` / `Family.lean`.
 
-`Tuza.Family.infinite_family` (Prop 8.3): for every k ≥ 4 (stated as k = m + 4),
-G_k = K4□J_{2k}, where J_{2k} is the circulant on ZMod (2k) with t ~ t±1, t±3,
-is connected, 7-regular, has 8k vertices and 28k edges, ν = 2k and τ = 4k = 2ν.
-This is proved for general k (no enumeration over k). The general statements are
-`box_regular` (K4□J is (d+3)-regular when J is d-regular), `box_connected`, and
-`box_nu` / `box_tau` (ν = |V(J)|, τ = 2|V(J)| when J is triangle-free).
+**Axiom audit.** `lake env lean Axioms.lean` prints:
+
+```
+'Tuza.K4K5.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Tuza.Family.infinite_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Tuza.CodegreeFour.structural_codegree_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Tuza.Product.prop_8_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Tuza.Product.K4K5_via_prod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Tuza.Product.infinite_family_via_prod' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+All finite checks use `decide +kernel` (checked by the Lean kernel) or structured proofs.
+
+**Known limitations.**
+- Puleo's Corollary 4.12 is formalized only for `|N(z)| = 7` with `|I| = 4`, the only case the
+  paper uses (both call sites have `|N(u)| = 7`). The general `n ≥ 6` statement is not formalized.
+- The case trees for Props 6.3/6.4/6.7 were found by a Python generator that is not committed;
+  Lean checks every leaf, so the generator is not trusted.
+- `Sanity.lean` shows the hypotheses (A1), (A2) of Theorem 1.3 are satisfiable (non-vacuity).
+
+No mathematical errors were found in the paper. A few steps are terse (all in Prop 8.3: the
+"triangle lies in one column" argument, the triangle-free hypothesis on J, and the 2k ≥ 8 bound).
+The formalization fills them in.
 
 ## Files
 
-- `TuzaFormal/Basic.lean`: triangle packings/covers, ν, τ, codegree; lemmas turning a bound plus a witness into equality.
-- `TuzaFormal/Local.lean`: ν(K5) ≤ 2, τ(K5) ≥ 4, ν(K4) ≤ 1, τ(K4) ≥ 2.
-- `TuzaFormal/Transfer.lean`: transfers those bounds to each row (K5) and column (K4) of K4□K5.
-- `TuzaFormal/Family.lean`: K4□J for triangle-free J, the circulant J_{2k}, and Prop 8.3.
-- `TuzaFormal/K4K5.lean`: the graph, the paper's 13-triangle packing and 26-edge cover, ν ≤ 4·2 + 5·1 and τ ≥ 4·4 + 5·2, and the main theorem.
+- `TuzaFormal.lean`: root module importing everything.
+- `Axioms.lean`: `#print axioms` on the main theorems.
+- `TuzaFormal/Basic.lean`: triangle packings/covers, ν, τ, codegree; bound + witness ⇒ equality lemmas.
+- `TuzaFormal/Local.lean`: ν(K5) ≤ 2, τ(K5) ≥ 4, ν(K4) ≤ 1, τ(K4) ≥ 2 on `Fin 5` / `Fin 4`.
+- `TuzaFormal/Transfer.lean`: transfer of packing/cover bounds along embeddings.
+- `TuzaFormal/K4K5.lean`: the graph K4□K5; connectivity, 7-regularity, 20 vertices, 70 edges, every edge in a triangle.
+- `TuzaFormal/Family.lean`: `box J = K4□J`, its regularity and connectivity, the circulant `C_n(1,3)` (triangle-free, 4-regular, connected for even n ≥ 8).
+- `TuzaFormal/Product.lean`: Proposition 8.1 for arbitrary finite factors (fiber decomposition).
+- `TuzaFormal/ProductExamples.lean`: Lemma 8.2, `K4K5.G = ⊤□⊤`, `Family.box J = ⊤□J`, and the final `K4K5.main`, `Family.infinite_family`.
+- `TuzaFormal/Reducibility.lean`: WKE, reducibility (Defs 1.1–1.2), Lemma 2.1.
+- `TuzaFormal/Classify.lean`: Lemma 2.2, classification of 4-vertex graphs.
+- `TuzaFormal/Puleo.lean`: Puleo Cor. 4.12, 7-vertex case (Hall's theorem + case analysis).
+- `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), Props 3.1–5.3, Lemma 6.1, diamond (Prop 6.2).
+- `TuzaFormal/GenericCert.lean`: `Fin 10` certificate/WKE-witness transfer (`reducible_of_spec`, `wke_of_spec`).
+- `TuzaFormal/CodegreeFourMain.lean`: Props 6.3 (C₄), 6.4 (paw), 6.7 (K₃+K₁) and `structural_codegree_four`.
+- `TuzaFormal/Sanity.lean`: a concrete `Fin 10` `HubConfig` satisfying (A1) and (A2).
 
-## Notes
+## History notes
 
-- No `sorry`, no `native_decide`, no custom axioms: all finite checks use `decide +kernel` or structured proofs.
-- Prop 8.1 for arbitrary finite factors is now formalized in `Product.lean` (see the section at the end).
-- In `Family.lean`, `decide +kernel` is used only for fixed facts about K4.
-
-## Theorem 1.3 (in progress)
-
-- `TuzaFormal/Reducibility.lean`: Defs 1.1–1.2; **proved** `reduction_bridge` (Lemma 2.1).
-- `TuzaFormal/CodegreeFour.lean`: `HubConfig`, (A1)/(A2), `core_edge_bound`.
-  **Puleo Cor 4.12:** `puleo_large_indep` is now a theorem (7-vertex case, `Puleo.lean`).
-  **Proved:** full `prop31`; Prop 4.2 (`matching_core_reducible`);
-  Lemma 4.1(1)–(3) full; Lemmas 4.3 and 4.4(1);
-  **Lemma 4.5** (`lemma45_certificate`) Fin-10 packing/cover;
-  **Prop 4.6** (`star_core_reducible`) full;
-  **Lemma 4.4(2)** (`path_center_both_privates`) full;
-  **Prop 4.7** (`path_core_reducible`) full (crossed + same-singleton+(A2));
-  **Lemma 4.8** (`lemma48_certificate`) full Fin-10 packing/cover;
-  **Lemma 3.2** / **Prop 4.9** full; **Lemma 5.1** (`lemma51`) full;
-  Prop 5.3(G)/(E) fully proved; Lemma 5.2 fully proved;
-  **G packing generalized** to α(z)/β(y) via 4 Fin-10 variants;
-  **`k4_core_reducible` fully proved** (no sorry); K₄ wired into
-  `structural_codegree_four`; remaining sorry is only diamond/C₄/paw/K₃+K₁.
-
-  Paper note: G packing now matches paper Prop 5.3(G) with general α(z),β(y).
-  **Lemma 6.1 fully proved** (including same-singleton via lemma32).
-  Diamond: Fin-10 D1 packing/cover infra + `diamond_full_support` proved;
-  `diamond_certificate_D1` / D2–D5 / exhaustion still sorry.
-  C₄/paw/K₃+K₁ still sorry. Next: discharge D1 coversZ, then D2–D5.
+- Soundness fix (Oct 11): an early version of (A1) required the link graph to be connected on all
+  of `V`, which is unsatisfiable, so theorems with (A1) as hypothesis were vacuous. (A1) now uses
+  `LinkConnected` (connectivity of the link on `N(z)`, as in the paper), and `Sanity.lean` shows it is satisfiable.
+- Oct 12: all `native_decide` replaced by `decide +kernel`; the Puleo axiom replaced by a proof.
+- Oct 13: Prop 8.1 formalized; Theorem 1.4 / Prop 8.3 rederived from it.
 
 ## Build
 
 ```
 lake exe cache get
 lake build
+lake env lean Axioms.lean
 ```
 A clean build takes about 8 minutes.
-
-## Progress (diamond D1)
-
-- `diamond_certificate_D1` fully proved (packing, cover edges, size, external, coversZ via rim deletion).
-- Remaining sorries: `diamond_core_reducible` (force D1–D5), `c4_core_reducible`, `paw_core_reducible`, `k3k1_core_reducible`, residual in `structural_codegree_four`.
-
-## Progress (diamond D3 + D5)
-
-- `diamond_certificate_D3` fully proved (unused privates).
-- `diamond_certificate_D5` fully proved (private edges + double center).
-- Still open: D2, D4 certificates; `diamond_core_reducible` forcing; C₄/paw/K₃+K₁; residual structural sorry.
-
-## Progress (Prop 6.2 certificates complete)
-
-- Fully proved diamond certificates **D1, D2, D3, D4, D5** (packing, cover, external, coversZ).
-- `diamond_center_unique`: centres p,q have unique A/B neighbours (coreDeg 3 + A2 + full_support).
-- `diamond_core_reducible` still sorry on the paper's attachment classification that forces one of D1–D5.
-- Still sorry: `c4_core_reducible`, `paw_core_reducible`, `k3k1_core_reducible`, residual in `structural_codegree_four`.
-- No paper gaps found in Prop 6.2 certificate statements; forcing argument not yet checked in Lean.
-
-## Progress (diamond forcing partial)
-
-- D1–D5 certificates: fully proved.
-- D1 force helpers + condition (3) failure → D1: proved in `diamond_core_reducible`.
-- Oriented lemmas: `diamond_sparse_split_A` (→ D2/D3), `diamond_paired_D5`.
-- Remaining in `diamond_core_reducible`: Cases 1–3 classification (sparse/dense/paired) still sorry after centre-unique setup.
-- Still sorry: C₄, paw, K₃+K₁, structural residual.
-
-## Soundness fix: (A1) link connectivity (2026-10-11)
-
-**Bug.** Earlier commits defined (A1) with `(linkGraph G u).Connected` on all of `V`. In any
-hub config the hub `u` is isolated in its own link, so this was unsatisfiable (and the helper
-`card_of_link_connected` derived `|V| = 7`, contradicting the 8 vertices `u ∪ N(u)`). Every
-theorem with (A1) as a hypothesis was therefore vacuously true in those commits.
-
-**Fix.**
-- New `LinkConnected G z`: any two vertices of `N(z)` are joined in `linkGraph G z`
-  (connectivity of the link induced on `N(z)`, as in the paper). (A1) now uses it.
-- `card_of_link_connected` removed.
-- `puleo_large_indep` (Puleo Cor 4.12), now **proved** for `|N(z)| = 7` (the only case used),
-  `LinkConnected G z`, an independent `I ⊆ N(z)` with `|I| = |N(z)| − 3` ⇒ `IsWKE (linkGraph G z)`.
-  (Vertices outside `N(z)` are isolated in `linkGraph`, so this matches WKE of the induced link.)
-- `TuzaFormal/Sanity.lean`: a concrete `HubConfig` on `Fin 10` with both hub links
-  `LinkConnected` (so connectivity no longer forces `|V| = 7`). Not checked: a concrete
-  example that also satisfies the non-WKE part of (A1).
-
-**Status after the fix (full `lake build` passes, against the new definitions).**
-No proof used `exfalso` on the broken hypothesis. The only route to the contradiction was
-`card_of_link_connected`, and that lemma is now gone. These results are re-verified:
-Prop 3.1 (`prop31`, `one_edge_is_wke`), Lemma 4.1 / Prop 4.2 (matching), Lemmas 4.3/4.4 and
-Props 4.6/4.7 (star, path), Lemma 4.8 / Prop 4.9 (P₄), Lemma 3.2, Lemma 5.1/5.2 / Prop 5.3 /
-`k4_core_reducible`, Lemma 6.1, D1–D5 certificates, `diamond_center_unique`, and the
-condition (3) → D1 branch of the diamond case.
-Still `sorry` (5): the diamond Cases 1–3 classification, `c4_core_reducible`,
-`paw_core_reducible`, `k3k1_core_reducible`, and the residual in `structural_codegree_four`.
-
-**Also fixed:** the committed HEAD (`781d372`) did not compile when checked with
-`lake env lean`. The cause was `rcases … rfl` / `obtain ⟨_, _, rfl⟩` removing named variables
-in the `packing53G_*`, `cover53G_card`, `packing*_disjoint`, and diamond-forcing proofs. It is
-fixed by substituting in the other direction (`subst αz βy`, `subst w`, `_` placeholders).
-
-## Status update (Oct 12, 2026): Theorem 1.3 has no `sorry` left
-
-`structural_codegree_four` builds with a full `lake build` and **zero `sorry` warnings**.
-`#print axioms` lists only `propext`, `Classical.choice`, `Quot.sound`, the stated axiom
-`puleo_large_indep` (Puleo Cor. 4.12), and the `native_decide` auxiliary axioms from the
-older Fin-10 card checks.
-
-- Lemma 2.2 (`Classify.lean`): a generated 64-case split that classifies every graph on 4 vertices.
-- Prop 6.2 (diamond): Cases 1–3 forced with a hand-written proof (`DiamondCtx`).
-- `GenericCert.lean`: a certificate (or WKE witness) is written on `Fin 10` labels. Its finite
-  conditions are checked with `decide +kernel` (not `native_decide`), and
-  `reducible_of_spec` / `wke_of_spec` carry them over to `G`.
-- Props 6.3 (C₄), 6.4 (paw) and 6.7 (K₃+K₁) in `CodegreeFourMain.lean`: a Python generator
-  (`gen/*.py`, not committed) found the case trees over the private-attachment bits. Every leaf
-  is closed by a certificate, support, the budget (2), link connectivity, or an explicit non-WKE
-  witness. Lean checks every leaf. The generator found no uncovered configuration, so the
-  paper's case analysis holds at this finite level.
-
-### Loose ends: hypotheses non-vacuous (Oct 12, 2026)
-
-`Sanity.lean` now proves `H1_A1 : H1.A1` and `H1_A2 : H1.A2` for a concrete `HubConfig` on
-`Fin 10` (u=0, v=1, C={2,3,4,5}, A={6,7}, B={8,9}; core edges 23, 24; A-side 26,36,37,47,56,67;
-B-side 28,38,39,49,58,89; u–v adjacent as `HubConfig` requires). Both links are connected and
-not WKE. Non-WKE goes through `wke_small` (a proved reduction to matchings of size ≤ 3 and
-`Q ⊆ N(z)`) and is then checked by `decide +kernel` (no `native_decide`). So the hypotheses of
-`structural_codegree_four` can be satisfied, and the theorem is not vacuous.
-Superseded (Oct 12 evening): see the axiom audit below; no custom axioms remain in the
-older Fin-10 card checks.
-
-### Axiom audit (Oct 12, 2026, evening)
-
-`Axioms.lean` runs `#print axioms` on the three main results. Output:
-
-```
-'Tuza.K4K5.main' depends on axioms: [propext, Classical.choice, Quot.sound]
-'Tuza.Family.infinite_family' depends on axioms: [propext, Classical.choice, Quot.sound]
-'Tuza.CodegreeFour.structural_codegree_four' depends on axioms: [propext, Classical.choice, Quot.sound]
-```
-
-* Every `native_decide` was replaced by `decide +kernel`. Three `K4K5` checks ran out of
-  memory in the kernel, so they were rewritten as structured proofs: `P₀_fib`/`P₀_disj` split
-  by triangle family, and `X₀_fib` transferred from fixed `K₅`/`K₄` covers.
-* `puleo_large_indep` is no longer an axiom. `Puleo.lean` proves it for `|N| = 7` with
-  `|I| = 4`, by hand (Hall's theorem on `S_r = I ∩ N(r)`, plus the cases `S_z = ∅` and
-  `S_x, S_y ⊆ {i₀}`). It needs only that no vertex of `I` is isolated, which follows from
-  link connectivity. The hypothesis changed from `6 ≤ |N(z)|` to `|N(z)| = 7`; both call sites
-  already have `|N(u)| = 7`. The general `n ≥ 6` form of Puleo's corollary is not formalized.
-
-## Proposition 8.1 (Cartesian additivity), general form (Oct 13, 2026)
-
-`TuzaFormal/Product.lean` proves, for **arbitrary** finite simple graphs `F` on `U` and `J` on `W`
-(Mathlib's `SimpleGraph.boxProd`, notation `F □ J`), with no extra hypotheses:
-
-```lean
-theorem Tuza.Product.prop_8_1 :
-    packingNumber (F □ J) = Fintype.card W * packingNumber F + Fintype.card U * packingNumber J ∧
-    coverNumber (F □ J) = Fintype.card W * coverNumber F + Fintype.card U * coverNumber J
-```
-
-The proof follows the paper. An abstract fiber-decomposition theorem (`nu_of_decomp`, `tau_of_decomp`)
-covers any family of vertex sets in which distinct fibers share at most one vertex and every triangle lies in some fiber.
-A transfer lemma for induced embedded copies (`embed_pack_le/ex`, `embed_cover_le/ex`) supplies the per-fiber bounds,
-and `box_decomp` checks the two decomposition conditions for `F □ J` (fibers indexed by `W ⊕ U`).
-
-`TuzaFormal/ProductExamples.lean` instantiates it on concrete graphs:
-- Lemma 8.2 for Mathlib's `⊤`: `nu_K4 = 1`, `tau_K4 = 2`, `nu_K5 = 2`, `tau_K5 = 4`.
-- `K4K5_eq : K4K5.G = ⊤ □ ⊤`. `K4K5_via_prod` re-derives ν = 5·1+4·2 = 13 and τ = 5·2+4·4 = 26 from Prop 8.1,
-  which agrees with the independent proof in `K4K5.main`.
-- `box_eq : Family.box J = ⊤ □ J`. `box_via_prod` re-derives Prop 8.3's ν = |V(J)| and τ = 2|V(J)| for triangle-free `J`,
-  and `infinite_family_via_prod` gives ν(G_k) = 2k and τ(G_k) = 4k.
-
-The proof uses no `sorry`, `native_decide` or custom axioms. `#print axioms` on `prop_8_1`, `K4K5_via_prod`, `infinite_family_via_prod`
-and on the three main theorems all report `[propext, Classical.choice, Quot.sound]`.
