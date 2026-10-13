@@ -31,7 +31,7 @@ This is proved for general k (no enumeration over k). The general statements are
 ## Notes
 
 - No `sorry`, no `native_decide`, no custom axioms: all finite checks use `decide +kernel` or structured proofs.
-- Not formalized: Prop 8.1 for arbitrary factors (only the K4□J and K4□K5 cases are used).
+- Prop 8.1 for arbitrary finite factors is now formalized in `Product.lean` (see the section at the end).
 - In `Family.lean`, `decide +kernel` is used only for fixed facts about K4.
 
 ## Theorem 1.3 (in progress)
@@ -173,3 +173,29 @@ older Fin-10 card checks.
   `S_x, S_y ⊆ {i₀}`). It needs only that no vertex of `I` is isolated, which follows from
   link connectivity. The hypothesis changed from `6 ≤ |N(z)|` to `|N(z)| = 7`; both call sites
   already have `|N(u)| = 7`. The general `n ≥ 6` form of Puleo's corollary is not formalized.
+
+## Proposition 8.1 (Cartesian additivity), general form (Oct 13, 2026)
+
+`TuzaFormal/Product.lean` proves, for **arbitrary** finite simple graphs `F` on `U` and `J` on `W`
+(Mathlib's `SimpleGraph.boxProd`, notation `F □ J`), with no extra hypotheses:
+
+```lean
+theorem Tuza.Product.prop_8_1 :
+    packingNumber (F □ J) = Fintype.card W * packingNumber F + Fintype.card U * packingNumber J ∧
+    coverNumber (F □ J) = Fintype.card W * coverNumber F + Fintype.card U * coverNumber J
+```
+
+The proof follows the paper. An abstract fiber-decomposition theorem (`nu_of_decomp`, `tau_of_decomp`)
+covers any family of vertex sets in which distinct fibers share at most one vertex and every triangle lies in some fiber.
+A transfer lemma for induced embedded copies (`embed_pack_le/ex`, `embed_cover_le/ex`) supplies the per-fiber bounds,
+and `box_decomp` checks the two decomposition conditions for `F □ J` (fibers indexed by `W ⊕ U`).
+
+`TuzaFormal/ProductExamples.lean` instantiates it on concrete graphs:
+- Lemma 8.2 for Mathlib's `⊤`: `nu_K4 = 1`, `tau_K4 = 2`, `nu_K5 = 2`, `tau_K5 = 4`.
+- `K4K5_eq : K4K5.G = ⊤ □ ⊤`. `K4K5_via_prod` re-derives ν = 5·1+4·2 = 13 and τ = 5·2+4·4 = 26 from Prop 8.1,
+  which agrees with the independent proof in `K4K5.main`.
+- `box_eq : Family.box J = ⊤ □ J`. `box_via_prod` re-derives Prop 8.3's ν = |V(J)| and τ = 2|V(J)| for triangle-free `J`,
+  and `infinite_family_via_prod` gives ν(G_k) = 2k and τ(G_k) = 4k.
+
+The proof uses no `sorry`, `native_decide` or custom axioms. `#print axioms` on `prop_8_1`, `K4K5_via_prod`, `infinite_family_via_prod`
+and on the three main theorems all report `[propext, Classical.choice, Quot.sound]`.

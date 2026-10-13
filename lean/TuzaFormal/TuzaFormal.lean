@@ -10,3 +10,5 @@ import TuzaFormal.CodegreeFour
 import TuzaFormal.GenericCert
 import TuzaFormal.CodegreeFourMain
 import TuzaFormal.Sanity
+import TuzaFormal.Product
+import TuzaFormal.ProductExamples
