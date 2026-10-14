@@ -1,9 +1,11 @@
 # Tuza research notes
 
 AI-assisted research on triangle packing and covering, with explicit proofs,
-certificate data, and independently written verification programs. These are
-research notes, not a claim of formal proof-assistant verification or human peer
-review. No claim of novelty or a smallest equality graph is made.
+certificate data, independently written verification programs, and a Lean 4
+formalization of the Xu preprint's main theorems (see
+[lean/TuzaFormal](lean/TuzaFormal/)). These are research notes; they do not
+claim human peer review. No claim of novelty or a smallest equality graph is
+made.
 
 ## Manuscript preprint
 
@@ -13,7 +15,18 @@ The [v0.1.0-preprint release](https://github.com/lucasxx16/tuza-research-notes/r
 
 The manuscript gives a human-readable structural proof under A1 (connected non-WKE links) and A2 (the common-neighbor degree budget), implying Proposition 9.1 and addressing Question 12.2 of [Gupta, arXiv:2608.06538v1](https://arxiv.org/abs/2608.06538v1). It also gives $K_4\square K_5$ with $\nu=13$ and $\tau=26$, and an infinite family of connected seven-regular equality graphs, answering the seven-regular existence subquestion following Question 12.3.
 
-The full equality classification and the $\operatorname{mad}(G)<8$ implication remain unresolved here. This AI-assisted preprint has not undergone human peer review or formal proof-assistant verification. arXiv submission is in preparation, with endorsement pending; the manuscript has no arXiv identifier.
+The full equality classification and the $\operatorname{mad}(G)<8$ implication remain unresolved here. The main theorems of this preprint (Theorem 1.3, Proposition 8.1, Theorem 1.4 / $K_4\square K_5$, Proposition 8.3) have been formalized in Lean 4 with no `sorry`, no `native_decide`, and no custom axioms; see [lean/TuzaFormal](lean/TuzaFormal/). Puleo's Corollary 4.12 is formalized only for the 7-vertex case the paper uses. The preprint has not undergone human peer review. arXiv submission is in preparation, with endorsement pending; the manuscript has no arXiv identifier.
+
+## Lean formalization
+
+The directory [lean/TuzaFormal](lean/TuzaFormal/) contains a Lean 4 + Mathlib
+formalization of the Xu preprint's main results: the codegree-four structural
+theorem (Thm 1.3), Cartesian-product additivity (Prop 8.1), the $K_4\square K_5$
+equality example (Thm 1.4), and the infinite seven-regular family (Prop 8.3).
+Build with `lake build` in that directory; `#print axioms` on the main theorems
+lists only `propext`, `Classical.choice`, and `Quot.sound`. Known limitation:
+Puleo Cor. 4.12 is proved only for $|N(z)|=7$, which is the case used in the
+paper.
 
 The starting questions come from Anish Gupta,
 [Tuza's conjecture for graphs of maximum degree at most seven](https://arxiv.org/html/2608.06538v1)
